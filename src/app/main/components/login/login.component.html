@@ -39,13 +39,18 @@
             </a>
           </div>
         </div>
-
-        <div class="container-login100-form-btn">
-          <button class="login100-form-btn">
-            Login
-          </button>
+        <div class="btn-group inline">
+            <div class="container-login100-form-btn">
+              <button class="login100-form-btn" (click)="login()">
+                Login
+              </button>
+            </div>
+            <div class="container-login100-form-btn">
+              <button class="login100-form-btn login100-form-btn-close" (click)="closeModal()">
+                Close
+              </button>
+            </div>
         </div>
-
       </form>
     </div>
   </div>
