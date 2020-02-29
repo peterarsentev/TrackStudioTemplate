@@ -7,12 +7,14 @@ import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { SharedModule } from '../shared/shared.module';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    TasksComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,6 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
   ],
   entryComponents: [
-    LoginComponent
   ],
   providers: [
     {
