@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
-import { LognModel } from '../../../shared/models/logn.model';
+import { LoginModel } from '../../../shared/models/login.model';
+import { TasksService } from '../../../shared/services/tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -9,15 +10,17 @@ import { LognModel } from '../../../shared/models/logn.model';
 })
 export class TasksComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private tasksService: TasksService, private authService: AuthService) { }
 
   ngOnInit() {
     this.defaultLogin();
+    this.tasksService.getTasks()
+      .subscribe(res => console.log(res))
   }
 
   defaultLogin() {
-    const defUser: LognModel = {action: 'login', login: 'anonymous', password: '123'};
-    this.authService.login(defUser)
-      .subscribe(res => console.log(res));
+    this.authService.login()
+      .subscribe(res => {
+      }, error => console.error(error));
   }
 }
