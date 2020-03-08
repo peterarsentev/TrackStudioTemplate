@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
-import { LoginModel } from '../../../shared/models/login.model';
 import { TasksService } from '../../../shared/services/tasks.service';
 
 @Component({
@@ -19,8 +18,6 @@ export class TasksComponent implements OnInit {
   }
 
   defaultLogin() {
-    this.authService.login()
-      .subscribe(res => {
-      }, error => console.error(error));
+
   }
 }

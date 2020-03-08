@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   private setSessionId(response: AuthResponse | null) {
-    if (response) {
+    if (response.sessionId) {
       localStorage.setItem('sessionId', response.sessionId);
     } else {
       localStorage.clear();
@@ -49,9 +49,11 @@ export class AuthService {
         tap(response => this.setdefaultProjectId(response.user.defaultProjectId)),
         catchError(err => {
             localStorage.clear();
-            console.error(err);
-            this.login();
-            return this.getDefaultProjectId();
+            console.error('err', err);
+            return this.login()
+              .pipe(
+                switchMap(res  => this.getDefaultProjectId())
+              );
           }
         )
       );

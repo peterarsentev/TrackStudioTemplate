@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MainRoutingModule } from './main-routing.module';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
@@ -19,6 +19,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatDialogModule,
     MainRoutingModule,
     SharedModule
