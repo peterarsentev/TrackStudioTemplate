@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
               private route: Router,
-              private authService: AuthService) { }
+              public authService: AuthService) { }
 
   ngOnInit() {
     this.initForm();
@@ -47,8 +47,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         console.log('res', res)
         this.form.reset();
-       // this.route.navigate(['/']);
-      });
+        this.route.navigate(['/']);
+      },
+        error => console.log('err', error));
       }
 
   private initForm() {

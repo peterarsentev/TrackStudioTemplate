@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { LoginModel } from '../models/login.model';
-import { Observable, throwError } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { AuthResponse, UserResponse } from '../models/interfaces';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+  public error$: Subject<string> = new Subject<string>();
 
   constructor(private http: HttpClient) {
   }
@@ -20,11 +21,14 @@ export class AuthService {
     return this.http.post(`${environment.url}/rest/auth`, param)
       .pipe(
         tap(this.setSessionId),
-        catchError(err => {
-          console.error(err);
-          return throwError(err);
-        })
+        catchError(this.handleError.bind(this))
       );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    localStorage.clear();
+    this.error$.next(error.error.error);
+    return throwError(error);
   }
 
   private setSessionId(response: AuthResponse | null) {
