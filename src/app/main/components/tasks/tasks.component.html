@@ -1,14 +1,14 @@
-<div class="">
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">Название задачи</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let task of tasks; let idx = index">
-    <td>{{task.name}}</td>
-  </tr>
-  </tbody>
-</table>
+<div class="pt-4">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Задания</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let task of tasks; let idx = index">
+      <td>{{task.name}}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>

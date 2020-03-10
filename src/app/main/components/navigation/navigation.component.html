@@ -1,63 +1,14 @@
-<!--<div class="container-fluid">-->
-<!--  <div class="row">-->
-<!--    <div class="col-2 collapse show d-md-flex bg-light pt-2 pl-0 min-vh-100" id="sidebar">-->
-<!--      <ul class="nav flex-column flex-nowrap overflow-hidden">-->
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link text-truncate" [routerLink]="['/']"><i class="fa fa-home"></i>-->
-<!--            <span class="d-none d-sm-inline">Home</span></a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link collapsed text-truncate" (click)="goToTasks()"  data-toggle="collapse" data-target="#submenu1">-->
-<!--            <i class="fa fa-folder"></i><span class="d-none d-sm-inline"> Задачи</span></a>-->
-<!--          <div class="collapse" id="submenu1" aria-expanded="false">-->
-<!--            <ul class="flex-column pl-2 nav">-->
-<!--              <li class="nav-item" *ngFor="let task of tasks; let idx=index">-->
-<!--                <a class="nav-link collapsed py-1"-->
-<!--                  href="#submenu1sub1{{idx}}"-->
-<!--                  (click)="loadSubTask(task)"-->
-<!--                   data-toggle="collapse"-->
-<!--                  data-target="#submenu1sub1{{idx}}">-->
-<!--                  <i class="fa fa-fw fa-folder-open"></i>-->
-<!--                  <span>{{ task.name }}</span></a>-->
-<!--                <div class="collapse" *ngIf="task.categoryId == '1'" id="submenu1sub1{{idx}}" aria-expanded="false">-->
-<!--                  <ul class="flex-column nav pl-4">-->
-<!--                    <li class="nav-item">-->
-<!--                      <a class="nav-link p-1" href="#">-->
-<!--                        <i class="fa fa-fw fa-folder"></i> Daily </a>-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--                </div>-->
-<!--                <div *ngIf="task.categoryId !== '1'" class="collapse" id="submenu1sub1{{idx}}" aria-expanded="false">-->
-<!--                  <ul class="flex-column nav pl-4">-->
-<!--                    <li class="nav-item">-->
-<!--                      <a class="nav-link p-1" href="#">-->
-<!--                        <i class="fa fa-fw fa-tasks"></i> Daily </a>-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--                </div>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--        </li>-->
-<!--      </ul>-->
-<!--    </div>-->
-<!--    <div class="col pt-2">-->
-<!--      <router-outlet></router-outlet>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<div class="container-fluid">
+<div class="container pt-4">
   <div class="row">
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Название задачи</th>
+          <th scope="col">Задания</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let task of tasks; let idx = index">
-          <td (click)="openTask(task)">{{task.name}}</td>
+          <td (click)="openTask(task)" style="cursor: pointer;">{{task.name}}</td>
         </tr>
       </tbody>
     </table>
