@@ -7,6 +7,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { SharedModule } from '../shared/shared.module';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { TaskComponent } from './components/task/task.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 
 @NgModule({
@@ -14,6 +16,8 @@ import { TasksComponent } from './components/tasks/tasks.component';
     MainLayoutComponent,
     HeaderComponent,
     LoginComponent,
+    NavigationComponent,
+    TaskComponent,
     TasksComponent
   ],
   imports: [

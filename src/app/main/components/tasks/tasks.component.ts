@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../shared/services/auth.service';
-import { TasksService } from '../../../shared/services/tasks.service';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { TaskModel } from '../../../shared/models/task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -9,15 +10,18 @@ import { TasksService } from '../../../shared/services/tasks.service';
 })
 export class TasksComponent implements OnInit {
 
-  constructor(private tasksService: TasksService, private authService: AuthService) { }
+  tasks: TaskModel[];
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.defaultLogin();
-    this.tasksService.getTasks()
-      .subscribe(res => console.log(res))
+    this.route.paramMap
+      .pipe(
+        map(() => window.history.state)
+      ).subscribe(res => {
+        this.tasks = res.data
+      console.log(res)
+    })
   }
 
-  defaultLogin() {
-
-  }
 }
