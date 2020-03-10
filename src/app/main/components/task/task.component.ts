@@ -11,7 +11,7 @@ import { TaskModel } from '../../../shared/models/task.model';
 })
 export class TaskComponent implements OnInit {
 
-  task: TaskModel;
+  task: TaskModel = {};
   constructor(private route: ActivatedRoute, private tasksService: TasksService) { }
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class TaskComponent implements OnInit {
 
   private getTask() {
     this.route.queryParams.pipe(
-      switchMap(res => this.tasksService.getTask(res.taskId))
+      switchMap(res => this.tasksService.getTask(res.taskId, res.action))
     ).subscribe(res => this.task = res.task)
   }
 }

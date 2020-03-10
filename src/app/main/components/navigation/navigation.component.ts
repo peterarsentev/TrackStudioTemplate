@@ -22,29 +22,19 @@ export class NavigationComponent implements OnInit {
       })
   }
 
-  loadSubTask(task: TaskModel) {
-    console.log(task)
-  }
-
-  goToTasks() {
-    this.router.navigate(['/tasks'], {
-      state: {
-        data: this.tasks
-      },
-      queryParams: {
-        id: localStorage.getItem('defaultProjectId')
-      }
-    });
-  }
-
   openTask(task: TaskModel) {
     if (task.categoryId === '1') {
-      this.tasksService.getTaskByProjectId(task.id)
-        .subscribe(res => this.tasks = res.tasks);
+      this.router.navigate(['tasks'], {
+        queryParams: {
+          taskId: task.id,
+          action: 'tasks'
+        }
+      });
     } else {
       this.router.navigate(['task'], {
         queryParams: {
-          taskId: task.id
+          taskId: task.id,
+          action: 'task'
         }
       })
     }

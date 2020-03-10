@@ -42,9 +42,9 @@ export class TasksService {
       }));
   }
 
-  getTask(taskId): Observable<{task: TaskModel}> {
+  getTask(taskId: string, action: string): Observable<{task: TaskModel}> {
     let params = new HttpParams();
-    params = params.append('action', 'task');
+    params = params.append('action', action);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = params.append('filterId', '1');

@@ -12,12 +12,10 @@ const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: '', redirectTo: '/', pathMatch: 'full'}, // позволяет загрузить и  дочерний роут
-      { path: '', component: NavigationComponent, children: [
-
-          {path: 'tasks', component: TasksComponent},
-        ] },
+      { path: '', component: NavigationComponent },
       { path: 'login', component: LoginComponent },
-      {path: 'task',  component: TaskComponent},
+      { path: 'task',  component: TaskComponent },
+      { path: 'tasks', component: TasksComponent },
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then(mod => mod.ProfileModule)
