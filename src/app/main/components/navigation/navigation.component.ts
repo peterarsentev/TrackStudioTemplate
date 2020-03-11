@@ -1,42 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../shared/services/auth.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
+import { Subject } from 'rxjs';
 import { TaskModel } from '../../../shared/models/task.model';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tasks',
+  selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
 
+  private ngUnsubscribe$: Subject<void> = new Subject<void>();
   tasks: TaskModel[];
-  constructor(private tasksService: TasksService, private authService: AuthService, private router: Router) { }
+
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private tasksService: TasksService) { }
 
   ngOnInit() {
-    this.tasksService.getTasks()
-      .subscribe(res => {
-        this.tasks = res.tasks;
-        console.log(this.tasks)
-      })
+    this.route.queryParams
+      .pipe(
+        switchMap(res => this.tasksService.getNavRout(res.taskId))
+      ).pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.tasks = res.tasks)
   }
 
-  openTask(task: TaskModel) {
-    if (task.categoryId === '1') {
-      this.router.navigate(['tasks'], {
-        queryParams: {
-          taskId: task.id,
-          action: 'tasks'
-        }
-      });
-    } else {
-      this.router.navigate(['task'], {
-        queryParams: {
-          taskId: task.id,
-          action: 'task'
-        }
-      })
-    }
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
+  }
+
+  goToNav(nav: TaskModel) {
+    const action  = nav.categoryId === '1' ? 'tasks' : 'task';
+    const taskId = nav.id;
+
+    this.router.navigate([action], {
+      queryParams: {
+        action,
+        taskId
+      }
+    })
   }
 }

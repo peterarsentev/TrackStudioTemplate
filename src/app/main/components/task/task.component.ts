@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { TaskModel } from '../../../shared/models/task.model';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent implements OnInit, OnDestroy {
 
   task: TaskModel = {};
-  constructor(private route: ActivatedRoute, private tasksService: TasksService) { }
+  private ngUnsubscribe$: Subject<void> = new Subject<void>();
+
+  constructor(private route: ActivatedRoute,
+              private tasksService: TasksService) { }
 
   ngOnInit() {
     this.getTask()
@@ -21,6 +25,12 @@ export class TaskComponent implements OnInit {
   private getTask() {
     this.route.queryParams.pipe(
       switchMap(res => this.tasksService.getTask(res.taskId, res.action))
-    ).subscribe(res => this.task = res.task)
+    ).pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.task = res.task)
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 }

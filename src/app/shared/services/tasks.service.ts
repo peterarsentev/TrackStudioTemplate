@@ -43,12 +43,24 @@ export class TasksService {
   }
 
   getTask(taskId: string, action: string): Observable<{task: TaskModel}> {
+    const url = `${environment.url}/rest/task`;
     let params = new HttpParams();
     params = params.append('action', action);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = params.append('filterId', '1');
-    return this.http.post<{task: TaskModel}>(`${environment.url}/rest/task`, params);
+    return this.http.post<{task: TaskModel}>(url, params);
+  }
+
+  getNavRout(id: string):  Observable<{tasks: TaskModel[]}> {
+    id = id ? id : localStorage.getItem('defaultProjectId');
+    const url = `${environment.url}/rest/task`;
+    let params = new HttpParams();
+    params = params.append('action', 'chain');
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('fromId', localStorage.getItem('defaultProjectId'));
+    params = params.append('toId', id);
+    return this.http.post<{tasks: TaskModel[]}>(url, params);
   }
 
 }

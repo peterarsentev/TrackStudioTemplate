@@ -7,18 +7,20 @@ import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { SharedModule } from '../shared/shared.module';
-import { NavigationComponent } from './components/navigation/navigation.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
 import { TaskComponent } from './components/task/task.component';
 import { TasksComponent } from './components/tasks/tasks.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
     LoginComponent,
-    NavigationComponent,
+    MainPageComponent,
     TaskComponent,
-    TasksComponent
+    TasksComponent,
+    NavigationComponent
   ],
   imports: [
     CommonModule,

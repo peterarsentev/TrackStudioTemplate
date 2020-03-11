@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { TaskModel } from '../../../shared/models/task.model';
 import { TasksService } from '../../../shared/services/tasks.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss']
 })
-export class TasksComponent implements OnInit {
+export class TasksComponent implements OnInit, OnDestroy {
 
   tasks: TaskModel[];
+  private ngUnsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private route: ActivatedRoute,
               private tasksService: TasksService,
@@ -21,7 +23,8 @@ export class TasksComponent implements OnInit {
     this.route.queryParams
       .pipe(
         switchMap(res => this.tasksService.getTaskByProjectId(res.taskId))
-      ).subscribe(res => {
+      ).pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
       this.tasks = res.tasks;
       console.log(res)
     })
@@ -29,15 +32,24 @@ export class TasksComponent implements OnInit {
 
   openTask(task: TaskModel) {
     if (task.categoryId === '1') {
-      this.tasksService.getTaskByProjectId(task.id)
-        .subscribe(res => this.tasks = res.tasks);
+      this.router.navigate(['tasks'], {
+        queryParams: {
+          action: 'tasks',
+          taskId: task.id
+        }
+      });
     } else {
       this.router.navigate(['task'], {
         queryParams: {
-          taskId: task.id,
-          action: 'task'
+          action: 'task',
+          taskId: task.id
         }
       })
     }
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 }
