@@ -5,7 +5,13 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '',
     loadChildren: () => import('./main/main.module').then(mod => mod.MainModule)
-  }
+  },
+  { path: 'task',
+    loadChildren: () => import('./main/main.module').then(mod => mod.MainModule)
+  },
+  { path: 'tasks',
+    loadChildren: () => import('./main/main.module').then(mod => mod.MainModule)
+  },
 ];
 
 @NgModule({

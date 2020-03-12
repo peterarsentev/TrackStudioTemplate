@@ -37,7 +37,7 @@ export class TasksService {
     return this.http.post<{tasks: TaskModel[]}>(`${environment.url}/rest/task`, params)
       .pipe(catchError(err => {
         localStorage.clear();
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
         throw err;
       }));
   }
@@ -49,7 +49,12 @@ export class TasksService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = params.append('filterId', '1');
-    return this.http.post<{task: TaskModel}>(url, params);
+    return this.http.post<{task: TaskModel}>(url, params)
+      .pipe(catchError(err => {
+        localStorage.clear();
+        this.router.navigate(['/login']);
+        throw err;
+      }));
   }
 
   getNavRout(id: string):  Observable<{tasks: TaskModel[]}> {
