@@ -10,7 +10,9 @@
       <tbody>
       <tr *ngFor="let task of tasks; let idx = index">
         <td (click)="openTask(task)" style="cursor: pointer;">
-          <i class="fas fa-folder pr-3"></i>{{task.name}}
+          <i *ngIf="task.categoryId == 1" class="fas fa-folder pr-3"></i>
+          <i *ngIf="task.categoryId != 1" class="fas fa-tasks pr-3"></i>
+          {{task.name}}
         </td>
         <td>
           <div>
