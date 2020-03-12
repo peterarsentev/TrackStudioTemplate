@@ -43,4 +43,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  getClass(idx: number) {
+    if (!!this.tasks.length && idx < this.tasks.length - 1)
+    return {
+      'ref-link': true
+    }
+  }
 }
