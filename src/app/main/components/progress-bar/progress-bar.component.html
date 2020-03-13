@@ -1,0 +1,10 @@
+<div>
+  Всего задач: {{allTasksCount}}. Выполнено {{solvedTasksCount}}.
+</div>
+<div class="progress">
+  <div class="progress-bar bg-info"
+       role="progressbar"
+       [ngStyle]="{ width: barValue +'%'}"
+       aria-valuemin="0"
+       aria-valuemax="100">{{ barValue }}%</div>
+</div>

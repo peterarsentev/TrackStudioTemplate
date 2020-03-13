@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 @Injectable({providedIn: 'root'})
 export class TasksService {
 
+  private allTasks = '0873958f665da72301665dcdf8c4032a';
+  private solvedTasks = '0873958f665da72301665dce8608034b';
+
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
   }
 
@@ -68,4 +71,30 @@ export class TasksService {
     return this.http.post<{tasks: TaskModel[]}>(url, params);
   }
 
+  getTaskCount(taskId: string, all: boolean): Observable<{ [total: string]: number }> {
+    const url = `${environment.url}/rest/task`;
+    let params = new HttpParams();
+    params = params.append('action', 'size');
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', taskId);
+    params = params.append('filterId', all ? this.allTasks : this.solvedTasks);
+    return this.http.post<{ [total: string]: number }>(url, params);
+  }
+
 }
+/*
+Запрос. Все задачи.
+$ curl 'http://localhost:8080/TrackStudio/rest/task'
+-d 'action=size'
+-d 'sessionId=3a881b1aba9a1d95f38d1f9a7a69404e'
+-d 'taskId=0873958f70c0a5b60170c2f55c680687'
+-d 'filterId=0873958f665da72301665dcdf8c4032a'
+
+Запрос. Выполненные задачи.
+
+$ curl 'http://localhost:8080/TrackStudio/rest/task'
+-d 'action=size'
+-d 'sessionId=3a881b1aba9a1d95f38d1f9a7a69404e'
+-d 'taskId=0873958f70c0a5b60170c2f55c680687'
+-d 'filterId=0873958f665da72301665dce8608034b'
+ */
