@@ -13,6 +13,8 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { CommentsComponent } from './components/comments/comments.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
     TasksComponent,
     NavigationComponent,
     FooterComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    CommentsComponent
   ],
   imports: [
     CommonModule,

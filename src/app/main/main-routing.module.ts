@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { TaskComponent } from './components/task/task.component';
 import { TasksComponent } from './components/tasks/tasks.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'task',  component: TaskComponent },
       { path: 'tasks', component: TasksComponent },
+      { path: 'comments', component: CommentsComponent },
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then(mod => mod.ProfileModule)

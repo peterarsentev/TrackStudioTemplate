@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row pt-5">
+    <form [formGroup]="form">
+      <div class="form-group editor">
+        <label><h3>Введите комментарий</h3></label>
+        <div [ngxSummernote]="config" formControlName="editor"></div>
+      </div>
+      <div>
+        <button
+          class="btn btn-primary"
+          [disabled]="form.invalid"
+          (click)="form.valid && submitComment()"
+        >Добавить комментарий</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

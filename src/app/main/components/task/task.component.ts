@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { TaskModel } from '../../../shared/models/task.model';
@@ -16,6 +16,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private tasksService: TasksService) { }
 
   ngOnInit() {
@@ -32,5 +33,13 @@ export class TaskComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  goToComments() {
+    this.router.navigate(['comments'], {
+      queryParams: {
+        taskId: this.task.id
+      }
+    });
   }
 }
