@@ -40,7 +40,7 @@ export class TasksService {
     return this.http.post<{tasks: TaskModel[]}>(`${environment.url}/rest/task`, params)
       .pipe(catchError(err => {
         localStorage.clear();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
         throw err;
       }));
   }
@@ -55,7 +55,7 @@ export class TasksService {
     return this.http.post<{task: TaskModel}>(url, params)
       .pipe(catchError(err => {
         localStorage.clear();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
         throw err;
       }));
   }
