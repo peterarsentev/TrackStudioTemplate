@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { catchError, switchMap } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { catchError, delay, switchMap } from 'rxjs/operators';
+import { EMPTY, Observable, throwError } from 'rxjs';
 import { TaskModel } from '../models/task.model';
 import { Router } from '@angular/router';
 
@@ -41,7 +41,7 @@ export class TasksService {
       .pipe(catchError(err => {
         localStorage.clear();
         this.router.navigate(['/']);
-        throw err;
+        return this.getTasks();
       }));
   }
 
@@ -60,7 +60,7 @@ export class TasksService {
       }));
   }
 
-  getNavRout(id: string):  Observable<{tasks: TaskModel[]}> {
+  getNavRout(id?: string):  Observable<{tasks: TaskModel[]}> {
     id = id ? id : localStorage.getItem('defaultProjectId');
     const url = `${environment.url}/rest/task`;
     let params = new HttpParams();
@@ -68,7 +68,15 @@ export class TasksService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('fromId', localStorage.getItem('defaultProjectId'));
     params = params.append('toId', id);
-    return this.http.post<{tasks: TaskModel[]}>(url, params);
+    return this.http.post<{tasks: TaskModel[]}>(url, params)
+      .pipe(
+        catchError(() => {
+          localStorage.clear();
+          return  this.getTasks().pipe(
+            switchMap(() => this.getNavRout())
+          );
+        })
+      );
   }
 
   getTaskCount(taskId: string, all: boolean): Observable<{ [total: string]: number }> {
@@ -78,23 +86,12 @@ export class TasksService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = params.append('filterId', all ? this.allTasks : this.solvedTasks);
-    return this.http.post<{ [total: string]: number }>(url, params);
+    return this.http.post<{ [total: string]: number }>(url, params)
+      .pipe(catchError(err => {
+        localStorage.clear();
+        this.router.navigate(['/']);
+        throw err;
+      }));
   }
 
 }
-/*
-Запрос. Все задачи.
-$ curl 'http://localhost:8080/TrackStudio/rest/task'
--d 'action=size'
--d 'sessionId=3a881b1aba9a1d95f38d1f9a7a69404e'
--d 'taskId=0873958f70c0a5b60170c2f55c680687'
--d 'filterId=0873958f665da72301665dcdf8c4032a'
-
-Запрос. Выполненные задачи.
-
-$ curl 'http://localhost:8080/TrackStudio/rest/task'
--d 'action=size'
--d 'sessionId=3a881b1aba9a1d95f38d1f9a7a69404e'
--d 'taskId=0873958f70c0a5b60170c2f55c680687'
--d 'filterId=0873958f665da72301665dce8608034b'
- */
