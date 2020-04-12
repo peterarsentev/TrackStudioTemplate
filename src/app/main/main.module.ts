@@ -14,6 +14,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { FooterComponent } from './components/footer/footer.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { CommentsComponent } from './components/comments/comments.component';
+import { SafeCodePipe } from './safe-code.pipe';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { CommentsComponent } from './components/comments/comments.component';
     NavigationComponent,
     FooterComponent,
     ProgressBarComponent,
-    CommentsComponent
+    CommentsComponent,
+    SafeCodePipe
   ],
   imports: [
     CommonModule,

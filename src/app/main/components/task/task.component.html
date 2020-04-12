@@ -6,7 +6,7 @@
         {{ task.string }}
       </div>
       <div class="card-body">
-        <p class="card-text" [innerHTML]="task.description"></p>
+        <p class="card-text" [innerHTML]="task.description | safeCode"></p>
       </div>
     </div>
   </div>
