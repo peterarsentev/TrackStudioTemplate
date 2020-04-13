@@ -66,7 +66,6 @@ export class TasksService {
     let params = new HttpParams();
     params = params.append('action', 'chain');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    params = params.append('fromId', localStorage.getItem('defaultProjectId'));
     params = params.append('toId', id);
     return this.http.post<{tasks: TaskModel[]}>(url, params)
       .pipe(
