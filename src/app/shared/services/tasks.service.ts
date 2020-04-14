@@ -39,9 +39,9 @@ export class TasksService {
     params = params.append('filterId', '1');
     return this.http.post<{tasks: TaskModel[]}>(`${environment.url}/rest/task`, params)
       .pipe(catchError(err => {
-        localStorage.clear();
-        this.router.navigate(['/']);
-        return this.getTasks();
+        return this.authService.getDefaultProjectId().pipe(
+          switchMap(() => this.getTaskByProjectId(projectId, localStorage.getItem('sessionId')))
+        );
       }));
   }
 
@@ -55,8 +55,9 @@ export class TasksService {
     return this.http.post<{task: TaskModel}>(url, params)
       .pipe(catchError(err => {
         localStorage.clear();
-        this.router.navigate(['/']);
-        throw err;
+        return this.authService.getDefaultProjectId().pipe(
+          switchMap(() => this.getTask(taskId, action))
+        );
       }));
   }
 
@@ -72,7 +73,7 @@ export class TasksService {
         catchError(() => {
           localStorage.clear();
           return  this.getTasks().pipe(
-            switchMap(() => this.getNavRout())
+            switchMap(() => this.getNavRout(id))
           );
         })
       );
@@ -87,9 +88,7 @@ export class TasksService {
     params = params.append('filterId', all ? this.allTasks : this.solvedTasks);
     return this.http.post<{ [total: string]: number }>(url, params)
       .pipe(catchError(err => {
-        localStorage.clear();
-        this.router.navigate(['/']);
-        throw err;
+        throw null;
       }));
   }
 
