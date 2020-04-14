@@ -31,8 +31,11 @@ export class TaskComponent implements OnInit, OnDestroy {
     ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.task = res.task;
-        // hljs.initHighlighting();
-        setTimeout(() => hljs.initHighlighting(),0);
+        setTimeout(() => {
+            document.querySelectorAll('pre code').forEach((block) => {
+              hljs.highlightBlock(block);
+            });
+          }, 0);
       });
   }
 
