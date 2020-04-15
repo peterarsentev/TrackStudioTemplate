@@ -1,76 +1,35 @@
-<div class="limiter">
-  <div class="container-login100">
-    <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-      <form class="login100-form validate-form flex-sb flex-w" [formGroup]="form">
-        <span class="login100-form-title p-b-32">Account Login</span>
-        <div class="login100-form">
-          <div class="alert alert-danger m-b-5" *ngIf="authService.error$ | async as error">{{ error }}</div>
-          <span class="txt1 p-b-11">Username</span>
-          <div class="wrap-input100 validate-input m-b-5">
-            <input class="input100"
-                   type="text"
-                   formControlName="login"
-            >
-            <span class="focus-input100"></span>
-          </div>
-          <div *ngFor="let error of validationErrors.login">
-                      <span *ngIf="form.get('login').hasError(error.type)
-                                  && (form.get('login').dirty
-                                  || form.get('login').touched)"
-                            class="validation">{{ error.message }}</span>
-          </div>
-        </div>
-        <div class="login100-form m-t-20 m-b-20">
-          <span class="txt1 p-b-11  m-t-36">Password</span>
-          <div class="wrap-input100 validate-input m-b-12">
-						<span class="btn-show-pass">
-							<i class="fa fa-eye"></i>
-						</span>
-            <input class="input100"
-                   type="password"
-                   formControlName="password"
-            >
-            <span class="focus-input100"></span>
-          </div>
-          <div *ngFor="let error of validationErrors.password">
-                      <span *ngIf="form.get('password').hasError(error.type)
-                                  && (form.get('password').dirty
-                                  || form.get('password').touched)"
-                            class="validation">{{ error.message }}</span>
-          </div>
-        </div>
-        <div class="flex-sb-m w-full p-b-48">
-          <div class="contact100-form-checkbox">
-            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-            <label class="label-checkbox100" for="ckb1">
-              Remember me
-            </label>
-          </div>
-
-          <div>
-            <a href="#" class="txt3">
-              Forgot Password?
-            </a>
-          </div>
-        </div>
-        <div class="btn-group inline">
-          <div class="container-login100-form-btn">
-            <button class="login100-form-btn"
-                    (click)="login()"
-                    [disabled]="form.invalid"
-            >Login
-            </button>
-          </div>
-          <div class="container-login100-form-btn">
-            <button class="login100-form-btn login100-form-btn-close"
-                    (click)="closeModal()"
-            >Close
-            </button>
-          </div>
-        </div>
-      </form>
+<form [formGroup]="form">
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input  formControlName="login"
+            type="text"
+            class="form-control"
+            placeholder="Enter email" id="email">
+    <div *ngFor="let error of validationErrors.login">
+                            <span *ngIf="form.get('login').hasError(error.type)
+                                        && (form.get('login').dirty
+                                        || form.get('login').touched)"
+                                  class="validation">{{ error.message }}</span>
     </div>
   </div>
-</div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input formControlName="password"
+           type="password"
+           class="form-control"
+           placeholder="Enter password" id="pwd">
+    <div *ngFor="let error of validationErrors.password">
+                        <span *ngIf="form.get('password').hasError(error.type)
+                                    && (form.get('password').dirty
+                                    || form.get('password').touched)"
+                              class="validation">{{ error.message }}</span>
+    </div>
 
+  </div>
 
+  <button (click)="login()"
+          [disabled]="form.invalid"
+          type="submit"
+          class="btn btn-primary"
+  >Submit</button>
+</form>
