@@ -4,6 +4,7 @@ import { TasksService } from '../../../shared/services/tasks.service';
 import { TaskModel } from '../../../shared/models/task.model';
 import { Router } from '@angular/router';
 import { ResponseModel } from '../../../shared/models/response.model';
+import { MStatusesModel } from '../../../shared/models/m.statuses.model';
 
 @Component({
   selector: 'app-tasks',
@@ -12,6 +13,7 @@ import { ResponseModel } from '../../../shared/models/response.model';
 })
 export class MainPageComponent implements OnInit {
 
+  mstatuses: MStatusesModel[] = [];
   tasks: ResponseModel[];
   constructor(private tasksService: TasksService, private authService: AuthService, private router: Router) { }
 
@@ -21,6 +23,7 @@ export class MainPageComponent implements OnInit {
         this.tasks = res.tasks;
         console.log(this.tasks)
       })
+    this.geButtons(localStorage.getItem('defaultProjectId'))
   }
 
   openTask(task: TaskModel) {
@@ -39,6 +42,12 @@ export class MainPageComponent implements OnInit {
         }
       })
     }
+  }
+
+  geButtons(taskId: string) {
+    console.log(taskId)
+    this.tasksService.getButtons(taskId)
+      .subscribe(res => this.mstatuses = res.mstatuses)
   }
 }
 

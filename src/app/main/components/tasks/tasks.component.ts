@@ -5,6 +5,7 @@ import { TaskModel } from '../../../shared/models/task.model';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
 import { ResponseModel } from '../../../shared/models/response.model';
+import { MStatusesModel } from '../../../shared/models/m.statuses.model';
 
 @Component({
   selector: 'app-tasks',
@@ -13,7 +14,8 @@ import { ResponseModel } from '../../../shared/models/response.model';
 })
 export class TasksComponent implements OnInit, OnDestroy {
 
-  tasks: ResponseModel[];
+  tasks: ResponseModel[] = [];
+  mstatuses: MStatusesModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private route: ActivatedRoute,
@@ -23,7 +25,10 @@ export class TasksComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.queryParams
       .pipe(
-        switchMap(res => this.tasksService.getTaskByProjectId(res.taskId))
+        switchMap(res => {
+          this.geButtons(res.taskId);
+          return this.tasksService.getTaskByProjectId(res.taskId)
+        })
       ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
       this.tasks = res.tasks;
@@ -47,6 +52,11 @@ export class TasksComponent implements OnInit, OnDestroy {
         }
       })
     }
+  }
+
+  geButtons(taskId: string) {
+    this.tasksService.getButtons(taskId)
+      .subscribe(res => this.mstatuses = res.mstatuses)
   }
 
   ngOnDestroy(): void {

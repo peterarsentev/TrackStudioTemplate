@@ -7,6 +7,7 @@ import { EMPTY, Observable, throwError } from 'rxjs';
 import { TaskModel } from '../models/task.model';
 import { Router } from '@angular/router';
 import { ResponseModel } from '../models/response.model';
+import { MStatusesModel } from '../models/m.statuses.model';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -93,4 +94,16 @@ export class TasksService {
       }));
   }
 
+  getButtons(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{mstatuses: MStatusesModel[]}> {
+    let params = new HttpParams();
+    params = params.append('action', 'categories');
+    params = params.append('sessionId', sessionId);
+    params = params.append('taskId', projectId);
+    return this.http.post<{mstatuses: MStatusesModel[]}>(`${environment.url}/rest/task`, params)
+      .pipe(catchError(err => {
+        return this.authService.getDefaultProjectId().pipe(
+          switchMap(() => this.getButtons(projectId, localStorage.getItem('sessionId')))
+        );
+      }));
+  }
 }
