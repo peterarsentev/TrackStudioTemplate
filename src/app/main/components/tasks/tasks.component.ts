@@ -32,7 +32,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   openTask(task: TaskModel) {
-    if (task.categoryId === '1') {
+    if (task.childrenCount > 0) {
       this.router.navigate(['tasks'], {
         queryParams: {
           action: 'tasks',
