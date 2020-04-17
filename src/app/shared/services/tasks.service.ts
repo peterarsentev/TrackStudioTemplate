@@ -6,6 +6,7 @@ import { catchError, delay, switchMap } from 'rxjs/operators';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { TaskModel } from '../models/task.model';
 import { Router } from '@angular/router';
+import { ResponseModel } from '../models/response.model';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -16,7 +17,7 @@ export class TasksService {
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
   }
 
-  getTasks(): Observable<{tasks: TaskModel[]}> {
+  getTasks(): Observable<{tasks: ResponseModel[]}> {
     const projectId = localStorage.getItem('defaultProjectId');
     const sessionId = localStorage.getItem('sessionId');
     if (!projectId || !sessionId) {
@@ -31,13 +32,13 @@ export class TasksService {
     }
   }
 
-  getTaskByProjectId(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{tasks: TaskModel[]}> {
+  getTaskByProjectId(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{tasks: ResponseModel[]}> {
     let params = new HttpParams();
     params = params.append('action', 'tasks');
     params = params.append('sessionId', sessionId);
     params = params.append('taskId', projectId);
     params = params.append('filterId', '1');
-    return this.http.post<{tasks: TaskModel[]}>(`${environment.url}/rest/task`, params)
+    return this.http.post<{tasks: ResponseModel[]}>(`${environment.url}/rest/task`, params)
       .pipe(catchError(err => {
         return this.authService.getDefaultProjectId().pipe(
           switchMap(() => this.getTaskByProjectId(projectId, localStorage.getItem('sessionId')))

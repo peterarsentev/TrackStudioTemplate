@@ -9,8 +9,8 @@
       </thead>
       <tbody>
       <tr *ngFor="let task of tasks; let idx = index">
-        <td (click)="openTask(task)" style="cursor: pointer;">
-          <i class="fas fa-folder pr-3"></i>{{task.name}}
+        <td (click)="openTask(task.task)" style="cursor: pointer;">
+          <i class="fas fa-folder pr-3"></i>{{task.task.name}}
         </td>
         <td>
           <app-progress-bar [task]="task"

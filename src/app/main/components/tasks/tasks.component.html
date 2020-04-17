@@ -4,19 +4,19 @@
       <thead>
       <tr>
         <th scope="col">Задания</th>
-        <th scope="col" *ngIf="tasks?.length && tasks[0].categoryId === '1'">Прогресс</th>
+        <th scope="col" *ngIf="tasks?.length && tasks[0].task.childrenCount > 0">Прогресс</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let task of tasks; let idx = index">
-        <td (click)="openTask(task)" style="cursor: pointer;">
-          <i *ngIf="task.categoryId == 1" class="fas fa-folder pr-3"></i>
-          <i *ngIf="task.categoryId != 1" class="fas fa-tasks pr-3"></i>
-          {{task.name}}
+        <td (click)="openTask(task.task)" style="cursor: pointer;">
+          <i *ngIf="task.task.childrenCount > 0" class="fas fa-folder pr-3"></i>
+          <i *ngIf="task.task.childrenCount == 0" class="fas fa-tasks pr-3"></i>
+          {{task.task.name}}
         </td>
         <td>
-          <app-progress-bar *ngIf="task.categoryId == 1"
-                            [task]="task"
+          <app-progress-bar *ngIf="task.task.childrenCount > 0"
+                            [task]="task.task"
           ></app-progress-bar>
         </td>
       </tr>

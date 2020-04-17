@@ -3,6 +3,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { TaskModel } from '../../../shared/models/task.model';
 import { Router } from '@angular/router';
+import { ResponseModel } from '../../../shared/models/response.model';
 
 @Component({
   selector: 'app-tasks',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class MainPageComponent implements OnInit {
 
-  tasks: TaskModel[];
+  tasks: ResponseModel[];
   constructor(private tasksService: TasksService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {

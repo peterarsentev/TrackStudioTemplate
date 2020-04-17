@@ -22,7 +22,11 @@ export class TaskModel {
     public categoryId?: string,
     public workflowId?: string,
     public budget?: number,
-    public childrenCount?: number
+    public childrenCount?: number,
+
+  public handler?: string,
+  public task?: string,
+  public status?: string
   ) {
   }
 }

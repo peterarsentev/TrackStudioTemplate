@@ -4,6 +4,7 @@ import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { TaskModel } from '../../../shared/models/task.model';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
+import { ResponseModel } from '../../../shared/models/response.model';
 
 @Component({
   selector: 'app-tasks',
@@ -12,7 +13,7 @@ import { Subject } from 'rxjs';
 })
 export class TasksComponent implements OnInit, OnDestroy {
 
-  tasks: TaskModel[];
+  tasks: ResponseModel[];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private route: ActivatedRoute,
@@ -24,9 +25,9 @@ export class TasksComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(res => this.tasksService.getTaskByProjectId(res.taskId))
       ).pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => {
+      .subscribe((res) => {
       this.tasks = res.tasks;
-      console.log(res)
+      console.log('tasks', res)
     })
   }
 
