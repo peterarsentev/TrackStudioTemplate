@@ -5,12 +5,13 @@ import { LoginModel } from '../models/login.model';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { AuthResponse, UserResponse } from '../models/interfaces';
+import { UserService } from './user.service';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
   public error$: Subject<string> = new Subject<string>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
   }
 
   login(user: LoginModel = {action: 'login', login: 'anonymous', password: '123'}): Observable<AuthResponse> {
@@ -50,7 +51,6 @@ export class AuthService {
     param = param.append('sessionId', sessionId);
     return this.http.post<UserResponse>(`${environment.url}/rest/auth`, param)
       .pipe(
-        tap(response => this.setdefaultProjectId(response.user.defaultProjectId)),
         catchError(err => {
             localStorage.clear();
             console.error('err', err);
@@ -59,7 +59,9 @@ export class AuthService {
                 switchMap(res  => this.getDefaultProjectId())
               );
           }
-        )
+        ),
+        tap(response => this.setdefaultProjectId(response.user.defaultProjectId)),
+        tap(response => this.userService.setUpModel(response.user)),
       );
   }
 
@@ -71,4 +73,13 @@ export class AuthService {
     }
   }
 
+  logOut() {
+    const url = `${environment.url}/rest/auth`;
+    const sessionId = localStorage.getItem('sessionId');
+    let param = new HttpParams();
+    param = param.append('action', 'logout');
+    param = param.append('sessionId', sessionId);
+    localStorage.clear();
+    return this.http.post(url, param)
+  }
 }

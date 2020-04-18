@@ -7,8 +7,9 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
     </ul>
-    <!--<span class="navbar-text">-->
-      <!--<a class="nav-item nav-link float-right" [routerLink]="['/login']">Войти</a>-->
-    <!--</span>-->
+    <span class="navbar-text">
+      <a class="nav-item nav-link float-right" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
+      <a class="nav-item nav-link float-right">{{ user?.name || 'Гость' }}</a>
+    </span>
   </div>
 </nav>

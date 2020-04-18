@@ -4,7 +4,9 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { LoginModel } from '../../../shared/models/login.model';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { UserService } from '../../../shared/services/user.service';
+import { UserModels } from '../../../shared/models/user.models';
 
 @Component({
   selector: 'app-login',
@@ -24,17 +26,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   };
   form: FormGroup;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  user: UserModels;
 
   constructor(private fb: FormBuilder,
               private route: Router,
+              private userService: UserService,
               public authService: AuthService) { }
 
   ngOnInit() {
     this.initForm();
-  }
-
-  closeModal() {
-    this.route.navigate(['/']);
+    this.userService.getModel()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(user => this.user = user);
   }
 
   login() {
@@ -43,7 +46,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     loginModel.login = this.form.get('login').value;
     loginModel.password = this.form.get('password').value;
     this.authService.login(loginModel)
-      .pipe(takeUntil(this.ngUnsubscribe$))
+      .pipe(
+        switchMap(() => this.authService.getDefaultProjectId()),
+        takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         console.log('res', res)
         this.form.reset();

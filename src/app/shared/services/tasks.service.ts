@@ -8,6 +8,7 @@ import { TaskModel } from '../models/task.model';
 import { Router } from '@angular/router';
 import { ResponseModel } from '../models/response.model';
 import { MStatusesModel } from '../models/m.statuses.model';
+import { ButtonCommentModel } from '../models/button.comment.model';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -96,6 +97,7 @@ export class TasksService {
 
   getButtons(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{mstatuses: MStatusesModel[]}> {
     let params = new HttpParams();
+    projectId = projectId ? projectId : localStorage.getItem('defaultProjectId');
     params = params.append('action', 'categories');
     params = params.append('sessionId', sessionId);
     params = params.append('taskId', projectId);
@@ -106,4 +108,21 @@ export class TasksService {
         );
       }));
   }
+
+  getMessages(taskId: string) {
+    let params = new HttpParams();
+    params = params.append('action', 'messages');
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', taskId);
+    return this.http.post(`${environment.url}/rest/task`, params);
+  }
+
+  getButtonsForTask(taskId: string): Observable<{ mstatuses: ButtonCommentModel[] }> {
+    let params = new HttpParams();
+    params = params.append('action', 'mstatus');
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', taskId);
+    return this.http.post<{mstatuses: ButtonCommentModel[]}>(`${environment.url}/rest/task`, params);
+  }
+
 }

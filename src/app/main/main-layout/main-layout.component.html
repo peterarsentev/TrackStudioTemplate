@@ -1,6 +1,6 @@
 <div class="container">
   <app-header></app-header>
-  <app-navigation></app-navigation>
+  <app-navigation *ngIf="navShow"></app-navigation>
   <router-outlet></router-outlet>
   <app-footer></app-footer>
 </div>
