@@ -17,6 +17,7 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { SafeCodePipe } from './safe-code.pipe';
 import { MessageComponent } from './components/message/message.component';
 import { GetDatePipe } from '../shared/get-date.pipe';
+import { NewTaskComponent } from './components/new-task/new-task.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { GetDatePipe } from '../shared/get-date.pipe';
     CommentsComponent,
     SafeCodePipe,
     MessageComponent,
-    GetDatePipe
+    GetDatePipe,
+    NewTaskComponent
   ],
   imports: [
     CommonModule,

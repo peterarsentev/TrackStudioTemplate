@@ -49,5 +49,9 @@ export class MainPageComponent implements OnInit {
     this.tasksService.getButtons(taskId)
       .subscribe(res => this.mstatuses = res.mstatuses)
   }
+
+  goToNewTask(status: MStatusesModel) {
+    this.router.navigate(['/new-task'])
+  }
 }
 

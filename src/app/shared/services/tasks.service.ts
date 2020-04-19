@@ -149,4 +149,37 @@ export class TasksService {
     return this.http.post<any>(url, params);
   }
 
+  getResponsePersonsForTask(taskId: string, categoryId: string): Observable<{ handlers: UserModels[] }>  {
+    const url = `${environment.url}/rest/task`;
+    let params = new HttpParams();
+    params = params.append('action', 'handlers');
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', taskId);
+    params = params.append('categoryId', categoryId);
+    return this.http.post<{ handlers: UserModels[] }>(url, params);
+  }
+
+  createTask(parentId: string, categoryId: string, name: string, description: string) {
+    const url = `${environment.url}/rest/task`;
+    let params = new HttpParams();
+    params = params.append('action', 'create');
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('parentId', parentId);
+    params = params.append('categoryId', categoryId);
+    params = params.append('name', name);
+    params = params.append('description', description);
+    return this.http.post<{ handlers: UserModels[] }>(url, params);
+  }
+  /*
+curl http://localhost:8080/TrackStudio/rest/task
+-d action=create
+-d sessionId=54e3531b0db7d70d44d5e0421e77e5b0
+-d parentId=4028808a19512fa5011951d9cbdb0070
+-d categoryId=4028808a1951e21b01195245ff4200c1
+-d handlerId=1  +
+-d name='Bug in tree'  +
+-d description='text text text' +
+
+Создаем новый вид. Форма создания новый задачи.
+ */
 }

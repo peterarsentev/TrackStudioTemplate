@@ -17,6 +17,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   tasks: ResponseModel[] = [];
   mstatuses: MStatusesModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  private taskId: string;
 
   constructor(private route: ActivatedRoute,
               private tasksService: TasksService,
@@ -26,6 +27,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.route.queryParams
       .pipe(
         switchMap(res => {
+          this.taskId = res.taskId;
           this.geButtons(res.taskId);
           return this.tasksService.getTaskByProjectId(res.taskId)
         })
@@ -57,6 +59,15 @@ export class TasksComponent implements OnInit, OnDestroy {
   geButtons(taskId: string) {
     this.tasksService.getButtons(taskId)
       .subscribe(res => this.mstatuses = res.mstatuses)
+  }
+
+  goToNewTask(status: MStatusesModel) {
+    this.router.navigate(['/new-task'], {
+      queryParams: {
+        taskId: this.taskId,
+        mstatusId: status.id
+      }
+    })
   }
 
   ngOnDestroy(): void {

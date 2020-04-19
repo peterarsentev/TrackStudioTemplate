@@ -9,8 +9,14 @@
                                         || form.get('handlerId').touched)"
                                   class="validation">{{ error.message }}</span>
     </div>
-    <div class="row pt-5">
-      <app-redactor [titleLabel]="'Введите комментарий'"
+    <div class="form-group pt-3">
+      <label for="name"><h3>Введите название задачи</h3></label>
+      <input type="email" class="form-control"
+             formControlName="name"
+             id="name" placeholder="Введите название">
+    </div>
+    <div class="row pt-1">
+      <app-redactor [titleLabel]="'Введите задание'"
                     (outputEmitter)="setDescription($event)"
       ></app-redactor>
       <div *ngFor="let error of validationErrors.description">
@@ -23,9 +29,7 @@
     <button
       class="btn btn-primary"
       [disabled]="form.invalid"
-      (click)="form.valid && submitComment()"
+      (click)="form.valid && submitTask()"
     >Добавить комментарий</button>
   </form>
 </div>
-
-

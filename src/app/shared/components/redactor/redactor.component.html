@@ -1,0 +1,6 @@
+<div class="form-group editor">
+  <label><h3>{{ titleLabel }}</h3></label>
+  <div [ngxSummernote]="config"
+       [(ngModel)]="text"
+       (ngModelChange)="change()"></div>
+</div>

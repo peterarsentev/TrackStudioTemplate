@@ -1,77 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { UserModels } from '../../../shared/models/user.models';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss']
 })
-export class CommentsComponent implements OnInit {
+export class CommentsComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
-  toolbarOptions = {};
-  config: any = {
-    airMode: false,
-    tabDisable: true,
-    popover: {
-      table: [
-        ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-        ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
-      ],
-      image: [
-        ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
-        ['float', ['floatLeft', 'floatRight', 'floatNone']],
-        ['remove', ['removeMedia']]
-      ],
-      link: [
-        ['link', ['linkDialogShow', 'unlink']]
-      ],
-      air: [
-        [
-          'font',
-          [
-            'bold',
-            'italic',
-            'underline',
-            'strikethrough',
-            'superscript',
-            'subscript',
-            'clear'
-          ]
-        ],
-      ]
-    },
-    height: '150px',
-    toolbar: [
-      ['misc', ['codeview', 'undo', 'redo', 'codeBlock']],
-      [
-        'font',
-        [
-          'bold',
-          'italic',
-          'underline',
-          'strikethrough',
-          'superscript',
-          'subscript',
-          'clear'
-        ]
-      ],
-      ['fontsize', ['fontname', 'fontsize', 'color']],
-      ['para', ['style0', 'ul', 'ol', 'paragraph', 'height']],
-      ['insert', ['table', 'picture', 'link', 'video', 'hr']],
-      ['customButtons', ['testBtn']]
-    ],
-    codeviewFilter: true,
-    codeviewFilterRegex: /<\/*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|ilayer|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|t(?:itle|extarea)|xml|.*onmouseover)[^>]*?>/gi,
-    codeviewIframeFilter: true
-  };
   mstatusId: string;
   taskId: string;
   handlers: UserModels[] = [];
+  private ngUnsubscribe$: Subject<void> = new Subject<void>();
   validationErrors = {
     handlerId: [
       { type: 'required', message: 'Выберете ответственного'}
@@ -102,6 +48,7 @@ export class CommentsComponent implements OnInit {
     const handlerId = this.form.get('handlerId').value;
     let description = this.form.get('description').value;
     this.tasksService.sendComment(this.taskId, this.mstatusId, handlerId, description)
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {
         this.router.navigate(['/task'], {
           queryParams: {
@@ -112,14 +59,14 @@ export class CommentsComponent implements OnInit {
       })
   }
 
-
   private getRoutParams() {
     this.route.queryParams.pipe(
       switchMap(url => {
         this.taskId = url.taskId;
         this.mstatusId = url.mstatusId;
         return this.tasksService.gerResponsiblePeople(this.taskId, this.mstatusId);
-      })
+      }),
+      takeUntil(this.ngUnsubscribe$)
     ).subscribe(handlers => {
       this.handlers = handlers.handlers;
     })
@@ -127,5 +74,15 @@ export class CommentsComponent implements OnInit {
 
   selectPerson(user: UserModels) {
     this.form.get('handlerId').setValue(user.id);
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
+  }
+
+  setDescription(text: string) {
+    this.form.get('description').setValue(text);
+    this.form.get('description').markAsDirty();
   }
 }

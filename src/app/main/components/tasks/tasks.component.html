@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <ng-container *ngFor="let status of mstatuses">
-      <button class="m btn btn-light btn-sm">{{ status.name }}</button>
+      <button class="m btn btn-light btn-sm" (click)="goToNewTask(status)">{{ status.name }}</button>
     </ng-container>
   </div>
   <div class="row">
