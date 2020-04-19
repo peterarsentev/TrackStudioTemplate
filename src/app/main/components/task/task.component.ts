@@ -5,6 +5,7 @@ import { TasksService } from '../../../shared/services/tasks.service';
 import { TaskModel } from '../../../shared/models/task.model';
 import { Subject } from 'rxjs';
 import { ButtonCommentModel } from '../../../shared/models/button.comment.model';
+import { MessagesModel } from '../../../shared/models/messages.model';
 
 declare var hljs: any;
 
@@ -16,6 +17,7 @@ declare var hljs: any;
 export class TaskComponent implements OnInit, OnDestroy {
 
   task: TaskModel = {};
+  messages: MessagesModel[] = [];
   taskId: string;
   buttons: ButtonCommentModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
@@ -54,17 +56,21 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  goToComments() {
+  goToComments(button: ButtonCommentModel) {
     this.router.navigate(['comments'], {
       queryParams: {
-        taskId: this.task.id
+        taskId: this.task.id,
+        mstatusId: button.id
       }
     });
   }
 
   private getMessages(taskId: string) {
     this.tasksService.getMessages(taskId)
-      .subscribe(res => console.log(res))
+      .subscribe(res => {
+        this.messages = res.messages;
+        console.log(this.messages)
+      })
   }
 
   private getButtons(taskId: string) {

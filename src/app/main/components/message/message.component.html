@@ -1,0 +1,9 @@
+<div class="container pb-2">
+  <div class="card">
+    <div class="card-body">
+      <small class="card-text">Дата: {{ message.message.time | getDate }}</small><br/>
+      <small>Oт {{ message.submitter.name }}  к  {{ message.handler.name }}</small>
+      <p class="card-text" [innerHTML]="message.message.description | safeCode"></p>
+    </div>
+  </div>
+</div>

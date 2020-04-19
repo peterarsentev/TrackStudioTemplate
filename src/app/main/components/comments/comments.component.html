@@ -1,9 +1,24 @@
 <div class="container">
+  <app-hendlers [handlers]="handlers"
+                (selected)="selectPerson($event)"
+  ></app-hendlers>
+  <div *ngFor="let error of validationErrors.handlerId">
+                            <span *ngIf="form.get('handlerId').hasError(error.type)
+                                        && (form.get('handlerId').dirty
+                                        || form.get('handlerId').touched)"
+                                  class="validation">{{ error.message }}</span>
+  </div>
   <div class="row pt-5">
     <form [formGroup]="form">
       <div class="form-group editor">
         <label><h3>Введите комментарий</h3></label>
-        <div [ngxSummernote]="config" formControlName="editor"></div>
+        <div [ngxSummernote]="config" formControlName="description"></div>
+      </div>
+      <div *ngFor="let error of validationErrors.description">
+                            <span *ngIf="form.get('description').hasError(error.type)
+                                        && (form.get('description').dirty
+                                        || form.get('description').touched)"
+                                  class="validation">{{ error.message }}</span>
       </div>
       <div>
         <button

@@ -1,12 +1,14 @@
 <div class="container pb-4">
-  <div class="row">
+  <div class="row pb-2">
     <ng-container *ngFor="let button of buttons">
-      <button class="m btn btn-info btn-sm">{{ button.name }}</button>
+      <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>
     </ng-container>
   </div>
+  <app-message *ngFor="let message of messages"
+               [message]="message"
+  ></app-message>
   <div class="row">
     <div class="w-100 card">
-<!--      <button class="btn  btn-outline-danger" (click)="goToComments()">Комментировать</button>-->
       <div class="card-header">
         {{ task.string }}
       </div>

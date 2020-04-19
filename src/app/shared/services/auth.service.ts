@@ -10,8 +10,14 @@ import { UserService } from './user.service';
 @Injectable({providedIn: 'root'})
 export class AuthService {
   public error$: Subject<string> = new Subject<string>();
+  public api_Host = '';
 
   constructor(private http: HttpClient, private userService: UserService) {
+    this.initApiHost();
+  }
+
+  get apiHost() {
+    return this.api_Host;
   }
 
   login(user: LoginModel = {action: 'login', login: 'anonymous', password: '123'}): Observable<AuthResponse> {
@@ -81,5 +87,9 @@ export class AuthService {
     param = param.append('sessionId', sessionId);
     localStorage.clear();
     return this.http.post(url, param)
+  }
+
+  private initApiHost() {
+    this.api_Host = environment.url;
   }
 }

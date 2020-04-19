@@ -15,6 +15,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { SafeCodePipe } from './safe-code.pipe';
+import { MessageComponent } from './components/message/message.component';
+import { GetDatePipe } from '../shared/get-date.pipe';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { SafeCodePipe } from './safe-code.pipe';
     FooterComponent,
     ProgressBarComponent,
     CommentsComponent,
-    SafeCodePipe
+    SafeCodePipe,
+    MessageComponent,
+    GetDatePipe
   ],
   imports: [
     CommonModule,

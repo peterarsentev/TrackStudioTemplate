@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { ResponseModel } from '../models/response.model';
 import { MStatusesModel } from '../models/m.statuses.model';
 import { ButtonCommentModel } from '../models/button.comment.model';
+import { MessagesModel } from '../models/messages.model';
+import { UserModels } from '../models/user.models';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -109,12 +111,12 @@ export class TasksService {
       }));
   }
 
-  getMessages(taskId: string) {
+  getMessages(taskId: string): Observable<{ messages: MessagesModel[] }> {
     let params = new HttpParams();
     params = params.append('action', 'messages');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
-    return this.http.post(`${environment.url}/rest/task`, params);
+    return this.http.post<{ messages: MessagesModel[] }>(`${environment.url}/rest/task`, params);
   }
 
   getButtonsForTask(taskId: string): Observable<{ mstatuses: ButtonCommentModel[] }> {
@@ -123,6 +125,28 @@ export class TasksService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     return this.http.post<{mstatuses: ButtonCommentModel[]}>(`${environment.url}/rest/task`, params);
+  }
+
+  gerResponsiblePeople(taskId: string, mstatusId: string): Observable<{ handlers: UserModels[] }> {
+    const url = `${environment.url}/rest/message`;
+    let params = new HttpParams();
+    params = params.append('action', 'handlers');
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', taskId);
+    params = params.append('mstatusId', mstatusId);
+    return this.http.post<{ handlers: UserModels[] }>(url, params);
+  }
+
+  sendComment(taskId: string, mstatusId: string, handlerId: string, description: string) {
+    const url = `${environment.url}/rest/message`;
+    let params = new HttpParams();
+    params = params.append('action', 'create');
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', taskId);
+    params = params.append('mstatusId', mstatusId);
+    params = params.append('handlerId', handlerId);
+    params = params.append('description', description);
+    return this.http.post<any>(url, params);
   }
 
 }
