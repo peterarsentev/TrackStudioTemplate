@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileNavComponent } from './profile-nav/profile-nav.component';
 import { EmailComponent } from './containers/email/email.component';
@@ -15,12 +15,13 @@ import { SharedModule } from '../shared/shared.module';
     PasswordComponent,
     EditProfileComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ProfileRoutingModule,
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ProfileRoutingModule,
+        SharedModule,
+        ReactiveFormsModule
+    ],
   providers:[]
 })
 export class ProfileModule {

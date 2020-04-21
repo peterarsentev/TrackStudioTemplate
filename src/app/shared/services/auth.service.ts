@@ -92,4 +92,14 @@ export class AuthService {
   private initApiHost() {
     this.api_Host = environment.url;
   }
+
+  changePassword(userId: string, password: string, confirm: string) {
+    const url = `${environment.url}/rest/user`;
+    let param = new HttpParams();
+    param = param.append('action', 'password');
+    param = param.append('password', password);
+    param = param.append('confirm', confirm);
+    param = param.append('userId', userId);
+    return this.http.post(url, param);
+  }
 }
