@@ -13,8 +13,8 @@ export class ProfileNavComponent implements OnInit {
   ngOnInit() {
   }
 
-  goToChangeEmail() {
-    this.router.navigate(['email'], { relativeTo: this.route });
+  goToEditProfile() {
+    this.router.navigate(['edit'], { relativeTo: this.route });
   }
 
   goToChangePassword() {

@@ -22,7 +22,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(user => {
         this.user = user
       });
-    this.authService.getDefaultProjectId().subscribe(() => {})
+    this.authService.getDefaultProjectId()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => {});
   }
 
 

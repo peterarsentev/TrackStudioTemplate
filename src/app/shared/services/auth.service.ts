@@ -102,4 +102,17 @@ export class AuthService {
     param = param.append('userId', userId);
     return this.http.post(url, param);
   }
+
+  updateProfile(userId: string, email: string, name: string) {
+    const url = `${environment.url}/rest/user`;
+    const sessionId = localStorage.getItem('sessionId');
+    let param = new HttpParams();
+    param = param.append('action', 'update');
+    param = param.append('sessionId', sessionId);
+    param = param.append('userId', userId);
+    param = param.append('email', email);
+    param = param.append('name', name);
+    return this.http.post(url, param);
+    localStorage.clear();
+  }
 }

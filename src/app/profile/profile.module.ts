@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileNavComponent } from './profile-nav/profile-nav.component';
-import { EmailComponent } from './containers/email/email.component';
 import { PasswordComponent } from './containers/password/password.component';
 import { EditProfileComponent } from './containers/edit-profile/edit-profile.component';
 import { SharedModule } from '../shared/shared.module';
@@ -11,7 +10,6 @@ import { SharedModule } from '../shared/shared.module';
 @NgModule({
   declarations:[
     ProfileNavComponent,
-    EmailComponent,
     PasswordComponent,
     EditProfileComponent
   ],
