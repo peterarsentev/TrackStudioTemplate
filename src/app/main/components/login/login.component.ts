@@ -15,7 +15,6 @@ import { UserModels } from '../../../shared/models/user.models';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-
   validationErrors = {
     login: [
       { type: 'required', message: 'Введите логин'}
