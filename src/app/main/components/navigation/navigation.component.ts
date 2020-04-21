@@ -4,6 +4,7 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
 import { TaskModel } from '../../../shared/models/task.model';
+import { EmergencyModel } from '../../../shared/models/emergency.model';
 
 @Component({
   selector: 'app-navigation',
@@ -14,6 +15,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   tasks: TaskModel[];
+  emergency: EmergencyModel[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -25,6 +27,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         switchMap(res => this.tasksService.getNavRout(res.taskId))
       ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.tasks = res.tasks)
+    this.getEmergencyMessage();
   }
 
   ngOnDestroy(): void {
@@ -50,4 +53,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
       'ref-link': true
     }
   }
+
+  getEmergencyMessage() {
+    this.tasksService.getEmergencyMessage()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        this.emergency = res.emergency;
+        console.log(res)
+      });
+  }
+
+
 }

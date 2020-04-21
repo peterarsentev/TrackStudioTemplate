@@ -9,3 +9,11 @@
     </ol>
   </nav>
 </div>
+<div class="container pb-2">
+  <div class="card" *ngFor="let message of emergency">
+    <div class="card-body">
+      <small class="card-text">{{ message.key }}</small><br/>
+      <p>{{ message.value }}</p>
+    </div>
+  </div>
+</div>
