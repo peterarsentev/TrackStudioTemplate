@@ -37,7 +37,7 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.solvedTasksCount = res.total;
-        this.barValue = Math.round(this.solvedTasksCount / this.allTasksCount) * 100;
+        this.barValue = Math.round((this.solvedTasksCount / this.allTasksCount) * 100)
       })
   }
 
