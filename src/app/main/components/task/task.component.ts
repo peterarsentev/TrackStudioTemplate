@@ -6,6 +6,7 @@ import { TaskModel } from '../../../shared/models/task.model';
 import { Subject } from 'rxjs';
 import { ButtonCommentModel } from '../../../shared/models/button.comment.model';
 import { MessagesModel } from '../../../shared/models/messages.model';
+import { PreviousNextNavModels } from '../../../shared/models/previous.next.nav.models';
 
 declare var hljs: any;
 
@@ -17,8 +18,8 @@ declare var hljs: any;
 export class TaskComponent implements OnInit, OnDestroy {
 
   task: TaskModel = {};
+  previousAndNext: PreviousNextNavModels;
   messages: MessagesModel[] = [];
-  taskId: string;
   buttons: ButtonCommentModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
 
@@ -28,19 +29,23 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getTask()
-   this.getMessages(this.taskId);
-   this.getButtons(this.taskId);
   }
 
   private getTask() {
     this.route.queryParams.pipe(
       switchMap(res => {
-        this.taskId = res.taskId;
         return this.tasksService.getTask(res.taskId, res.action);
+      }),
+      switchMap(task => {
+        this.task = task.task;
+        return this.tasksService.getNextAndPreviousTasks(this.task.id)
       })
     ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        this.task = res.task;
+        this.previousAndNext = res;
+        this.getMessages(this.task.id);
+        this.getButtons(this.task.id);
+        console.log(this.previousAndNext)
         setTimeout(() => {
             document.querySelectorAll('pre code').forEach((block) => {
               hljs.highlightBlock(block);
@@ -48,8 +53,6 @@ export class TaskComponent implements OnInit, OnDestroy {
           }, 0);
       });
   }
-
-
 
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
@@ -69,7 +72,6 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.tasksService.getMessages(taskId)
       .subscribe(res => {
         this.messages = res.messages;
-        console.log(this.messages)
       })
   }
 
@@ -77,7 +79,17 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.tasksService.getButtonsForTask(taskId)
       .subscribe((buttons) => {
         this.buttons = buttons.mstatuses
-        console.log(this.buttons)
       });
+  }
+
+  goTo(taskId: string) {
+    console.log(this.previousAndNext)
+    console.log(taskId)
+    this.router.navigate(['task'], {
+      queryParams: {
+        action: 'task',
+        taskId: taskId
+      }
+    })
   }
 }

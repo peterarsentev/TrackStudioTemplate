@@ -12,6 +12,7 @@ import { ButtonCommentModel } from '../models/button.comment.model';
 import { MessagesModel } from '../models/messages.model';
 import { UserModels } from '../models/user.models';
 import { EmergencyModel } from '../models/emergency.model';
+import { PreviousNextNavModels } from '../models/previous.next.nav.models';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -173,5 +174,28 @@ export class TasksService {
     params = params.append('action', 'emergency');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<{ emergency: EmergencyModel[] }>(this.url, params)
+  }
+
+  /*
+  curl http://localhost:8080/TrackStudio/rest/task
+  -d action=iterator
+  -d sessionId=df0aa0468c1af32f00612aa3486f8d70
+  -d parentId=1
+  -d filterId=4028808a1953022d0119537e664c0335
+  -d taskId=4028808a1953022d0119537bdcc2032e
+
+parentId = Это defaultProjectId
+filterId = 4028808a1953022d0119537e664c0335 - зашит жестко.
+taskId = это текущая задача.
+ответ previous next - Это id задачи. На форму задаче выводитм две ссылки предыдущая - следующая. Вид самый примитивный.
+   */
+  getNextAndPreviousTasks(taskId: string): Observable<PreviousNextNavModels> {
+    let params = new HttpParams();
+    params = params.append('action', 'iterator');
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('parentId', localStorage.getItem('defaultProjectId'));
+    params = params.append('filterId', '4028808a1953022d0119537e664c0335');
+    params = params.append('taskId', taskId);
+    return this.http.post<PreviousNextNavModels>(this.url, params);
   }
 }
