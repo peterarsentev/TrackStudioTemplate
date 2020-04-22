@@ -8,6 +8,7 @@
     <ul class="navbar-nav mr-auto">
     </ul>
     <span class="navbar-text">
+      <a [routerLink]="['/']"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
       <a class="nav-item nav-link float-right" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
       <a class="nav-item nav-link float-right" [routerLink]="['/profile']">{{ user?.name || 'Гость' }}</a>
     </span>
