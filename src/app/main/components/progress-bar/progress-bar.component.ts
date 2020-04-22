@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { TaskModel } from '../../../shared/models/task.model';
-import { Subject } from 'rxjs';
+import { forkJoin, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -20,24 +20,17 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
   constructor(private tasksService: TasksService) { }
 
   ngOnInit() {
-    this.getAllTasks();
-    this.getSolvedTasks();
+    this.getCountAllAndSolvedTasks();
   }
 
-  getAllTasks() {
-    this.tasksService.getTaskCount(this.task.id, true)
+  getCountAllAndSolvedTasks() {
+    forkJoin([this.tasksService.getTaskCount(this.task.id, true),
+      this.tasksService.getTaskCount(this.task.id, false)])
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => {
-        this.allTasksCount = res.total;
-      })
-  }
-
-  getSolvedTasks() {
-    this.tasksService.getTaskCount(this.task.id, false)
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => {
-        this.solvedTasksCount = res.total;
-        this.barValue = Math.round((this.solvedTasksCount / this.allTasksCount) * 100)
+      .subscribe(([all, solved]) => {
+        this.allTasksCount = all.total;
+        this.solvedTasksCount = solved.total;
+        this.barValue = Math.round((this.solvedTasksCount / this.allTasksCount) * 100);
       })
   }
 
