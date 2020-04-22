@@ -1,35 +1,37 @@
 <div class="container">
-  <form [formGroup]="form">
-    <app-hendlers [handlers]="handlers"
-                  (selected)="selectPerson($event)"
-    ></app-hendlers>
-    <div *ngFor="let error of validationErrors.handlerId">
+  <div class="row">
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label for="name"><h5>Название</h5></label>
+        <input type="email" class="form-control"
+               formControlName="name"
+               id="name" placeholder="Введите название">
+      </div>
+      <app-hendlers [handlers]="handlers"
+                    (selected)="selectPerson($event)"
+      ></app-hendlers>
+      <div *ngFor="let error of validationErrors.handlerId">
                             <span *ngIf="form.get('handlerId').hasError(error.type)
                                         && (form.get('handlerId').dirty
                                         || form.get('handlerId').touched)"
                                   class="validation">{{ error.message }}</span>
-    </div>
-    <div class="form-group pt-3">
-      <label for="name"><h3>Введите название задачи</h3></label>
-      <input type="email" class="form-control"
-             formControlName="name"
-             id="name" placeholder="Введите название">
-    </div>
-    <div class="row pt-1">
-      <app-redactor [titleLabel]="'Введите задание'"
-                    (outputEmitter)="setDescription($event)"
-      ></app-redactor>
-      <div *ngFor="let error of validationErrors.description">
+      </div>
+      <div class="form-group pt-3">
+        <app-redactor [titleLabel]="'Описание'"
+                      (outputEmitter)="setDescription($event)"
+        ></app-redactor>
+        <div *ngFor="let error of validationErrors.description">
                             <span *ngIf="form.get('description').hasError(error.type)
                                         && (form.get('description').dirty
                                         || form.get('description').touched)"
                                   class="validation">{{ error.message }}</span>
+        </div>
       </div>
-    </div>
-    <button
-      class="btn btn-primary"
-      [disabled]="form.invalid"
-      (click)="form.valid && submitTask()"
-    >Добавить комментарий</button>
-  </form>
+      <button
+        class="btn btn-primary"
+        [disabled]="form.invalid"
+        (click)="form.valid && submitTask()"
+      >Сохранить</button>
+    </form>
+  </div>
 </div>

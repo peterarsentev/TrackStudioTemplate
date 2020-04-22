@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { PreventionComponent } from './prevention/prevention.component';
+// import { PreventionComponent } from './prevention/prevention.component';
 
 
 const routes: Routes = [
-  { path: 'prevention', component: PreventionComponent
-  },
+  // { path: 'prevention', component: PreventionComponent
+  // },
   { path: '',
     loadChildren: () => import('./main/main.module').then(mod => mod.MainModule)
   },

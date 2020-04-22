@@ -71,11 +71,11 @@ export class AuthService {
       );
   }
 
-  private setdefaultProjectId(defaultProjectId: string | null) {
+  private setdefaultProjectId(defaultProjectId: string | '1') {
     if (defaultProjectId) {
       localStorage.setItem('defaultProjectId', defaultProjectId);
     } else {
-      localStorage.clear()
+      localStorage.setItem('defaultProjectId', 1);
     }
   }
 

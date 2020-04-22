@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserModels } from '../../../shared/models/user.models';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Subject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -29,7 +29,8 @@ export class NewTaskComponent implements OnInit, OnDestroy {
 
   constructor(private tasksService: TasksService,
               private fb: FormBuilder,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.getRoutParams();
@@ -44,9 +45,14 @@ export class NewTaskComponent implements OnInit, OnDestroy {
         return this.tasksService.getResponsePersonsForTask(this.taskId, this.mstatusId);
       }),
       takeUntil(this.ngUnsubscribe$)
-    ).subscribe(handlers => {
-      this.handlers = handlers.handlers;
-    })
+    ).subscribe(() => {
+      this.router.navigate(['/task'], {
+        queryParams: {
+          action: 'task',
+          taskId: this.taskId
+        }
+      });
+    });
   }
 
   ngOnDestroy(): void {
