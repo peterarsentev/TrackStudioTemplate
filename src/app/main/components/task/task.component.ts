@@ -18,7 +18,7 @@ declare var hljs: any;
 export class TaskComponent implements OnInit, OnDestroy {
 
   task: TaskModel = {};
-  previousAndNext: PreviousNextNavModels;
+  previousAndNext: PreviousNextNavModels = {};
   messages: MessagesModel[] = [];
   buttons: ButtonCommentModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
