@@ -75,7 +75,7 @@ export class AuthService {
     if (defaultProjectId) {
       localStorage.setItem('defaultProjectId', defaultProjectId);
     } else {
-      localStorage.setItem('defaultProjectId', 1);
+      localStorage.setItem('defaultProjectId', '1');
     }
   }
 
