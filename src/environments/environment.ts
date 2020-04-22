@@ -6,7 +6,7 @@ import { Environment } from './interface';
 
 export const environment: Environment = {
   production: false,
-  url: 'http://localhost:8080/TrackStudio'
+  url: 'https://job4j.ru/TrackStudio'
 };
 
 /*

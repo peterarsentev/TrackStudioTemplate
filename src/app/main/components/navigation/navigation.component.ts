@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
 import { TaskModel } from '../../../shared/models/task.model';
@@ -16,6 +16,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   tasks: TaskModel[];
   emergency: EmergencyModel[] = [];
+  show = true;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -28,6 +29,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.tasks = res.tasks)
     this.getEmergencyMessage();
+    this.checkRout();
   }
 
   ngOnDestroy(): void {
@@ -63,5 +65,18 @@ export class NavigationComponent implements OnInit, OnDestroy {
       });
   }
 
+  private checkRout() {
+    this.checkUrl(this.router.url);
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        const url: string = event.url;
+        this.checkUrl(url);
+      })
+  }
+
+  checkUrl(url: string) {
+    this.show = url !== '/login';
+
+  }
 
 }

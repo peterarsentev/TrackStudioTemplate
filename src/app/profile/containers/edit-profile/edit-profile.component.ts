@@ -14,7 +14,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 export class EditProfileComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
-  user: UserModels = {};
+  user: UserModels;
   form: FormGroup;
 
   constructor(private userService: UserService,
@@ -22,13 +22,15 @@ export class EditProfileComponent implements OnInit, OnDestroy {
               private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.initForm()
     this.userService.getModel()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(user => {
         this.user = user;
-        this.populateForm()
+        if (!!this.user) {
+          this.populateForm();
+        }
       });
-    this.initForm()
   }
 
   ngOnDestroy(): void {
