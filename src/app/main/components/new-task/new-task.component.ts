@@ -45,13 +45,8 @@ export class NewTaskComponent implements OnInit, OnDestroy {
         return this.tasksService.getResponsePersonsForTask(this.taskId, this.mstatusId);
       }),
       takeUntil(this.ngUnsubscribe$)
-    ).subscribe(() => {
-      this.router.navigate(['/task'], {
-        queryParams: {
-          action: 'task',
-          taskId: this.taskId
-        }
-      });
+    ).subscribe(handlers => {
+      this.handlers = handlers.handlers;
     });
   }
 

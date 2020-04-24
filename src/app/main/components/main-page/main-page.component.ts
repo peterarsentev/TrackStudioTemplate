@@ -5,6 +5,8 @@ import { TaskModel } from '../../../shared/models/task.model';
 import { Router } from '@angular/router';
 import { ResponseModel } from '../../../shared/models/response.model';
 import { MStatusesModel } from '../../../shared/models/m.statuses.model';
+import { forkJoin, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tasks',
@@ -12,18 +14,23 @@ import { MStatusesModel } from '../../../shared/models/m.statuses.model';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
-
+  private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  allTasksCount  = 1;
+  solvedTasksCount = 0;
+  barValue = 0;
   mstatuses: MStatusesModel[] = [];
   tasks: ResponseModel[];
-  constructor(private tasksService: TasksService, private authService: AuthService, private router: Router) { }
+
+  updateDate: number;
+  submitDate: number;
+  countOfDays: number;
+  speed: number;
+  constructor(private tasksService: TasksService,
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
-    this.tasksService.getTasks()
-      .subscribe(res => {
-        this.tasks = res.tasks;
-        console.log(this.tasks)
-      })
-    this.geButtons(localStorage.getItem('defaultProjectId'))
+    //this.getCountAllAndSolvedTasks();
   }
 
   openTask(task: TaskModel) {
@@ -53,5 +60,23 @@ export class MainPageComponent implements OnInit {
   goToNewTask(status: MStatusesModel) {
     this.router.navigate(['/new-task'])
   }
+
+  getCountAllAndSolvedTasks() {
+    forkJoin([this.tasksService.getTaskCount(localStorage.getItem('defaultProjectId'), true, true),
+      this.tasksService.getTaskCount(localStorage.getItem('defaultProjectId'), false, false),
+      this.tasksService.getTask(localStorage.getItem('defaultProjectId'), 'task')
+    ])
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(([all, solved, stat]) => {
+        this.allTasksCount = all.total;
+        this.solvedTasksCount = solved.total;
+        this.barValue = Math.round((this.solvedTasksCount / this.allTasksCount) * 100);
+        this.submitDate = stat.task.submitdate;
+        this.updateDate = stat.task.updatedate;
+        this.countOfDays = Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24)
+        this.speed = this.solvedTasksCount / this.countOfDays;
+      })
+  }
+
 }
 

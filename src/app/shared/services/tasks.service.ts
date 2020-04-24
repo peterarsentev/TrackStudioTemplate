@@ -17,6 +17,7 @@ import { PreviousNextNavModels } from '../models/previous.next.nav.models';
 @Injectable({providedIn: 'root'})
 export class TasksService {
 
+  private allTasksGeneral = '4028808a1953022d0119537e664c0335';
   private allTasks = '0873958f665da72301665dcdf8c4032a';
   private solvedTasks = '0873958f665da72301665dce8608034b';
   private url = `${environment.url}/rest/task`;
@@ -53,44 +54,51 @@ export class TasksService {
       }));
   }
 
-  getTask(taskId: string, action: string): Observable<{task: TaskModel}> {
+  getTask(taskId: string, action: string, filterId?: string): Observable<{task: TaskModel}> {
     let params = new HttpParams();
     params = params.append('action', action);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
-    params = params.append('filterId', '1');
+    params = filterId ? params.append('filterId', filterId) : params;
     return this.http.post<{task: TaskModel}>(this.url, params)
       .pipe(catchError(err => {
         localStorage.clear();
         return this.authService.getDefaultProjectId().pipe(
-          switchMap(() => this.getTask(taskId, action))
+          switchMap(() => this.getTask(taskId, action, filterId))
         );
       }));
   }
 
   getNavRout(id?: string):  Observable<{tasks: TaskModel[]}> {
     id = id ? id : localStorage.getItem('defaultProjectId');
+    const sessionId =  localStorage.getItem('sessionId');
     let params = new HttpParams();
     params = params.append('action', 'chain');
-    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('sessionId', sessionId);
     params = params.append('toId', id);
-    return this.http.post<{tasks: TaskModel[]}>(this.url, params)
-      .pipe(
-        catchError(() => {
-          localStorage.clear();
-          return  this.getTasks().pipe(
-            switchMap(() => this.getNavRout(id))
-          );
-        })
+    if (!!id && !!sessionId) {
+      return this.http.post<{ tasks: TaskModel[] }>(this.url, params)
+        .pipe(
+          catchError(() => {
+            localStorage.clear();
+            return this.getTasks().pipe(
+              switchMap(() => this.getNavRout(id))
+            );
+          })
+        );
+    } else {
+      return this.authService.getDefaultProjectId().pipe(
+        switchMap(() => this.getNavRout(id))
       );
+    }
   }
 
-  getTaskCount(taskId: string, all: boolean): Observable<{ [total: string]: number }> {
+  getTaskCount(taskId: string, all: boolean, general: boolean): Observable<{ [total: string]: number }> {
     let params = new HttpParams();
     params = params.append('action', 'size');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
-    params = params.append('filterId', all ? this.allTasks : this.solvedTasks);
+    params = params.append('filterId', general ? this.allTasksGeneral : all ? this.allTasks : this.solvedTasks);
     return this.http.post<{ [total: string]: number }>(this.url, params)
       .pipe(catchError(err => {
         throw null;
@@ -137,6 +145,15 @@ export class TasksService {
     return this.http.post<{ handlers: UserModels[] }>(url, params);
   }
 
+  getResponsePersonsForTask(taskId: string, categoryId: string): Observable<{ handlers: UserModels[] }>  {
+    let params = new HttpParams();
+    params = params.append('action', 'handlers');
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', taskId);
+    params = params.append('categoryId', categoryId);
+    return this.http.post<{ handlers: UserModels[] }>(this.url, params);
+  }
+
   sendComment(taskId: string, mstatusId: string, handlerId: string, description: string) {
     const url = `${environment.url}/rest/message`;
     let params = new HttpParams();
@@ -147,15 +164,6 @@ export class TasksService {
     params = params.append('handlerId', handlerId);
     params = params.append('description', description);
     return this.http.post<any>(url, params);
-  }
-
-  getResponsePersonsForTask(taskId: string, categoryId: string): Observable<{ handlers: UserModels[] }>  {
-    let params = new HttpParams();
-    params = params.append('action', 'handlers');
-    params = params.append('sessionId', localStorage.getItem('sessionId'));
-    params = params.append('taskId', taskId);
-    params = params.append('categoryId', categoryId);
-    return this.http.post<{ handlers: UserModels[] }>(this.url, params);
   }
 
   createTask(parentId: string, categoryId: string, name: string, description: string) {
@@ -172,8 +180,15 @@ export class TasksService {
   getEmergencyMessage(): Observable<{ emergency: EmergencyModel[] }> {
     let params = new HttpParams();
     params = params.append('action', 'emergency');
-    params = params.append('sessionId', localStorage.getItem('sessionId'));
-    return this.http.post<{ emergency: EmergencyModel[] }>(this.url, params)
+    let sessionId = localStorage.getItem('sessionId');
+    params = params.append('sessionId', sessionId);
+    if (!!sessionId) {
+      return this.http.post<{ emergency: EmergencyModel[]; }>(this.url, params);
+    } else {
+      return this.authService.getDefaultProjectId().pipe(
+        switchMap(() => this.getEmergencyMessage())
+      )
+    }
   }
 
   /*

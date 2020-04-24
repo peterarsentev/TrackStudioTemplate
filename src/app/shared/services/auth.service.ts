@@ -55,20 +55,29 @@ export class AuthService {
     let param = new HttpParams();
     param = param.append('action', 'session');
     param = param.append('sessionId', sessionId);
-    return this.http.post<UserResponse>(`${environment.url}/rest/auth`, param)
-      .pipe(
-        catchError(err => {
-            localStorage.clear();
-            console.error('err', err);
-            return this.login()
-              .pipe(
-                switchMap(res  => this.getDefaultProjectId())
-              );
-          }
-        ),
-        tap(response => this.setdefaultProjectId(response.user.defaultProjectId)),
-        tap(response => this.userService.setUpModel(response.user)),
-      );
+    if (!!sessionId) {
+      return this.http.post<UserResponse>(`${environment.url}/rest/auth`, param)
+        .pipe(
+          catchError(err => {
+              localStorage.clear();
+              console.error('err', err);
+              return this.login()
+                .pipe(
+                  switchMap(res => this.getDefaultProjectId())
+                );
+            }
+          ),
+          tap(response => this.setdefaultProjectId(response.user.defaultProjectId)),
+          tap(response => this.userService.setUpModel(response.user)),
+        );
+    } else {
+      return this.login()
+        .pipe(
+          switchMap(() => this.getDefaultProjectId()),
+          tap(response => this.setdefaultProjectId(response.user.defaultProjectId)),
+          tap(response => this.userService.setUpModel(response.user)),
+        )
+    }
   }
 
   private setdefaultProjectId(defaultProjectId: string | '1') {
@@ -113,6 +122,5 @@ export class AuthService {
     param = param.append('email', email);
     param = param.append('name', name);
     return this.http.post(url, param);
-    localStorage.clear();
   }
 }

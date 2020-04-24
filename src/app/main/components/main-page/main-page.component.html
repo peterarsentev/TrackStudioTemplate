@@ -1,31 +1,28 @@
 <div class="container">
   <div class="row">
-    <ng-container *ngFor="let status of mstatuses">
-      <button class="m btn btn-light btn-sm" (click)="goToNewTask(status)">{{ status.name }}</button>
-    </ng-container>
-  </div>
-  <div class="row">
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">Задания</th>
-        <th scope="col">Прогресс</th>
+        <th scope="col">Процесс обучения</th><th scope="col"></th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let task of tasks; let idx = index">
-        <td (click)="openTask(task.task)" style="cursor: pointer;">
-          <i class="fas fa-folder pr-3"></i>{{task.task.name}}
-        </td>
-        <td>
-          <app-progress-bar [task]="task"
-          ></app-progress-bar>
-        </td>
+      <tr>
+        <td>Выполнено / всего:</td><td>{{ solvedTasksCount }} / {{ allTasksCount }}</td>
+      </tr>
+      <tr>
+        <td>Начало обучения:</td><td>{{ submitDate | getDate }}</td>
+      </tr>
+      <tr>
+        <td>Последняя активность в курсе:</td><td>{{ updateDate | getDate }}</td>
+      </tr>
+      <tr>
+        <td>Всего дней с начала обучения:</td><td>{{ countOfDays }}</td>
+      </tr>
+      <tr>
+        <td>Количество задач в день:</td><td>{{ speed | number: '1.2-2' }}</td>
       </tr>
       </tbody>
     </table>
-    <!--    <div class="col pt-2">-->
-    <!--      <router-outlet></router-outlet>-->
-    <!--    </div>-->
   </div>
 </div>

@@ -24,8 +24,8 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
   }
 
   getCountAllAndSolvedTasks() {
-    forkJoin([this.tasksService.getTaskCount(this.task.id, true),
-      this.tasksService.getTaskCount(this.task.id, false)])
+    forkJoin([this.tasksService.getTaskCount(this.task.id, true, false),
+      this.tasksService.getTaskCount(this.task.id, false, false)])
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(([all, solved]) => {
         this.allTasksCount = all.total;
