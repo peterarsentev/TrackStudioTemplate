@@ -96,13 +96,17 @@ export class TasksService {
   getTaskCount(taskId: string, all: boolean, general: boolean): Observable<{ [total: string]: number }> {
     let params = new HttpParams();
     params = params.append('action', 'size');
-    params = params.append('sessionId', localStorage.getItem('sessionId'));
-    params = params.append('taskId', taskId);
-    params = params.append('filterId', general ? this.allTasksGeneral : all ? this.allTasks : this.solvedTasks);
-    return this.http.post<{ [total: string]: number }>(this.url, params)
-      .pipe(catchError(err => {
-        throw null;
-      }));
+    let sessionId = localStorage.getItem('sessionId');
+    if (!!sessionId) {
+      params = params.append('sessionId', sessionId);
+      params = params.append('taskId', taskId);
+      params = params.append('filterId', general ? this.allTasksGeneral : all ? this.allTasks : this.solvedTasks);
+      return this.http.post<{ [total: string]: number }>(this.url, params);
+    } else {
+      return this.authService.getDefaultProjectId()
+        .pipe(switchMap(() => this.getTaskCount(taskId, all, general)
+        ))
+    }
   }
 
   getButtons(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{mstatuses: MStatusesModel[]}> {
@@ -191,19 +195,6 @@ export class TasksService {
     }
   }
 
-  /*
-  curl http://localhost:8080/TrackStudio/rest/task
-  -d action=iterator
-  -d sessionId=df0aa0468c1af32f00612aa3486f8d70
-  -d parentId=1
-  -d filterId=4028808a1953022d0119537e664c0335
-  -d taskId=4028808a1953022d0119537bdcc2032e
-
-parentId = Это defaultProjectId
-filterId = 4028808a1953022d0119537e664c0335 - зашит жестко.
-taskId = это текущая задача.
-ответ previous next - Это id задачи. На форму задаче выводитм две ссылки предыдущая - следующая. Вид самый примитивный.
-   */
   getNextAndPreviousTasks(taskId: string): Observable<PreviousNextNavModels> {
     let params = new HttpParams();
     params = params.append('action', 'iterator');
