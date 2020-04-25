@@ -7,6 +7,7 @@ import { ResponseModel } from '../../../shared/models/response.model';
 import { MStatusesModel } from '../../../shared/models/m.statuses.model';
 import { forkJoin, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { DiagramaModel } from '../../../shared/models/diagrama.model';
 
 @Component({
   selector: 'app-tasks',
@@ -14,6 +15,7 @@ import { switchMap, takeUntil } from 'rxjs/operators';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
+  diagrams: DiagramaModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   allTasksCount  = 1;
   solvedTasksCount = 0;
@@ -25,12 +27,14 @@ export class MainPageComponent implements OnInit {
   submitDate: number;
   countOfDays: number;
   speed: number;
+
   constructor(private tasksService: TasksService,
               private authService: AuthService,
               private router: Router) { }
 
   ngOnInit() {
     this.getCountAllAndSolvedTasks();
+    this.getTotalAndSolvedTasks();
   }
 
   openTask(task: TaskModel) {
@@ -80,7 +84,7 @@ export class MainPageComponent implements OnInit {
             this.tasksService.getTask(localStorage.getItem('defaultProjectId'), 'task')
           ]))
         ).subscribe(([all, solved, stat]) => {
-          this.setResult(all, solved, stat);
+        this.setResult(all, solved, stat);
       })
     }
   }
@@ -94,5 +98,23 @@ export class MainPageComponent implements OnInit {
     this.countOfDays = Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24)
     this.speed = this.solvedTasksCount / this.countOfDays;
   }
+
+  getTotalAndSolvedTasks() {
+    this.tasksService.getTasks()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(tasks => {
+        tasks.tasks.forEach(task => task.task.childrenCount > 0 ? this.getProgress(task.task) : null)
+      })
+  }
+
+  private getProgress(task: TaskModel) {
+    forkJoin([this.tasksService.getTaskCount(task.id, true, false),
+      this.tasksService.getTaskCount(task.id, false, false)])
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(([all, solved]) => {
+        this.diagrams.push({...new DiagramaModel(), label: task.name, solved: solved.total, total: all.total})
+      })
+  }
+
 }
 

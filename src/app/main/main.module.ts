@@ -18,6 +18,8 @@ import { SafeCodePipe } from './safe-code.pipe';
 import { MessageComponent } from './components/message/message.component';
 import { GetDatePipe } from '../shared/get-date.pipe';
 import { NewTaskComponent } from './components/new-task/new-task.component';
+import { ChartsModule } from 'ng2-charts';
+import { DiagramComponent } from './components/diagramma/diagram.component';
 
 
 @NgModule({
@@ -35,16 +37,18 @@ import { NewTaskComponent } from './components/new-task/new-task.component';
     SafeCodePipe,
     MessageComponent,
     GetDatePipe,
-    NewTaskComponent
+    NewTaskComponent,
+    DiagramComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MainRoutingModule,
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MainRoutingModule,
+        SharedModule,
+        ChartsModule
+    ],
   entryComponents: [
   ],
   providers: [
