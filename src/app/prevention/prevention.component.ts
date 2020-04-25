@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-prevention',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./prevention.component.scss']
 })
 export class PreventionComponent implements OnInit {
-
-  constructor() { }
+  pageNotFound = false;
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.queryParams
+      .subscribe(param => {
+        this.pageNotFound = param.pageNotFound;
+      })
   }
 
 }

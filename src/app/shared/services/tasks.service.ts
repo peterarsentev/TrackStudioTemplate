@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { catchError, delay, switchMap } from 'rxjs/operators';
 import { EMPTY, Observable, throwError } from 'rxjs';
@@ -61,7 +61,15 @@ export class TasksService {
     params = params.append('taskId', taskId);
     params = filterId ? params.append('filterId', filterId) : params;
     return this.http.post<{task: TaskModel}>(this.url, params)
-      .pipe(catchError(err => {
+      .pipe(catchError((err: HttpErrorResponse) => {
+        if (err.status === 403 || err.status === 500) {
+          this.router.navigate(['/prevention'], {
+            queryParams: {
+              pageNotFound: true
+            }
+          })
+          return EMPTY;
+        }
         localStorage.clear();
         return this.authService.getDefaultProjectId().pipe(
           switchMap(() => this.getTask(taskId, action, filterId))

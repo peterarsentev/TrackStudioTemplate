@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, Pipe, PipeTransform} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { catchError, switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { TaskModel } from '../../../shared/models/task.model';
 import { Subject } from 'rxjs';
