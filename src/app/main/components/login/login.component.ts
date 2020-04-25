@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   validationErrors = {
     login: [
-      { type: 'required', message: 'Введите логин'}
+      { type: 'required', message: 'Введите email'}
     ],
     password: [
       { type: 'required', message: 'Введите пароль'}
@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
-    this.userService.getModel()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(user => this.user = user);
+    // this.userService.getModel()
+    //   .pipe(takeUntil(this.ngUnsubscribe$))
+    //   .subscribe(user => this.user = user);
   }
 
   login() {

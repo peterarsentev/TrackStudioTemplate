@@ -13,12 +13,6 @@
       <app-redactor [titleLabel]="'Введите комментарий'"
                     (outputEmitter)="setDescription($event)"
       ></app-redactor>
-      <div *ngFor="let error of validationErrors.description">
-                            <span *ngIf="form.get('description').hasError(error.type)
-                                        && (form.get('description').dirty
-                                        || form.get('description').touched)"
-                                  class="validation">{{ error.message }}</span>
-      </div>
     </div>
     <button
       class="btn btn-primary"

@@ -37,7 +37,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.user.name !== 'Аnonymous') {
      this.authService.logOut()
        .pipe(takeUntil(this.ngUnsubscribe$))
-       .subscribe(res => console.log(res));
+       .subscribe(res => {
+         this.userService.setUpModel({})
+         console.log(res)
+       });
     }
   }
 }
