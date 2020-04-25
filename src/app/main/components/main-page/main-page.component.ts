@@ -22,6 +22,7 @@ export class MainPageComponent implements OnInit {
   barValue = 0;
   mstatuses: MStatusesModel[] = [];
   tasks: ResponseModel[];
+  provenTasks: ResponseModel[];
 
   updateDate: number;
   submitDate: number;
@@ -35,24 +36,16 @@ export class MainPageComponent implements OnInit {
   ngOnInit() {
     this.getCountAllAndSolvedTasks();
     this.getTotalAndSolvedTasks();
+    this.getProvenTasks();
   }
 
   openTask(task: TaskModel) {
-    if (task.categoryId === '1') {
-      this.router.navigate(['tasks'], {
-        queryParams: {
-          taskId: task.id,
-          action: 'tasks'
-        }
-      });
-    } else {
       this.router.navigate(['task'], {
         queryParams: {
           taskId: task.id,
           action: 'task'
         }
       })
-    }
   }
 
   geButtons(taskId: string) {
@@ -115,6 +108,21 @@ export class MainPageComponent implements OnInit {
         this.diagrams.push({...new DiagramaModel(), label: task.name, solved: solved.total, total: all.total})
       })
   }
+/*
+curl http://job4j.ru:8888/TrackStudio/rest/task
+-d action=tasks
+-d sessionId=04c660f897276415a61c5b0510aa826e
+-d taskId=0873958f7176cc140171812255065908
+-d filterId=0873958f661c804c01665919befa18b9
+taskId = defaultProjectId
+ */
 
+  getProvenTasks() {
+    this.tasksService.getTaskByProjectId(localStorage.getItem('defaultProjectId'), undefined, '0873958f661c804c01665919befa18b9')
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((res) => {
+        this.provenTasks = res.tasks;
+      })
+  }
 }
 

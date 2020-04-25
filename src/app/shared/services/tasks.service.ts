@@ -40,12 +40,12 @@ export class TasksService {
     }
   }
 
-  getTaskByProjectId(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{tasks: ResponseModel[]}> {
+  getTaskByProjectId(projectId: string, sessionId = localStorage.getItem('sessionId'), filterId?: string): Observable<{tasks: ResponseModel[]}> {
     let params = new HttpParams();
     params = params.append('action', 'tasks');
     params = params.append('sessionId', sessionId);
     params = params.append('taskId', projectId);
-    params = params.append('filterId', '1');
+    params = filterId? params.append('filterId', filterId) : params.append('filterId', '1');
     return this.http.post<{tasks: ResponseModel[]}>(this.url, params)
       .pipe(catchError(err => {
         return this.authService.getDefaultProjectId().pipe(
