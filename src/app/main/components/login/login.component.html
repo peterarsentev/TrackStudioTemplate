@@ -4,11 +4,18 @@
   <div class="col-sm">
     <div class="w-100 card">
       <div class="card-body">
+        <div class="alert alert-danger" role="alert" *ngIf="error">
+          Не верный логин или пароль!
+        </div>
+        <div class="alert text-center" role="alert" *ngIf="!error">
+          Авторизуйтесь
+        </div>
         <form [formGroup]="form">
-          <div class="form-group">
+          <div class="form-group mt-3">
             <label for="email">Логин:</label>
             <input  formControlName="login"
                     type="text"
+                    (ngModelChange)="resetError()"
                     class="form-control"
                     placeholder="Enter email" id="email">
             <div *ngFor="let error of validationErrors.login">
@@ -22,6 +29,7 @@
             <label for="pwd">Пароль:</label>
             <input formControlName="password"
                    type="password"
+                   (ngModelChange)="resetError()"
                    class="form-control"
                    placeholder="Enter password" id="pwd">
             <div *ngFor="let error of validationErrors.password">

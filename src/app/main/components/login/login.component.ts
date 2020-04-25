@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   form: FormGroup;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   user: UserModels;
+  error: boolean;
 
   constructor(private fb: FormBuilder,
               private route: Router,
@@ -34,9 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
-    // this.userService.getModel()
-    //   .pipe(takeUntil(this.ngUnsubscribe$))
-    //   .subscribe(user => this.user = user);
   }
 
   login() {
@@ -53,7 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.form.reset();
         this.route.navigate(['/']);
       },
-        error => console.log('err', error));
+        error => this.error = true);
       }
 
   private initForm() {
@@ -66,5 +64,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  resetError() {
+    this.error = false;
   }
 }

@@ -108,14 +108,6 @@ export class MainPageComponent implements OnInit {
         this.diagrams.push({...new DiagramaModel(), label: task.name, solved: solved.total, total: all.total})
       })
   }
-/*
-curl http://job4j.ru:8888/TrackStudio/rest/task
--d action=tasks
--d sessionId=04c660f897276415a61c5b0510aa826e
--d taskId=0873958f7176cc140171812255065908
--d filterId=0873958f661c804c01665919befa18b9
-taskId = defaultProjectId
- */
 
   getProvenTasks() {
     this.tasksService.getTaskByProjectId(localStorage.getItem('defaultProjectId'), undefined, '0873958f661c804c01665919befa18b9')
