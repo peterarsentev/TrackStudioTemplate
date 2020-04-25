@@ -20,6 +20,7 @@ import { GetDatePipe } from '../shared/get-date.pipe';
 import { NewTaskComponent } from './components/new-task/new-task.component';
 import { ChartsModule } from 'ng2-charts';
 import { DiagramComponent } from './components/diagramma/diagram.component';
+import { MessagesComponent } from './components/messages/messages.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { DiagramComponent } from './components/diagramma/diagram.component';
     MessageComponent,
     GetDatePipe,
     NewTaskComponent,
-    DiagramComponent
+    DiagramComponent,
+    MessagesComponent
   ],
     imports: [
         CommonModule,

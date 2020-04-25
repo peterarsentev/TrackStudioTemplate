@@ -1,0 +1,8 @@
+<div class="row p-1" *ngFor="let message of messages">
+  <div class="card w-100">
+    <div class="card-body">
+      <small class="card-text">{{ message.time | getDate }}</small>
+      <p class="card-text">{{ message.text }}</p>
+    </div>
+  </div>
+</div>
