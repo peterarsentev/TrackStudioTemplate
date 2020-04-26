@@ -22,7 +22,7 @@ export class MainPageComponent implements OnInit {
   barValue = 0;
   mstatuses: MStatusesModel[] = [];
   tasks: ResponseModel[];
-  provenTasks: ResponseModel[];
+  provenTasks: ResponseModel[] = [];
   newTasks: ResponseModel[];
 
   updateDate: number;
