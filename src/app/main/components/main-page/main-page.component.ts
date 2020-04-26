@@ -23,6 +23,7 @@ export class MainPageComponent implements OnInit {
   mstatuses: MStatusesModel[] = [];
   tasks: ResponseModel[];
   provenTasks: ResponseModel[];
+  newTasks: ResponseModel[];
 
   updateDate: number;
   submitDate: number;
@@ -37,6 +38,7 @@ export class MainPageComponent implements OnInit {
     this.getCountAllAndSolvedTasks();
     this.getTotalAndSolvedTasks();
     this.getProvenTasks();
+    this.getNewTasks();
   }
 
   openTask(task: TaskModel) {
@@ -114,6 +116,15 @@ export class MainPageComponent implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
         this.provenTasks = res.tasks;
+      })
+  }
+
+  getNewTasks() {
+    this.tasksService.getTaskByProjectIdLimit(
+      localStorage.getItem('defaultProjectId'), undefined, '0873958f665da72301665dcf99c50388', '10', '0')
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((res) => {
+        this.newTasks = res.tasks;
       })
   }
 }

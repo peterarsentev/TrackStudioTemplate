@@ -4,6 +4,8 @@ import { UserService } from '../../../shared/services/user.service';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MessageModel } from '../../../shared/models/message.model';
+import {TaskModel} from '../../../shared/models/task.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-messages',
@@ -15,7 +17,8 @@ export class MessagesComponent implements OnInit {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   messages: MessageModel[];
   constructor(private messageService: MessageService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private router: Router) { }
 
   ngOnInit() {
     this.userService.getModel()
@@ -32,4 +35,12 @@ export class MessagesComponent implements OnInit {
     this.ngUnsubscribe$.complete();
   }
 
+  openTask(task: TaskModel) {
+    this.router.navigate(['task'], {
+      queryParams: {
+        taskId: task.id,
+        action: 'task'
+      }
+    })
+  }
 }

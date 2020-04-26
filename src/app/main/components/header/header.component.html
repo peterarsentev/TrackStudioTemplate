@@ -10,11 +10,10 @@
     <span class="navbar-text">
       <a [routerLink]="['/']"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
     </span>
+    <span *ngIf="notifications && count > 0" style="cursor: pointer;"
+          (click)="readMessages()"
+          class="ml-3 badge badge-primary badge-pill">{{count}}</span>
     <a class="nav-item nav-link float-right" [routerLink]="['/profile']">{{ user?.name || 'Гость' }}</a>
-    <button *ngIf="notifications && count > 0"
-            (click)="readMessages()"
-            class="btn btn-outline-danger btn-sm">
-      Уведомления: {{count}} </button>
     <a class="nav-item nav-link float-right" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
   </div>
 </nav>
