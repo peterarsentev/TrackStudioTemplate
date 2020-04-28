@@ -22,8 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   count: number;
   toggled = false;
   navShow = true;
-  proven = false;
-  newTask = false;
+  proven = true;
+  newTask = true;
   provenTasks: ResponseModel[] = [];
   newTasks: ResponseModel[] = [];
 
