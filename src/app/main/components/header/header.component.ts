@@ -46,11 +46,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.getDefaultProjectId()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {});
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => this.navShow = this.router.url != '/login')
-    this.getProvenTasks();
-    this.getNewTasks()
+
+    this.processingRout();
+    this.skipSideBar();
   }
 
   ngOnDestroy(): void {
@@ -106,5 +104,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   showNew() {
     this.newTask = !this.newTask;
+  }
+
+  private skipSideBar() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.navShow = this.router.url != '/login';
+      if (this.navShow) {
+        this.getProvenTasks();
+        this.getNewTasks();
+      }
+    });
+  }
+
+  private processingRout() {
+    this.navShow = this.router.url != '/login';
+    if (this.navShow) {
+      this.getProvenTasks();
+      this.getNewTasks();
+    }
   }
 }

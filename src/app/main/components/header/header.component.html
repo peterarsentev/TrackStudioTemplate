@@ -1,5 +1,5 @@
 <div class="d-flex" id="wrapper" [ngClass]="{'toggled': toggled}">
-  <div class="bg-light border-right" id="sidebar-wrapper">
+  <div *ngIf="navShow" class="bg-light border-right" id="sidebar-wrapper">
     <div class="sidebar-heading">Job4j </div>
     <div class="list-group list-group-flush">
       <a [routerLink]="['/']" class="list-group-item list-group-item-action bg-light">Прогресс обучения</a>
@@ -7,25 +7,28 @@
          [routerLink]="['/task']" [queryParams]="{taskId: 'ae84b50d554cbf1d01558646352721c5', action: 'task'}"
           class="list-group-item list-group-item-action bg-light">Реквизиты</a>
       <a (click)="showProven()" class="list-group-item list-group-item-action bg-light">Проверенные задачи</a>
-        <ul *ngIf="proven">
+      <ng-container *ngIf="!!proven && !!provenTasks.length">
+        <ul>
           <li *ngFor="let task of provenTasks">
             <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
                 class="list-group-item list-group-item-action bg-light">{{ task.task.name}}</a>
           </li>
         </ul>
+      </ng-container>
       <a (click)="showNew()" class="list-group-item list-group-item-action bg-light">Новые задачи</a>
-      <ul *ngIf="newTask">
+      <ng-container *ngIf="newTask && !!newTasks.length">
+      <ul>
         <li *ngFor="let task of newTasks">
           <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
             class="list-group-item list-group-item-action bg-light">{{ task.task.name}}</a>
-
         </li>
       </ul>
+      </ng-container>
     </div>
   </div>
   <div id="page-content-wrapper">
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-      <button class="btn btn-primary mr-2" id="menu-toggle" (click)="onToggle()">Toggle Menu</button>
+      <button *ngIf="navShow" class="btn btn-primary mr-2" id="menu-toggle" (click)="onToggle()">Toggle Menu</button>
         <a class="navbar-brand" [routerLink]="['/']">Job4j</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
