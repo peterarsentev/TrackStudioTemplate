@@ -32,7 +32,7 @@
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">Проверенные задачи : {{ provenTasks.length }}</th>
+        <th scope="col">Проверенные задачи : {{ provenTasks?.length }}</th>
       </tr>
       </thead>
       <tbody>
@@ -43,9 +43,9 @@
             {{task.task.name}}
           </div>
           <small class="mb-2 text-muted">
-            <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>
-            <span class="mr-3">Статус : {{ task.status.name }}</span>
-            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
+            <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task?.handler.name }}</span>
+            <span class="mr-3">Статус : {{ task?.status.name }}</span>
+            <span class="mr-3">Создана : {{ task?.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
             <span>Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
           </small>
         </td>

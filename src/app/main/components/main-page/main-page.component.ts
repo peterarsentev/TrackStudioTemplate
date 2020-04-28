@@ -28,7 +28,7 @@ export class MainPageComponent implements OnInit {
   updateDate: number;
   submitDate: number;
   countOfDays: number;
-  speed: number;
+  speed = 0;
 
   constructor(private tasksService: TasksService,
               private authService: AuthService,
