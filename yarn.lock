@@ -1401,6 +1401,14 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
+angular-tree-component@^8.5.6:
+  version "8.5.6"
+  resolved "https://registry.yarnpkg.com/angular-tree-component/-/angular-tree-component-8.5.6.tgz#b32ea769e17b8e4462b31b5b67c17269a7295fa5"
+  integrity sha512-cxNem6872diZz9kIGqrjSJbKt0P3WSq9wTqZIeVJ8zsddI4Y6ShAVZlZNXUMRyJq246c9pJ6JJEAOzKVLk9xgA==
+  dependencies:
+    lodash "^4.17.11"
+    mobx "^4.15.1"
+
 ansi-align@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-3.0.0.tgz#b536b371cf687caaef236c18d3e21fe3797467cb"
@@ -5553,6 +5561,11 @@ mkdirp@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.3.tgz#4cf2e30ad45959dddea53ad97d518b6c8205e1ea"
   integrity sha512-6uCP4Qc0sWsgMLy1EOqqS/3rjDHOEnsStVr/4vtAIK2Y5i2kA7lFFejYrpIyiN9w0pYf4ckeCYT9f1r1P9KX5g==
+
+mobx@^4.15.1:
+  version "4.15.4"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-4.15.4.tgz#644eac80bdd15793855194e764c475041101b406"
+  integrity sha512-nyuHPqmKnVOnbvkjR8OrijBtovxAHYC+JU8/qBqvBw4Dez/n+zzxqNHbZNFy7/07+wwc/Qz7JS9WSfy1LcYISA==
 
 moment@^2.10.2, moment@^2.24.0:
   version "2.24.0"

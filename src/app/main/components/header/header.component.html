@@ -1,11 +1,17 @@
 <div class="d-flex" id="wrapper" [ngClass]="{'toggled': toggled}">
   <div *ngIf="navShow" class="bg-light border-right" id="sidebar-wrapper">
     <div class="sidebar-heading"><a class="navbar-brand" [routerLink]="['/']">Job4j</a></div>
+    <div style="height: auto">
+      <tree-root [nodes]="nodes"
+                  #tree
+                 [options]="options">
+      </tree-root>
+    </div>
     <div class="list-group list-group-flush">
       <a [routerLink]="['/']" class="list-group-item list-group-item-action bg-light">Прогресс обучения</a>
       <a *ngIf="user?.name !== 'Аnonymous'"
          [routerLink]="['/task']" [queryParams]="{taskId: 'ae84b50d554cbf1d01558646352721c5', action: 'task'}"
-          class="list-group-item list-group-item-action bg-light">Реквизиты</a>
+         class="list-group-item list-group-item-action bg-light">Реквизиты</a>
       <a (click)="showProven()" class="list-group-item list-group-item-action bg-light">Проверенные задачи</a>
       <ng-container *ngIf="!!proven && !!provenTasks.length">
         <ul>
@@ -17,36 +23,36 @@
       </ng-container>
       <a (click)="showNew()" class="list-group-item list-group-item-action bg-light">Новые задачи</a>
       <ng-container *ngIf="newTask && !!newTasks.length">
-      <ul>
-        <li *ngFor="let task of newTasks">
-          <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
-            class="list-group-item list-group-item-action bg-light">{{ task.task.name}}</a>
-        </li>
-      </ul>
+        <ul>
+          <li *ngFor="let task of newTasks">
+            <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
+                class="list-group-item list-group-item-action bg-light">{{ task.task.name}}</a>
+          </li>
+        </ul>
       </ng-container>
     </div>
   </div>
   <div id="page-content-wrapper">
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
       <i *ngIf="navShow" class="fa fa-bars mr-2" style="font-size:23px" aria-hidden="true" id="menu-toggle" (click)="onToggle()"></i>
-        <a class="navbar-brand" [routerLink]="['/']">Job4j</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-          </ul>
-          <span class="navbar-text">
+      <a class="navbar-brand" [routerLink]="['/']">Job4j</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+              data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <span class="navbar-text">
             <a [routerLink]="['/']"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
           </span>
-          <span *ngIf="notifications && count > 0" style="cursor: pointer;"
-                (click)="readMessages()"
-                class="ml-3 badge badge-primary badge-pill">{{count}}</span>
-          <a class="nav-item nav-link float-right" [routerLink]="['/profile']">{{ user?.name || 'Гость' }}</a>
-          <a class="nav-item nav-link float-right" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
-        </div>
-      </nav>
+        <span *ngIf="notifications && count > 0" style="cursor: pointer;"
+              (click)="readMessages()"
+              class="ml-3 badge badge-primary badge-pill">{{count}}</span>
+        <a class="nav-item nav-link float-right" [routerLink]="['/profile']">{{ user?.name || 'Гость' }}</a>
+        <a class="nav-item nav-link float-right" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
+      </div>
+    </nav>
     <div class="container-fluid">
       <app-navigation *ngIf="navShow"></app-navigation>
       <router-outlet></router-outlet>
