@@ -1,4 +1,54 @@
 <div class="container-fluid">
+  <div class="row pt-3">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Проверенные задачи : {{ provenTasks?.length }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let task of provenTasks; let idx = index">
+        <td (click)="openTask(task.task)" style="cursor: pointer;">
+          <div>
+            <i class="fas fa-tasks pr-3"></i>
+            {{task.task.name}}
+          </div>
+          <small class="mb-2 text-muted">
+            <span class="badge badge-warning mr-3">{{ task.status.name }}</span>
+            <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task?.handler.name }}</span>
+            <span class="mr-3">Создана : {{ task?.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
+            <span>Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
+          </small>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row pt-3">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Новые задачи 10 из .. </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let task of newTasks; let idx = index">
+        <td (click)="openTask(task.task)" style="cursor: pointer;">
+          <div>
+            <i class="fas fa-tasks pr-3"></i>
+            {{task.task.name}}
+          </div>
+          <small class="mb-2 text-muted">
+            <span class="badge badge-danger mr-3">{{ task.status.name }}</span>
+            <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>
+            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
+            <span>Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
+          </small>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="row">
     <table class="table">
       <thead>
@@ -28,56 +78,6 @@
   <app-diagramma *ngFor="let diagram of diagrams"
                  [diagram]="diagram">
   </app-diagramma>
-  <div class="row pt-3">
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Проверенные задачи : {{ provenTasks?.length }}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let task of provenTasks; let idx = index">
-        <td (click)="openTask(task.task)" style="cursor: pointer;">
-          <div>
-            <i class="fas fa-tasks pr-3"></i>
-            {{task.task.name}}
-          </div>
-          <small class="mb-2 text-muted">
-            <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task?.handler.name }}</span>
-            <span class="mr-3">Статус : {{ task?.status.name }}</span>
-            <span class="mr-3">Создана : {{ task?.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
-            <span>Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
-          </small>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="row pt-3">
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Новые задачи 10 из .. </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let task of newTasks; let idx = index">
-        <td (click)="openTask(task.task)" style="cursor: pointer;">
-          <div>
-            <i class="fas fa-tasks pr-3"></i>
-            {{task.task.name}}
-          </div>
-          <small class="mb-2 text-muted">
-            <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>
-            <span class="mr-3">Статус : {{ task.status.name }}</span>
-            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
-            <span>Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
-          </small>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
   <div class="row pt-3">
     <table class="table">
       <thead>
