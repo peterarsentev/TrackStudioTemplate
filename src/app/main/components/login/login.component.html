@@ -17,7 +17,7 @@
                     type="text"
                     (ngModelChange)="resetError()"
                     class="form-control"
-                    placeholder="Enter email" id="email">
+                    placeholder="Введите логин" id="email">
             <div *ngFor="let error of validationErrors.login">
                             <span *ngIf="form.get('login').hasError(error.type)
                                         && (form.get('login').dirty
@@ -31,7 +31,7 @@
                    type="password"
                    (ngModelChange)="resetError()"
                    class="form-control"
-                   placeholder="Enter password" id="pwd">
+                   placeholder="Введите пароль" id="pwd">
             <div *ngFor="let error of validationErrors.password">
                         <span *ngIf="form.get('password').hasError(error.type)
                                     && (form.get('password').dirty
