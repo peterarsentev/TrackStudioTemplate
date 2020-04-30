@@ -15,7 +15,7 @@ export class NewTaskComponent implements OnInit, OnDestroy {
 
   validationErrors = {
     handlerId: [
-      { type: 'required', message: 'Выберете ответственного'}
+      { type: 'required', message: 'Ответственный'}
     ],
     description: [
       { type: 'required', message: 'Введите описание'}
