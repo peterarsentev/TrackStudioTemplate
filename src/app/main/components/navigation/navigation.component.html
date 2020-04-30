@@ -1,7 +1,7 @@
 <div class="row" *ngIf="show">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb" style="background-color: #ffffff;">
-      <li class="breadcrumb-item" [ngClass]="getClass(idx)" *ngFor="let nav of tasks; let idx=index">
+      <li class="breadcrumb-item small" [ngClass]="getClass(idx)" *ngFor="let nav of tasks; let idx=index">
         <a (click)="goToNav(nav)">
           {{ nav.nameCutted }}
         </a>

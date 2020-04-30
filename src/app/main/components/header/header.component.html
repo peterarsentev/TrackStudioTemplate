@@ -17,7 +17,7 @@
         <ul>
           <li *ngFor="let task of provenTasks">
             <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
-                class="list-group-item list-group-item-action bg-light">{{ task.task.name}}</a>
+                class="list-group-item list-group-item-action bg-light">{{ task.task.name}} [{{task.task.number}}]</a>
           </li>
         </ul>
       </ng-container>
@@ -26,7 +26,7 @@
         <ul>
           <li *ngFor="let task of newTasks">
             <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
-                class="list-group-item list-group-item-action bg-light">{{ task.task.name}}</a>
+                class="list-group-item list-group-item-action bg-light">{{ task.task.name }}</a>
           </li>
         </ul>
       </ng-container>
