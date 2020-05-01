@@ -1,0 +1,32 @@
+<div class="container-fluid pb-4">
+  <div class="row pb-2">
+    <span class="w-50 pull-right">
+      <button type="button" (click)="goToEditProfile()" class="m btn btn-info btn-sm mr-1">
+        Редактировать
+      </button>
+     <button type="button" (click)="goToChangePassword()"  class="m btn btn-info btn-sm">
+        Изменить пароль
+      </button>
+    </span>
+  </div>
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-body">
+        <table class="table">
+          <tr>
+            <td>Имя</td>
+            <td>{{user.name}}</td>
+          </tr>
+          <tr>
+            <td>Логин</td>
+            <td>{{user.login}}</td>
+          </tr>
+          <tr>
+            <td>Почта</td>
+            <td>{{user.email}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

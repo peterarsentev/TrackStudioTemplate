@@ -37,10 +37,11 @@
       <div class="card-body">
         <table class="table">
           <tbody>
-          <tr *ngFor="let message of messages">
+          <tr *ngFor="let message of messages"
+              class="{{message.submitter.prstatusId === '4028816a5525e65b015525f8e0db007f' ? 'bg-light' : ''}}">
             <td>
               <div class="pb-3">
-                <span><small>Oт {{ message.submitter.name }}  к  {{ message.handler.name }}.</small></span>
+                <span>Oт {{ message.submitter.name }} к {{ message.handler.name }}.</span>
                 <span class="pull-right">{{ message.message.time | getDate }}</span>
               </div>
               <div [innerHTML]="message.message.description | safeCode"></div>

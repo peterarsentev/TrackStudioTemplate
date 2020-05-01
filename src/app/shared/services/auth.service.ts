@@ -105,7 +105,9 @@ export class AuthService {
   changePassword(userId: string, password: string, confirm: string) {
     const url = `${environment.url}/rest/user`;
     let param = new HttpParams();
+    const sessionId = localStorage.getItem('sessionId');
     param = param.append('action', 'password');
+    param = param.append('sessionId', sessionId);
     param = param.append('password', password);
     param = param.append('confirm', confirm);
     param = param.append('userId', userId);

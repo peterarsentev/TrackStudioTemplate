@@ -1,31 +1,51 @@
 <div class="d-flex" id="wrapper" [ngClass]="{'toggled': toggled}">
   <div *ngIf="navShow" class="bg-light border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading"><a class="navbar-brand" [routerLink]="['/']">Job4j</a></div>
-    <div style="height: 400px">
-      <tree-root [nodes]="nodes"
-                 [options]="options">
-      </tree-root>
+    <div class="list-group list-group-flush small">
+      <div class="list-group-item list-group-item-action bg-info text-white">Навигация</div>
+      <div class="ml-3 pb-2">
+        <tree-root [nodes]="nodes"
+                   [options]="options">
+        </tree-root>
+      </div>
     </div>
-    <div class="list-group list-group-flush">
-      <a [routerLink]="['/']" class="list-group-item list-group-item-action bg-light">Прогресс обучения</a>
-      <a *ngIf="user?.name !== 'Аnonymous'"
-         [routerLink]="['/task']" [queryParams]="{taskId: 'ae84b50d554cbf1d01558646352721c5', action: 'task'}"
-         class="list-group-item list-group-item-action bg-light">Реквизиты</a>
-      <a (click)="showProven()" class="list-group-item list-group-item-action bg-light">Проверенные задачи</a>
+    <div class="list-group list-group-flush small">
+      <div class="list-group-item list-group-item-action bg-info text-white">Закладки</div>
+      <ul class="list-unstyled">
+        <li>
+          <a [routerLink]="['/']" class="list-group-item list-group-item-action bg-light">
+            <i class="fas fa-info mr-2"></i>Процесс обучения
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/task']" [queryParams]="{taskId: 'ae84b50d554cbf1d01558646352721c5', action: 'task'}"
+             class="list-group-item list-group-item-action bg-light">
+            <i class="fas fa-info mr-2"></i>Реквизиты
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/tasks']" [queryParams]="{taskId: 'ae84b50d571fe2340157387103bd1a68', action: 'tasks'}"
+             class="list-group-item list-group-item-action bg-light">
+            <i class="fas fa-info mr-2"></i>Критика и предложения
+          </a>
+        </li>
+      </ul>
+      <a (click)="showProven()" class="list-group-item list-group-item-action bg-info text-white">Проверенные задачи</a>
       <ng-container *ngIf="!!proven && !!provenTasks.length">
-        <ul>
+        <ul class="list-unstyled">
           <li *ngFor="let task of provenTasks">
             <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
-                class="list-group-item list-group-item-action bg-light">{{ task.task.name}} [{{task.task.number}}]</a>
+                class="list-group-item list-group-item-action bg-light">
+              <i class="fas fa-tasks mr-2 bg-warning"></i>{{ task.task.name}} [{{task.task.number}}]</a>
           </li>
         </ul>
       </ng-container>
-      <a (click)="showNew()" class="list-group-item list-group-item-action bg-light">Новые задачи</a>
+      <a (click)="showNew()" class="list-group-item list-group-item-action bg-info text-white">Новые задачи</a>
       <ng-container *ngIf="newTask && !!newTasks.length">
-        <ul>
+        <ul class="list-unstyled">
           <li *ngFor="let task of newTasks">
             <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
-                class="list-group-item list-group-item-action bg-light">{{ task.task.name }}</a>
+                class="list-group-item list-group-item-action bg-light">
+              <i class="fas fa-tasks mr-2 bg-danger"></i>{{ task.task.name }}</a>
           </li>
         </ul>
       </ng-container>

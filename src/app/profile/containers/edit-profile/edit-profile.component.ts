@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { UserModels } from '../../../shared/models/user.models';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -19,7 +20,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService,
               private authService: AuthService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+  private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.initForm()
@@ -57,6 +59,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(() =>  this.authService.getDefaultProjectId()),
         takeUntil(this.ngUnsubscribe$))
-      .subscribe(() => {})
+      .subscribe(() => {
+        this.router.navigate(['/profile'], { relativeTo: this.route });
+      });
   }
 }

@@ -45,6 +45,10 @@ export class TasksService {
     params = params.append('action', 'tasks');
     params = params.append('sessionId', sessionId);
     params = params.append('taskId', projectId);
+    if (projectId === 'ae84b50d571fe2340157387103bd1a68') {
+       // Загрузка папки критики. тут нужен фильтр только открыте задачи
+       filterId = '4028808a1953022d0119535da2c901cc';
+    }
     params = filterId? params.append('filterId', filterId) : params.append('filterId', '1');
     return this.http.post<{tasks: ResponseModel[]}>(this.url, params)
       .pipe(catchError(err => {
