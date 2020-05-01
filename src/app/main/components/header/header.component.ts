@@ -1,22 +1,23 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
-import { pipe, Subject } from 'rxjs';
-import { filter, map, take, takeUntil } from 'rxjs/operators';
+import { EMPTY, pipe, Subject } from 'rxjs';
+import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
 import { UserModels } from '../../../shared/models/user.models';
 import { AuthService } from '../../../shared/services/auth.service';
 import { MessageService } from '../../../shared/services/message.service';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { ResponseModel } from '../../../shared/models/response.model';
 import { IActionMapping, ITreeOptions, KEYS, TREE_ACTIONS, TreeComponent } from 'angular-tree-component';
 import { TreeNodeModel } from '../../../shared/models/tree.node.model';
+import { TaskModel } from '../../../shared/models/task.model';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   user: UserModels;
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
               private messageService: MessageService,
               private router: Router,
+              private route: ActivatedRoute,
               public tasksService: TasksService,
               private authService: AuthService) { }
 
@@ -53,6 +55,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.skipSideBar();
 
     this.getNavNodes();
+    // this.getTree();
   }
 
   ngOnDestroy(): void {
@@ -130,18 +133,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngAfterViewInit() {
+    // this.tree.treeModel.update();
+    // this.tree.treeModel.expandAll();
+  }
+
   options: ITreeOptions = {
     getChildren: this.getChildren.bind(this),
     useCheckbox: false,
     nodeHeight: 22,
+
     actionMapping: {
       mouse: {
         click: (tree, node, $event) => {
-          if (node.hasChildren) TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
-          if (!node.hasChildren) this.router.navigate(['task'], {
+          let url = '';
+          if (node.hasChildren) {
+            url = 'tasks';
+            TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+          }
+          if (!node.hasChildren) {
+            url = 'task';
+          }
+          this.router.navigate([url], {
             queryParams: {
-              action: 'task',
-              taskId: node.data.taskId
+              action: url,
+              taskId: node.data.taskId,
+              tree: true
             }
           })
         }
@@ -154,13 +171,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   nodes: any = [];
 
   getChildren(node: any) {
-    this.navigete(node);
     return this.tasksService.getTaskByProjectId(node.data.taskId)
       .pipe(
         take(1),
         map(res => {
           const children: TreeNodeModel[] = [];
-          res.tasks.forEach(t => children.push(new TreeNodeModel(t.task.name, t.task.childrenCount > 0, t.task.id)));
+          res.tasks.forEach(t => children.push(new TreeNodeModel(t.task.name, t.task.childrenCount > 0, t.task.id, t.task.parentId)));
           return children;
         })
       ).toPromise();
@@ -185,5 +201,43 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  emmit(tasks: TaskModel[]) {
+    console.log('emit', tasks)
+  }
+
+  // private getTree() {
+  //   this.route.queryParams
+  //     .pipe(
+  //       switchMap(res => {
+  //         if (res.tree) return EMPTY;
+  //         if (res.action ==='task')  return this.tasksService.getTask(res.taskId, res.action, '1')
+  //           .pipe(map(res => {tasks: [new ResponseModel(null, res)]}));
+  //         return this.tasksService.getTaskByProjectId(res.taskId || '1');
+  //       })
+  //     ).pipe(takeUntil(this.ngUnsubscribe$))
+  //     .subscribe((res) => {
+  //       let node: TreeNodeModel = {... new TreeNodeModel(), children:[] };
+  //       res.tasks.forEach(task => node.children.push(new TreeNodeModel(task.task.name, task.task.childrenCount > 0, task.task.id, task.task.parentId)));
+  //       if (this.nodes.length === 1 && res) {
+  //         this.makeTree(node);
+  //       }
+  //       console.log('getTree',res,  node);
+  //     })
+  // }
+
+  private makeTree(node: TreeNodeModel) {
+    this.tasksService.getTaskByProjectId(node.children[0].taskId)
+      .pipe(
+        // switchMap(res => {
+        //   return res;
+        // }
+        )
+
+  }
+
+  getNodes(taskId) {
+    return this.tasksService.getTaskByProjectId(taskId || '1')
   }
 }

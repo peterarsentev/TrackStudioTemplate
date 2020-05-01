@@ -34,7 +34,7 @@ export class TasksComponent implements OnInit, OnDestroy {
       ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
       this.tasks = res.tasks;
-      console.log('tasks', res)
+      // console.log('tasks', res)
     })
   }
 

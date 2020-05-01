@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
@@ -17,6 +17,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   tasks: TaskModel[];
   emergency: EmergencyModel[] = [];
   show = true;
+  @Output() emitter: EventEmitter<TaskModel[]> = new EventEmitter<TaskModel[]>();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -27,7 +28,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(res => this.tasksService.getNavRout(res.taskId))
       ).pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => this.tasks = res.tasks)
+      .subscribe(res => {
+        this.tasks = res.tasks;
+        //this.emitter.emit(this.tasks)
+      })
     this.getEmergencyMessage();
     this.checkRout();
   }

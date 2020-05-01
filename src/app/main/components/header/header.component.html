@@ -1,9 +1,8 @@
 <div class="d-flex" id="wrapper" [ngClass]="{'toggled': toggled}">
   <div *ngIf="navShow" class="bg-light border-right" id="sidebar-wrapper">
     <div class="sidebar-heading"><a class="navbar-brand" [routerLink]="['/']">Job4j</a></div>
-    <div style="height: auto">
+    <div style="height: 400px">
       <tree-root [nodes]="nodes"
-                  #tree
                  [options]="options">
       </tree-root>
     </div>
@@ -54,7 +53,9 @@
       </div>
     </nav>
     <div class="container-fluid">
-      <app-navigation *ngIf="navShow"></app-navigation>
+      <app-navigation
+        (emitter)="emmit($event)"
+        *ngIf="navShow"></app-navigation>
       <router-outlet></router-outlet>
     </div>
   </div>
