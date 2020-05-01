@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   validationErrors = {
     login: [
-      { type: 'required', message: 'Введите email'}
+      { type: 'required', message: 'Введите логин'}
     ],
     password: [
       { type: 'required', message: 'Введите пароль'}

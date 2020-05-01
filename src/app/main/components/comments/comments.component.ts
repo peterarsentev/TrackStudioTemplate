@@ -20,7 +20,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   validationErrors = {
     handlerId: [
-      { type: 'required', message: 'Выберете ответственного'}
+      { type: 'required', message: 'Ответственный'}
     ],
   };
 
