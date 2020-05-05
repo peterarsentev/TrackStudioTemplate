@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { UserService } from '../../../shared/services/user.service';
 import { UserModels } from '../../../shared/models/user.models';
+import {TaskModel} from '../../../shared/models/task.model';
 
 @Component({
   selector: 'app-login',
@@ -68,5 +69,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   resetError() {
     this.error = false;
+  }
+
+  goMain() {
+    this.route.navigate(['/'], {});
   }
 }

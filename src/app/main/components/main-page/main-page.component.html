@@ -11,7 +11,7 @@
         <td (click)="openTask(task.task)" style="cursor: pointer;">
           <div>
             <i class="fas fa-tasks pr-3"></i>
-            {{task.task.name}} [{{task.task.number}}]
+            {{task.task.name}} &nbsp;[#{{task.task.number}}]
           </div>
           <small class="mb-2 text-muted">
             <span class="badge badge-warning mr-3">{{ task.status.name }}</span>
@@ -36,7 +36,7 @@
         <td (click)="openTask(task.task)" style="cursor: pointer;">
           <div>
             <i class="fas fa-tasks pr-3"></i>
-            {{task.task.name}} [{{task.task.number}}]
+            {{task.task.name}} &nbsp;[#{{task.task.number}}]
           </div>
           <small class="mb-2 text-muted">
             <span class="badge badge-danger mr-3">{{ task.status.name }}</span>

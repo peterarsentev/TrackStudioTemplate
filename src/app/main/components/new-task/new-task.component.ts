@@ -57,7 +57,15 @@ export class NewTaskComponent implements OnInit, OnDestroy {
 
   submitTask() {
     this.tasksService.createTask(this.taskId, this.mstatusId, this.form.get('name').value, this.form.get('description').value)
-      .subscribe(res => console.log(res));
+      .subscribe(res => {
+        console.log(res);
+        this.router.navigate(['/task'], {
+          queryParams: {
+            action: 'task',
+            taskId: res.task.id
+          }
+        });
+      });
   }
 
   selectPerson(user: UserModels) {

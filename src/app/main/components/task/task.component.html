@@ -29,7 +29,7 @@
       </ng-container>
     </span>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="messages.length > 0">
     <div class="w-100 card">
       <div class="card-header">
         Сообщения
@@ -40,8 +40,8 @@
           <tr *ngFor="let message of messages"
               class="{{message.submitter.prstatusId === '4028816a5525e65b015525f8e0db007f' ? 'bg-light' : ''}}">
             <td>
-              <div class="pb-3">
-                <span>Oт {{ message.submitter.name }} к {{ message.handler.name }}.</span>
+              <div class="pb-3 small">
+                <span>Oт <span class="font-weight-bold">{{ message.submitter.name }}</span> к <span class="font-weight-bold">{{ message.handler.name }}</span></span>
                 <span class="pull-right">{{ message.message.time | getDate }}</span>
               </div>
               <div [innerHTML]="message.message.description | safeCode"></div>
@@ -52,7 +52,7 @@
       </div>
     </div>
   </div>
-  <div class="row pt-2">
+  <div class="row pt-2" *ngIf="messages.length > 0">
    <span class="w-50">
       <ng-container *ngFor="let button of buttons">
         <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>

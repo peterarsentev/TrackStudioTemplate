@@ -40,12 +40,16 @@
             </div>
 
           </div>
-
+          <button (click)="goMain()"
+                  type="button"
+                  class="btn btn-light pull-right"
+          >Отмена</button>
           <button (click)="login()"
                   [disabled]="form.invalid"
                   type="submit"
-                  class="btn btn-primary pull-right"
+                  class="btn btn-primary pull-left"
           >Войти</button>
+
         </form>
       </div>
       <div class="col-sm">

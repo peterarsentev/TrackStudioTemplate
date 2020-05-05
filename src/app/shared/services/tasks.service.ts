@@ -206,7 +206,7 @@ export class TasksService {
     params = params.append('categoryId', categoryId);
     params = params.append('name', name);
     params = params.append('description', description);
-    return this.http.post<{ handlers: UserModels[] }>(this.url, params);
+    return this.http.post<{ task: TaskModel }>(this.url, params);
   }
 
   getEmergencyMessage(): Observable<{ emergency: EmergencyModel[] }> {

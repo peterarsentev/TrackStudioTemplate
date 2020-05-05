@@ -38,8 +38,9 @@ export class MessagesComponent implements OnInit {
   openTask(task: TaskModel) {
     this.router.navigate(['task'], {
       queryParams: {
+        action: 'task',
         taskId: task.id,
-        action: 'task'
+        number: task.number
       }
     })
   }

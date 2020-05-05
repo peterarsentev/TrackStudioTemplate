@@ -43,14 +43,16 @@ export class TasksComponent implements OnInit, OnDestroy {
       this.router.navigate(['tasks'], {
         queryParams: {
           action: 'tasks',
-          taskId: task.id
+          taskId: task.id,
+          number: task.number
         }
       });
     } else {
       this.router.navigate(['task'], {
         queryParams: {
           action: 'task',
-          taskId: task.id
+          taskId: task.id,
+          number: task.number
         }
       })
     }

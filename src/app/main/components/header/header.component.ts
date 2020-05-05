@@ -176,7 +176,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         take(1),
         map(res => {
           const children: TreeNodeModel[] = [];
-          res.tasks.forEach(t => children.push(new TreeNodeModel(t.task.name, t.task.childrenCount > 0, t.task.id, t.task.parentId)));
+          res.tasks.forEach(t => children.push(new TreeNodeModel(t.task.name + ' [#' + t.task.number + ']', t.task.childrenCount > 0, t.task.id, t.task.parentId)));
           return children;
         })
       ).toPromise();
@@ -187,7 +187,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         console.log('navs', res)
-        this.nodes = [new TreeNodeModel(res.tasks[0].name, res.tasks[0].childrenCount > 0, res.tasks[0].id)];
+        this.nodes = [new TreeNodeModel(res.tasks[0].name + ' [#' + res.tasks[0].number + ']', res.tasks[0].childrenCount > 0, res.tasks[0].id)];
       })
   }
 

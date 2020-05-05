@@ -1,25 +1,27 @@
 <div class="container">
-  <form [formGroup]="form">
-    <app-hendlers [handlers]="handlers"
-                  (selected)="selectPerson($event)"
-    ></app-hendlers>
-    <div *ngFor="let error of validationErrors.handlerId">
+  <div class="row">
+    <form [formGroup]="form">
+      <app-hendlers [handlers]="handlers"
+                    (selected)="selectPerson($event)"
+      ></app-hendlers>
+      <div *ngFor="let error of validationErrors.handlerId">
                             <span *ngIf="form.get('handlerId').hasError(error.type)
                                         && (form.get('handlerId').dirty
                                         || form.get('handlerId').touched)"
                                   class="validation">{{ error.message }}</span>
-    </div>
-    <div class="row pt-5">
-      <app-redactor [titleLabel]="'Введите комментарий'"
-                    (outputEmitter)="setDescription($event)"
-      ></app-redactor>
-    </div>
-    <button
-      class="btn btn-primary"
-      [disabled]="form.invalid"
-      (click)="form.valid && submitComment()"
-    >Добавить комментарий</button>
-  </form>
+      </div>
+      <div class="pt-5">
+        <app-redactor [titleLabel]="'Введите комментарий'"
+                      (outputEmitter)="setDescription($event)"
+        ></app-redactor>
+      </div>
+      <button
+        class="btn btn-primary"
+        [disabled]="form.invalid"
+        (click)="form.valid && submitComment()"
+      >Сохранить</button>
+    </form>
+  </div>
 </div>
 
 

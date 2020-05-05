@@ -35,7 +35,7 @@
           <li *ngFor="let task of provenTasks">
             <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
                 class="list-group-item list-group-item-action bg-light">
-              <i class="fas fa-tasks mr-2 bg-warning"></i>{{ task.task.name}} [{{task.task.number}}]</a>
+              <i class="fas fa-tasks mr-2 bg-warning"></i>{{ task.task.name}} &nbsp;[#{{task.task.number}}]</a>
           </li>
         </ul>
       </ng-container>
@@ -45,7 +45,7 @@
           <li *ngFor="let task of newTasks">
             <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
                 class="list-group-item list-group-item-action bg-light">
-              <i class="fas fa-tasks mr-2 bg-danger"></i>{{ task.task.name }}</a>
+              <i class="fas fa-tasks mr-2 bg-danger"></i>{{ task.task.name }}&nbsp;[#{{task.task.number}}]</a>
           </li>
         </ul>
       </ng-container>
@@ -59,7 +59,7 @@
               data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarText">
+      <div *ngIf="navShow" class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
         </ul>
         <span class="input-group mr-3 w-50">
@@ -84,6 +84,14 @@
         *ngIf="navShow"></app-navigation>
       <router-outlet></router-outlet>
     </div>
+  </div>
+</div>
+<div class="pr-lg-5 pb-lg-5" style="position: fixed; bottom: 0; right: 0; z-index: 1;">
+  <div class="mb-4" style="cursor: pointer" onclick="window.scrollTo(0, 0);">
+    <i class="fas fa-arrow-circle-up fa-lg"></i>
+  </div>
+  <div style="cursor: pointer" onclick="window.scrollTo(0, document.body.scrollHeight);">
+    <i class="fas fa-arrow-circle-down fa-lg"></i>
   </div>
 </div>
 <app-footer></app-footer>
