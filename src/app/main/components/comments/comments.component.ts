@@ -6,6 +6,8 @@ import { TasksService } from '../../../shared/services/tasks.service';
 import { UserModels } from '../../../shared/models/user.models';
 import { Subject } from 'rxjs';
 import { CommentService } from '../../../shared/services/comment.service';
+import { TaskModel } from '../../../shared/models/task.model';
+declare var hljs: any;
 
 @Component({
   selector: 'app-comments',
@@ -17,6 +19,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   form: FormGroup;
   mstatusId: string;
   taskId: string;
+  task: TaskModel = {};
   handlers: UserModels[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   validationErrors = {
@@ -32,8 +35,26 @@ export class CommentsComponent implements OnInit, OnDestroy {
               private tasksService: TasksService) {};
 
   ngOnInit() {
+    this.getTask();
     this.initForm();
     this.getRoutParams();
+  }
+  private getTask() {
+    this.route.queryParams.pipe(
+      switchMap(res => {
+        console.log('res', res)
+        return this.tasksService.getTask(res.taskId, res.action, '1');
+      })
+    ).subscribe(task => {
+      this.task = task.task;
+      console.log(task)
+      setTimeout(() => {
+        document.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightBlock(block);
+        });
+      }, 0);
+    })
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
   private initForm() {

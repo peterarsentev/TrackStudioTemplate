@@ -34,6 +34,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   private getTask() {
     this.route.queryParams.pipe(
       switchMap(res => {
+        console.log('res', res)
         return this.tasksService.getTask(res.taskId, res.action, '1');
       }),
       switchMap(task => {
@@ -45,7 +46,6 @@ export class TaskComponent implements OnInit, OnDestroy {
         this.previousAndNext = res;
         this.getMessages(this.task.id);
         this.getButtons(this.task.id);
-        console.log(this.previousAndNext)
         setTimeout(() => {
             document.querySelectorAll('pre code').forEach((block) => {
               hljs.highlightBlock(block);
@@ -63,7 +63,8 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.router.navigate(['comments'], {
       queryParams: {
         taskId: this.task.id,
-        mstatusId: button.id
+        mstatusId: button.id,
+        action: 'task'
       }
     });
   }
@@ -83,8 +84,6 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   goTo(taskId: string) {
-    console.log(this.previousAndNext)
-    console.log(taskId)
     this.router.navigate(['task'], {
       queryParams: {
         action: 'task',
