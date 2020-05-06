@@ -5,6 +5,7 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { UserModels } from '../../../shared/models/user.models';
 import { Subject } from 'rxjs';
+import { CommentService } from '../../../shared/services/comment.service';
 
 @Component({
   selector: 'app-comments',
@@ -27,6 +28,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private fb: FormBuilder,
+              private commentService: CommentService,
               private tasksService: TasksService) {};
 
   ngOnInit() {
@@ -47,6 +49,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     this.tasksService.sendComment(this.taskId, this.mstatusId, handlerId, description)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {
+        this.commentService.setUpModel(true);
         this.router.navigate(['/task'], {
           queryParams: {
             action: 'task',

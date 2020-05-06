@@ -8,15 +8,14 @@ import { UserModels } from '../models/user.models';
 })
 export class UserService {
 
-  private productModelSubject: Subject<UserModels> = new ReplaySubject<UserModels>(1);
-  productModel$: Observable<UserModels> = this.productModelSubject.asObservable();
+  private userModelSubject: Subject<UserModels> = new ReplaySubject<UserModels>(1);
+  userModel$: Observable<UserModels> = this.userModelSubject.asObservable();
 
-  setUpModel(prod: UserModels) {
-    this.productModelSubject.next(prod);
+  setUpModel(user: UserModels) {
+    this.userModelSubject.next(user);
   }
 
-
   getModel(): Observable<UserModels> {
-    return this.productModel$;
+    return this.userModel$;
   }
 }

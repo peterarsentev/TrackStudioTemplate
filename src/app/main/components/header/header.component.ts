@@ -11,6 +11,7 @@ import { ResponseModel } from '../../../shared/models/response.model';
 import { IActionMapping, ITreeOptions, KEYS, TREE_ACTIONS, TreeComponent } from 'angular-tree-component';
 import { TreeNodeModel } from '../../../shared/models/tree.node.model';
 import { TaskModel } from '../../../shared/models/task.model';
+import { CommentService } from '../../../shared/services/comment.service';
 
 @Component({
   selector: 'app-header',
@@ -33,6 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private userService: UserService,
               private messageService: MessageService,
               private router: Router,
+              private commentService: CommentService,
               private route: ActivatedRoute,
               public tasksService: TasksService,
               private authService: AuthService) { }
@@ -55,7 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.skipSideBar();
 
     this.getNavNodes();
-    // this.getTree();
+    this.loadTasks();
   }
 
   ngOnDestroy(): void {
@@ -119,8 +121,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     ).subscribe(() => {
       this.navShow = this.router.url != '/login';
       if (this.navShow) {
-        if (!this.newTasks.length) {  this.getNewTasks(); }
-        if (!this.provenTasks.length) {   this.getProvenTasks(); }
+        this.getProvenTasks();
+        this.getNewTasks();
       }
     });
   }
@@ -239,5 +241,16 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getNodes(taskId) {
     return this.tasksService.getTaskByProjectId(taskId || '1')
+  }
+
+  private loadTasks() {
+    this.commentService.getModel()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        if (res) {
+          this.getNewTasks();
+          this.getProvenTasks();
+        }
+      })
   }
 }
