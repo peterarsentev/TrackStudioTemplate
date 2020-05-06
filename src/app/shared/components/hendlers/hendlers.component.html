@@ -1,7 +1,11 @@
 <h5>Ответственный</h5>
 <div class="border rounded p-2 scr">
   <div class="custom-control custom-radio" *ngFor="let handler of handlers; let idx = index;">
-    <input type="radio" class="custom-control-input" id="{{idx}}" name="groupOfDefaultRadios" (change)="select(handler)">
+    <input type="radio"
+           class="custom-control-input"
+           id="{{idx}}" name="groupOfDefaultRadios"
+           [checked]="handler.name === 'Петр Арсентьев'"
+           (change)="select(handler)">
     <label class="custom-control-label" for="{{idx}}">{{ handler.name }}</label>
   </div>
 </div>

@@ -66,6 +66,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
       takeUntil(this.ngUnsubscribe$)
     ).subscribe(handlers => {
       this.handlers = handlers.handlers;
+      this.handlers.forEach(user => user.name === 'Петр Арсентьев' ?  this.form.get('handlerId').setValue(user.id) : null)
     })
   }
 

@@ -22,6 +22,7 @@ import { ChartsModule } from 'ng2-charts';
 import { DiagramComponent } from './components/diagramma/diagram.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { TreeModule } from 'angular-tree-component';
+import { TreeViewModule } from '@syncfusion/ej2-angular-navigations';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { TreeModule } from 'angular-tree-component';
         MainRoutingModule,
         SharedModule,
         ChartsModule,
-      TreeModule.forRoot()
+      TreeModule.forRoot(),
+      TreeViewModule
     ],
   entryComponents: [
   ],
