@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { ButtonCommentModel } from '../../../shared/models/button.comment.model';
 import { MessagesModel } from '../../../shared/models/messages.model';
 import { PreviousNextNavModels } from '../../../shared/models/previous.next.nav.models';
+import { CommentButtonsModel } from '../../../shared/models/comment.buttons.model';
 
 declare var hljs: any;
 
@@ -21,7 +22,9 @@ export class TaskComponent implements OnInit, OnDestroy {
   previousAndNext: PreviousNextNavModels = {};
   messages: MessagesModel[] = [];
   buttons: ButtonCommentModel[] = [];
+  mstatusId: string;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  showCommentForm: boolean;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -47,10 +50,10 @@ export class TaskComponent implements OnInit, OnDestroy {
         this.getMessages(this.task.id);
         this.getButtons(this.task.id);
         setTimeout(() => {
-            document.querySelectorAll('pre code').forEach((block) => {
-              hljs.highlightBlock(block);
-            });
-          }, 0);
+          document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+          });
+        }, 0);
       });
   }
 
@@ -60,13 +63,13 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   goToComments(button: ButtonCommentModel) {
-    this.router.navigate(['comments'], {
-      queryParams: {
-        taskId: this.task.id,
-        mstatusId: button.id,
-        action: 'task'
-      }
-    });
+    this.mstatusId = button.id;
+    this.showCommentForm = true;
+    setTimeout(() => {
+      const el = document.querySelector('.end')
+      el.scrollIntoView({behavior: 'smooth', block: 'end'});
+      el.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }, 1)
   }
 
   private getMessages(taskId: string) {
@@ -90,5 +93,19 @@ export class TaskComponent implements OnInit, OnDestroy {
         taskId: taskId
       }
     })
+  }
+
+  saveComment(button: CommentButtonsModel) {
+    this.showCommentForm = false;
+    if (button.save) {
+      this.getMessages(this.task.id);
+    }
+    if (button.saveAndUp) {
+      window.scrollTo(0, 0);
+      this.getMessages(this.task.id);
+    }
+    if (button.saveAndNext) {
+      this.goTo(this.previousAndNext.next)
+    }
   }
 }

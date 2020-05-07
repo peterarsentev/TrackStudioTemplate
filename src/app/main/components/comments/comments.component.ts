@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { UserModels } from '../../../shared/models/user.models';
 import { Subject } from 'rxjs';
 import { CommentService } from '../../../shared/services/comment.service';
 import { TaskModel } from '../../../shared/models/task.model';
+import { CommentButtonsModel } from '../../../shared/models/comment.buttons.model';
 declare var hljs: any;
 
 @Component({
@@ -17,9 +18,9 @@ declare var hljs: any;
 export class CommentsComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
-  mstatusId: string;
-  taskId: string;
-  task: TaskModel = {};
+  @Input() mstatusId: string;
+  @Input() taskId: string;
+  @Output() save: EventEmitter<CommentButtonsModel> = new EventEmitter<CommentButtonsModel>();
   handlers: UserModels[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   validationErrors = {
@@ -35,26 +36,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
               private tasksService: TasksService) {};
 
   ngOnInit() {
-    this.getTask();
     this.initForm();
     this.getRoutParams();
-  }
-  private getTask() {
-    this.route.queryParams.pipe(
-      switchMap(res => {
-        console.log('res', res)
-        return this.tasksService.getTask(res.taskId, res.action, '1');
-      })
-    ).subscribe(task => {
-      this.task = task.task;
-      console.log(task)
-      setTimeout(() => {
-        document.querySelectorAll('pre code').forEach((block) => {
-          hljs.highlightBlock(block);
-        });
-      }, 0);
-    })
-    window.scrollTo(0, document.body.scrollHeight);
   }
 
   private initForm() {
@@ -64,31 +47,22 @@ export class CommentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  submitComment() {
+  submitComment(button: CommentButtonsModel) {
     const handlerId = this.form.get('handlerId').value;
     let description = this.form.get('description').value;
     this.tasksService.sendComment(this.taskId, this.mstatusId, handlerId, description)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {
         this.commentService.setUpModel(true);
-        this.router.navigate(['/task'], {
-          queryParams: {
-            action: 'task',
-            taskId: this.taskId
-          }
-        });
+        this.form.reset();
+        this.save.emit(button);
       })
   }
 
   private getRoutParams() {
-    this.route.queryParams.pipe(
-      switchMap(url => {
-        this.taskId = url.taskId;
-        this.mstatusId = url.mstatusId;
-        return this.tasksService.gerResponsiblePeople(this.taskId, this.mstatusId);
-      }),
-      takeUntil(this.ngUnsubscribe$)
-    ).subscribe(handlers => {
+    return this.tasksService.gerResponsiblePeople(this.taskId, this.mstatusId)
+      .pipe( takeUntil(this.ngUnsubscribe$))
+      .subscribe(handlers => {
       this.handlers = handlers.handlers;
       this.handlers.forEach(user => user.name === 'Петр Арсентьев' ?  this.form.get('handlerId').setValue(user.id) : null)
     })
@@ -105,5 +79,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   setDescription(text: string) {
     this.form.get('description').setValue(text);
+  }
+
+  closeForm() {
+    this.form.reset();
+    this.save.emit({ close: true })
   }
 }
