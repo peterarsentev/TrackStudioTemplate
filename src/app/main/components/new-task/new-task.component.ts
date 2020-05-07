@@ -33,8 +33,8 @@ export class NewTaskComponent implements OnInit, OnDestroy {
               private router: Router) { }
 
   ngOnInit() {
-    this.getRoutParams();
     this.initForm();
+    this.getRoutParams();
   }
 
   private getRoutParams() {
@@ -47,6 +47,7 @@ export class NewTaskComponent implements OnInit, OnDestroy {
       takeUntil(this.ngUnsubscribe$)
     ).subscribe(handlers => {
       this.handlers = handlers.handlers;
+      this.handlers.forEach(user => user.name === 'Петр Арсентьев' ?  this.form.get('handlerId').setValue(user.id) : null)
     });
   }
 
