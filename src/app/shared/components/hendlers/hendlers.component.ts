@@ -10,6 +10,7 @@ export class HendlersComponent implements OnInit {
 
   @Input()handlers: UserModels[];
   @Output()selected: EventEmitter<UserModels> = new EventEmitter<UserModels>();
+  userName = 'Петр Арсентьев';
 
   constructor() { }
 
@@ -17,6 +18,7 @@ export class HendlersComponent implements OnInit {
   }
 
   select(handler: UserModels) {
+    this.userName = handler.name;
     this.selected.emit(handler);
   }
 }
