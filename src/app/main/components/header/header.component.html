@@ -10,26 +10,28 @@
       </div>
     </div>
     <div class="list-group list-group-flush small">
-      <div class="list-group-item list-group-item-action bg-info text-white">Закладки</div>
-      <ul class="list-unstyled">
-        <li>
-          <a [routerLink]="['/']" class="list-group-item list-group-item-action bg-light">
-            <i class="fas fa-info mr-2"></i>Процесс обучения
-          </a>
-        </li>
-        <li>
-          <a [routerLink]="['/task']" [queryParams]="{taskId: 'ae84b50d554cbf1d01558646352721c5', action: 'task'}"
-             class="list-group-item list-group-item-action bg-light">
-            <i class="fas fa-info mr-2"></i>Реквизиты
-          </a>
-        </li>
-        <li>
-          <a [routerLink]="['/tasks']" [queryParams]="{taskId: 'ae84b50d571fe2340157387103bd1a68', action: 'tasks'}"
-             class="list-group-item list-group-item-action bg-light">
-            <i class="fas fa-info mr-2"></i>Критика и предложения
-          </a>
-        </li>
-      </ul>
+      <a (click)="showItems()" class="list-group-item list-group-item-action bg-info text-white">Закладки</a>
+      <ng-container *ngIf="!!items">
+        <ul class="list-unstyled">
+          <li>
+            <a [routerLink]="['/']" class="list-group-item list-group-item-action bg-light">
+              <i class="fas fa-info mr-2"></i>Процесс обучения
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/task']" [queryParams]="{taskId: 'ae84b50d554cbf1d01558646352721c5', action: 'task'}"
+               class="list-group-item list-group-item-action bg-light">
+              <i class="fas fa-info mr-2"></i>Реквизиты
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/tasks']" [queryParams]="{taskId: 'ae84b50d571fe2340157387103bd1a68', action: 'tasks'}"
+               class="list-group-item list-group-item-action bg-light">
+              <i class="fas fa-info mr-2"></i>Критика и предложения
+            </a>
+          </li>
+        </ul>
+      </ng-container>
       <a (click)="showProven()" class="list-group-item list-group-item-action bg-info text-white">Проверенные задачи</a>
       <ng-container *ngIf="!!proven && !!provenTasks.length">
         <ul class="list-unstyled">

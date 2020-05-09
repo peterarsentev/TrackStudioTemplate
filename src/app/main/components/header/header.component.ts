@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   toggled = false;
   navShow = true;
   proven = true;
+  items = true;
   newTask = true;
   provenTasks: ResponseModel[] = [];
   newTasks: ResponseModel[] = [];
@@ -252,5 +253,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
           this.getProvenTasks();
         }
       })
+  }
+
+  showItems() {
+    this.items = !this.items;
   }
 }
