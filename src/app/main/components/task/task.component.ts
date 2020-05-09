@@ -68,7 +68,6 @@ export class TaskComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       const el = document.querySelector('.end')
       el.scrollIntoView({behavior: 'smooth', block: 'end'});
-      el.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }, 1)
   }
 
@@ -99,10 +98,12 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.showCommentForm = false;
     if (button.save) {
       this.getMessages(this.task.id);
+      this.getButtons(this.task.id);
     }
     if (button.saveAndUp) {
       window.scrollTo(0, 0);
       this.getMessages(this.task.id);
+      this.getButtons(this.task.id);
     }
     if (button.saveAndNext) {
       this.goTo(this.previousAndNext.next)
