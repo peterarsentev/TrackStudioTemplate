@@ -44,6 +44,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   openTask(task: TaskModel) {
+    console.log(task)
     const url = task.childrenCount > 0 ? 'tasks': 'task';
     this.router.navigate([url], {
       queryParams: {

@@ -195,7 +195,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tasksService.getNavRout('1')
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        console.log('navs', res)
         this.nodes = [new TreeNodeModel(res.tasks[0].name + ' [#' + res.tasks[0].number + ']', res.tasks[0].childrenCount > 0, res.tasks[0].id)];
       })
   }

@@ -65,7 +65,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.emergency = res.emergency;
-        console.log(res)
       });
   }
 

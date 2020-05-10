@@ -46,7 +46,6 @@ export class TaskComponent implements OnInit, OnDestroy {
   private getTask() {
     this.route.queryParams.pipe(
       switchMap(res => {
-        console.log('res', res)
         return this.tasksService.getTask(res.taskId, res.action, '1');
       }),
       switchMap(resp => {
