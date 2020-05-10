@@ -6,6 +6,8 @@ import { TasksService } from '../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
 import { ResponseModel } from '../../../shared/models/response.model';
 import { MStatusesModel } from '../../../shared/models/m.statuses.model';
+import { MessageService } from '../../../shared/services/message.service';
+import { BookmarksService } from '../../../shared/services/bookmarks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -18,9 +20,12 @@ export class TasksComponent implements OnInit, OnDestroy {
   mstatuses: MStatusesModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   private taskId: string;
+  private disable = false;
 
   constructor(private route: ActivatedRoute,
               private tasksService: TasksService,
+              private messageService: MessageService,
+              private bookmarksService: BookmarksService,
               private router: Router) { }
 
   ngOnInit() {
@@ -39,23 +44,14 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   openTask(task: TaskModel) {
-    if (task.childrenCount > 0) {
-      this.router.navigate(['tasks'], {
-        queryParams: {
-          action: 'tasks',
-          taskId: task.id,
-          number: task.number
-        }
-      });
-    } else {
-      this.router.navigate(['task'], {
-        queryParams: {
-          action: 'task',
-          taskId: task.id,
-          number: task.number
-        }
-      })
-    }
+    const url = task.childrenCount > 0 ? 'tasks': 'task';
+    this.router.navigate([url], {
+      queryParams: {
+        action: url,
+        taskId: task.id,
+        number: task.number
+      }
+    });
   }
 
   geButtons(taskId: string) {
@@ -76,4 +72,19 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
   }
+
+  addToFavorite() {
+    if (!this.disable) {
+      this.tasksService.getTask(this.taskId, 'task', '1')
+        .pipe(
+          switchMap( res => this.messageService.addToFavorite(res.task.string, res.task.id, true)),
+          takeUntil(this.ngUnsubscribe$)
+          )
+        .subscribe(() => {
+          this.disable = true;
+          this.bookmarksService.setUpModel(true);
+        })
+    }
+  }
+
 }

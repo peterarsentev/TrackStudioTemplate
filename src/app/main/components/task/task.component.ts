@@ -3,13 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { TaskModel } from '../../../shared/models/task.model';
-import { Subject } from 'rxjs';
+import { pipe, Subject } from 'rxjs';
 import { ButtonCommentModel } from '../../../shared/models/button.comment.model';
 import { MessagesModel } from '../../../shared/models/messages.model';
 import { PreviousNextNavModels } from '../../../shared/models/previous.next.nav.models';
 import { CommentButtonsModel } from '../../../shared/models/comment.buttons.model';
 import {StatusModel} from '../../../shared/models/status.model';
 import {UserModels} from '../../../shared/models/user.models';
+import { MessageService } from '../../../shared/services/message.service';
+import { BookmarksService } from '../../../shared/services/bookmarks.service';
 
 declare var hljs: any;
 
@@ -29,9 +31,11 @@ export class TaskComponent implements OnInit, OnDestroy {
   mstatusId: string;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   showCommentForm: boolean;
-
+  disable = false;
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private messageService: MessageService,
+              private bookmarksService: BookmarksService,
               private tasksService: TasksService) { }
 
   ngOnInit() {
@@ -113,6 +117,18 @@ export class TaskComponent implements OnInit, OnDestroy {
     }
     if (button.saveAndNext) {
       this.goTo(this.previousAndNext.next)
+    }
+  }
+
+  addToFavorite() {
+    console.log('add')
+    if (!this.disable) {
+      this.messageService.addToFavorite(this.task.string, this.task.id, false)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => {
+          this.disable = true;
+          this.bookmarksService.setUpModel(true);
+        })
     }
   }
 }

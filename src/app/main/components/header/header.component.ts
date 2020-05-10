@@ -12,6 +12,8 @@ import { IActionMapping, ITreeOptions, KEYS, TREE_ACTIONS, TreeComponent } from 
 import { TreeNodeModel } from '../../../shared/models/tree.node.model';
 import { TaskModel } from '../../../shared/models/task.model';
 import { CommentService } from '../../../shared/services/comment.service';
+import { BookmarksModel } from '../../../shared/models/bookmarks.model';
+import { BookmarksService } from '../../../shared/services/bookmarks.service';
 
 @Component({
   selector: 'app-header',
@@ -31,9 +33,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   newTask = true;
   provenTasks: ResponseModel[] = [];
   newTasks: ResponseModel[] = [];
+  bookmarks: BookmarksModel[] = [];
 
   constructor(private userService: UserService,
               private messageService: MessageService,
+              private bookmarksService: BookmarksService,
               private router: Router,
               private commentService: CommentService,
               private route: ActivatedRoute,
@@ -59,6 +63,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.getNavNodes();
     this.loadTasks();
+    this.getBookmarks();
+    this.getBookSubscribe();
   }
 
   ngOnDestroy(): void {
@@ -257,5 +263,38 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   showItems() {
     this.items = !this.items;
+  }
+
+  getBookmarks() {
+    this.messageService.getBookmarks()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.bookmarks = res.bookmarks)
+  }
+
+  goToBook(book: BookmarksModel) {
+    this.tasksService.getTask(book.taskId, 'task', '1')
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        const url = res.task.childrenCount > 0 ? 'tasks': 'task';
+          this.router.navigate([url], {
+            queryParams: {
+              action: url,
+              taskId: res.task.id,
+              number: res.task.number
+            }
+          })
+      })
+  }
+
+  private getBookSubscribe() {
+    this.bookmarksService.getModel()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => this.getBookmarks())
+  }
+
+  deleteBook(book: BookmarksModel) {
+    this.messageService.deleteBook(book.id)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => this.bookmarksService.setUpModel(true))
   }
 }

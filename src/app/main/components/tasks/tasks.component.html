@@ -13,7 +13,7 @@
       <thead>
       <tr>
         <th scope="col">Задания <i *ngIf="tasks?.length && tasks[0].task.childrenCount === 0" class="fas fa-star pull-right"></i></th>
-        <th scope="col" *ngIf="tasks?.length && tasks[0].task.childrenCount > 0">Прогресс<i class="fas fa-star pull-right"></i></th>
+        <th scope="col" *ngIf="tasks?.length && tasks[0].task.childrenCount > 0">Прогресс<i  (click)="addToFavorite()" class="fas fa-star pull-right"></i></th>
       </tr>
       </thead>
       <tbody>

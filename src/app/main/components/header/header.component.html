@@ -30,6 +30,14 @@
               <i class="fas fa-info mr-2"></i>Критика и предложения
             </a>
           </li>
+          <li *ngFor="let book of bookmarks">
+            <a class="list-group-item list-group-item-action bg-light">
+              <a class="btn btn-default" aria-label="Settings">
+                <i (click)="deleteBook(book)" class="fas fa-plus" aria-hidden="true"></i>
+              </a>
+              <i (click)="goToBook(book)">{{ book.name }}</i>
+            </a>
+          </li>
         </ul>
       </ng-container>
       <a (click)="showProven()" class="list-group-item list-group-item-action bg-info text-white">Проверенные задачи</a>
