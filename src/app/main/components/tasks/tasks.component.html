@@ -12,8 +12,13 @@
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">Задания : {{tasks.length}} <i *ngIf="tasks?.length && tasks[0].task.childrenCount === 0" class="fas fa-star pull-right"></i></th>
-        <th scope="col" *ngIf="tasks?.length && tasks[0].task.childrenCount > 0">Прогресс<i  (click)="addToFavorite()" class="fas fa-star pull-right"></i></th>
+        <th scope="col">Задания : {{tasks.length}}
+          <i *ngIf="tasks?.length && tasks[0].task.childrenCount === 0"
+             (click)="addToFavorite()"
+             class="fas fa-star pull-right"></i></th>
+        <th scope="col" *ngIf="tasks?.length && tasks[0].task.childrenCount > 0">Прогресс
+          <i (click)="addToFavorite()"
+             class="fas fa-star pull-right"></i></th>
       </tr>
       </thead>
       <tbody>

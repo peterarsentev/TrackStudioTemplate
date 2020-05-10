@@ -39,6 +39,7 @@ export class TasksComponent implements OnInit, OnDestroy {
       ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
       this.tasks = res.tasks;
+      this.disable = false;
       // console.log('tasks', res)
     })
   }
@@ -75,6 +76,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   addToFavorite() {
+    console.log('clic', this.disable)
     if (!this.disable) {
       this.tasksService.getTask(this.taskId, 'task', '1')
         .pipe(
