@@ -10,7 +10,11 @@
       </div>
     </div>
     <div class="list-group list-group-flush small">
-      <a (click)="showItems()" class="list-group-item list-group-item-action bg-info text-white">Закладки</a>
+      <a (click)="showItems()" class="list-group-item list-group-item-action bg-info text-white">
+        Закладки
+        <i *ngIf="items"  class="fas fa-arrow-up fa_icons"></i>
+        <i *ngIf="!items" class="fas fa-arrow-down fa_icons"></i>
+      </a>
       <ng-container *ngIf="!!items">
         <ul class="list-unstyled">
           <li>
@@ -40,7 +44,11 @@
           </li>
         </ul>
       </ng-container>
-      <a (click)="showProven()" class="list-group-item list-group-item-action bg-info text-white">Проверенные задачи</a>
+      <a (click)="showProven()" class="list-group-item list-group-item-action bg-info text-white">
+        Проверенные задачи
+        <i *ngIf="proven" class="fas fa-arrow-up fa_icons"></i>
+        <i *ngIf="!proven" class="fas fa-arrow-down fa_icons"></i>
+      </a>
       <ng-container *ngIf="!!proven && !!provenTasks.length">
         <ul class="list-unstyled">
           <li *ngFor="let task of provenTasks">
@@ -50,7 +58,11 @@
           </li>
         </ul>
       </ng-container>
-      <a (click)="showNew()" class="list-group-item list-group-item-action bg-info text-white">Новые задачи</a>
+      <a (click)="showNew()" class="list-group-item list-group-item-action bg-info text-white">
+        Новые задачи
+        <i *ngIf="newTask" class="fas fa-arrow-up fa_icons"></i>
+        <i *ngIf="!newTask" class="fas fa-arrow-down fa_icons"></i>
+      </a>
       <ng-container *ngIf="newTask && !!newTasks.length">
         <ul class="list-unstyled">
           <li *ngFor="let task of newTasks">
