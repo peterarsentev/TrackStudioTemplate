@@ -1,14 +1,14 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
-import { EMPTY, pipe, Subject } from 'rxjs';
-import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { filter, map, take, takeUntil } from 'rxjs/operators';
 import { UserModels } from '../../../shared/models/user.models';
 import { AuthService } from '../../../shared/services/auth.service';
 import { MessageService } from '../../../shared/services/message.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { ResponseModel } from '../../../shared/models/response.model';
-import { IActionMapping, ITreeOptions, KEYS, TREE_ACTIONS, TreeComponent } from 'angular-tree-component';
+import { ITreeOptions, TREE_ACTIONS, TreeComponent } from 'angular-tree-component';
 import { TreeNodeModel } from '../../../shared/models/tree.node.model';
 import { TaskModel } from '../../../shared/models/task.model';
 import { CommentService } from '../../../shared/services/comment.service';

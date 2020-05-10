@@ -7,12 +7,14 @@
     </thead>
     <tbody>
     <tr *ngFor="let message of messages">
-      <td (click)="openTask({id : message.taskId})" style="cursor: pointer;">
+      <td  style="cursor: pointer;">
         <div>
+          <div (click)="openTask({id : message.taskId})">
           <span><i class="fas fa-tasks pr-3"></i>
           {{ message.time | getDate }} {{ message.text }}
           </span>
-          <span class="pull-right"><i class="fas fa-remove"></i></span>
+          </div>
+          <span class="pull-right mr-5"><i (click)="deleteMessage(message)" class="fas fa-remove"></i></span>
         </div>
       </td>
     </tr>

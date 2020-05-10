@@ -58,10 +58,12 @@ export class MessageService {
     return this.http.post(url, params);
   }
 
-  /*
-  curl http://localhost:8080/TrackStudio/rest/bookmark
-  -d action=delete
-  -d sessionId=7f0e1f47b83ce6381db1e4b4855bb53a
-  -d bookmarkId=4028b88171fcf2cb0171fcf883ca0004
-   */
+  deleteMessage(id: string) {
+    const url = `${environment.url}/rest/messenger`;
+    let params = new HttpParams();
+    params = params.append('action', 'delete');
+    params = params.append('msgId', id);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post(url, params);
+  }
 }

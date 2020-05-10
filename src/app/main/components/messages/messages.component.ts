@@ -16,6 +16,7 @@ export class MessagesComponent implements OnInit {
 
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   messages: MessageModel[];
+  userId: string;
   constructor(private messageService: MessageService,
               private userService: UserService,
               private router: Router) { }
@@ -23,7 +24,10 @@ export class MessagesComponent implements OnInit {
   ngOnInit() {
     this.userService.getModel()
       .pipe(
-        switchMap(user => this.messageService.getMessages(user.id)),
+        switchMap(user => {
+          this.userId = user.id;
+          return this.messageService.getMessages(user.id)
+        }),
         takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => {
         this.messages = res.messages
@@ -43,5 +47,13 @@ export class MessagesComponent implements OnInit {
         number: task.number
       }
     })
+  }
+
+  deleteMessage(message: MessageModel) {
+    this.messageService.deleteMessage(message.id)
+      .pipe(
+        switchMap(() => this.messageService.getMessages(this.userId)),
+        takeUntil(this.ngUnsubscribe$)
+      ).subscribe(res =>  this.messages = res.messages)
   }
 }
