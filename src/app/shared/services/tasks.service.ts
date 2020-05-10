@@ -97,7 +97,7 @@ export class TasksService {
       }));
   }
 
-  getNavRout(id?: string):  Observable<{tasks: TaskModel[]}> {
+  getNavRout(id?: string): Observable<{tasks: TaskModel[]}> {
     id = id ? id : localStorage.getItem('defaultProjectId');
     const sessionId =  localStorage.getItem('sessionId');
     let params = new HttpParams();

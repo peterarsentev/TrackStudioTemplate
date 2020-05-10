@@ -45,10 +45,10 @@ export class TaskComponent implements OnInit, OnDestroy {
         return this.tasksService.getTask(res.taskId, res.action, '1');
       }),
       switchMap(resp => {
-        this.task = resp.task;
-        this.status = resp.status;
-        this.handler = resp.handler;
-        return this.tasksService.getNextAndPreviousTasks(this.task.id)
+        this.task = resp.resp.task;
+        this.status = resp.resp.status;
+        this.handler = resp.resp.handler;
+        return this.tasksService.getNextAndPreviousTasks(this.task.id);
       })
     ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {

@@ -85,12 +85,12 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  private setResult(all: { [p: string]: number }, solved: { [p: string]: number }, stat: { task: TaskModel }) {
+  private setResult(all: { [p: string]: number }, solved: { [p: string]: number }, stat: { resp: ResponseModel }) {
     this.allTasksCount = all.total;
     this.solvedTasksCount = solved.total;
     this.barValue = Math.round((this.solvedTasksCount / this.allTasksCount) * 100);
-    this.submitDate = stat.task.submitdate;
-    this.updateDate = stat.task.updatedate;
+    this.submitDate = stat.resp.task.submitdate;
+    this.updateDate = stat.resp.task.updatedate;
     this.countOfDays = Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24)
     this.speed = this.solvedTasksCount / this.countOfDays;
   }
