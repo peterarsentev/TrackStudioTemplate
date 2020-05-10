@@ -45,7 +45,6 @@ export class TaskComponent implements OnInit, OnDestroy {
         return this.tasksService.getTask(res.taskId, res.action, '1');
       }),
       switchMap(resp => {
-        console.log(resp)
         this.task = resp.task;
         this.status = resp.status;
         this.handler = resp.handler;
