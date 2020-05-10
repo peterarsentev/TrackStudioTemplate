@@ -74,13 +74,13 @@ export class TasksService {
       }));
   }
 
-  getTask(taskId: string, action: string, filterId?: string): Observable<{task: TaskModel}> {
+  getTask(taskId: string, action: string, filterId?: string): Observable<{resp: ResponseModel}> {
     let params = new HttpParams();
     params = params.append('action', action);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = filterId ? params.append('filterId', filterId) : params;
-    return this.http.post<{task: TaskModel}>(this.url, params)
+    return this.http.post<{resp: ResponseModel}>(this.url, params)
       .pipe(catchError((err: HttpErrorResponse) => {
         if (err.status === 403 || err.status === 500) {
           this.router.navigate(['/prevention'], {

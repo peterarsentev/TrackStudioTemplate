@@ -8,6 +8,8 @@ import { ButtonCommentModel } from '../../../shared/models/button.comment.model'
 import { MessagesModel } from '../../../shared/models/messages.model';
 import { PreviousNextNavModels } from '../../../shared/models/previous.next.nav.models';
 import { CommentButtonsModel } from '../../../shared/models/comment.buttons.model';
+import {StatusModel} from '../../../shared/models/status.model';
+import {UserModels} from '../../../shared/models/user.models';
 
 declare var hljs: any;
 
@@ -19,6 +21,8 @@ declare var hljs: any;
 export class TaskComponent implements OnInit, OnDestroy {
 
   task: TaskModel = {};
+  status: StatusModel = {};
+  handler: UserModels = {};
   previousAndNext: PreviousNextNavModels = {};
   messages: MessagesModel[] = [];
   buttons: ButtonCommentModel[] = [];
@@ -40,8 +44,10 @@ export class TaskComponent implements OnInit, OnDestroy {
         console.log('res', res)
         return this.tasksService.getTask(res.taskId, res.action, '1');
       }),
-      switchMap(task => {
-        this.task = task.task;
+      switchMap(resp => {
+        this.task = resp.task;
+        this.status = resp.status;
+        this.handler = resp.handler;
         return this.tasksService.getNextAndPreviousTasks(this.task.id)
       })
     ).pipe(takeUntil(this.ngUnsubscribe$))

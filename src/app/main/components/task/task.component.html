@@ -16,7 +16,26 @@
   <div class="row">
     <div class="w-100 card">
       <div class="card-header">
-        {{ task.string }}
+        <div class="grid">
+          <div class="row">
+            <div class="col-sm-10">
+              <div class="">{{ task.string }}</div>
+              <div>
+                <small class="mb-2 text-muted">
+                  <span *ngIf="status.start" class="badge badge-danger mr-3">{{ status.name }}</span>
+                  <span *ngIf="status.finish" class="badge badge-success mr-3">{{ status.name }}</span>
+                  <span *ngIf="!(status.finish || status.start)" class="badge badge-warning mr-3">{{ status.name }}</span>
+                  <span *ngIf="handler" class="mr-3">Ответственный : {{handler.name }}</span>
+                  <span class="mr-3">Создана : {{ task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
+                  <span>Обновлена : {{  task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
+                </small>
+              </div>
+            </div>
+            <div class="pull-right col-sm-2">
+              <i  class="fas fa-star pull-right"></i>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="card-body">
         <p class="card-text" [innerHTML]="task.description | safeCode"></p>
