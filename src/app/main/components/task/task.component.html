@@ -88,6 +88,7 @@
   <div class="row">
     <app-comments *ngIf="showCommentForm"
                   [mstatusId]="mstatusId"
+                  [operation]="operationName"
                   [taskId]="task.id"
                   (save)="saveComment($event)"
     ></app-comments>

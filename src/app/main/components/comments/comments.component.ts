@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { UserModels } from '../../../shared/models/user.models';
 import { Subject } from 'rxjs';
 import { CommentService } from '../../../shared/services/comment.service';
-import { TaskModel } from '../../../shared/models/task.model';
 import { CommentButtonsModel } from '../../../shared/models/comment.buttons.model';
+
 declare var hljs: any;
 
 @Component({
@@ -20,6 +20,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   form: FormGroup;
   @Input() mstatusId: string;
   @Input() taskId: string;
+  @Input() operation: string;
   @Output() save: EventEmitter<CommentButtonsModel> = new EventEmitter<CommentButtonsModel>();
   handlers: UserModels[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();

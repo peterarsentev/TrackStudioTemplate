@@ -32,6 +32,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   showCommentForm: boolean;
   disable = false;
+  operationName: string;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private messageService: MessageService,
@@ -74,6 +75,7 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   goToComments(button: ButtonCommentModel) {
     this.mstatusId = button.id;
+    this.operationName = button.name;
     this.showCommentForm = true;
     setTimeout(() => {
       const el = document.querySelector('.end')

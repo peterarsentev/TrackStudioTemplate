@@ -11,7 +11,7 @@
                                   class="validation">{{ error.message }}</span>
       </div>
       <div class="pt-3">
-        <app-redactor [titleLabel]="'Введите комментарий'"
+        <app-redactor [titleLabel]="'Выполняется: ' + operation + '.' "
                       (outputEmitter)="setDescription($event)"
         ></app-redactor>
       </div>
