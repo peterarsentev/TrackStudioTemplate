@@ -10,8 +10,10 @@
       <tr *ngFor="let task of provenTasks; let idx = index">
         <td (click)="openTask(task.task)" style="cursor: pointer;">
           <div>
-            <i class="fas fa-tasks pr-3"></i>
-            {{task.task.name}} &nbsp;[#{{task.task.number}}]
+            <span class="font-weight-bold">
+              <i class="fas fa-tasks pr-3"></i>
+              {{task.task.name}} &nbsp;[#{{task.task.number}}]
+            </span>
           </div>
           <small class="mb-2 text-muted">
             <span class="badge badge-warning mr-3">{{ task.status.name }}</span>
@@ -28,15 +30,17 @@
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">Новые задачи 10 из .. </th>
+        <th scope="col">Новые задачи : 10</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let task of newTasks; let idx = index">
         <td (click)="openTask(task.task)" style="cursor: pointer;">
           <div>
-            <i class="fas fa-tasks pr-3"></i>
-            {{task.task.name}} &nbsp;[#{{task.task.number}}]
+            <span class="font-weight-bold">
+              <i class="fas fa-tasks pr-3"></i>
+              {{task.task.name}} &nbsp;[#{{task.task.number}}]
+            </span>
           </div>
           <small class="mb-2 text-muted">
             <span class="badge badge-danger mr-3">{{ task.status.name }}</span>
