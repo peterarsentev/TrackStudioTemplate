@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/lightbox2/dist/css/lightbox.min.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss",
@@ -37,7 +38,8 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/summernote/dist/summernote-lite.min.js"
+              "node_modules/summernote/dist/summernote-lite.min.js",
+              "node_modules/lightbox2/dist/js/lightbox.min.js"
             ]
           },
           "configurations": {

@@ -52,6 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         this.notifications = (!!this.user.name && this.user.name !== 'Аnonymous');
         if (this.notifications) {
           this.getNotifications(this.user.id);
+          this.executor(this.user.id)
         }
       });
     this.authService.getDefaultProjectId()
@@ -295,5 +296,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.messageService.deleteBook(book.id)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => this.bookmarksService.setUpModel(true))
+  }
+
+  private executor(id: string) {
+    setInterval(() => {
+      this.getNotifications(this.user.id);
+    }, 30000)
   }
 }
