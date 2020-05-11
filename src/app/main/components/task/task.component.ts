@@ -63,6 +63,10 @@ export class TaskComponent implements OnInit, OnDestroy {
           document.querySelectorAll('pre code').forEach((block) => {
             hljs.highlightBlock(block);
           });
+
+          document.querySelectorAll('a img').forEach((block) => {
+            block.parentElement.setAttribute('data-lightbox', 'images');
+          });
         }, 0);
       });
   }
