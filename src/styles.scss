@@ -1,11 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~angular-tree-component/dist/angular-tree-component.css';
 html, body { height: 100%; }
-body { margin: 0; font-family: Arial, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0; font-family: Arial, "Helvetica Neue", sans-serif;
+}
 
 pre {
-  border: solid 1px;
-  background-color: #FFFFFF;
+  border: solid 1px #FFFFFF;
+  background-color: #444;
   padding: 10px;
 }
 

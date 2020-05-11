@@ -1,4 +1,4 @@
-<div class="container-fluid pb-4">
+<div class="container-fluid pb-4 bg-dark">
   <div class="row pb-2">
     <span class="w-50">
       <ng-container *ngFor="let button of buttons">
@@ -7,15 +7,15 @@
       </ng-container>
     </span>
     <span class="w-50 pull-right">
-      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="previousAndNext.next"
-              (click)="goTo(previousAndNext.next)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="previousAndNext.previous"
+      <button type="button" class="m btn btn-secondary btn-sm pull-right text-white" *ngIf="previousAndNext.next"
+               (click)="goTo(previousAndNext.next)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
+      <button type="button" class="m btn btn-secondary btn-sm pull-right text-white" *ngIf="previousAndNext.previous"
               (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
     </span>
   </div>
   <div class="row">
     <div class="w-100 card">
-      <div class="card-header">
+      <div class="card-header bg-dark">
         <div class="grid">
           <div class="row">
             <div class="col-sm-10">
@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body">
+      <div class="card-body bg-dark">
         <p class="card-text" [innerHTML]="task.description | safeCode"></p>
       </div>
     </div>
@@ -51,14 +51,14 @@
   </div>
   <div class="row" *ngIf="messages.length > 0">
     <div class="w-100 card">
-      <div class="card-header">
+      <div class="card-header bg-dark">
         Сообщения
       </div>
-      <div class="card-body">
+      <div class="card-body bg-dark">
         <table class="table">
           <tbody>
           <tr *ngFor="let message of messages"
-              class="{{message.submitter.prstatusId === '4028816a5525e65b015525f8e0db007f' ? 'bg-light' : ''}}">
+              class="{{message.submitter.prstatusId === '4028816a5525e65b015525f8e0db007f' ? 'bg-secondary' : ''}}">
             <td>
               <div class="pb-3 small">
                 <span>Oт <span class="font-weight-bold">{{ message.submitter.name }}</span> к <span class="font-weight-bold">{{ message.handler.name }}</span></span>
@@ -79,9 +79,9 @@
       </ng-container>
     </span>
     <span class="w-50 pull-right">
-      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="previousAndNext.next"
+      <button type="button" class="m btn btn-secondary btn-sm pull-right text-white" *ngIf="previousAndNext.next"
               (click)="goTo(previousAndNext.next)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="previousAndNext.previous"
+      <button type="button" class="m btn btn-secondary btn-sm pull-right text-white" *ngIf="previousAndNext.previous"
               (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
     </span>
   </div>
