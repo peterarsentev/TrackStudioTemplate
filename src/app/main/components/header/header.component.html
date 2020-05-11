@@ -84,6 +84,9 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
       <i *ngIf="navShow" class="fa fa-bars mr-2" style="font-size:23px" aria-hidden="true" id="menu-toggle" (click)="onToggle()"></i>
       <a class="navbar-brand text-white" [routerLink]="['/']">Job4j</a>
+      <a class="navbar-brand text-white" href="https://job4j.ru/edu/">
+        <i *ngIf="navShow" class="fa fa-sun-o ml-2 fa-inverse"></i>
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse"
               data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
