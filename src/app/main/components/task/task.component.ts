@@ -59,6 +59,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         this.previousAndNext = res;
         this.getMessages(this.task.id);
         this.getButtons(this.task.id);
+        this.showCommentForm = false;
         setTimeout(() => {
           document.querySelectorAll('pre code').forEach((block) => {
             hljs.highlightBlock(block);
