@@ -46,7 +46,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   openTask(task: TaskModel) {
     console.log(task)
-    const url = task.childrenCount > 0 ? 'tasks': 'task';
+    const url = task.preferences.includes('V') ? 'task' : 'tasks';
     this.router.navigate([url], {
       queryParams: {
         action: url,
@@ -76,7 +76,6 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   addToFavorite() {
-    console.log('clic', this.disable)
     if (!this.disable) {
       this.tasksService.getTask(this.taskId, 'task', '1')
         .pipe(

@@ -275,7 +275,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tasksService.getTask(book.taskId, 'task', '1')
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        const url = res.task.childrenCount > 0 ? 'tasks': 'task';
+        const url = res.task.preferences.includes('V') ? 'task' : 'tasks';
           this.router.navigate([url], {
             queryParams: {
               action: url,

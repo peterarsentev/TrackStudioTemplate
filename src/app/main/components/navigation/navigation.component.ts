@@ -42,7 +42,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   goToNav(nav: TaskModel) {
-    const action  = nav.childrenCount > 0 ? 'tasks' : 'task';
+    console.log(nav)
+    const action  = nav.preferences.includes('V') ? 'task' : 'tasks';
     const taskId = nav.id;
 
     this.router.navigate([action], {
