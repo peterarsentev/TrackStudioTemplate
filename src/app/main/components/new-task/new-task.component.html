@@ -8,6 +8,7 @@
                id="name" placeholder="Введите название">
       </div>
       <app-hendlers [handlers]="handlers"
+                    [searchHandlers]="handlers"
                     (selected)="selectPerson($event)"
       ></app-hendlers>
       <div *ngFor="let error of validationErrors.handlerId">

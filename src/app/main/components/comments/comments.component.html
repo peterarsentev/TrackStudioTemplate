@@ -2,6 +2,7 @@
   <div class="row pt-3">
     <form [formGroup]="form">
       <app-hendlers [handlers]="handlers"
+                    [searchHandlers]="handlers"
                     (selected)="selectPerson($event)"
       ></app-hendlers>
       <div *ngFor="let error of validationErrors.handlerId">
