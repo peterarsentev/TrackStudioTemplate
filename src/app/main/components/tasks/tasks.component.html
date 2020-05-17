@@ -12,11 +12,11 @@
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">Задания : {{tasks.length}}
-          <i *ngIf="tasks?.length && tasks[0].task.childrenCount === 0"
+        <th scope="col">{{ title }} : {{tasks.length}}
+          <i *ngIf="tasks?.length && tasks[0].task.preferences.includes('V')"
              (click)="addToFavorite()"
              class="fas fa-star pull-right"></i></th>
-        <th scope="col" *ngIf="tasks?.length && tasks[0].task.childrenCount > 0">Прогресс
+        <th scope="col" *ngIf="tasks?.length && !tasks[0].task.preferences.includes('V')">Прогресс
           <i (click)="addToFavorite()"
              class="fas fa-star pull-right"></i></th>
       </tr>
@@ -25,12 +25,12 @@
       <tr *ngFor="let task of tasks; let idx = index">
         <td (click)="openTask(task.task)" style="cursor: pointer;">
           <div>
-            <i *ngIf="task.task.childrenCount > 0" class="fas fa-folder pr-3"></i>
-            <i *ngIf="task.task.childrenCount === 0" class="fas fa-tasks pr-3"></i>
+            <i *ngIf="!task.task.preferences.includes('V')" class="fas fa-folder pr-3"></i>
+            <i *ngIf="task.task.preferences.includes('V')" class="fas fa-tasks pr-3"></i>
             <span class="font-weight-bold">{{task.task.name}} &nbsp;[#{{task.task.number}}]</span>
           </div>
           <small class="mb-2 text-muted">
-            <span *ngIf="task.task.childrenCount === 0">
+            <span *ngIf="task.task.preferences.includes('V')">
               <span *ngIf="task.status.start" class="badge badge-danger mr-3">{{ task.status.name }}</span>
               <span *ngIf="task.status.finish" class="badge badge-success mr-3">{{ task.status.name }}</span>
               <span *ngIf="!(task.status.finish || task.status.start)" class="badge badge-warning mr-3">{{ task.status.name }}</span>
@@ -40,7 +40,7 @@
             <span>Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
           </small>
         </td>
-        <td *ngIf="task.task.childrenCount > 0">
+        <td *ngIf="!task.task.preferences.includes('V')">
           <app-progress-bar [task]="task.task"></app-progress-bar>
         </td>
       </tr>

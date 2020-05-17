@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { TaskModel } from '../../../shared/models/task.model';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
@@ -21,6 +21,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   private taskId: string;
   private disable = false;
+  title: string;
 
   constructor(private route: ActivatedRoute,
               private tasksService: TasksService,
@@ -32,20 +33,29 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.route.queryParams
       .pipe(
         switchMap(res => {
-          this.taskId = res.taskId;
-          this.geButtons(res.taskId);
-          return this.tasksService.getTaskByProjectId(res.taskId)
+          if (!!res.taskId) {
+            console.log('res', res);
+            this.taskId = res.taskId;
+            this.geButtons(res.taskId);
+            this.title = 'Задания'
+            return this.tasksService.getTaskByProjectId(res.taskId);
+          }
+          return this.tasksService.getNavRout()
+            .pipe(
+              switchMap((res) => {
+                this.title = 'Уровни'
+                return this.tasksService.getTaskByProjectId(res.tasks[res.tasks.length - 1].id)
+              })
+            )
         })
       ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
       this.tasks = res.tasks;
       this.disable = false;
-      // console.log('tasks', res)
     })
   }
 
   openTask(task: TaskModel) {
-    console.log(task)
     const url = task.preferences.includes('V') ? 'task' : 'tasks';
     this.router.navigate([url], {
       queryParams: {

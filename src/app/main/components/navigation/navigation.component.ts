@@ -42,7 +42,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   goToNav(nav: TaskModel) {
-    console.log(nav)
     const action  = nav.preferences.includes('V') ? 'task' : 'tasks';
     const taskId = nav.id;
 

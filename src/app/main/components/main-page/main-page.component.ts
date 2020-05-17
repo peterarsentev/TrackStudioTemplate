@@ -10,7 +10,7 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { DiagramaModel } from '../../../shared/models/diagrama.model';
 
 @Component({
-  selector: 'app-tasks',
+  selector: 'app-main',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })

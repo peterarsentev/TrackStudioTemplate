@@ -72,6 +72,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   goMain() {
-    this.route.navigate(['/'], {});
+    this.authService.login()
+      .pipe(
+        switchMap(() => this.authService.getDefaultProjectId()),
+        takeUntil(this.ngUnsubscribe$)
+      ).subscribe(() => this.route.navigate(['/'], {}))
   }
 }
