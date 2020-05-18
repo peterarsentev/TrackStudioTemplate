@@ -49,8 +49,8 @@ export class MessagesComponent implements OnInit {
     })
   }
 
-  deleteMessage(message: MessageModel) {
-    this.messageService.deleteMessage(message.id)
+  deleteMessage(messageId?: string) {
+    this.messageService.deleteMessage(messageId)
       .pipe(
         switchMap(() => this.messageService.getMessages(this.userId)),
         takeUntil(this.ngUnsubscribe$)

@@ -58,11 +58,11 @@ export class MessageService {
     return this.http.post(url, params);
   }
 
-  deleteMessage(id: string) {
+  deleteMessage(id?: string) {
     const url = `${environment.url}/rest/messenger`;
     let params = new HttpParams();
     params = params.append('action', 'delete');
-    params = params.append('msgId', id);
+    params = id ? params.append('msgId', id) : params;
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);
   }

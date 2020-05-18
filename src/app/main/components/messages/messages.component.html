@@ -2,7 +2,9 @@
   <table class="table">
     <thead>
     <tr>
-      <th scope="col">Уведомления</th>
+      <th scope="col">Уведомления
+        <button class="btn btn-info pull-right" (click)="deleteMessage()">Удалить все</button>
+      </th>
     </tr>
     </thead>
     <tbody>
@@ -14,7 +16,7 @@
           {{ message.time | getDate }} {{ message.text }}
           </span>
           </div>
-          <span class="pull-right mr-5"><i (click)="deleteMessage(message)" class="fas fa-remove"></i></span>
+          <span class="pull-right mr-5"><i (click)="deleteMessage(message.id)" class="fas fa-remove"></i></span>
         </div>
       </td>
     </tr>
