@@ -1,24 +1,25 @@
-import {Component, OnDestroy, OnInit, Pipe, PipeTransform} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, switchMap, takeUntil } from 'rxjs/operators';
-import { TasksService } from '../../../shared/services/tasks.service';
-import { TaskModel } from '../../../shared/models/task.model';
-import { pipe, Subject } from 'rxjs';
-import { ButtonCommentModel } from '../../../shared/models/button.comment.model';
-import { MessagesModel } from '../../../shared/models/messages.model';
-import { PreviousNextNavModels } from '../../../shared/models/previous.next.nav.models';
-import { CommentButtonsModel } from '../../../shared/models/comment.buttons.model';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {switchMap, takeUntil} from 'rxjs/operators';
+import {TasksService} from '../../../shared/services/tasks.service';
+import {TaskModel} from '../../../shared/models/task.model';
+import {Subject} from 'rxjs';
+import {ButtonCommentModel} from '../../../shared/models/button.comment.model';
+import {MessagesModel} from '../../../shared/models/messages.model';
+import {PreviousNextNavModels} from '../../../shared/models/previous.next.nav.models';
+import {CommentButtonsModel} from '../../../shared/models/comment.buttons.model';
 import {StatusModel} from '../../../shared/models/status.model';
 import {UserModels} from '../../../shared/models/user.models';
-import { MessageService } from '../../../shared/services/message.service';
-import { BookmarksService } from '../../../shared/services/bookmarks.service';
+import {MessageService} from '../../../shared/services/message.service';
+import {BookmarksService} from '../../../shared/services/bookmarks.service';
 
 declare var hljs: any;
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.scss']
+  styleUrls: ['./task.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TaskComponent implements OnInit, OnDestroy {
 
