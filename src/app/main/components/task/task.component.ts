@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit,ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
@@ -19,7 +19,8 @@ declare var hljs: any;
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.scss']
+  styleUrls: ['./task.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TaskComponent implements OnInit, OnDestroy {
 
