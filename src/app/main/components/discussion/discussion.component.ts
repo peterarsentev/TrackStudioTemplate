@@ -9,6 +9,7 @@ import { MessageService } from '../../../shared/services/message.service';
 })
 export class DiscussionComponent implements OnInit {
 
+  submit: boolean;
   @Input()shortname: string;
   form: FormGroup;
   @Output() closeEmitter: EventEmitter<any> = new EventEmitter<Boolean>();
@@ -27,10 +28,12 @@ export class DiscussionComponent implements OnInit {
   }
 
   submitComment() {
+    this.submit = true;
     const text = this.form.get('text').value;
     this.messageService.addDiscussion(this.shortname, text)
       .subscribe(res => {
         this.form.reset();
+        this.submit = false;
         this.closeEmitter.emit(true);
       })
   }

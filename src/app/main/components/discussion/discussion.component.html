@@ -8,7 +8,7 @@
       </div>
       <button
         class="btn btn-primary"
-        [disabled]="form.get('text').value.length === 0"
+        [disabled]="form.get('text').value.length === 0 || submit"
         (click)="form.valid && submitComment()"
       >Сохранить</button>
       <button
