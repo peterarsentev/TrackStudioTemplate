@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
 import { Subject } from 'rxjs';
-import { filter, map, take, takeUntil } from 'rxjs/operators';
+import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
 import { UserModels } from '../../../shared/models/user.models';
 import { AuthService } from '../../../shared/services/auth.service';
 import { MessageService } from '../../../shared/services/message.service';
@@ -82,6 +82,14 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
           this.notifications = false;
         });
     }
+  }
+
+  goMain() {
+    this.authService.login()
+      .pipe(
+        switchMap(() => this.authService.getDefaultProjectId()),
+        takeUntil(this.ngUnsubscribe$)
+      ).subscribe(() => this.router.navigate(['/'], {}))
   }
 
   getNotifications(id: string) {

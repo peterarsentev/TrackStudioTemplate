@@ -83,7 +83,7 @@
   <div id="page-content-wrapper">
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
       <i *ngIf="navShow" class="fa fa-bars mr-2" style="font-size:23px" aria-hidden="true" id="menu-toggle" (click)="onToggle()"></i>
-      <a class="navbar-brand" [routerLink]="['/']">Job4j</a>
+      <a class="navbar-brand" (click)="goMain()">Job4j</a>
       <!--<a class="navbar-brand" href="https://job4j.ru/edudark/">-->
         <!--<i class="fa fa-moon-o ml-2" aria-hidden="true"></i>-->
       <!--</a>-->
