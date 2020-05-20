@@ -52,7 +52,7 @@
   <div class="row" *ngIf="messages.length > 0">
     <div class="w-100 card">
       <div class="card-header">
-        Сообщения
+        <div class="font-weight-bold">Сообщения</div>
       </div>
       <div class="card-body">
         <table class="table">
@@ -93,13 +93,19 @@
                   (save)="saveComment($event)"
     ></app-comments>
   </div>
-  <div class="row mt-3" *ngIf="discussions.length > 0">
+  <div class="row mt-lg-5">
     <div class="w-100 card">
       <div class="card-header">
-        Обсуждения
+        <div class="font-weight-bold">Обсуждения. Комментариев : {{discussions.length}}</div>
+        <div>
+          <small class="mb-2 text-muted">
+            Эти комментарии доступны всех ученикам. Поделитесь своим мнением о задаче,
+            полезными ссылками, рекомендациями по решению. Не скидывайте решения целиком!
+          </small>
+        </div>
       </div>
       <div class="card-body">
-        <table class="table">
+        <table class="table" *ngIf="discussions.length > 0">
           <tbody>
           <tr *ngFor="let discussion of discussions">
             <td>
