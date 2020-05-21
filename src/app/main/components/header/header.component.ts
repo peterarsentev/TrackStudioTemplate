@@ -104,10 +104,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onToggle() {
     const elementById = document.getElementById('sidebar-wrapper');
-    const optionalParams = elementById.offsetWidth * 1.4;
+    const optionalParams = '23.5';
     this.toggled = !this.toggled;
     if (this.toggled) {
-      elementById.style.marginLeft = `-${optionalParams}px`;
+      elementById.style.marginLeft = `-${optionalParams}rem`;
     } else {
       elementById.style.marginLeft = `0px`;
     }
