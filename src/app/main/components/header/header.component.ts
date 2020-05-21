@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
 import { UserModels } from '../../../shared/models/user.models';
 import { AuthService } from '../../../shared/services/auth.service';
@@ -103,7 +103,14 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onToggle() {
+    const elementById = document.getElementById('sidebar-wrapper');
+    const optionalParams = elementById.offsetWidth * 1.4;
     this.toggled = !this.toggled;
+    if (this.toggled) {
+      elementById.style.marginLeft = `-${optionalParams}px`;
+    } else {
+      elementById.style.marginLeft = `0px`;
+    }
   }
 
   showProven() {

@@ -4,7 +4,7 @@ body {
 
 #sidebar-wrapper {
   min-height: 100vh;
-  margin-left: -15rem;
+  //margin-left: -15rem;
   -webkit-transition: margin .25s ease-out;
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
@@ -17,12 +17,12 @@ body {
 }
 
 #sidebar-wrapper .list-group {
-  min-width: 12rem;
+  //min-width: 12rem;
   width: auto;
 }
 
 #page-content-wrapper {
-  min-width: 100vw;
+ // min-width: 100vw;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -39,9 +39,9 @@ body {
     width: 100%;
   }
 
-  #wrapper.toggled #sidebar-wrapper {
-    margin-left: -24rem;
-  }
+  //#wrapper.toggled #sidebar-wrapper {
+  //  margin-left: -376px;
+  //}
 }
 
 .fa_icons {
