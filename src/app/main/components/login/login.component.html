@@ -15,6 +15,7 @@
             <label for="email">Логин:</label>
             <input  formControlName="login"
                     type="text"
+                    [disabled]="submit"
                     (ngModelChange)="resetError()"
                     class="form-control"
                     placeholder="Введите логин" id="email">
@@ -28,6 +29,7 @@
           <div class="form-group">
             <label for="pwd">Пароль:</label>
             <input formControlName="password"
+                   [disabled]="submit"
                    type="password"
                    (ngModelChange)="resetError()"
                    class="form-control"

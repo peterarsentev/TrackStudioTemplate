@@ -49,13 +49,16 @@ export class LoginComponent implements OnInit, OnDestroy {
         switchMap(() => this.authService.getDefaultProjectId()),
         takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        console.log('res', res)
-        this.form.reset();
-        this.submit = false;
-        this.route.navigate(['/']);
-      },
-        error => this.error = true);
-      }
+          console.log('res', res)
+          this.form.reset();
+          this.submit = false;
+          this.route.navigate(['/']);
+        },
+        () => {
+          this.error = true;
+          this.submit = false;
+        });
+  }
 
   private initForm() {
     this.form = this.fb.group({
