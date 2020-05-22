@@ -126,8 +126,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getNewTasks() {
-    this.tasksService.getTaskByProjectIdLimit(
-      localStorage.getItem('defaultProjectId'), undefined, '0873958f665da72301665dcf99c50388', '10', '0')
+    this.tasksService.getTaskByProjectIdLimit('0873958f665da72301665dcf99c50388', '10', '0')
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
         this.newTasks = res.tasks;
