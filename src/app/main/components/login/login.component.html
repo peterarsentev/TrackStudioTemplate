@@ -45,13 +45,17 @@
           <button (click)="goMain()"
                   [disabled]="submit"
                   type="button"
-                  class="btn btn-light pull-right"
-          >Отмена</button>
+                  class="btn btn-light pull-right">
+            <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Отмена
+          </button>
           <button (click)="login()"
                   [disabled]="form.invalid || submit"
                   type="submit"
-                  class="btn btn-primary pull-left"
-          >Войти</button>
+                  class="btn btn-primary pull-left">
+            <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Войти
+          </button>
 
         </form>
       </div>

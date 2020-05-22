@@ -26,6 +26,7 @@ export class NewTaskComponent implements OnInit, OnDestroy {
   mstatusId: string;
   handlers: UserModels[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  submitted: boolean;
 
   constructor(private tasksService: TasksService,
               private fb: FormBuilder,
@@ -57,9 +58,10 @@ export class NewTaskComponent implements OnInit, OnDestroy {
   }
 
   submitTask() {
+    this.submitted = true;
     this.tasksService.createTask(this.taskId, this.mstatusId, this.form.get('name').value, this.form.get('description').value)
       .subscribe(res => {
-        console.log(res);
+        this.submitted = false;
         this.router.navigate(['/task'], {
           queryParams: {
             action: 'task',

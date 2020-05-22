@@ -10,7 +10,9 @@
         class="btn btn-primary"
         [disabled]="form.get('text').value.length === 0 || submit"
         (click)="form.valid && submitComment()"
-      >Сохранить</button>
+      >
+        <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Сохранить</button>
       <button
         style="float: right;"
         class="btn btn-info ml-2"
