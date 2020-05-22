@@ -8,6 +8,7 @@ import { ResponseModel } from '../../../shared/models/response.model';
 import { MStatusesModel } from '../../../shared/models/m.statuses.model';
 import { MessageService } from '../../../shared/services/message.service';
 import { BookmarksService } from '../../../shared/services/bookmarks.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-tasks',
@@ -99,4 +100,15 @@ export class TasksComponent implements OnInit, OnDestroy {
     }
   }
 
+  getSpentDays(submitdate: number, updatedate: number) {
+   const days =(moment(updatedate).diff(moment(submitdate), 'days'));
+    if (days < 1) {
+      const time = ((updatedate - submitdate) / 3600000);
+      if (time < 0.1) {
+        return '0 ч.';
+      }
+      return time + ' ч.';
+    }
+   return days + ' д.';
+  }
 }

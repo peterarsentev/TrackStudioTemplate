@@ -160,10 +160,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   getDiscussions() {
     this.messageService.getDiscussions(this.task.shortname)
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => {
-        console.log(res)
-        this.discussions = res;
-      });
+      .subscribe(res => this.discussions = res);
   }
 
   showDiscussionForm() {
