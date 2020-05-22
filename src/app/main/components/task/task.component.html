@@ -48,6 +48,12 @@
         <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>
       </ng-container>
     </span>
+    <span class="w-50 pull-right">
+      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="previousAndNext.next"
+              (click)="goTo(previousAndNext.next)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
+      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="previousAndNext.previous"
+              (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
+    </span>
   </div>
   <div class="row" *ngIf="messages.length > 0">
     <div class="w-100 card">
