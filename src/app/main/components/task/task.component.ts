@@ -121,9 +121,22 @@ export class TaskComponent implements OnInit, OnDestroy {
     if (button.save) {
       this.getMessages(this.task.id);
       this.getButtons(this.task.id);
+      this.tasksService.getTask(this.task.id, 'task', '1')
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(task => {
+          this.task = task.task;
+          this.status = task.status;
+          this.handler = task.handler;
+          window.scrollTo(0, 0);
+        });
     }
     if (button.saveAndUp) {
-      window.scrollTo(0, 0);
+      this.router.navigate(['tasks'], {
+        queryParams: {
+          action: 'tasks',
+          taskId: this.task.parentId
+        }
+      })
       this.getMessages(this.task.id);
       this.getButtons(this.task.id);
     }
