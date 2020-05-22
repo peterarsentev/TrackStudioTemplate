@@ -107,6 +107,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   goTo(taskId: string) {
+    window.scroll(0,0);
     this.router.navigate(['task'], {
       queryParams: {
         action: 'task',

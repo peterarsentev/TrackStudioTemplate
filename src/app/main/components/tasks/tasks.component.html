@@ -12,13 +12,8 @@
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">{{ title }} : {{tasks.length}}
-          <i *ngIf="tasks?.length && tasks[0].task.preferences.includes('V')"
-             (click)="addToFavorite()"
-             class="fas fa-star pull-right"></i></th>
-        <th scope="col" *ngIf="tasks?.length && !tasks[0].task.preferences.includes('V')">Прогресс
-          <i (click)="addToFavorite()"
-             class="fas fa-star pull-right"></i></th>
+        <th scope="col">{{ title }} : {{tasks.length}}</th>
+        <th scope="col" *ngIf="tasks?.length && !tasks[0].task.preferences.includes('V')">Прогресс</th>
       </tr>
       </thead>
       <tbody>
