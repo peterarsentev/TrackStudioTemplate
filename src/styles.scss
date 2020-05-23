@@ -14,3 +14,7 @@ pre {
 th {
   font-weight: normal;
 }
+
+.node-content-wrapper :hover { //overwriting style of tree-node
+  color: #000000;
+}
