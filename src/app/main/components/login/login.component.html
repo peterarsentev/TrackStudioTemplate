@@ -3,7 +3,7 @@
   </div>
   <div class="col-sm">
     <div class="w-100 card">
-      <div class="card-body">
+      <div class="card-body bg-dark">
         <div class="alert alert-danger" role="alert" *ngIf="error">
           Не верный логин или пароль!
         </div>
@@ -45,7 +45,7 @@
           <button (click)="goMain()"
                   [disabled]="submit"
                   type="button"
-                  class="btn btn-light pull-right">
+                  class="btn btn-secondary pull-right">
             <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             Отмена
           </button>

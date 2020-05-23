@@ -57,10 +57,8 @@
   </div>
   <div class="row" *ngIf="messages.length > 0">
     <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">Сообщения</div>
       <div class="card-header bg-dark">
-        Сообщения
+        <div class="font-weight-bold"> Сообщения</div>
       </div>
       <div class="card-body bg-dark">
         <table class="table">
@@ -103,7 +101,7 @@
   </div>
   <div class="row mt-lg-5">
     <div class="w-100 card">
-      <div class="card-header">
+      <div class="card-header bg-dark">
         <div class="font-weight-bold">Обсуждения. Комментариев : {{discussions.length}}</div>
         <div>
           <small class="mb-2 text-muted">
@@ -112,7 +110,7 @@
           </small>
         </div>
       </div>
-      <div class="card-body">
+      <div class="card-body bg-dark">
         <table class="table" *ngIf="discussions.length > 0">
           <tbody>
           <tr *ngFor="let discussion of discussions">
