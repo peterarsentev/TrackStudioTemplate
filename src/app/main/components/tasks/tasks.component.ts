@@ -105,10 +105,10 @@ export class TasksComponent implements OnInit, OnDestroy {
     if (days < 1) {
       const time = ((updatedate - submitdate) / 3600000);
       if (time < 0.1) {
-        return '0 ч.';
+        return 'менее часа.';
       }
-      return time + ' ч.';
+      return 'часы - ' + time + '.';
     }
-   return days + ' д.';
+   return 'дни - ' + days + '.';
   }
 }
