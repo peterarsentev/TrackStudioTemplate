@@ -58,20 +58,23 @@ export class TasksService {
       }));
   }
 
-  getTaskByProjectIdLimit(projectId: string, sessionId = localStorage.getItem('sessionId'), filterId: string, limit: string, offset: string): Observable<{tasks: ResponseModel[]}> {
-    let params = new HttpParams();
-    params = params.append('action', 'page');
-    params = params.append('sessionId', sessionId);
-    params = params.append('taskId', projectId);
-    params = params.append('filterId', filterId);
-    params = params.append('limit', limit);
-    params = params.append('offset', offset);
-    return this.http.post<{tasks: ResponseModel[]}>(this.url, params)
-      .pipe(catchError(err => {
-        return this.authService.getDefaultProjectId().pipe(
-          switchMap(() => this.getTaskByProjectId(projectId, localStorage.getItem('sessionId')))
-        );
-      }));
+  getTaskByProjectIdLimit(filterId: string, limit: string, offset: string): Observable<{tasks: ResponseModel[]}> {
+    const projectId = localStorage.getItem('defaultProjectId');
+    const sessionId = localStorage.getItem('sessionId');
+    if (!!projectId && !!sessionId) {
+      let params = new HttpParams();
+      params = params.append('action', 'page');
+      params = params.append('sessionId', sessionId);
+      params = params.append('taskId', projectId);
+      params = params.append('filterId', filterId);
+      params = params.append('limit', limit);
+      params = params.append('offset', offset);
+      return this.http.post<{ tasks: ResponseModel[] }>(this.url, params);
+    } else {
+      return this.authService.getDefaultProjectId().pipe(
+        switchMap(() => this.getTaskByProjectIdLimit(filterId, limit, offset))
+      );
+    }
   }
 
   getTask(taskId: string, action: string, filterId?: string): Observable<ResponseModel> {

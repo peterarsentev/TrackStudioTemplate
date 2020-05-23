@@ -48,9 +48,17 @@
         <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>
       </ng-container>
     </span>
+    <span class="w-50 pull-right">
+      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="previousAndNext.next"
+              (click)="goTo(previousAndNext.next)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
+      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="previousAndNext.previous"
+              (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
+    </span>
   </div>
   <div class="row" *ngIf="messages.length > 0">
     <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">Сообщения</div>
       <div class="card-header bg-dark">
         Сообщения
       </div>
@@ -92,5 +100,47 @@
                   [taskId]="task.id"
                   (save)="saveComment($event)"
     ></app-comments>
+  </div>
+  <div class="row mt-lg-5">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">Обсуждения. Комментариев : {{discussions.length}}</div>
+        <div>
+          <small class="mb-2 text-muted">
+            Эти комментарии доступны всем ученикам. Поделитесь своим мнением о задаче,
+            полезными ссылками, рекомендациями по решению. Не скидывайте решения целиком!
+          </small>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table" *ngIf="discussions.length > 0">
+          <tbody>
+          <tr *ngFor="let discussion of discussions">
+            <td>
+              <div class="pb-3 small">
+                <span>Oт
+                  <span class="font-weight-bold">{{ discussion.name }}</span>
+                </span>
+                <span class="pull-right">{{ discussion.time | getDate }}</span>
+              </div>
+              <div [innerHTML]="discussion.text | safeCode"></div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-2">
+   <span class="mt-3 w-50">
+        <button class="m btn btn-info btn-sm"
+                (click)="showDiscussionForm()">{{'Обсудить'}}</button>
+    </span>
+  </div>
+  <div class="row" *ngIf="showDiscussion">
+    <app-discussion
+      [shortname]="task.shortname"
+      (closeEmitter)="closeDiscussion($event)"
+    ></app-discussion>
   </div>
 </div>

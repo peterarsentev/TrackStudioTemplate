@@ -7,7 +7,6 @@ import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { UserService } from '../../../shared/services/user.service';
 import { UserModels } from '../../../shared/models/user.models';
-import {TaskModel} from '../../../shared/models/task.model';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   user: UserModels;
   error: boolean;
+  submit: boolean;
 
   constructor(private fb: FormBuilder,
               private route: Router,
@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
+    this.submit = true;
     const loginModel = new LoginModel();
     loginModel.action = 'login';
     loginModel.login = this.form.get('login').value;
@@ -48,12 +49,16 @@ export class LoginComponent implements OnInit, OnDestroy {
         switchMap(() => this.authService.getDefaultProjectId()),
         takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        console.log('res', res)
-        this.form.reset();
-        this.route.navigate(['/']);
-      },
-        error => this.error = true);
-      }
+          console.log('res', res)
+          this.form.reset();
+          this.submit = false;
+          this.route.navigate(['/']);
+        },
+        () => {
+          this.error = true;
+          this.submit = false;
+        });
+  }
 
   private initForm() {
     this.form = this.fb.group({
@@ -72,6 +77,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   goMain() {
-    this.route.navigate(['/'], {});
+    this.submit = true;
+    this.authService.login()
+      .pipe(
+        switchMap(() => this.authService.getDefaultProjectId()),
+        takeUntil(this.ngUnsubscribe$)
+      ).subscribe(() => {
+      this.submit = false;
+      this.route.navigate(['/'], {});
+    })
   }
 }

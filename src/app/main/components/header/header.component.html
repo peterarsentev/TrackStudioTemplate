@@ -1,4 +1,6 @@
 <div class="d-flex" id="wrapper" [ngClass]="{'toggled': toggled}">
+<!--  <div id="sidebar">-->
+  <div *ngIf="navShow" class="bg-light border-right" id="sidebar-wrapper">
   <div *ngIf="navShow" class="bg-dark border-right text-white" id="sidebar-wrapper">
     <div class="list-group list-group-flush small">
       <div class="list-group-item list-group-item-action bg-secondary text-white">Навигация</div>
@@ -49,7 +51,7 @@
         <i *ngIf="proven"  class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!proven" class="fas fa-chevron-down fa_icons mr-3"></i>
       </a>
-      <ng-container *ngIf="!!proven && !!provenTasks.length">
+      <ng-container *ngIf="!!proven && !!provenTasks?.length">
         <ul class="list-unstyled">
           <li *ngFor="let task of provenTasks">
             <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
@@ -66,7 +68,7 @@
         <i *ngIf="newTask"  class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!newTask" class="fas fa-chevron-down fa_icons mr-3"></i>
       </a>
-      <ng-container *ngIf="newTask && !!newTasks.length">
+      <ng-container *ngIf="newTask && !!newTasks?.length">
         <ul class="list-unstyled">
           <li *ngFor="let task of newTasks">
             <a  [routerLink]="['/task']" [queryParams]="{taskId: task.task.id, action: 'task'}"
@@ -80,9 +82,14 @@
       </ng-container>
     </div>
   </div>
+<!--  </div>-->
   <div id="page-content-wrapper">
     <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
       <i *ngIf="navShow" class="fa fa-bars mr-2" style="font-size:23px" aria-hidden="true" id="menu-toggle" (click)="onToggle()"></i>
+      <a class="navbar-brand" (click)="goMain()">Job4j</a>
+      <a class="navbar-brand" href="https://job4j.ru/edudark/">
+        <i class="fa fa-moon-o ml-2" aria-hidden="true"></i>
+      </a>
       <a class="navbar-brand text-white" [routerLink]="['/']">Job4j</a>
       <a class="navbar-brand text-white" href="https://job4j.ru/edu/">
         <i *ngIf="navShow" class="fa fa-sun-o ml-2 fa-inverse"></i>

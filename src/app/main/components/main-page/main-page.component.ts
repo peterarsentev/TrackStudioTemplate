@@ -10,7 +10,7 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { DiagramaModel } from '../../../shared/models/diagrama.model';
 
 @Component({
-  selector: 'app-tasks',
+  selector: 'app-main',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
@@ -121,8 +121,7 @@ export class MainPageComponent implements OnInit {
   }
 
   getNewTasks() {
-    this.tasksService.getTaskByProjectIdLimit(
-      localStorage.getItem('defaultProjectId'), undefined, '0873958f665da72301665dcf99c50388', '10', '0')
+    this.tasksService.getTaskByProjectIdLimit('0873958f665da72301665dcf99c50388', '10', '0')
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
         this.newTasks = res.tasks;

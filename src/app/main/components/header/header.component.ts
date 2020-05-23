@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
-import { Subject } from 'rxjs';
-import { filter, map, take, takeUntil } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
+import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
 import { UserModels } from '../../../shared/models/user.models';
 import { AuthService } from '../../../shared/services/auth.service';
 import { MessageService } from '../../../shared/services/message.service';
@@ -84,6 +84,14 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  goMain() {
+    this.authService.login()
+      .pipe(
+        switchMap(() => this.authService.getDefaultProjectId()),
+        takeUntil(this.ngUnsubscribe$)
+      ).subscribe(() => this.router.navigate(['/'], {}))
+  }
+
   getNotifications(id: string) {
     this.messageService.getNotifications(id)
       .pipe(takeUntil(this.ngUnsubscribe$))
@@ -95,7 +103,14 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onToggle() {
+    const elementById = document.getElementById('sidebar-wrapper');
+    const optionalParams = '23.5';
     this.toggled = !this.toggled;
+    if (this.toggled) {
+      elementById.style.marginLeft = `-${optionalParams}rem`;
+    } else {
+      elementById.style.marginLeft = `0px`;
+    }
   }
 
   showProven() {
@@ -111,8 +126,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getNewTasks() {
-    this.tasksService.getTaskByProjectIdLimit(
-      localStorage.getItem('defaultProjectId'), undefined, '0873958f665da72301665dcf99c50388', '10', '0')
+    this.tasksService.getTaskByProjectIdLimit('0873958f665da72301665dcf99c50388', '10', '0')
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
         this.newTasks = res.tasks;
@@ -275,7 +289,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tasksService.getTask(book.taskId, 'task', '1')
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        const url = res.task.childrenCount > 0 ? 'tasks': 'task';
+        const url = res.task.preferences.includes('V') ? 'task' : 'tasks';
           this.router.navigate([url], {
             queryParams: {
               action: url,

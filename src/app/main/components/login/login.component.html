@@ -15,6 +15,7 @@
             <label for="email">Логин:</label>
             <input  formControlName="login"
                     type="text"
+                    [disabled]="submit"
                     (ngModelChange)="resetError()"
                     class="form-control"
                     placeholder="Введите логин" id="email">
@@ -28,6 +29,7 @@
           <div class="form-group">
             <label for="pwd">Пароль:</label>
             <input formControlName="password"
+                   [disabled]="submit"
                    type="password"
                    (ngModelChange)="resetError()"
                    class="form-control"
@@ -41,14 +43,19 @@
 
           </div>
           <button (click)="goMain()"
+                  [disabled]="submit"
                   type="button"
-                  class="btn btn-light pull-right"
-          >Отмена</button>
+                  class="btn btn-light pull-right">
+            <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Отмена
+          </button>
           <button (click)="login()"
-                  [disabled]="form.invalid"
+                  [disabled]="form.invalid || submit"
                   type="submit"
-                  class="btn btn-primary pull-left"
-          >Войти</button>
+                  class="btn btn-primary pull-left">
+            <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Войти
+          </button>
 
         </form>
       </div>

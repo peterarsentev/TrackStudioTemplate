@@ -1,6 +1,13 @@
 <h5>Ответственный: {{ userName }}</h5>
 <div class="border rounded p-2 scr">
-  <div class="custom-control custom-radio" *ngFor="let handler of handlers; let idx = index;">
+  <div class="form-group">
+    <input
+      placeholder="Поиск"
+      (input)="search($event)"
+      class="form-control"
+    >
+  </div>
+  <div class="custom-control custom-radio" *ngFor="let handler of searchHandlers; let idx = index;">
     <input type="radio"
            class="custom-control-input"
            id="{{idx}}" name="groupOfDefaultRadios"

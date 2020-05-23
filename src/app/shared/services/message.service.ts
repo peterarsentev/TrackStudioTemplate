@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { MessageModel } from '../models/message.model';
 import { BookmarksModel } from '../models/bookmarks.model';
+import { DiscussionModel } from '../models/discussionModel';
 
 
 @Injectable({providedIn: 'root'})
@@ -58,11 +59,29 @@ export class MessageService {
     return this.http.post(url, params);
   }
 
-  deleteMessage(id: string) {
+  deleteMessage(id?: string) {
     const url = `${environment.url}/rest/messenger`;
     let params = new HttpParams();
     params = params.append('action', 'delete');
-    params = params.append('msgId', id);
+    params = id ? params.append('msgId', id) : params;
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post(url, params);
+  }
+
+  getDiscussions(shortName: string): Observable<DiscussionModel[]> {
+    const url = `https://job4j.ru/jedu/comment`;
+    let params = new HttpParams();
+    params = params.append('action', 'get');
+    params = params.append('task', shortName);
+    return this.http.post<DiscussionModel[]>(url, params);
+  }
+
+  addDiscussion(shortName: string, text: string) {
+    const url = `https://job4j.ru/jedu/comment`;
+    let params = new HttpParams();
+    params = params.append('action', 'save');
+    params = params.append('task', shortName);
+    params = params.append('text', text);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);
   }

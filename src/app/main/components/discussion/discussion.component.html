@@ -1,0 +1,25 @@
+<div class="container-fluid pb-4">
+  <div class="row pt-3">
+    <form [formGroup]="form">
+      <div class="pt-3">
+        <app-redactor [titleLabel]="'Выполняется: ' + 'Обсуждение' + '.' "
+                      (outputEmitter)="setDescription($event)"
+        ></app-redactor>
+      </div>
+      <button
+        class="btn btn-primary"
+        [disabled]="form.get('text').value.length === 0 || submit"
+        (click)="form.valid && submitComment()"
+      >
+        <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Сохранить</button>
+      <button
+        style="float: right;"
+        class="btn btn-info ml-2"
+        (click)="closeForm()"
+      >Отмена</button>
+    </form>
+  </div>
+</div>
+
+

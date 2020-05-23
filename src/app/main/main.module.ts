@@ -22,6 +22,7 @@ import { ChartsModule } from 'ng2-charts';
 import { DiagramComponent } from './components/diagramma/diagram.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { TreeModule } from 'angular-tree-component';
+import { DiscussionComponent } from './components/discussion/discussion.component';
 
 
 
@@ -42,7 +43,8 @@ import { TreeModule } from 'angular-tree-component';
     GetDatePipe,
     NewTaskComponent,
     DiagramComponent,
-    MessagesComponent
+    MessagesComponent,
+    DiscussionComponent
   ],
     imports: [
         CommonModule,

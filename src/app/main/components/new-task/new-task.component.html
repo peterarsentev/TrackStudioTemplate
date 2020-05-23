@@ -8,6 +8,7 @@
                id="name" placeholder="Введите название">
       </div>
       <app-hendlers [handlers]="handlers"
+                    [searchHandlers]="handlers"
                     (selected)="selectPerson($event)"
       ></app-hendlers>
       <div *ngFor="let error of validationErrors.handlerId">
@@ -29,9 +30,11 @@
       </div>
       <button
         class="btn btn-primary"
-        [disabled]="form.invalid"
+        [disabled]="form.invalid || submitted"
         (click)="form.valid && submitTask()"
-      >Сохранить</button>
+      >
+        <span *ngIf="submitted" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Сохранить</button>
     </form>
   </div>
 </div>

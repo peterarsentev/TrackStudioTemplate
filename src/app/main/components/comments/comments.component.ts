@@ -24,6 +24,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   @Output() save: EventEmitter<CommentButtonsModel> = new EventEmitter<CommentButtonsModel>();
   handlers: UserModels[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  disabled: boolean;
   validationErrors = {
     handlerId: [
       { type: 'required', message: 'Ответственный'}
@@ -49,6 +50,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   submitComment(button: CommentButtonsModel) {
+    this.disabled = true;
     const handlerId = this.form.get('handlerId').value;
     let description = this.form.get('description').value;
     this.tasksService.sendComment(this.taskId, this.mstatusId, handlerId, description)
