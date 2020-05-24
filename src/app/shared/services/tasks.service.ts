@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { catchError, delay, switchMap } from 'rxjs/operators';
-import { EMPTY, Observable, throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
+import { EMPTY, Observable } from 'rxjs';
 import { TaskModel } from '../models/task.model';
 import { Router } from '@angular/router';
 import { ResponseModel } from '../models/response.model';
@@ -20,7 +20,7 @@ export class TasksService {
   private allTasksGeneral = '4028808a1953022d0119537e664c0335';
   private allTasks = '0873958f665da72301665dcdf8c4032a';
   private solvedTasks = '0873958f665da72301665dce8608034b';
-  private url = `${environment.url}/rest/task`;
+  private url = `${environment.url}/rest/task/`;
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
   }
@@ -42,7 +42,7 @@ export class TasksService {
 
   getTaskByProjectId(projectId: string, sessionId = localStorage.getItem('sessionId'), filterId?: string): Observable<{tasks: ResponseModel[]}> {
     let params = new HttpParams();
-    params = params.append('action', 'tasks');
+    //params = params.append('action', 'tasks');
     params = params.append('sessionId', sessionId);
     params = params.append('taskId', projectId);
     if (projectId === 'ae84b50d571fe2340157387103bd1a68') {
@@ -50,7 +50,7 @@ export class TasksService {
        filterId = '4028808a1953022d0119535da2c901cc';
     }
     params = filterId? params.append('filterId', filterId) : params.append('filterId', '1');
-    return this.http.post<{tasks: ResponseModel[]}>(this.url, params)
+    return this.http.post<{tasks: ResponseModel[]}>(this.url + 'tasks', params)
       .pipe(catchError(err => {
         return this.authService.getDefaultProjectId().pipe(
           switchMap(() => this.getTaskByProjectId(projectId, localStorage.getItem('sessionId')))
@@ -63,13 +63,13 @@ export class TasksService {
     const sessionId = localStorage.getItem('sessionId');
     if (!!projectId && !!sessionId) {
       let params = new HttpParams();
-      params = params.append('action', 'page');
+      //params = params.append('action', 'page');
       params = params.append('sessionId', sessionId);
       params = params.append('taskId', projectId);
       params = params.append('filterId', filterId);
       params = params.append('limit', limit);
       params = params.append('offset', offset);
-      return this.http.post<{ tasks: ResponseModel[] }>(this.url, params);
+      return this.http.post<{ tasks: ResponseModel[] }>(this.url + 'page', params);
     } else {
       return this.authService.getDefaultProjectId().pipe(
         switchMap(() => this.getTaskByProjectIdLimit(filterId, limit, offset))
@@ -79,11 +79,11 @@ export class TasksService {
 
   getTask(taskId: string, action: string, filterId?: string): Observable<ResponseModel> {
     let params = new HttpParams();
-    params = params.append('action', action);
+    //params = params.append('action', action);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = filterId ? params.append('filterId', filterId) : params;
-    return this.http.post<ResponseModel>(this.url, params)
+    return this.http.post<ResponseModel>(this.url + action, params)
       .pipe(catchError((err: HttpErrorResponse) => {
         if (err.status === 403 || err.status === 500) {
           this.router.navigate(['/prevention'], {
@@ -104,11 +104,11 @@ export class TasksService {
     id = id ? id : localStorage.getItem('defaultProjectId');
     const sessionId =  localStorage.getItem('sessionId');
     let params = new HttpParams();
-    params = params.append('action', 'chain');
+    //params = params.append('action', 'chain');
     params = params.append('sessionId', sessionId);
     params = params.append('toId', id);
     if (!!id && !!sessionId) {
-      return this.http.post<{ tasks: TaskModel[] }>(this.url, params)
+      return this.http.post<{ tasks: TaskModel[] }>(this.url + 'chain', params)
         .pipe(
           catchError(() => {
             localStorage.clear();
@@ -126,13 +126,13 @@ export class TasksService {
 
   getTaskCount(taskId: string, all: boolean, general: boolean): Observable<{ [total: string]: number }> {
     let params = new HttpParams();
-    params = params.append('action', 'size');
+    //params = params.append('action', 'size');
     let sessionId = localStorage.getItem('sessionId');
     if (!!sessionId) {
       params = params.append('sessionId', sessionId);
       params = params.append('taskId', taskId);
       params = params.append('filterId', general ? this.allTasksGeneral : all ? this.allTasks : this.solvedTasks);
-      return this.http.post<{ [total: string]: number }>(this.url, params);
+      return this.http.post<{ [total: string]: number }>(this.url + 'size', params);
     } else {
       return this.authService.getDefaultProjectId()
         .pipe(switchMap(() => this.getTaskCount(taskId, all, general)
@@ -143,10 +143,10 @@ export class TasksService {
   getButtons(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{mstatuses: MStatusesModel[]}> {
     let params = new HttpParams();
     projectId = projectId ? projectId : localStorage.getItem('defaultProjectId');
-    params = params.append('action', 'categories');
+    //params = params.append('action', 'categories');
     params = params.append('sessionId', sessionId);
     params = params.append('taskId', projectId);
-    return this.http.post<{mstatuses: MStatusesModel[]}>(this.url, params)
+    return this.http.post<{mstatuses: MStatusesModel[]}>(this.url + 'categories', params)
       .pipe(catchError(err => {
         return this.authService.getDefaultProjectId().pipe(
           switchMap(() => this.getButtons(projectId, localStorage.getItem('sessionId')))
@@ -159,66 +159,66 @@ export class TasksService {
     params = params.append('action', 'messages');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
-    return this.http.post<{ messages: MessagesModel[] }>(this.url, params);
+    return this.http.post<{ messages: MessagesModel[] }>(this.url + 'messages', params);
   }
 
   getButtonsForTask(taskId: string): Observable<{ mstatuses: ButtonCommentModel[] }> {
     let params = new HttpParams();
-    params = params.append('action', 'mstatus');
+    // params = params.append('action', 'mstatus');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
-    return this.http.post<{mstatuses: ButtonCommentModel[]}>(this.url, params);
+    return this.http.post<{mstatuses: ButtonCommentModel[]}>(this.url + 'mstatus', params);
   }
 
   gerResponsiblePeople(taskId: string, mstatusId: string): Observable<{ handlers: UserModels[] }> {
     const url = `${environment.url}/rest/message`;
     let params = new HttpParams();
-    params = params.append('action', 'handlers');
+    //params = params.append('action', 'handlers');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = params.append('mstatusId', mstatusId);
-    return this.http.post<{ handlers: UserModels[] }>(url, params);
+    return this.http.post<{ handlers: UserModels[] }>(url + '/handlers', params);
   }
 
   getResponsePersonsForTask(taskId: string, categoryId: string): Observable<{ handlers: UserModels[] }>  {
     let params = new HttpParams();
-    params = params.append('action', 'handlers');
+    //params = params.append('action', 'handlers');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = params.append('categoryId', categoryId);
-    return this.http.post<{ handlers: UserModels[] }>(this.url, params);
+    return this.http.post<{ handlers: UserModels[] }>(this.url + 'handlers', params);
   }
 
   sendComment(taskId: string, mstatusId: string, handlerId: string, description: string) {
     const url = `${environment.url}/rest/message`;
     let params = new HttpParams();
-    params = params.append('action', 'create');
+    //params = params.append('action', 'create');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = params.append('mstatusId', mstatusId);
     params = params.append('handlerId', handlerId);
     params = params.append('description', description);
-    return this.http.post<any>(url, params);
+    return this.http.post<any>(url + '/create', params);
   }
 
   createTask(parentId: string, categoryId: string, name: string, description: string) {
     let params = new HttpParams();
-    params = params.append('action', 'create');
+    //params = params.append('action', 'create');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('parentId', parentId);
     params = params.append('categoryId', categoryId);
     params = params.append('name', name);
     params = params.append('description', description);
-    return this.http.post<{ task: TaskModel }>(this.url, params);
+    return this.http.post<{ task: TaskModel }>(this.url + 'create', params);
   }
 
   getEmergencyMessage(): Observable<{ emergency: EmergencyModel[] }> {
     let params = new HttpParams();
-    params = params.append('action', 'emergency');
+    //params = params.append('action', 'emergency');
     let sessionId = localStorage.getItem('sessionId');
     params = params.append('sessionId', sessionId);
     if (!!sessionId) {
-      return this.http.post<{ emergency: EmergencyModel[]; }>(this.url, params);
+      return this.http.post<{ emergency: EmergencyModel[]; }>(this.url + 'emergency', params);
     } else {
       return this.authService.getDefaultProjectId().pipe(
         switchMap(() => this.getEmergencyMessage())
@@ -233,6 +233,6 @@ export class TasksService {
     params = params.append('parentId', localStorage.getItem('defaultProjectId'));
     params = params.append('filterId', '4028808a1953022d0119537e664c0335');
     params = params.append('taskId', taskId);
-    return this.http.post<PreviousNextNavModels>(this.url, params);
+    return this.http.post<PreviousNextNavModels>(this.url + 'iterator', params);
   }
 }
