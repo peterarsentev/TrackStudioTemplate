@@ -20,12 +20,11 @@ export class AuthService {
     return this.api_Host;
   }
 
-  login(user: LoginModel = {action: 'login', login: 'anonymous', password: '123'}): Observable<AuthResponse> {
+  login(user: LoginModel = {login: 'anonymous', password: '123'}): Observable<AuthResponse> {
     let param = new HttpParams();
-    param = param.append('action', user.action);
     param = param.append('login', user.login);
     param = param.append('password', user.password);
-    return this.http.post(`${environment.url}/rest/auth`, param)
+    return this.http.post(`${environment.url}/rest/auth/login`, param)
       .pipe(
         tap(this.setSessionId),
         catchError(this.handleError.bind(this))
