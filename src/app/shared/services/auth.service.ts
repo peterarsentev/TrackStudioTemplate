@@ -20,12 +20,11 @@ export class AuthService {
     return this.api_Host;
   }
 
-  login(user: LoginModel = {action: 'login', login: 'anonymous', password: '123'}): Observable<AuthResponse> {
+  login(user: LoginModel = {login: 'anonymous', password: '123'}): Observable<AuthResponse> {
     let param = new HttpParams();
-    param = param.append('action', user.action);
     param = param.append('login', user.login);
     param = param.append('password', user.password);
-    return this.http.post(`${environment.url}/rest/auth`, param)
+    return this.http.post(`${environment.url}/rest/auth/login`, param)
       .pipe(
         tap(this.setSessionId),
         catchError(this.handleError.bind(this))
@@ -53,10 +52,10 @@ export class AuthService {
   getDefaultProjectId(): Observable<UserResponse> {
     const sessionId = localStorage.getItem('sessionId');
     let param = new HttpParams();
-    param = param.append('action', 'session');
+    //param = param.append('action', 'session');
     param = param.append('sessionId', sessionId);
     if (!!sessionId) {
-      return this.http.post<UserResponse>(`${environment.url}/rest/auth`, param)
+      return this.http.post<UserResponse>(`${environment.url}/rest/auth/session`, param)
         .pipe(
           catchError(err => {
               localStorage.clear();
@@ -89,10 +88,10 @@ export class AuthService {
   }
 
   logOut() {
-    const url = `${environment.url}/rest/auth`;
+    const url = `${environment.url}/rest/auth/logout`;
     const sessionId = localStorage.getItem('sessionId');
     let param = new HttpParams();
-    param = param.append('action', 'logout');
+    //param = param.append('action', 'logout');
     param = param.append('sessionId', sessionId);
     localStorage.clear();
     return this.http.post(url, param)
@@ -103,10 +102,10 @@ export class AuthService {
   }
 
   changePassword(userId: string, password: string, confirm: string) {
-    const url = `${environment.url}/rest/user`;
+    const url = `${environment.url}/rest/user/password`;
     let param = new HttpParams();
     const sessionId = localStorage.getItem('sessionId');
-    param = param.append('action', 'password');
+    //param = param.append('action', 'password');
     param = param.append('sessionId', sessionId);
     param = param.append('password', password);
     param = param.append('confirm', confirm);
@@ -115,10 +114,10 @@ export class AuthService {
   }
 
   updateProfile(userId: string, email: string, name: string) {
-    const url = `${environment.url}/rest/user`;
+    const url = `${environment.url}/rest/user/update`;
     const sessionId = localStorage.getItem('sessionId');
     let param = new HttpParams();
-    param = param.append('action', 'update');
+    //param = param.append('action', 'update');
     param = param.append('sessionId', sessionId);
     param = param.append('userId', userId);
     param = param.append('email', email);

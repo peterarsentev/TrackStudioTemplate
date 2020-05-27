@@ -9,7 +9,7 @@ import { DiscussionModel } from '../models/discussionModel';
 
 @Injectable({providedIn: 'root'})
 export class MessageService {
-  private url = `${environment.url}/rest/messenger`;
+  private url = `${environment.url}/rest/messenger/`;
   constructor(private http: HttpClient) {}
 
 
@@ -17,32 +17,32 @@ export class MessageService {
   getNotifications(userId: string): Observable<{ total: number }> {
 
     let params = new HttpParams();
-    params = params.append('action', 'has');
+    //params = params.append('action', 'has');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('userId', userId);
-    return this.http.post<{ total: number }>(this.url, params);
+    return this.http.post<{ total: number }>(this.url + 'has', params);
   }
 
   getMessages(id: string): Observable<{ messages: MessageModel[] }> {
     let params = new HttpParams();
-    params = params.append('action', 'messages');
+    //params = params.append('action', 'messages');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('userId', id);
-    return this.http.post<{ messages: MessageModel[] }>(this.url, params);
+    return this.http.post<{ messages: MessageModel[] }>(this.url + 'messages', params);
   }
 
   getBookmarks(): Observable<{ bookmarks: BookmarksModel[] }> {
     let params = new HttpParams();
-    params = params.append('action', 'read');
+    //params = params.append('action', 'read');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    const url = `${environment.url}/rest/bookmark`;
+    const url = `${environment.url}/rest/bookmark/read`;
     return this.http.post<{ bookmarks: BookmarksModel[] }>(url, params);
   }
 
   addToFavorite(name: string, taskId: string, list: boolean) {
-    const url = `${environment.url}/rest/bookmark`;
+    const url = `${environment.url}/rest/bookmark/create`;
     let params = new HttpParams();
-    params = params.append('action', 'create');
+    //params = params.append('action', 'create');
     params = params.append('name', name);
     params = params.append('taskId', taskId);
     params = list ?  params.append('filterId', '1') : params;
@@ -51,35 +51,35 @@ export class MessageService {
   }
 
   deleteBook(bookmarkId: string) {
-    const url = `${environment.url}/rest/bookmark`;
+    const url = `${environment.url}/rest/bookmark/delete`;
     let params = new HttpParams();
-    params = params.append('action', 'delete');
+    //params = params.append('action', 'delete');
     params = params.append('bookmarkId', bookmarkId);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);
   }
 
   deleteMessage(id?: string) {
-    const url = `${environment.url}/rest/messenger`;
+    const url = `${environment.url}/rest/messenger/delete`;
     let params = new HttpParams();
-    params = params.append('action', 'delete');
+    //params = params.append('action', 'delete');
     params = id ? params.append('msgId', id) : params;
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);
   }
 
   getDiscussions(shortName: string): Observable<DiscussionModel[]> {
-    const url = `https://job4j.ru/jedu/comment`;
+    const url = `https://job4j.ru/jedu/comment/get`;
     let params = new HttpParams();
-    params = params.append('action', 'get');
+    //params = params.append('action', 'get');
     params = params.append('task', shortName);
     return this.http.post<DiscussionModel[]>(url, params);
   }
 
   addDiscussion(shortName: string, text: string) {
-    const url = `https://job4j.ru/jedu/comment`;
+    const url = `https://job4j.ru/jedu/comment/save`;
     let params = new HttpParams();
-    params = params.append('action', 'save');
+    //params = params.append('action', 'save');
     params = params.append('task', shortName);
     params = params.append('text', text);
     params = params.append('sessionId', localStorage.getItem('sessionId'));

@@ -154,6 +154,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.navShow) {
       this.getProvenTasks();
       this.getNewTasks();
+      this.getBookmarks();
     }
   }
 
@@ -286,6 +287,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   goToBook(book: BookmarksModel) {
+    console.log('boook')
     this.tasksService.getTask(book.taskId, 'task', '1')
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
