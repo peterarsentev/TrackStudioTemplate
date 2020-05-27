@@ -13,6 +13,7 @@ import { MessagesModel } from '../models/messages.model';
 import { UserModels } from '../models/user.models';
 import { EmergencyModel } from '../models/emergency.model';
 import { PreviousNextNavModels } from '../models/previous.next.nav.models';
+import { ResponeRatingModel } from '../models/responeRatingModel';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -234,5 +235,37 @@ export class TasksService {
     params = params.append('filterId', '4028808a1953022d0119537e664c0335');
     params = params.append('taskId', taskId);
     return this.http.post<PreviousNextNavModels>(this.url + 'iterator', params);
+  }
+
+  getRate(shortname: string): Observable<ResponeRatingModel> {
+    let params = new HttpParams();
+    params = params.append('number', shortname);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = `https://job4j.ru/jedu/ratetask/get`;
+    return this.http.post<ResponeRatingModel>(url, params);
+  }
+
+  voteUp(shortname: string) {
+    let params = new HttpParams();
+    params = params.append('number', shortname);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = `https://job4j.ru/jedu/ratetask/upOn`;
+    return this.http.post<ResponeRatingModel>(url, params);
+  }
+
+  voteClear(shortname: string) {
+    let params = new HttpParams();
+    params = params.append('number', shortname);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = `https://job4j.ru/jedu/ratetask/off`;
+    return this.http.post<ResponeRatingModel>(url, params);
+  }
+
+  voteDown(shortname: string) {
+    let params = new HttpParams();
+    params = params.append('number', shortname);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = `https://job4j.ru/jedu/ratetask/downOn`;
+    return this.http.post<ResponeRatingModel>(url, params);
   }
 }
