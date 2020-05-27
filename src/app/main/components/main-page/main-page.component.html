@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row pt-3">
-    <table class="table">
+    <table class="table text-white">
       <thead>
       <tr>
         <th scope="col">Проверенные задачи : {{ provenTasks?.length }}</th>
@@ -27,13 +27,13 @@
     </table>
   </div>
   <div class="row pt-3">
-    <table class="table">
+    <table class="table text-white">
       <thead>
       <tr>
         <th scope="col">Новые задачи : 10</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody class="text-white">
       <tr *ngFor="let task of newTasks; let idx = index">
         <td (click)="openTask(task.task)" style="cursor: pointer;">
           <div>
@@ -54,7 +54,7 @@
     </table>
   </div>
   <div class="row">
-    <table class="table">
+    <table class="table text-white">
       <thead>
       <tr>
         <th scope="col">Процесс обучения</th><th scope="col"></th>
@@ -79,9 +79,9 @@
       </tbody>
     </table>
   </div>
-  <app-tasks></app-tasks>
+  <app-tasks class="text-white"></app-tasks>
   <div class="row pt-3">
-    <table class="table">
+    <table class="table text-white">
       <thead>
       <tr>
         <th scope="col">Полезные ресурсы</th>
