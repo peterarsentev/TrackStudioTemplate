@@ -109,7 +109,7 @@
                   (save)="saveComment($event)"
     ></app-comments>
   </div>
-  <div *ngIf="!!user?.name !== 'anonimus' && rating?.vote === 'NO'" class="row mt-lg-5">
+  <div *ngIf="user?.name !== 'anonimus' && rating?.vote === 'NO'" class="row mt-lg-5">
     <div class="w-100 card">
       <div class="card-header">
         <div class="font-weight-bold">Понравилось задание?</div>
