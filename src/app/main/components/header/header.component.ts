@@ -122,15 +122,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   onToggle() {
     const elementById = document.getElementById("sidebar");
     const contentById = document.getElementById("page-content-wrapper");
-    const optionalParams = "15.5";
-    this.toggled = !this.toggled;
-    if (this.toggled) {
-      elementById.classList.toggle("active");
-      contentById.style.marginLeft = "0";
-    } else {
-      elementById.classList.toggle("active");
-      contentById.style.marginLeft = `${optionalParams}rem`;
-    }
+    elementById.classList.toggle("active");
+    contentById.classList.toggle("toggle-nav");
   }
 
   showProven() {

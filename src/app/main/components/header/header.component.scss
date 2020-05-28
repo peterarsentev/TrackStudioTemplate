@@ -15,16 +15,6 @@
   width: auto;
 }
 
-@media (min-width: 320px) {
-  #sidebar {
-    margin-left: 0;
-  }
-
-  // #page-content-wrapper {
-  //   min-width: 0;
-  //   width: 100%;
-  // }
-}
 .fa_icons {
   right: 0;
   position: absolute;
@@ -58,9 +48,27 @@
 .active {
   margin-left: -15.6rem !important;
 }
-
+.toggle-nav {
+  margin-left: 0 !important;
+}
 #page-content-wrapper {
   width: 100%;
-  margin-left: 15.5rem;
+  margin-left: 15.6rem;
   transition: all 0.3s;
+}
+
+//hide sidebar for mobile screens
+@media (max-width: 550px) {
+  #page-content-wrapper {
+    margin-left: 0;
+  }
+  #sidebar {
+    margin-left: -15.6rem;
+  }
+  .toggle-nav {
+    margin-left: 15.6rem !important;
+  }
+  .active {
+    margin-left: 0 !important;
+  }
 }
