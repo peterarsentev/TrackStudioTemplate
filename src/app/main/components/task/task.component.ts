@@ -17,6 +17,7 @@ import { UserService } from '../../../shared/services/user.service';
 import { ResponseRatingModel } from '../../../shared/models/response.rating.model';
 import { RateModel } from '../../../shared/models/rate.model';
 
+declare var CodeMirror: any;
 declare var hljs: any;
 
 @Component({
@@ -76,15 +77,19 @@ export class TaskComponent implements OnInit, OnDestroy {
         this.showCommentForm = false;
         setTimeout(() => {
           document.querySelectorAll('pre code').forEach((block) => {
-            hljs.highlightBlock(block);
             if (block.parentElement.className.indexOf('code_') > -1) {
-              const button = document.createElement('a');
-              button.href = './sandbox?id=' + block.parentElement.className.substr('code_'.length);
+              const codeEl = document.createElement('textarea');
+              const outputEl = document.createElement('textarea');
+              const button = document.createElement('button');
+              const div = document.createElement('div');
+              div.classList.add('pt-2');
+              div.innerText = 'Вывод:';
+              // button.href = './sandbox?id=' + block.parentElement.className.substr('code_'.length);
+              button.classList.add('pt-2');
               button.classList.add('m');
               button.classList.add('btn');
               button.classList.add('btn-success');
               button.classList.add('btn-sm');
-              button.append();
               const i = document.createElement('i');
               i.classList.add('fa');
               i.classList.add('fa-caret-right');
@@ -92,6 +97,27 @@ export class TaskComponent implements OnInit, OnDestroy {
               button.append(i);
               button.append('Запустить');
               block.parentElement.before(button);
+              block.parentElement.before(codeEl);
+              block.parentElement.before(div);
+              block.parentElement.before(outputEl);
+              const code = CodeMirror.fromTextArea(codeEl, {
+                lineNumbers: true,
+                matchBrackets: true,
+                mode: 'text/x-java'
+              });
+              const output = CodeMirror.fromTextArea(outputEl, {
+                lineNumbers: true,
+                matchBrackets: true,
+                mode: 'text/x-java'
+              });
+              code.getDoc().setValue(block.innerHTML.split('<br>').join('\r\n'));
+              button.addEventListener('click', () => {
+                console.log(code.getValue());
+                output.getDoc().setValue('Hello, Job4j. I am a Java developer.');
+              });
+              block.parentElement.parentElement.removeChild(block.parentElement);
+            } else {
+              hljs.highlightBlock(block);
             }
           });
 
