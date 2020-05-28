@@ -77,6 +77,22 @@ export class TaskComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           document.querySelectorAll('pre code').forEach((block) => {
             hljs.highlightBlock(block);
+            if (block.parentElement.className.indexOf('code_') > -1) {
+              const button = document.createElement('a');
+              button.href = './sandbox?id=' + block.parentElement.className.substr('code_'.length);
+              button.classList.add('m');
+              button.classList.add('btn');
+              button.classList.add('btn-success');
+              button.classList.add('btn-sm');
+              button.append();
+              const i = document.createElement('i');
+              i.classList.add('fa');
+              i.classList.add('fa-caret-right');
+              i.classList.add('mr-1');
+              button.append(i);
+              button.append('Запустить');
+              block.parentElement.before(button);
+            }
           });
 
           document.querySelectorAll('a img').forEach((block) => {
@@ -89,7 +105,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => {
-        this.user = res;
+      this.user = res;
     })
   }
 
