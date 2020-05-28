@@ -1,9 +1,9 @@
 #sidebar-wrapper {
   min-height: 100vh;
-  -webkit-transition: margin .25s ease-out;
-  -moz-transition: margin .25s ease-out;
-  -o-transition: margin .25s ease-out;
-  transition: margin .25s ease-out;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
 }
 
 #sidebar-wrapper .sidebar-heading {
@@ -15,13 +15,8 @@
   width: auto;
 }
 
-
-#wrapper.toggled #sidebar-wrapper {
-  margin-left: 0;
-}
-
 @media (min-width: 320px) {
-  #sidebar-wrapper {
+  #sidebar {
     margin-left: 0;
   }
 
@@ -29,14 +24,42 @@
     min-width: 0;
     width: 100%;
   }
-
-  //  #wrapper.toggled #sidebar-wrapper {
-  //    margin-left: -23.5rem;
-  //  }
-  //}
 }
 .fa_icons {
   right: 0;
   position: absolute;
-  margin-right: 10px
+  margin-right: 10px;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+
+#sidebar {
+  display: block;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 999;
+  transition: all 0.3s;
+  overflow: scroll;
+  margin-left: -15.6rem;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+}
+
+#sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.active {
+  margin-left: 0 !important;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  transition: all 0.3s;
 }
