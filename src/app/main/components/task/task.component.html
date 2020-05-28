@@ -33,10 +33,10 @@
             </div>
             <div class="pull-right col-sm-2">
               <i (click)="addToFavorite()" class="fas fa-star pull-right"></i>
-              <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down mr-2 pull-right"></i>
-              <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa fa-thumbs-o-down mr-2 pull-right"></i>
-              <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up mr-2 pull-right"></i>
-              <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa fa-thumbs-o-up mr-2 pull-right"></i>
+              <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down mr-2 ml-2 pull-right">{{ rating?.down }}</i>
+              <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa fa-thumbs-o-down mr-2 ml-2 pull-right">{{ rating?.down }}</i>
+              <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up mr-2 ml-2 pull-right">{{ rating?.up }}</i>
+              <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa fa-thumbs-o-up mr-2 ml-2 pull-right">{{ rating?.up }}</i>
             </div>
           </div>
         </div>
@@ -102,6 +102,24 @@
                   [taskId]="task.id"
                   (save)="saveComment($event)"
     ></app-comments>
+  </div>
+  <div *ngIf="!!user?.name !== 'anonimus' && rating?.vote === 'NO'" class="row mt-lg-5">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">Оцените эту задачу.</div>
+        <div>
+          <small class="mb-2 text-muted">
+            Поставьте понравилось или нет. Эта оценка позволяет нам улучшать проект Job4j.
+          </small>
+          <div class="pull-right col-sm-2">
+            <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down mr-2 ml-2 pull-right">{{ rating?.down }}</i>
+            <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa fa-thumbs-o-down mr-2 ml-2 pull-right">{{ rating?.down }}</i>
+            <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up mr-2 ml-2 pull-right">{{ rating?.up }}</i>
+            <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa fa-thumbs-o-up mr-2 ml-2 pull-right">{{ rating?.up }}</i>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div *ngIf="!!task.shortname" class="row mt-lg-5">
     <div class="w-100 card">

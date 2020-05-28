@@ -3,7 +3,8 @@ export class RateModel {
     public down?: number,
     public id?: number,
     public number?: string,
-    public up?: number
+    public up?: number,
+    public vote?: string,
   ) {
   }
 }

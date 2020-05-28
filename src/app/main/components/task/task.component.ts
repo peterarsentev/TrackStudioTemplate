@@ -14,7 +14,8 @@ import { MessageService } from '../../../shared/services/message.service';
 import { BookmarksService } from '../../../shared/services/bookmarks.service';
 import { DiscussionModel } from '../../../shared/models/discussionModel';
 import { UserService } from '../../../shared/services/user.service';
-import { ResponeRatingModel } from '../../../shared/models/responeRatingModel';
+import { ResponseRatingModel } from '../../../shared/models/response.rating.model';
+import { RateModel } from '../../../shared/models/rate.model';
 
 declare var hljs: any;
 
@@ -40,7 +41,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   operationName: string;
   showDiscussion: boolean;
   user: UserModels;
-  rating: ResponeRatingModel;
+  rating: RateModel;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -61,7 +62,6 @@ export class TaskComponent implements OnInit, OnDestroy {
       }),
       switchMap(resp => {
         this.task = resp.task;
-        console.log(this.task)
         this.getRate();
         this.status = resp.status;
         this.handler = resp.handler;
@@ -90,7 +90,6 @@ export class TaskComponent implements OnInit, OnDestroy {
         takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => {
         this.user = res;
-        console.log(this.user)
     })
   }
 
@@ -194,8 +193,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.tasksService.getRate(this.task.shortname)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        this.rating = res;
-        console.log(this.rating)
+        this.rating = res.rate;
       });
   }
 
@@ -205,12 +203,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => this.getRate());
     }
-    if (accept && this.rating.vote === 'DOWN') {
-      this.tasksService.voteClear(this.task.shortname)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(() => this.getRate());
-    }
-    if (!accept && this.rating.vote === 'UP') {
+    if (accept && this.rating.vote === 'DOWN' || !accept && this.rating.vote === 'UP') {
       this.tasksService.voteClear(this.task.shortname)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => this.getRate());

@@ -13,7 +13,7 @@ import { MessagesModel } from '../models/messages.model';
 import { UserModels } from '../models/user.models';
 import { EmergencyModel } from '../models/emergency.model';
 import { PreviousNextNavModels } from '../models/previous.next.nav.models';
-import { ResponeRatingModel } from '../models/responeRatingModel';
+import { ResponseRatingModel } from '../models/response.rating.model';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -237,12 +237,12 @@ export class TasksService {
     return this.http.post<PreviousNextNavModels>(this.url + 'iterator', params);
   }
 
-  getRate(shortname: string): Observable<ResponeRatingModel> {
+  getRate(shortname: string): Observable<ResponseRatingModel> {
     let params = new HttpParams();
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = `https://job4j.ru/jedu/ratetask/get`;
-    return this.http.post<ResponeRatingModel>(url, params);
+    return this.http.post<ResponseRatingModel>(url, params);
   }
 
   voteUp(shortname: string) {
@@ -250,7 +250,7 @@ export class TasksService {
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = `https://job4j.ru/jedu/ratetask/upOn`;
-    return this.http.post<ResponeRatingModel>(url, params);
+    return this.http.post<ResponseRatingModel>(url, params);
   }
 
   voteClear(shortname: string) {
@@ -258,7 +258,7 @@ export class TasksService {
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = `https://job4j.ru/jedu/ratetask/off`;
-    return this.http.post<ResponeRatingModel>(url, params);
+    return this.http.post<ResponseRatingModel>(url, params);
   }
 
   voteDown(shortname: string) {
@@ -266,6 +266,6 @@ export class TasksService {
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = `https://job4j.ru/jedu/ratetask/downOn`;
-    return this.http.post<ResponeRatingModel>(url, params);
+    return this.http.post<ResponseRatingModel>(url, params);
   }
 }

@@ -1,9 +1,8 @@
 import { RateModel } from './rate.model';
 
-export class ResponeRatingModel {
+export class ResponseRatingModel {
   constructor(
     public rate: RateModel,
-    public vote?: string,
   ) {
   }
 }
