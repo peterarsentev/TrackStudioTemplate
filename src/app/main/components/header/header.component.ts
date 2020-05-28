@@ -126,10 +126,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.toggled = !this.toggled;
     if (this.toggled) {
       elementById.classList.toggle("active");
-      contentById.style.marginLeft = `${optionalParams}rem`;
+      contentById.style.marginLeft = "0";
     } else {
       elementById.classList.toggle("active");
-      contentById.style.marginLeft = "0";
+      contentById.style.marginLeft = `${optionalParams}rem`;
     }
   }
 
