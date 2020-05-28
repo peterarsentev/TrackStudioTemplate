@@ -213,5 +213,10 @@ export class TaskComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => this.getRate());
     }
+    if (accept && this.rating.vote === 'UP' || !accept && this.rating.vote === 'DOWN') {
+      this.tasksService.voteClear(this.task.shortname)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
   }
 }
