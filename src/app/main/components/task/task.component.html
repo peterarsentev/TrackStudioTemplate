@@ -31,8 +31,18 @@
                 </small>
               </div>
             </div>
-            <div class="pull-right col-sm-2">
-              <i  (click)="addToFavorite()" class="fas fa-star pull-right"></i>
+            <div class="col-sm-2">
+               <span class="pull-right">
+                  <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-danger" style="cursor: pointer;"></i>
+                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
+                  <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-primary" style="cursor: pointer;"></i>
+                  <span class="ml-1">{{ rating?.up }}</span>
+              </span>
+              <span class="pull-right mr-3">
+                  <i (click)="addToFavorite()" class="fas fa-star"></i>
+              </span>
             </div>
           </div>
         </div>
@@ -99,6 +109,26 @@
                   (save)="saveComment($event)"
     ></app-comments>
   </div>
+  <div *ngIf="user?.name !== 'anonimus' && rating?.vote === 'NO'" class="row mt-lg-5">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">Понравилось задание?</div>
+        <div>
+          <small class="mb-2 text-muted">
+            Поставьте понравилось или нет. Эта оценка позволяет нам улучшать проект Job4j.
+          </small>
+          <span class="ml-3">
+                  <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-danger" style="cursor: pointer;"></i>
+                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
+                  <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-primary" style="cursor: pointer;"></i>
+                  <span class="ml-1">{{ rating?.up }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
   <div *ngIf="!!task.shortname" class="row mt-lg-5">
     <div class="w-100 card">
       <div class="card-header bg-dark">
@@ -129,7 +159,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!!task.shortname" class="row pt-2">
+  <div *ngIf="!!task.shortname && user.login !== 'anonymous'" class="row pt-2">
    <span class="mt-3 w-50">
         <button class="m btn btn-info btn-sm"
                 (click)="showDiscussionForm()">{{'Обсудить'}}</button>

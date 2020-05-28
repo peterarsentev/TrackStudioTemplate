@@ -94,7 +94,7 @@ export class AuthService {
     //param = param.append('action', 'logout');
     param = param.append('sessionId', sessionId);
     localStorage.clear();
-    return this.http.post(url, param)
+    return this.http.post(url, param);
   }
 
   private initApiHost() {

@@ -13,6 +13,9 @@ import { UserModels } from '../../../shared/models/user.models';
 import { MessageService } from '../../../shared/services/message.service';
 import { BookmarksService } from '../../../shared/services/bookmarks.service';
 import { DiscussionModel } from '../../../shared/models/discussionModel';
+import { UserService } from '../../../shared/services/user.service';
+import { ResponseRatingModel } from '../../../shared/models/response.rating.model';
+import { RateModel } from '../../../shared/models/rate.model';
 
 declare var hljs: any;
 
@@ -37,10 +40,14 @@ export class TaskComponent implements OnInit, OnDestroy {
   disable = false;
   operationName: string;
   showDiscussion: boolean;
+  user: UserModels;
+  rating: RateModel;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private messageService: MessageService,
               private bookmarksService: BookmarksService,
+              private userService :UserService,
               private tasksService: TasksService) { }
 
   ngOnInit() {
@@ -55,6 +62,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       }),
       switchMap(resp => {
         this.task = resp.task;
+        this.getRate();
         this.status = resp.status;
         this.handler = resp.handler;
         this.getDiscussions();
@@ -76,6 +84,13 @@ export class TaskComponent implements OnInit, OnDestroy {
           });
         }, 0);
       });
+
+    this.userService.getModel()
+      .pipe(
+        takeUntil(this.ngUnsubscribe$)
+      ).subscribe(res => {
+        this.user = res;
+    })
   }
 
   ngOnDestroy(): void {
@@ -171,6 +186,32 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.showDiscussion = false;
     if (close) {
       this.getDiscussions();
+    }
+  }
+
+  private getRate() {
+    this.tasksService.getRate(this.task.shortname)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        this.rating = res.rate;
+      });
+  }
+
+  vote(accept: boolean) {
+    if (accept && this.rating.vote === 'NO') {
+      this.tasksService.voteUp(this.task.shortname)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
+    if (accept && this.rating.vote === 'DOWN' || !accept && this.rating.vote === 'UP') {
+      this.tasksService.voteClear(this.task.shortname)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
+    if (!accept && this.rating.vote === 'NO') {
+      this.tasksService.voteDown(this.task.shortname)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
     }
   }
 }
