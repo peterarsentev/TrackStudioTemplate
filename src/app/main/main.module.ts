@@ -23,6 +23,7 @@ import { DiagramComponent } from './components/diagramma/diagram.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { TreeModule } from 'angular-tree-component';
 import { DiscussionComponent } from './components/discussion/discussion.component';
+import { SandboxComponent } from './components/sandbox/sandbox.component';
 
 
 
@@ -44,7 +45,8 @@ import { DiscussionComponent } from './components/discussion/discussion.componen
     NewTaskComponent,
     DiagramComponent,
     MessagesComponent,
-    DiscussionComponent
+    DiscussionComponent,
+    SandboxComponent
   ],
     imports: [
         CommonModule,

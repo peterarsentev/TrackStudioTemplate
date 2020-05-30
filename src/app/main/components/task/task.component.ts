@@ -17,6 +17,7 @@ import { UserService } from '../../../shared/services/user.service';
 import { ResponseRatingModel } from '../../../shared/models/response.rating.model';
 import { RateModel } from '../../../shared/models/rate.model';
 
+declare var CodeMirror: any;
 declare var hljs: any;
 
 @Component({
@@ -76,7 +77,54 @@ export class TaskComponent implements OnInit, OnDestroy {
         this.showCommentForm = false;
         setTimeout(() => {
           document.querySelectorAll('pre code').forEach((block) => {
-            hljs.highlightBlock(block);
+            console.log(block.parentElement.className);
+            if (block.parentElement.className.indexOf('run_main') > -1) {
+              const codeEl = document.createElement('textarea');
+              const outputEl = document.createElement('textarea');
+              const button = document.createElement('button');
+              const div = document.createElement('div');
+              const divEnd = document.createElement('div');
+              div.classList.add('pt-2');
+              div.innerText = 'Вывод:';
+              divEnd.classList.add('mt-3');
+              button.classList.add('mt-3');
+              button.classList.add('mb-1');
+              button.classList.add('m');
+              button.classList.add('btn');
+              button.classList.add('btn-success');
+              button.classList.add('btn-sm');
+              const i = document.createElement('i');
+              i.classList.add('fa');
+              i.classList.add('fa-caret-right');
+              i.classList.add('mr-1');
+              button.append(i);
+              button.append('Запустить');
+              block.parentElement.before(button);
+              block.parentElement.before(codeEl);
+              block.parentElement.before(div);
+              block.parentElement.before(outputEl);
+              block.parentElement.before(divEnd);
+              const code = CodeMirror.fromTextArea(codeEl, {
+                lineNumbers: true,
+                matchBrackets: true,
+                mode: 'text/x-java'
+              });
+              const output = CodeMirror.fromTextArea(outputEl, {
+                lineNumbers: true,
+                matchBrackets: true,
+                mode: 'text/x-java'
+              });
+              code.getDoc().setValue(block.innerHTML.split('<br>').join('\r\n'));
+              button.addEventListener('click', () => {
+                this.tasksService.runCode(code.getValue())
+                  .subscribe((model) => {
+                    output.getDoc().setValue(model.output);
+                  });
+              });
+              block.parentElement.parentElement.removeChild(block.parentElement);
+            } else {
+              hljs.highlightBlock(block);
+            }
           });
 
           document.querySelectorAll('a img').forEach((block) => {
@@ -89,7 +137,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => {
-        this.user = res;
+      this.user = res;
     })
   }
 
@@ -210,6 +258,11 @@ export class TaskComponent implements OnInit, OnDestroy {
     }
     if (!accept && this.rating.vote === 'NO') {
       this.tasksService.voteDown(this.task.shortname)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
+    if (accept && this.rating.vote === 'UP' || !accept && this.rating.vote === 'DOWN') {
+      this.tasksService.voteClear(this.task.shortname)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => this.getRate());
     }

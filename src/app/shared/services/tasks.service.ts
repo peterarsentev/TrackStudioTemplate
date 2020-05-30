@@ -14,6 +14,7 @@ import { UserModels } from '../models/user.models';
 import { EmergencyModel } from '../models/emergency.model';
 import { PreviousNextNavModels } from '../models/previous.next.nav.models';
 import { ResponseRatingModel } from '../models/response.rating.model';
+import {OutputModel} from '../models/output.model';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -76,6 +77,15 @@ export class TasksService {
         switchMap(() => this.getTaskByProjectIdLimit(filterId, limit, offset))
       );
     }
+  }
+
+  runCode(code: string): Observable<OutputModel> {
+    const sessionId = localStorage.getItem('sessionId');
+    let params = new HttpParams();
+    params = params.append('sessionId', sessionId);
+    params = params.append('code', code);
+    const url = `https://job4j.ru/jedu/taskcode/run`;
+    return this.http.post<OutputModel>(url, params);
   }
 
   getTask(taskId: string, action: string, filterId?: string): Observable<ResponseModel> {
