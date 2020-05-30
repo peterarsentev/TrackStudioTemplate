@@ -36,7 +36,7 @@ export class SandboxComponent implements OnInit {
       '}');
   }
 
-  private run() {
+  run() {
     console.log(this.code.getValue());
     this.output.getDoc().setValue('Hello, Job4j. I am a Java developer.');
   }
