@@ -77,15 +77,18 @@ export class TaskComponent implements OnInit, OnDestroy {
         this.showCommentForm = false;
         setTimeout(() => {
           document.querySelectorAll('pre code').forEach((block) => {
-            if (block.parentElement.className.indexOf('code_') > -1) {
+            console.log(block.parentElement.className);
+            if (block.parentElement.className.indexOf('run_main') > -1) {
               const codeEl = document.createElement('textarea');
               const outputEl = document.createElement('textarea');
               const button = document.createElement('button');
               const div = document.createElement('div');
+              const divEnd = document.createElement('div');
               div.classList.add('pt-2');
               div.innerText = 'Вывод:';
-              // button.href = './sandbox?id=' + block.parentElement.className.substr('code_'.length);
-              button.classList.add('pt-2');
+              divEnd.classList.add('mt-3');
+              button.classList.add('mt-3');
+              button.classList.add('mb-1');
               button.classList.add('m');
               button.classList.add('btn');
               button.classList.add('btn-success');
@@ -100,6 +103,7 @@ export class TaskComponent implements OnInit, OnDestroy {
               block.parentElement.before(codeEl);
               block.parentElement.before(div);
               block.parentElement.before(outputEl);
+              block.parentElement.before(divEnd);
               const code = CodeMirror.fromTextArea(codeEl, {
                 lineNumbers: true,
                 matchBrackets: true,
@@ -112,8 +116,10 @@ export class TaskComponent implements OnInit, OnDestroy {
               });
               code.getDoc().setValue(block.innerHTML.split('<br>').join('\r\n'));
               button.addEventListener('click', () => {
-                console.log(code.getValue());
-                output.getDoc().setValue('Hello, Job4j. I am a Java developer.');
+                this.tasksService.runCode(code.getValue())
+                  .subscribe((model) => {
+                    output.getDoc().setValue(model.output);
+                  });
               });
               block.parentElement.parentElement.removeChild(block.parentElement);
             } else {
