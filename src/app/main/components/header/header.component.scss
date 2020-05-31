@@ -27,14 +27,12 @@
 }
 
 #sidebar {
-  display: block;
-  width: 250px;
-  position: fixed;
+  position: sticky;
+  min-width: 250px;
   top: 0;
   left: 0;
   height: 100vh;
-  z-index: 999;
-  transition: all 0.3s;
+  z-index: 9999;
   overflow: scroll;
   margin-left: 0;
   -ms-overflow-style: none;
@@ -45,30 +43,24 @@
   display: none;
 }
 
-.active {
-  margin-left: -15.6rem !important;
+.toggle {
+  display: block;
 }
-.toggle-nav {
-  margin-left: 0 !important;
+
+.hide{
+  display: none !important;
 }
+
 #page-content-wrapper {
   width: 100%;
-  margin-left: 15.6rem;
-  transition: all 0.3s;
 }
 
 //hide sidebar for mobile screens
 @media (max-width: 550px) {
-  #page-content-wrapper {
-    margin-left: 0;
+  #sidebar{
+    display: none;
   }
-  #sidebar {
-    margin-left: -15.6rem;
-  }
-  .toggle-nav {
-    margin-left: 15.6rem !important;
-  }
-  .active {
-    margin-left: 0 !important;
+  .toggle{
+    display: block !important;
   }
 }
