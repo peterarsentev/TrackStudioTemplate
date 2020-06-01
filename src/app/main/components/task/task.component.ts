@@ -77,8 +77,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         this.showCommentForm = false;
         setTimeout(() => {
           document.querySelectorAll('pre code').forEach((block) => {
-            console.log(block.parentElement.className);
-            if (block.parentElement.className.indexOf('run_main') > -1) {
+            if (block.parentElement && block.parentElement.className.indexOf('run_main') > -1) {
               const codeEl = document.createElement('textarea');
               const outputEl = document.createElement('textarea');
               const button = document.createElement('button');
@@ -114,7 +113,12 @@ export class TaskComponent implements OnInit, OnDestroy {
                 matchBrackets: true,
                 mode: 'text/x-java'
               });
-              code.getDoc().setValue(block.innerHTML.split('<br>').join('\r\n'));
+              code.getDoc().setValue(
+                block.innerHTML
+                  .split('<br>').join('\r\n')
+                  .split('&gt;').join('>')
+                  .split('&lt;').join('<')
+              );
               button.addEventListener('click', () => {
                 this.tasksService.runCode(code.getValue())
                   .subscribe((model) => {

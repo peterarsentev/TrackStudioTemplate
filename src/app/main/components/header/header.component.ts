@@ -88,6 +88,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   clearStorage() {
     this.userService.setUpModel({});
+    const elementById = document.getElementById("sidebar");
+    if(!elementById.classList.contains("hide")) {
+      if(elementById.classList.contains("toggle")) elementById.classList.remove('toggle');
+      elementById.classList.add("hide");
+    } //hide sidebar
     if (this.user.name !== "Аnonymous") {
       this.authService
         .logOut()
@@ -121,9 +126,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onToggle() {
     const elementById = document.getElementById("sidebar");
-    const contentById = document.getElementById("page-content-wrapper");
-    elementById.classList.toggle("active");
-    contentById.classList.toggle("toggle-nav");
+    if(elementById.classList.contains("hide")) elementById.classList.remove("hide"); //delete class from clearStorage func
+    elementById.classList.toggle("toggle");
+
   }
 
   showProven() {
