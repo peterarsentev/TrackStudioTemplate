@@ -29,6 +29,7 @@
 #sidebar {
   position: sticky;
   min-width: 250px;
+  max-width: 300px;
   top: 0;
   left: 0;
   height: 100vh;
@@ -44,10 +45,10 @@
 }
 
 .toggle {
-  display: block;
+  display: none;
 }
 
-.hide{
+.hide {
   display: none !important;
 }
 
@@ -57,10 +58,10 @@
 
 //hide sidebar for mobile screens
 @media (max-width: 550px) {
-  #sidebar{
+  #sidebar {
     display: none;
   }
-  .toggle{
+  .toggle {
     display: block !important;
   }
 }
