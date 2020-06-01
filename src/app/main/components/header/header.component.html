@@ -77,7 +77,7 @@
         </ng-container>
         <a
           (click)="showProven()"
-          class="list-group-item list-group-item-action bg-info text-white"
+          class="list-group-item list-group-item-action bg-info"
         >
           Проверенные задачи
           <i *ngIf="proven" class="fas fa-chevron-up fa_icons mr-3"></i>
@@ -101,7 +101,7 @@
         </ng-container>
         <a
           (click)="showNew()"
-          class="list-group-item list-group-item-action bg-info text-white"
+          class="list-group-item list-group-item-action bg-info"
         >
           Новые задачи
           <i *ngIf="newTask" class="fas fa-chevron-up fa_icons mr-3"></i>
@@ -136,10 +136,11 @@
         id="menu-toggle"
         (click)="onToggle()"
       ></i>
-      <a class="navbar-brand" (click)="goMain()">Job4j</a>
-      <a class="navbar-brand" href="https://job4j.ru/edudark/">
-        <i class="fa fa-moon-o ml-2" aria-hidden="true"></i>
+      <a class="navbar-brand mr-auto" href="https://job4j.ru/edudark/">
+        <i class="fa fa-moon-o mr-2" aria-hidden="true"></i>
       </a>
+      <a class="navbar-brand mr-auto ml-auto" (click)="goMain()">Job4j</a>
+
       <button
         class="navbar-toggler"
         type="button"
