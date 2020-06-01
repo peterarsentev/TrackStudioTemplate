@@ -1,9 +1,31 @@
 @import "~summernote/dist/summernote-lite.min.css";
 
-.note-toolbar, .note-editable, .note-dropdown-menu {
+.note-toolbar,
+.note-editable,
+.note-dropdown-menu {
   color: white !important;
   background: #343a40 !important;
 }
-.note-dropdown-item{
+.note-dropdown-item {
   color: white !important;
+}
+
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled),
+button:not(:disabled),
+.form-group .form-control {
+  color: #fff;
+  background: #6c757d;
+}
+
+.form-control::placeholder {
+  color: #fff;
+}
+.custom-control-label::before {
+  background: #6c757d;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+  border-color: #000;
+  background-color: #000;
 }

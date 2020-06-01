@@ -1,52 +1,80 @@
 <div class="container-fluid pb-4">
   <div class="row pt-3">
     <form [formGroup]="form">
-      <app-hendlers [handlers]="handlers"
-                    [searchHandlers]="handlers"
-                    (selected)="selectPerson($event)"
+      <app-hendlers
+        [handlers]="handlers"
+        [searchHandlers]="handlers"
+        (selected)="selectPerson($event)"
       ></app-hendlers>
       <div *ngFor="let error of validationErrors.handlerId">
-                            <span *ngIf="form.get('handlerId').hasError(error.type)
-                                        && (form.get('handlerId').dirty
-                                        || form.get('handlerId').touched)"
-                                  class="validation">{{ error.message }}</span>
+        <span
+          *ngIf="
+            form.get('handlerId').hasError(error.type) &&
+            (form.get('handlerId').dirty || form.get('handlerId').touched)
+          "
+          class="validation"
+          >{{ error.message }}</span
+        >
       </div>
       <div class="pt-3">
-        <app-redactor [titleLabel]="'Выполняется: ' + operation + '.' "
-                      (outputEmitter)="setDescription($event)"
+        <app-redactor
+          [titleLabel]="'Выполняется: ' + operation + '.'"
+          (outputEmitter)="setDescription($event)"
         ></app-redactor>
       </div>
       <button
-        class="btn btn-primary"
+        class="btn btn-secondary"
         [disabled]="form.invalid || disabled"
         (click)="form.valid && submitComment({ save: true })"
       >
-        <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Сохранить</button>
+        <span
+          *ngIf="disabled"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        Сохранить
+      </button>
       <button
-        class="btn btn-primary ml-2"
+        class="btn btn-secondary ml-2"
         [disabled]="form.invalid || disabled"
         (click)="form.valid && submitComment({ saveAndUp: true })"
       >
-        <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Сохранить и перейти наверх</button>
+        <span
+          *ngIf="disabled"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        Сохранить и перейти наверх
+      </button>
       <button
-        class="btn btn-primary ml-2"
+        class="btn btn-secondary ml-2"
         [disabled]="form.invalid || disabled"
         (click)="form.valid && submitComment({ saveAndNext: true })"
       >
-        <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Сохранить и перейти далее</button>
+        <span
+          *ngIf="disabled"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        Сохранить и перейти далее
+      </button>
       <button
         [disabled]="disabled"
         style="float: right;"
-        class="btn btn-info ml-2"
+        class="btn btn-secondary ml-2"
         (click)="closeForm()"
       >
-        <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Отмена</button>
+        <span
+          *ngIf="disabled"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        Отмена
+      </button>
     </form>
   </div>
 </div>
-
-

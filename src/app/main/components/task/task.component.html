@@ -2,15 +2,31 @@
   <div class="row pb-2">
     <span class="w-50">
       <ng-container *ngFor="let button of buttons">
-        <button class="m btn btn-info btn-sm"
-                (click)="goToComments(button)">{{ button.name }}</button>
+        <button
+          class="m btn btn-secondary btn-sm"
+          (click)="goToComments(button)"
+        >
+          {{ button.name }}
+        </button>
       </ng-container>
     </span>
     <span class="w-50 pull-right">
-      <button type="button" class="m btn btn-secondary btn-sm pull-right text-white" *ngIf="previousAndNext.next"
-               (click)="goTo(previousAndNext.next)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-      <button type="button" class="m btn btn-secondary btn-sm pull-right text-white" *ngIf="previousAndNext.previous"
-              (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
+      <button
+        type="button"
+        class="m btn btn-secondary btn-sm pull-right text-white"
+        *ngIf="previousAndNext.next"
+        (click)="goTo(previousAndNext.next)"
+      >
+        Следующая<i class="fas fa-angle-right pl-1"></i>
+      </button>
+      <button
+        type="button"
+        class="m btn btn-secondary btn-sm pull-right text-white"
+        *ngIf="previousAndNext.previous"
+        (click)="goTo(previousAndNext.previous)"
+      >
+        <i class="fas fa-angle-left pr-1"></i>Предыдущая
+      </button>
     </span>
   </div>
   <div class="row">
@@ -22,32 +38,73 @@
               <div class="font-weight-bold">{{ task.string }}</div>
               <div>
                 <small class="mb-2 text-muted">
-                  <span *ngIf="status.start" class="badge badge-danger mr-3">{{ status.name }}</span>
-                  <span *ngIf="status.finish" class="badge badge-success mr-3">{{ status.name }}</span>
-                  <span *ngIf="!(status.finish || status.start)" class="badge badge-warning mr-3">{{ status.name }}</span>
-                  <span *ngIf="handler" class="mr-3">Ответственный : {{handler.name }}</span>
-                  <span class="mr-3">Создана : {{ task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
-                  <span>Обновлена : {{  task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
+                  <span *ngIf="status.start" class="badge badge-danger mr-3">{{
+                    status.name
+                  }}</span>
+                  <span
+                    *ngIf="status.finish"
+                    class="badge badge-success mr-3"
+                    >{{ status.name }}</span
+                  >
+                  <span
+                    *ngIf="!(status.finish || status.start)"
+                    class="badge badge-warning mr-3"
+                    >{{ status.name }}</span
+                  >
+                  <span *ngIf="handler" class="mr-3"
+                    >Ответственный : {{ handler.name }}</span
+                  >
+                  <span class="mr-3"
+                    >Создана :
+                    {{ task.submitdate | date: "hh:mm dd.MM.yyyy" }}</span
+                  >
+                  <span
+                    >Обновлена :
+                    {{ task.updatedate | date: "hh:mm dd.MM.yyyy" }}</span
+                  >
                 </small>
               </div>
             </div>
             <div class="col-sm-2">
-               <span *ngIf="user?.name !== 'anonimus' && !!task?.shortname" class="pull-right">
-                  <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted" style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-danger" style="cursor: pointer;"></i>
-                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
-                  <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-muted" style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-primary" style="cursor: pointer;"></i>
-                  <span class="ml-1">{{ rating?.up }}</span>
+              <span
+                *ngIf="user?.name !== 'anonimus' && !!task?.shortname"
+                class="pull-right"
+              >
+                <i
+                  *ngIf="rating?.vote !== 'DOWN'"
+                  (click)="vote(false)"
+                  class="fas fa-thumbs-down text-muted"
+                  style="cursor: pointer;"
+                ></i>
+                <i
+                  *ngIf="rating?.vote === 'DOWN'"
+                  (click)="vote(false)"
+                  class="fas fa-thumbs-down text-danger"
+                  style="cursor: pointer;"
+                ></i>
+                <span class="ml-1 mr-2">{{ rating?.down }}</span>
+                <i
+                  *ngIf="rating?.vote !== 'UP'"
+                  (click)="vote(true)"
+                  class="fas fa-thumbs-up text-muted"
+                  style="cursor: pointer;"
+                ></i>
+                <i
+                  *ngIf="rating?.vote === 'UP'"
+                  (click)="vote(true)"
+                  class="fas fa-thumbs-up text-primary"
+                  style="cursor: pointer;"
+                ></i>
+                <span class="ml-1">{{ rating?.up }}</span>
               </span>
               <span class="pull-right mr-3">
-                  <i (click)="addToFavorite()" class="fas fa-star"></i>
+                <i (click)="addToFavorite()" class="fas fa-star"></i>
               </span>
             </div>
           </div>
         </div>
       </div>
-      <div class="card-body bg-dark">
+      <div class="card-body bg-dark text-white">
         <p class="card-text" [innerHTML]="task.description | safeCode"></p>
       </div>
     </div>
@@ -55,75 +112,154 @@
   <div class="row pb-2 pt-3">
     <span class="w-50" *ngIf="!showCommentForm">
       <ng-container *ngFor="let button of buttons">
-        <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>
+        <button
+          class="m btn btn-secondary btn-sm"
+          (click)="goToComments(button)"
+        >
+          {{ button.name }}
+        </button>
       </ng-container>
     </span>
     <span class="w-50 pull-right">
-      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="previousAndNext.next"
-              (click)="goTo(previousAndNext.next)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="previousAndNext.previous"
-              (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
+      <button
+        type="button"
+        class="m btn btn-light btn-sm pull-right"
+        *ngIf="previousAndNext.next"
+        (click)="goTo(previousAndNext.next)"
+      >
+        Следующая<i class="fas fa-angle-right pl-1"></i>
+      </button>
+      <button
+        type="button"
+        class="m btn btn-light btn-sm pull-right"
+        *ngIf="previousAndNext.previous"
+        (click)="goTo(previousAndNext.previous)"
+      >
+        <i class="fas fa-angle-left pr-1"></i>Предыдущая
+      </button>
     </span>
   </div>
   <div class="row" *ngIf="messages.length > 0">
     <div class="w-100 card">
       <div class="card-header bg-dark">
-        <div class="font-weight-bold"> Сообщения</div>
+        <div class="font-weight-bold">Сообщения</div>
       </div>
       <div class="card-body bg-dark">
         <table class="table">
           <tbody>
-          <tr *ngFor="let message of messages"
-              class="{{message.submitter.prstatusId === '4028816a5525e65b015525f8e0db007f' ? 'bg-secondary' : ''}}">
-            <td>
-              <div class="pb-3 small">
-                <span>Oт <span class="font-weight-bold">{{ message.submitter.name }}</span> к <span class="font-weight-bold">{{ message.handler.name }}</span></span>
-                <span class="pull-right">{{ message.message.time | getDate }}</span>
-              </div>
-              <div [innerHTML]="message.message.description | safeCode"></div>
-            </td>
-          </tr>
+            <tr
+              *ngFor="let message of messages"
+              class="{{
+                message.submitter.prstatusId ===
+                '4028816a5525e65b015525f8e0db007f'
+                  ? 'bg-secondary'
+                  : ''
+              }}"
+            >
+              <td>
+                <div class="pb-3 small">
+                  <span
+                    >Oт
+                    <span class="font-weight-bold">{{
+                      message.submitter.name
+                    }}</span>
+                    к
+                    <span class="font-weight-bold">{{
+                      message.handler.name
+                    }}</span></span
+                  >
+                  <span class="pull-right">{{
+                    message.message.time | getDate
+                  }}</span>
+                </div>
+                <div [innerHTML]="message.message.description | safeCode"></div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
   <div class="row pt-2" *ngIf="messages.length > 0 && !showCommentForm">
-   <span class="w-50">
+    <span class="w-50">
       <ng-container *ngFor="let button of buttons">
-        <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>
+        <button
+          class="m btn btn-secondary btn-sm"
+          (click)="goToComments(button)"
+        >
+          {{ button.name }}
+        </button>
       </ng-container>
     </span>
     <span class="w-50 pull-right">
-      <button type="button" class="m btn btn-secondary btn-sm pull-right text-white" *ngIf="previousAndNext.next"
-              (click)="goTo(previousAndNext.next)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-      <button type="button" class="m btn btn-secondary btn-sm pull-right text-white" *ngIf="previousAndNext.previous"
-              (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
+      <button
+        type="button"
+        class="m btn btn-secondary btn-sm pull-right text-white"
+        *ngIf="previousAndNext.next"
+        (click)="goTo(previousAndNext.next)"
+      >
+        Следующая<i class="fas fa-angle-right pl-1"></i>
+      </button>
+      <button
+        type="button"
+        class="m btn btn-secondary btn-sm pull-right text-white"
+        *ngIf="previousAndNext.previous"
+        (click)="goTo(previousAndNext.previous)"
+      >
+        <i class="fas fa-angle-left pr-1"></i>Предыдущая
+      </button>
     </span>
   </div>
   <div class="row">
-    <app-comments *ngIf="showCommentForm"
-                  [mstatusId]="mstatusId"
-                  [operation]="operationName"
-                  [taskId]="task.id"
-                  (save)="saveComment($event)"
+    <app-comments
+      *ngIf="showCommentForm"
+      [mstatusId]="mstatusId"
+      [operation]="operationName"
+      [taskId]="task.id"
+      (save)="saveComment($event)"
     ></app-comments>
   </div>
-  <div *ngIf="user?.name !== 'anonimus' && rating?.vote === 'NO' && !!task?.shortname" class="row mt-lg-5">
+  <div
+    *ngIf="
+      user?.name !== 'anonimus' && rating?.vote === 'NO' && !!task?.shortname
+    "
+    class="row mt-lg-5"
+  >
     <div class="w-100 card">
       <div class="card-header bg-dark">
         <div class="font-weight-bold">Понравилось задание?</div>
         <div>
           <small class="mb-2 text-muted">
-            Поставьте понравилось или нет. Эта оценка позволяет нам улучшать проект Job4j.
+            Поставьте понравилось или нет. Эта оценка позволяет нам улучшать
+            проект Job4j.
           </small>
           <span class="ml-3">
-                  <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted" style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-danger" style="cursor: pointer;"></i>
-                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
-                  <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-muted" style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-primary" style="cursor: pointer;"></i>
-                  <span class="ml-1">{{ rating?.up }}</span>
+            <i
+              *ngIf="rating?.vote !== 'DOWN'"
+              (click)="vote(false)"
+              class="fas fa-thumbs-down text-muted"
+              style="cursor: pointer;"
+            ></i>
+            <i
+              *ngIf="rating?.vote === 'DOWN'"
+              (click)="vote(false)"
+              class="fas fa-thumbs-down text-danger"
+              style="cursor: pointer;"
+            ></i>
+            <span class="ml-1 mr-2">{{ rating?.down }}</span>
+            <i
+              *ngIf="rating?.vote !== 'UP'"
+              (click)="vote(true)"
+              class="fas fa-thumbs-up text-muted"
+              style="cursor: pointer;"
+            ></i>
+            <i
+              *ngIf="rating?.vote === 'UP'"
+              (click)="vote(true)"
+              class="fas fa-thumbs-up text-primary"
+              style="cursor: pointer;"
+            ></i>
+            <span class="ml-1">{{ rating?.up }}</span>
           </span>
         </div>
       </div>
@@ -132,37 +268,44 @@
   <div *ngIf="!!task.shortname" class="row mt-lg-5">
     <div class="w-100 card">
       <div class="card-header bg-dark">
-        <div class="font-weight-bold">Обсуждения. Комментариев : {{discussions.length}}</div>
+        <div class="font-weight-bold">
+          Обсуждения. Комментариев : {{ discussions.length }}
+        </div>
         <div>
           <small class="mb-2 text-muted">
-            Эти комментарии доступны всем ученикам. Поделитесь своим мнением о задаче,
-            полезными ссылками, рекомендациями по решению. Не скидывайте решения целиком!
+            Эти комментарии доступны всем ученикам. Поделитесь своим мнением о
+            задаче, полезными ссылками, рекомендациями по решению. Не скидывайте
+            решения целиком!
           </small>
         </div>
       </div>
       <div class="card-body bg-dark">
         <table class="table" *ngIf="discussions.length > 0">
           <tbody>
-          <tr *ngFor="let discussion of discussions">
-            <td>
-              <div class="pb-3 small">
-                <span>Oт
-                  <span class="font-weight-bold">{{ discussion.name }}</span>
-                </span>
-                <span class="pull-right">{{ discussion.time | getDate }}</span>
-              </div>
-              <div [innerHTML]="discussion.text | safeCode"></div>
-            </td>
-          </tr>
+            <tr *ngFor="let discussion of discussions">
+              <td>
+                <div class="pb-3 small">
+                  <span
+                    >Oт
+                    <span class="font-weight-bold">{{ discussion.name }}</span>
+                  </span>
+                  <span class="pull-right">{{
+                    discussion.time | getDate
+                  }}</span>
+                </div>
+                <div [innerHTML]="discussion.text | safeCode"></div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
   <div *ngIf="!!task.shortname && user.login !== 'anonymous'" class="row pt-2">
-   <span class="mt-3 w-50">
-        <button class="m btn btn-info btn-sm"
-                (click)="showDiscussionForm()">{{'Обсудить'}}</button>
+    <span class="mt-3 w-50">
+      <button class="m btn btn-secondary btn-sm" (click)="showDiscussionForm()">
+        {{ "Обсудить" }}
+      </button>
     </span>
   </div>
   <div class="row" *ngIf="showDiscussion">
