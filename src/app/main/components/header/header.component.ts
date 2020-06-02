@@ -82,6 +82,26 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.getTree();
   }
 
+
+
+
+  initResize() {
+    const wrapper = document.getElementById('wrapper');
+    wrapper.addEventListener('mousemove', this.Resize, false);
+  }
+  Resize(e){
+    const element = document.getElementById('resizable');
+    element.style.minWidth =`${e.clientX}px`;
+  }
+  stopResize(e) {
+    const wrapper = document.getElementById('wrapper');
+    console.log('dragend');
+    const element = document.getElementById('resizable');
+    element.style.minWidth =`${e.clientX}px`;
+    wrapper.removeEventListener('mousemove', this.Resize, false);
+  }
+
+
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
@@ -89,7 +109,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   clearStorage() {
     this.userService.setUpModel({});
-    const elementById = document.getElementById("sidebar");
+    const elementById = document.getElementById("resizable");
     if(!elementById.classList.contains("hide")) {
       if(elementById.classList.contains("toggle")) elementById.classList.remove('toggle');
       elementById.classList.add("hide");
@@ -126,7 +146,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onToggle() {
-    const elementById = document.getElementById("sidebar");
+    const elementById = document.getElementById("resizable");
     if(elementById.classList.contains("hide")) elementById.classList.remove("hide"); //delete class from clearStorage func
     elementById.classList.toggle("toggle");
 
