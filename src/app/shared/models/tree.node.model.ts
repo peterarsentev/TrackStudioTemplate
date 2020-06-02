@@ -6,6 +6,7 @@ export class TreeNodeModel {
     public parentId?: string,
     public children?: TreeNodeModel[],
     public isExpandedField?: string,
+    public expanded?: boolean
   ) {
   }
 }

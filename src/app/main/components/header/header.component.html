@@ -6,7 +6,8 @@
           Навигация
         </div>
         <div class="pl-3 pb-2">
-          <tree-root [nodes]="nodes" [focused]="true" [options]="options">
+          <tree-root #tree
+            [nodes]="nodes" [focused]="true" [options]="options">
           </tree-root>
         </div>
       </div>

@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { UserService } from "../../../shared/services/user.service";
-import { of, Subject } from "rxjs";
+import { EMPTY, of, Subject } from "rxjs";
 import { filter, map, switchMap, take, takeUntil } from "rxjs/operators";
 import { UserModels } from "../../../shared/models/user.models";
 import { AuthService } from "../../../shared/services/auth.service";
@@ -79,6 +79,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.loadTasks();
     this.getBookmarks();
     this.getBookSubscribe();
+    this.getTree();
   }
 
   ngOnDestroy(): void {
@@ -248,13 +249,17 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
         this.nodes = [
-          new TreeNodeModel(
-            res.tasks[0].name + " [#" + res.tasks[0].number + "]",
-            res.tasks[0].childrenCount > 0,
-            res.tasks[0].id
-          ),
+          this.makeNode(res.tasks[0])
         ];
       });
+  }
+
+  makeNode(task: TaskModel): TreeNodeModel {
+    return new TreeNodeModel(
+      task.name + " [#" + task.number + "]",
+      task.childrenCount > 0,
+      task.id
+    )
   }
 
   private navigete(node: any) {
@@ -269,29 +274,47 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  emmit(tasks: TaskModel[]) {
-    console.log("emit", tasks);
-  }
-
-  // private getTree() {
-  //   this.route.queryParams
-  //     .pipe(
-  //       switchMap(res => {
-  //         if (res.tree) return EMPTY;
-  //         if (res.action ==='task')  return this.tasksService.getTask(res.taskId, res.action, '1')
-  //           .pipe(map(res => {tasks: [new ResponseModel(null, res)]}));
-  //         return this.tasksService.getTaskByProjectId(res.taskId || '1');
-  //       })
-  //     ).pipe(takeUntil(this.ngUnsubscribe$))
-  //     .subscribe((res) => {
-  //       let node: TreeNodeModel = {... new TreeNodeModel(), children:[] };
-  //       res.tasks.forEach(task => node.children.push(new TreeNodeModel(task.task.name, task.task.childrenCount > 0, task.task.id, task.task.parentId)));
-  //       if (this.nodes.length === 1 && res) {
-  //         this.makeTree(node);
-  //       }
-  //       console.log('getTree',res,  node);
-  //     })
+  // emmit(tasks: TaskModel[]) {
+  //   console.log("emit", tasks);
   // }
+
+  private getTree() {
+    this.route.queryParams
+      .pipe(
+        switchMap(res => {
+          if (res.tree) return EMPTY;
+          return this.tasksService.getNavRout(res.taskId);
+        })
+      ).pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        console.log('nav with out tree', res)
+        let node = this.nodes as TreeNodeModel[];
+        console.log('node', node)
+        for (let i = 0; i < res.tasks.length; i++) {
+          let found = false;
+
+          node.forEach(n => {
+            if (n.taskId === res.tasks[i].id) {
+              console.log('found');
+              found = true;
+              n.expanded = true;
+              if (!n.children) {
+                n.children = [];
+              }
+              n.expanded = true;
+              node =  n.children;
+            }
+          });
+          console.log(node)
+          if (!found) {
+            console.log('push')
+            node.push(this.makeNode(res.tasks[i]))
+            this.tree.treeModel.update();
+          }
+        }
+        console.log(this.nodes)
+      });
+  }
 
   private makeTree(node: TreeNodeModel) {
     this.tasksService
