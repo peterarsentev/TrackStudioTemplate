@@ -31,7 +31,7 @@ import { BookmarksService } from "../../../shared/services/bookmarks.service";
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
 })
-export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   user: UserModels;
   notifications = false;
@@ -196,11 +196,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this.getNewTasks();
       this.getBookmarks();
     }
-  }
-
-  ngAfterViewInit() {
-    // this.tree.treeModel.update();
-    // this.tree.treeModel.expandAll();
   }
 
   options: ITreeOptions = {
