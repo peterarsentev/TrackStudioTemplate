@@ -191,6 +191,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.navShow) {
           this.getProvenTasks();
           this.getNewTasks();
+          this.getTree();
         }
       });
   }
@@ -306,21 +307,24 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       .pipe(
         switchMap(res => {
           if (res.tree) return EMPTY;
+          if (this.router.url === '/login') return EMPTY;
           return this.tasksService.getNavRout(res.taskId);
         })
       ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        for (let i = 0; i < res.tasks.length; i++) {
-          const exists = this.tree.treeModel.getNodeById(res.tasks[i].id);
-          if (exists) {
-            exists.expand();
-            exists.focus();
-          } else {
-            setTimeout(() => {
-              const node = this.tree.treeModel.getNodeById(res.tasks[i].id);
-              node.expand();
-              node.focus();
-            }, 2000 * i);
+        if (res) {
+          for (let i = 0; i < res.tasks.length; i++) {
+            const exists = this.tree.treeModel.getNodeById(res.tasks[i].id);
+            if (exists) {
+              exists.expand();
+              exists.focus();
+            } else {
+              setTimeout(() => {
+                const node = this.tree.treeModel.getNodeById(res.tasks[i].id);
+                node.expand();
+                node.focus();
+              }, 2000 * i);
+            }
           }
         }
       });
