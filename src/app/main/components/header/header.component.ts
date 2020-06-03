@@ -110,11 +110,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   clearStorage() {
     this.userService.setUpModel({});
-    const elementById = document.getElementById("resizable");
-    if(!elementById.classList.contains("hide")) {
-      if(elementById.classList.contains("toggle")) elementById.classList.remove('toggle');
-      elementById.classList.add("hide");
-    } //hide sidebar
     if (this.user.name !== "Аnonymous") {
       this.authService
         .logOut()

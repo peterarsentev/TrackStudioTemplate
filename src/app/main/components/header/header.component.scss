@@ -48,9 +48,7 @@
   display: none;
 }
 
-.hide {
-  display: none !important;
-}
+
 
 #page-content-wrapper {
   width: 100%;
@@ -117,4 +115,7 @@ aside.sidebar-left .draghandle {
   .toggle {
     display: block !important;
   }
+}
+.hide {
+  display: none !important;
 }
