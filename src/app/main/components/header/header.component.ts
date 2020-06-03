@@ -25,6 +25,7 @@ import { CommentService } from "../../../shared/services/comment.service";
 import { BookmarksModel } from "../../../shared/models/bookmarks.model";
 import { BookmarksService } from "../../../shared/services/bookmarks.service";
 
+
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
@@ -250,6 +251,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
           res.tasks.forEach((t) =>
             children.push(
               new TreeNodeModel(
+                t.task.id,
                 t.task.name + " [#" + t.task.number + "]",
                 t.task.childrenCount > 0,
                 t.task.id,
@@ -257,10 +259,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
               )
             )
           );
+          this.tree.treeModel.getNodeById(node.data.taskId).expand();
           return children;
         })
-      )
-      .toPromise();
+      ).toPromise();
   }
 
   private getNavNodes() {
@@ -276,10 +278,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   makeNode(task: TaskModel): TreeNodeModel {
     return new TreeNodeModel(
-      task.name + " [#" + task.number + "]",
+      task.id,
+      task.name + ' [#' + task.number + ']',
       task.childrenCount > 0,
       task.id
-    )
+    );
   }
 
   private navigete(node: any) {
@@ -307,32 +310,19 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         })
       ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        console.log('nav with out tree', res)
-        let node = this.nodes as TreeNodeModel[];
-        console.log('node', node)
         for (let i = 0; i < res.tasks.length; i++) {
-          let found = false;
-
-          node.forEach(n => {
-            if (n.taskId === res.tasks[i].id) {
-              console.log('found');
-              found = true;
-              n.expanded = true;
-              if (!n.children) {
-                n.children = [];
-              }
-              n.expanded = true;
-              node =  n.children;
-            }
-          });
-          console.log(node)
-          if (!found) {
-            console.log('push')
-            node.push(this.makeNode(res.tasks[i]))
-            this.tree.treeModel.update();
+          const exists = this.tree.treeModel.getNodeById(res.tasks[i].id);
+          if (exists) {
+            exists.expand();
+            exists.focus();
+          } else {
+            setTimeout(() => {
+              const node = this.tree.treeModel.getNodeById(res.tasks[i].id);
+              node.expand();
+              node.focus();
+            }, 2000 * i);
           }
         }
-        console.log(this.nodes)
       });
   }
 

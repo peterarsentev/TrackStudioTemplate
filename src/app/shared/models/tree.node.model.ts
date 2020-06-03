@@ -1,5 +1,6 @@
 export class TreeNodeModel {
   constructor(
+    public id: string,
     public name?: string,
     public hasChildren?: boolean,
     public taskId?: string,
