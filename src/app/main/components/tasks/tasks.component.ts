@@ -35,7 +35,6 @@ export class TasksComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(res => {
           if (!!res.taskId) {
-            console.log('res', res);
             this.taskId = res.taskId;
             this.geButtons(res.taskId);
             this.title = 'Задания'

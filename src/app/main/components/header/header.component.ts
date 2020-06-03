@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { UserService } from "../../../shared/services/user.service";
-import { of, Subject } from "rxjs";
+import { EMPTY, of, Subject } from "rxjs";
 import { filter, map, switchMap, take, takeUntil } from "rxjs/operators";
 import { UserModels } from "../../../shared/models/user.models";
 import { AuthService } from "../../../shared/services/auth.service";
@@ -79,6 +79,23 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.loadTasks();
     this.getBookmarks();
     this.getBookSubscribe();
+    this.getTree();
+  }
+
+  initResize() {
+    const wrapper = document.getElementById("wrapper");
+    wrapper.addEventListener("mousemove", this.Resize, false);
+  }
+  Resize(e) {
+    const element = document.getElementById("resizable");
+    element.style.minWidth = `${e.clientX}px`;
+  }
+  stopResize(e) {
+    const wrapper = document.getElementById("wrapper");
+    console.log("dragend");
+    const element = document.getElementById("resizable");
+    element.style.minWidth = `${e.clientX}px`;
+    wrapper.removeEventListener("mousemove", this.Resize, false);
   }
 
   ngOnDestroy(): void {
@@ -88,11 +105,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   clearStorage() {
     this.userService.setUpModel({});
-    const elementById = document.getElementById("sidebar");
-    if(!elementById.classList.contains("hide")) {
-      if(elementById.classList.contains("toggle")) elementById.classList.remove('toggle');
-      elementById.classList.add("hide");
-    } //hide sidebar
     if (this.user.name !== "Аnonymous") {
       this.authService
         .logOut()
@@ -125,10 +137,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onToggle() {
-    const elementById = document.getElementById("sidebar");
-    if(elementById.classList.contains("hide")) elementById.classList.remove("hide"); //delete class from clearStorage func
+    const elementById = document.getElementById("resizable");
+    if (elementById.classList.contains("hide"))
+      elementById.classList.remove("hide"); //delete class from clearStorage func
     elementById.classList.toggle("toggle");
-
   }
 
   showProven() {
@@ -169,6 +181,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.navShow) {
           this.getProvenTasks();
           this.getNewTasks();
+          this.getTree();
         }
       });
   }
@@ -229,6 +242,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
           res.tasks.forEach((t) =>
             children.push(
               new TreeNodeModel(
+                t.task.id,
                 t.task.name + " [#" + t.task.number + "]",
                 t.task.childrenCount > 0,
                 t.task.id,
@@ -236,6 +250,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
               )
             )
           );
+          this.tree.treeModel.getNodeById(node.data.taskId).expand();
           return children;
         })
       )
@@ -247,14 +262,17 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       .getNavRout("1")
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
-        this.nodes = [
-          new TreeNodeModel(
-            res.tasks[0].name + " [#" + res.tasks[0].number + "]",
-            res.tasks[0].childrenCount > 0,
-            res.tasks[0].id
-          ),
-        ];
+        this.nodes = [this.makeNode(res.tasks[0])];
       });
+  }
+
+  makeNode(task: TaskModel): TreeNodeModel {
+    return new TreeNodeModel(
+      task.id,
+      task.name + " [#" + task.number + "]",
+      task.childrenCount > 0,
+      task.id
+    );
   }
 
   private navigete(node: any) {
@@ -269,29 +287,38 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  emmit(tasks: TaskModel[]) {
-    console.log("emit", tasks);
-  }
-
-  // private getTree() {
-  //   this.route.queryParams
-  //     .pipe(
-  //       switchMap(res => {
-  //         if (res.tree) return EMPTY;
-  //         if (res.action ==='task')  return this.tasksService.getTask(res.taskId, res.action, '1')
-  //           .pipe(map(res => {tasks: [new ResponseModel(null, res)]}));
-  //         return this.tasksService.getTaskByProjectId(res.taskId || '1');
-  //       })
-  //     ).pipe(takeUntil(this.ngUnsubscribe$))
-  //     .subscribe((res) => {
-  //       let node: TreeNodeModel = {... new TreeNodeModel(), children:[] };
-  //       res.tasks.forEach(task => node.children.push(new TreeNodeModel(task.task.name, task.task.childrenCount > 0, task.task.id, task.task.parentId)));
-  //       if (this.nodes.length === 1 && res) {
-  //         this.makeTree(node);
-  //       }
-  //       console.log('getTree',res,  node);
-  //     })
+  // emmit(tasks: TaskModel[]) {
+  //   console.log("emit", tasks);
   // }
+
+  private getTree() {
+    this.route.queryParams
+      .pipe(
+        switchMap((res) => {
+          if (res.tree) return EMPTY;
+          if (this.router.url === "/login") return EMPTY;
+          return this.tasksService.getNavRout(res.taskId);
+        })
+      )
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((res) => {
+        if (res) {
+          for (let i = 0; i < res.tasks.length; i++) {
+            const exists = this.tree.treeModel.getNodeById(res.tasks[i].id);
+            if (exists) {
+              exists.expand();
+              exists.focus();
+            } else {
+              setTimeout(() => {
+                const node = this.tree.treeModel.getNodeById(res.tasks[i].id);
+                node.expand();
+                node.focus();
+              }, 2000 * i);
+            }
+          }
+        }
+      });
+  }
 
   private makeTree(node: TreeNodeModel) {
     this.tasksService

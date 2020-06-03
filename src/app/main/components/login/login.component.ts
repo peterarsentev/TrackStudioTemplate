@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    console.log('init')
+    this.prepMain();
     this.initForm();
   }
 
@@ -53,10 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.form.reset();
           this.submit = false;
           this.route.navigate(["/"]);
-          const elementById = document.getElementById("sidebar");
-          if (elementById.classList.contains("hide")) {
-            elementById.classList.remove("hide");
-          } //hide sidebar
+          this.prepMain();
         },
         () => {
           this.error = true;
@@ -66,6 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
+
     this.form = this.fb.group({
       login: [{ value: "", disabled: this.submit }, Validators.required],
       password: [{ value: "", disabled: this.submit }, Validators.required],
@@ -80,7 +80,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   resetError() {
     this.error = false;
   }
-
+  prepMain(){
+    const elementById = document.getElementById("resizable");
+    if (elementById.classList.contains("hide")) {
+      elementById.classList.remove("hide");
+      if (elementById.classList.contains("toggle"))elementById.classList.remove('toggle');
+    } //hide sidebar
+    else elementById.classList.add("hide");
+  }
   goMain() {
     this.submit = true;
 
@@ -93,10 +100,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.submit = false;
         this.route.navigate(["/"], {});
-        const elementById = document.getElementById("sidebar");
-        if (elementById.classList.contains("hide")) {
-          elementById.classList.remove("hide");
-        } //hide sidebar
+       this.prepMain();
       });
   }
 }
+
