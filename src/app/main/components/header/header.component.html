@@ -1,10 +1,14 @@
-<div class="d-flex wrapper" id="wrapper" [ngClass]="{ toggled: toggled }">
+<div
+  class="d-flex wrapper bg-dark"
+  id="wrapper"
+  [ngClass]="{ toggled: toggled }"
+>
   <aside
     id="resizable"
     class="sidebar-left movable-div bottom-0 left-0 animated"
   >
     <div id="sidebar">
-      <div *ngIf="navShow" class="bg-light border-right" id="sidebar-wrapper">
+      <div *ngIf="navShow" class="bg-dark border-right" id="sidebar-wrapper">
         <div class="list-group list-group-flush small bg-dark">
           <div
             class="list-group-item list-group-item-action bg-secondary text-white"
@@ -126,10 +130,10 @@
                 <a
                   [routerLink]="['/task']"
                   [queryParams]="{ taskId: task.task.id, action: 'task' }"
-                  class="list-group-item list-group-item-action bg-light"
+                  class="list-group-item list-group-item-action bg-dark text-white"
                 >
                   <span class="font-weight-bold">
-                    <i class="fas fa-tasks mr-2 bg-danger"></i
+                    <i class="fas fa-tasks bg-danger mr-2"></i
                     >{{ task.task.name }} &nbsp;[#{{ task.task.number }}]
                   </span>
                 </a>
@@ -159,7 +163,7 @@
         id="menu-toggle"
         (click)="onToggle()"
       ></i>
-      <a class="navbar-brand mr-auto" (click)="goMain()">Job4j</a>
+      <a class="navbar-brand text-white mr-auto" (click)="goMain()">Job4j</a>
 
       <button
         class="navbar-toggler text-white"
@@ -188,13 +192,16 @@
             </button>
           </span>
         </span>
-        <span class="navbar-text mr-3">
+        <span class="navbar-text text-white mr-3">
           <a [routerLink]="['/']"
-            ><i class="fa fa-home fa-2x" aria-hidden="true"></i
+            ><i class="fa fa-home text-white fa-2x" aria-hidden="true"></i
           ></a>
         </span>
         <span class="navbar-text">
-          <a class="navbar-brand mr-auto" href="https://job4j.ru/edudark/">
+          <a
+            class="navbar-brand text-white mr-auto"
+            href="https://job4j.ru/edudark/"
+          >
             <i class="fa fa-moon-o mr-2" aria-hidden="true"></i>
           </a>
         </span>
