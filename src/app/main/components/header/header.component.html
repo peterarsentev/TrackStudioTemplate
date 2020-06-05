@@ -126,10 +126,10 @@
                 <a
                   [routerLink]="['/task']"
                   [queryParams]="{ taskId: task.task.id, action: 'task' }"
-                  class="list-group-item list-group-item-action bg-dark text-white"
+                  class="list-group-item list-group-item-action bg-light"
                 >
                   <span class="font-weight-bold">
-                    <i class="fas fa-tasks mr-2 bg-dark"></i
+                    <i class="fas fa-tasks mr-2 bg-danger"></i
                     >{{ task.task.name }} &nbsp;[#{{ task.task.number }}]
                   </span>
                 </a>
@@ -153,19 +153,13 @@
     >
       <i
         *ngIf="navShow"
-        class="fa fa-bars mr-2"
+        class="fa fa-angle-left mr-lg-3"
         style="font-size: 23px; cursor: pointer;"
         aria-hidden="true"
         id="menu-toggle"
         (click)="onToggle()"
       ></i>
-      <a
-        class="navbar-brand mr-auto text-white"
-        href="https://job4j.ru/edudark/"
-      >
-        <i class="fa fa-moon-o mr-2" aria-hidden="true"></i>
-      </a>
-      <a class="navbar-brand mr-auto text-white" (click)="goMain()">Job4j</a>
+      <a class="navbar-brand mr-auto" (click)="goMain()">Job4j</a>
 
       <button
         class="navbar-toggler text-white"
@@ -194,21 +188,27 @@
             </button>
           </span>
         </span>
-        <span class="navbar-text">
+        <span class="navbar-text mr-3">
           <a [routerLink]="['/']"
             ><i class="fa fa-home fa-2x" aria-hidden="true"></i
           ></a>
         </span>
+        <span class="navbar-text">
+          <a class="navbar-brand mr-auto" href="https://job4j.ru/edudark/">
+            <i class="fa fa-moon-o mr-2" aria-hidden="true"></i>
+          </a>
+        </span>
+
         <span
           *ngIf="notifications && count > 0"
           style="cursor: pointer;"
           (click)="readMessages()"
           class="ml-3 badge badge-primary badge-pill"
-          >{{ count }}
-        </span>
-        <a class="nav-item nav-link float-right" [routerLink]="['/profile']"
-          >{{ user?.name || "Гость" }}
-        </a>
+          >{{ count }}</span
+        >
+        <a class="nav-item nav-link float-right" [routerLink]="['/profile']">{{
+          user?.name || "Гость"
+        }}</a>
         <a
           class="nav-item nav-link float-right"
           (click)="clearStorage()"
@@ -218,10 +218,7 @@
       </div>
     </nav>
     <div class="container-fluid">
-      <app-navigation
-        (emitter)="emmit($event)"
-        *ngIf="navShow"
-      ></app-navigation>
+      <app-navigation *ngIf="navShow"></app-navigation>
       <router-outlet></router-outlet>
     </div>
   </div>

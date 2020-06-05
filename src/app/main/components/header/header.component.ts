@@ -30,7 +30,7 @@ import { BookmarksService } from "../../../shared/services/bookmarks.service";
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
 })
-export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   user: UserModels;
   notifications = false;
@@ -79,7 +79,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.loadTasks();
     this.getBookmarks();
     this.getBookSubscribe();
-    this.getTree();
   }
 
   initResize() {
@@ -181,7 +180,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.navShow) {
           this.getProvenTasks();
           this.getNewTasks();
-          this.getTree();
         }
       });
   }
@@ -193,11 +191,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this.getNewTasks();
       this.getBookmarks();
     }
-  }
-
-  ngAfterViewInit() {
-    // this.tree.treeModel.update();
-    // this.tree.treeModel.expandAll();
   }
 
   options: ITreeOptions = {
@@ -250,7 +243,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
               )
             )
           );
-          this.tree.treeModel.getNodeById(node.data.taskId).expand();
           return children;
         })
       )
@@ -285,53 +277,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         },
       });
     }
-  }
-
-  // emmit(tasks: TaskModel[]) {
-  //   console.log("emit", tasks);
-  // }
-
-  private getTree() {
-    this.route.queryParams
-      .pipe(
-        switchMap((res) => {
-          if (res.tree) return EMPTY;
-          if (this.router.url === "/login") return EMPTY;
-          return this.tasksService.getNavRout(res.taskId);
-        })
-      )
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((res) => {
-        if (res) {
-          for (let i = 0; i < res.tasks.length; i++) {
-            const exists = this.tree.treeModel.getNodeById(res.tasks[i].id);
-            if (exists) {
-              exists.expand();
-              exists.focus();
-            } else {
-              setTimeout(() => {
-                const node = this.tree.treeModel.getNodeById(res.tasks[i].id);
-                node.expand();
-                node.focus();
-              }, 2000 * i);
-            }
-          }
-        }
-      });
-  }
-
-  private makeTree(node: TreeNodeModel) {
-    this.tasksService
-      .getTaskByProjectId(node.children[0].taskId)
-      .pipe
-      // switchMap(res => {
-      //   return res;
-      // }
-      ();
-  }
-
-  getNodes(taskId) {
-    return this.tasksService.getTaskByProjectId(taskId || "1");
   }
 
   private loadTasks() {
