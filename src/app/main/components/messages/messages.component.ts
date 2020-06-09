@@ -30,7 +30,7 @@ export class MessagesComponent implements OnInit {
         }),
         takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => {
-        this.messages = res.messages
+        this.messages = res
     });
   }
 
@@ -43,8 +43,7 @@ export class MessagesComponent implements OnInit {
     this.router.navigate(['task'], {
       queryParams: {
         action: 'task',
-        taskId: task.id,
-        number: task.number
+        taskId: task.id
       }
     })
   }
@@ -54,6 +53,6 @@ export class MessagesComponent implements OnInit {
       .pipe(
         switchMap(() => this.messageService.getMessages(this.userId)),
         takeUntil(this.ngUnsubscribe$)
-      ).subscribe(res =>  this.messages = res.messages)
+      ).subscribe(res =>  this.messages = res)
   }
 }

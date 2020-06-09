@@ -8,7 +8,7 @@ export class MessageModel {
     public id?: string,
     public handlerUserId?: string,
     public  deadline?: number,
-    public  taskId?: string,
+    public  tsId?: string,
     public budget?: number,
     public number?: string,
     public text?: string,

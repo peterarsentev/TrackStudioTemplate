@@ -23,12 +23,12 @@ export class MessageService {
     return this.http.post<{ total: number }>(this.url + 'has', params);
   }
 
-  getMessages(id: string): Observable<{ messages: MessageModel[] }> {
+  getMessages(id: string): Observable<MessageModel[]> {
+    const url = `https://job4j.ru/jedu/notification/get`;
     let params = new HttpParams();
     //params = params.append('action', 'messages');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    params = params.append('userId', id);
-    return this.http.post<{ messages: MessageModel[] }>(this.url + 'messages', params);
+    return this.http.post<MessageModel[]>(url, params);
   }
 
   getBookmarks(): Observable<{ bookmarks: BookmarksModel[] }> {
@@ -60,9 +60,8 @@ export class MessageService {
   }
 
   deleteMessage(id?: string) {
-    const url = `${environment.url}/rest/messenger/delete`;
+    const url = `https://job4j.ru/jedu/notification/delete `;
     let params = new HttpParams();
-    //params = params.append('action', 'delete');
     params = id ? params.append('msgId', id) : params;
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);
@@ -85,4 +84,22 @@ export class MessageService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);
   }
+
+
+  getNotificationState(): Observable<{ notification: boolean }> {
+    const url = `https://job4j.ru/jedu/notification/check `;
+    let params = new HttpParams();
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<{ notification: boolean }>(url, params);
+  }
+
+  updateNotificationState(state: boolean) {
+    const url = `https://job4j.ru/jedu/notification/save `;
+    let params = new HttpParams();
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('notification', Boolean(state).toString());
+    return this.http.post(url, params);
+  }
+  /*
+  * curl -k https://job4j.ru/jedu/notification/save -d sessionId=73e550538ec979a7db9c377c64e11b60 -d notification=true*/
 }

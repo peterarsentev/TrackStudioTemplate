@@ -11,7 +11,7 @@
     <tr *ngFor="let message of messages">
       <td  style="cursor: pointer;">
         <div>
-          <div (click)="openTask({id : message.taskId})">
+          <div (click)="openTask({id : message.tsId, number: message.number })">
           <span><i class="fas fa-tasks pr-3"></i>
           {{ message.time | getDate }} {{ message.text }}
           </span>

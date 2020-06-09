@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { UserService } from '../../../shared/services/user.service';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { UserModels } from '../../../shared/models/user.models';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import { MessageService } from '../../../shared/services/message.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,16 +18,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
 private ngUnsubscribe$: Subject<void> = new Subject<void>();
   user: UserModels;
   form: FormGroup;
+  showNotification: boolean
 
   constructor(private userService: UserService,
     private authService: AuthService,
     private fb: FormBuilder,
+    private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getNotificationState();
     this.userService.getModel()
-      .pipe(takeUntil(this.ngUnsubscribe$))
+      .pipe(
+        switchMap((user) => {
+          if (!user) {
+            return this.authService.getDefaultProjectId()
+              .pipe(map(resp => resp.user));
+          }
+          return of(user);
+        }),
+        takeUntil(this.ngUnsubscribe$)
+      )
       .subscribe(user => {
         this.user = user;
   });
@@ -44,4 +57,18 @@ private ngUnsubscribe$: Subject<void> = new Subject<void>();
   goToChangePassword() {
     this.router.navigate(['password'], { relativeTo: this.route });
   }
+
+  getNotificationState() {
+    this.messageService.getNotificationState()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.showNotification = res.notification);
+  }
+
+  sendNotification() {
+    this.showNotification = !this.showNotification;
+    this.messageService.updateNotificationState(this.showNotification)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => console.log(res))
+  }
+
 }
