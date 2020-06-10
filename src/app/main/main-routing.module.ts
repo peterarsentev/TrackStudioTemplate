@@ -9,6 +9,7 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { NewTaskComponent } from './components/new-task/new-task.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { SandboxComponent } from './components/sandbox/sandbox.component';
+import { ExamComponent } from './components/exam/exam.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'new-task', component: NewTaskComponent },
       { path: 'messages', component: MessagesComponent },
       { path: 'sandbox', component: SandboxComponent },
+      { path: 'exams', component: ExamComponent },
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then(mod => mod.ProfileModule)

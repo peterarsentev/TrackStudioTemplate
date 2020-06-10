@@ -24,6 +24,7 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { TreeModule } from 'angular-tree-component';
 import { DiscussionComponent } from './components/discussion/discussion.component';
 import { SandboxComponent } from './components/sandbox/sandbox.component';
+import { ExamComponent } from './components/exam/exam.component';
 
 
 
@@ -46,7 +47,8 @@ import { SandboxComponent } from './components/sandbox/sandbox.component';
     DiagramComponent,
     MessagesComponent,
     DiscussionComponent,
-    SandboxComponent
+    SandboxComponent,
+    ExamComponent
   ],
     imports: [
         CommonModule,

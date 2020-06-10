@@ -58,6 +58,15 @@
                   ><span class="font-weight-bold">Критика и предложения</span>
                 </a>
               </li>
+              <li>
+                <a
+                  [routerLink]="['/exams']"
+                  class="list-group-item list-group-item-action bg-light"
+                >
+                  <i class="fas fa-info mr-2"></i
+                  ><span class="font-weight-bold">Тесты</span>
+                </a>
+              </li>
               <li *ngFor="let book of bookmarks">
                 <a class="list-group-item list-group-item-action bg-light">
                 <span
@@ -130,8 +139,8 @@
     </div>
     <div class="draghandle"
          id="draghandle"
-         (mousedown)  = "initResize()"
-         (mouseup) = "stopResize($event)"
+         (mousedown)="initResize()"
+         (mouseup)="stopResize($event)"
          style="width: 10px; height: 100vh;"></div>
   </aside>
   <div id="page-content-wrapper">

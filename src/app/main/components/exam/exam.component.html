@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="container-fluid" *ngIf="moreDetailed">
+    <table class="table">
+      <colgroup>
+        <col style="width: 10%">
+        <col style="width: 20%">
+        <col style="width: 30%">
+        <col style="width: 15%">
+        <col style="width: 20%">
+        <col style="width: 15%">
+      </colgroup>
+      <thead>
+      <tr style="text-align: center">
+        <th>Позиция:</th>
+        <th>Название:</th>
+        <th>Описание:</th>
+        <th>Попыток:</th>
+        <th>Время последней попытки:</th>
+        <th>Макс. результат:</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let exam of exams" style="cursor: pointer" (click)="moreDetails(exam.id)">
+        <ng-container  *ngIf="exam.active">
+          <td>{{ exam.position }}</td>
+          <td>{{ exam.name }}</td>
+          <td>{{ exam.intro}}</td>
+<!--          <td>{{ exam.position }}</td>-->
+<!--          <td>{{ exam.name }}</td>-->
+<!--          <td>{{ exam.intro}}</td>-->
+        </ng-container>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
