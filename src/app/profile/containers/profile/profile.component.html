@@ -15,15 +15,26 @@
         <table class="table">
           <tr>
             <td>Имя</td>
-            <td>{{user.name}}</td>
+            <td>{{user?.name}}</td>
           </tr>
           <tr>
             <td>Логин</td>
-            <td>{{user.login}}</td>
+            <td>{{user?.login}}</td>
           </tr>
           <tr>
             <td>Почта</td>
-            <td>{{user.email}}</td>
+            <td>{{user?.email}}</td>
+          </tr>
+          <tr>
+            <td>Уведомления</td>
+            <td>
+                <label class="switch pull-left" >
+                  <input type="checkbox" class="info" [checked]="showNotification" (change)="sendNotification()">
+                  <span class="slider round"></span>
+                </label>
+                <!--<label *ngIf="showNotification" class="custom-control-label" for="customSwitch1">Включено</label>-->
+                <!--<label *ngIf="!showNotification" class="custom-control-label" for="customSwitch1">Выключено</label>-->
+            </td>
           </tr>
         </table>
       </div>

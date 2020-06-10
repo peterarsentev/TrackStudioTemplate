@@ -6,6 +6,7 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { AuthResponse, UserResponse } from '../models/interfaces';
 import { UserService } from './user.service';
+import {CustomEncoder} from '../custom-encoder';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -21,10 +22,10 @@ export class AuthService {
   }
 
   login(user: LoginModel = {login: 'anonymous', password: '123'}): Observable<AuthResponse> {
-    let param = new HttpParams();
-    param = param.append('login', user.login);
-    param = param.append('password', user.password);
-    return this.http.post(`${environment.url}/rest/auth/login`, param)
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('login', user.login);
+    params = params.append('password', user.password);
+    return this.http.post(`${environment.url}/rest/auth/login`, params)
       .pipe(
         tap(this.setSessionId),
         catchError(this.handleError.bind(this))
@@ -51,11 +52,10 @@ export class AuthService {
    */
   getDefaultProjectId(): Observable<UserResponse> {
     const sessionId = localStorage.getItem('sessionId');
-    let param = new HttpParams();
-    //param = param.append('action', 'session');
-    param = param.append('sessionId', sessionId);
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', sessionId);
     if (!!sessionId) {
-      return this.http.post<UserResponse>(`${environment.url}/rest/auth/session`, param)
+      return this.http.post<UserResponse>(`${environment.url}/rest/auth/session`, params)
         .pipe(
           catchError(err => {
               localStorage.clear();
@@ -90,11 +90,10 @@ export class AuthService {
   logOut() {
     const url = `${environment.url}/rest/auth/logout`;
     const sessionId = localStorage.getItem('sessionId');
-    let param = new HttpParams();
-    //param = param.append('action', 'logout');
-    param = param.append('sessionId', sessionId);
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', sessionId);
     localStorage.clear();
-    return this.http.post(url, param);
+    return this.http.post(url, params);
   }
 
   private initApiHost() {
@@ -103,25 +102,23 @@ export class AuthService {
 
   changePassword(userId: string, password: string, confirm: string) {
     const url = `${environment.url}/rest/user/password`;
-    let param = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     const sessionId = localStorage.getItem('sessionId');
-    //param = param.append('action', 'password');
-    param = param.append('sessionId', sessionId);
-    param = param.append('password', password);
-    param = param.append('confirm', confirm);
-    param = param.append('userId', userId);
-    return this.http.post(url, param);
+    params = params.append('sessionId', sessionId);
+    params = params.append('password', password);
+    params = params.append('confirm', confirm);
+    params = params.append('userId', userId);
+    return this.http.post(url, params);
   }
 
   updateProfile(userId: string, email: string, name: string) {
     const url = `${environment.url}/rest/user/update`;
     const sessionId = localStorage.getItem('sessionId');
-    let param = new HttpParams();
-    //param = param.append('action', 'update');
-    param = param.append('sessionId', sessionId);
-    param = param.append('userId', userId);
-    param = param.append('email', email);
-    param = param.append('name', name);
-    return this.http.post(url, param);
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', sessionId);
+    params = params.append('userId', userId);
+    params = params.append('email', email);
+    params = params.append('name', name);
+    return this.http.post(url, params);
   }
 }

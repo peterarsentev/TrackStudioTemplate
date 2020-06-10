@@ -15,6 +15,7 @@ import { EmergencyModel } from '../models/emergency.model';
 import { PreviousNextNavModels } from '../models/previous.next.nav.models';
 import { ResponseRatingModel } from '../models/response.rating.model';
 import {OutputModel} from '../models/output.model';
+import {CustomEncoder} from '../custom-encoder';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -34,7 +35,7 @@ export class TasksService {
       return this.authService.getDefaultProjectId()
         .pipe(
           switchMap(res => {
-            return this.getTaskByProjectId(res.user.defaultProjectId, localStorage.getItem('sessionId'))
+            return this.getTaskByProjectId(res.user.defaultProjectId, localStorage.getItem('sessionId'));
           })
         );
     } else {
@@ -43,15 +44,14 @@ export class TasksService {
   }
 
   getTaskByProjectId(projectId: string, sessionId = localStorage.getItem('sessionId'), filterId?: string): Observable<{tasks: ResponseModel[]}> {
-    let params = new HttpParams();
-    //params = params.append('action', 'tasks');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     params = params.append('taskId', projectId);
     if (projectId === 'ae84b50d571fe2340157387103bd1a68') {
        // Загрузка папки критики. тут нужен фильтр только открыте задачи
        filterId = '4028808a1953022d0119535da2c901cc';
     }
-    params = filterId? params.append('filterId', filterId) : params.append('filterId', '1');
+    params = filterId ? params.append('filterId', filterId) : params.append('filterId', '1');
     return this.http.post<{tasks: ResponseModel[]}>(this.url + 'tasks', params)
       .pipe(catchError(err => {
         return this.authService.getDefaultProjectId().pipe(
@@ -64,8 +64,7 @@ export class TasksService {
     const projectId = localStorage.getItem('defaultProjectId');
     const sessionId = localStorage.getItem('sessionId');
     if (!!projectId && !!sessionId) {
-      let params = new HttpParams();
-      //params = params.append('action', 'page');
+      let params = new HttpParams({encoder: new CustomEncoder()});
       params = params.append('sessionId', sessionId);
       params = params.append('taskId', projectId);
       params = params.append('filterId', filterId);
@@ -79,9 +78,9 @@ export class TasksService {
     }
   }
 
-  runCode(code: string): Observable<OutputModel> {
+  runCode(code: string) {
     const sessionId = localStorage.getItem('sessionId');
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     params = params.append('code', code);
     const url = `https://job4j.ru/jedu/taskcode/run`;
@@ -89,8 +88,7 @@ export class TasksService {
   }
 
   getTask(taskId: string, action: string, filterId?: string): Observable<ResponseModel> {
-    let params = new HttpParams();
-    //params = params.append('action', action);
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = filterId ? params.append('filterId', filterId) : params;
@@ -101,7 +99,7 @@ export class TasksService {
             queryParams: {
               pageNotFound: true
             }
-          })
+          });
           return EMPTY;
         }
         localStorage.clear();
@@ -114,8 +112,7 @@ export class TasksService {
   getNavRout(id?: string): Observable<{tasks: TaskModel[]}> {
     id = id ? id : localStorage.getItem('defaultProjectId');
     const sessionId =  localStorage.getItem('sessionId');
-    let params = new HttpParams();
-    //params = params.append('action', 'chain');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     params = params.append('toId', id);
     if (!!id && !!sessionId) {
@@ -136,9 +133,8 @@ export class TasksService {
   }
 
   getTaskCount(taskId: string, all: boolean, general: boolean): Observable<{ [total: string]: number }> {
-    let params = new HttpParams();
-    //params = params.append('action', 'size');
-    let sessionId = localStorage.getItem('sessionId');
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    const sessionId = localStorage.getItem('sessionId');
     if (!!sessionId) {
       params = params.append('sessionId', sessionId);
       params = params.append('taskId', taskId);
@@ -147,14 +143,14 @@ export class TasksService {
     } else {
       return this.authService.getDefaultProjectId()
         .pipe(switchMap(() => this.getTaskCount(taskId, all, general)
-        ))
+        ));
     }
   }
 
   getButtons(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{mstatuses: MStatusesModel[]}> {
     let params = new HttpParams();
     projectId = projectId ? projectId : localStorage.getItem('defaultProjectId');
-    //params = params.append('action', 'categories');
+    // params = params.append('action', 'categories');
     params = params.append('sessionId', sessionId);
     params = params.append('taskId', projectId);
     return this.http.post<{mstatuses: MStatusesModel[]}>(this.url + 'categories', params)
@@ -166,7 +162,7 @@ export class TasksService {
   }
 
   getMessages(taskId: string): Observable<{ messages: MessagesModel[] }> {
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('action', 'messages');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
@@ -174,8 +170,7 @@ export class TasksService {
   }
 
   getButtonsForTask(taskId: string): Observable<{ mstatuses: ButtonCommentModel[] }> {
-    let params = new HttpParams();
-    // params = params.append('action', 'mstatus');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     return this.http.post<{mstatuses: ButtonCommentModel[]}>(this.url + 'mstatus', params);
@@ -183,8 +178,7 @@ export class TasksService {
 
   gerResponsiblePeople(taskId: string, mstatusId: string): Observable<{ handlers: UserModels[] }> {
     const url = `${environment.url}/rest/message`;
-    let params = new HttpParams();
-    //params = params.append('action', 'handlers');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = params.append('mstatusId', mstatusId);
@@ -192,8 +186,7 @@ export class TasksService {
   }
 
   getResponsePersonsForTask(taskId: string, categoryId: string): Observable<{ handlers: UserModels[] }>  {
-    let params = new HttpParams();
-    //params = params.append('action', 'handlers');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = params.append('categoryId', categoryId);
@@ -202,8 +195,7 @@ export class TasksService {
 
   sendComment(taskId: string, mstatusId: string, handlerId: string, description: string) {
     const url = `${environment.url}/rest/message`;
-    let params = new HttpParams();
-    //params = params.append('action', 'create');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
     params = params.append('mstatusId', mstatusId);
@@ -213,8 +205,7 @@ export class TasksService {
   }
 
   createTask(parentId: string, categoryId: string, name: string, description: string) {
-    let params = new HttpParams();
-    //params = params.append('action', 'create');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('parentId', parentId);
     params = params.append('categoryId', categoryId);
@@ -225,20 +216,20 @@ export class TasksService {
 
   getEmergencyMessage(): Observable<{ emergency: EmergencyModel[] }> {
     let params = new HttpParams();
-    //params = params.append('action', 'emergency');
-    let sessionId = localStorage.getItem('sessionId');
+    // params = params.append('action', 'emergency');
+    const sessionId = localStorage.getItem('sessionId');
     params = params.append('sessionId', sessionId);
     if (!!sessionId) {
       return this.http.post<{ emergency: EmergencyModel[]; }>(this.url + 'emergency', params);
     } else {
       return this.authService.getDefaultProjectId().pipe(
         switchMap(() => this.getEmergencyMessage())
-      )
+      );
     }
   }
 
   getNextAndPreviousTasks(taskId: string): Observable<PreviousNextNavModels> {
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('action', 'iterator');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('parentId', localStorage.getItem('defaultProjectId'));
@@ -248,7 +239,7 @@ export class TasksService {
   }
 
   getRate(shortname: string): Observable<ResponseRatingModel> {
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = `https://job4j.ru/jedu/ratetask/get`;
@@ -256,7 +247,7 @@ export class TasksService {
   }
 
   voteUp(shortname: string) {
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = `https://job4j.ru/jedu/ratetask/upOn`;
@@ -264,7 +255,7 @@ export class TasksService {
   }
 
   voteClear(shortname: string) {
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = `https://job4j.ru/jedu/ratetask/off`;
@@ -272,7 +263,7 @@ export class TasksService {
   }
 
   voteDown(shortname: string) {
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = `https://job4j.ru/jedu/ratetask/downOn`;

@@ -118,6 +118,7 @@ export class TaskComponent implements OnInit, OnDestroy {
                   .split('<br>').join('\r\n')
                   .split('&gt;').join('>')
                   .split('&lt;').join('<')
+                  .split('&amp;').join('&')
               );
               button.addEventListener('click', () => {
                 this.tasksService.runCode(code.getValue())
