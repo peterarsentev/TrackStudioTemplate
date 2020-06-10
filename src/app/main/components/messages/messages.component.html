@@ -1,25 +1,25 @@
-<div class="row">
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">Уведомления
-        <button class="btn btn-info pull-right" (click)="deleteMessage()">Удалить все</button>
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let message of messages">
-      <td  style="cursor: pointer;">
-        <div>
-          <div (click)="openTask({id : message.tsId, number: message.number })">
+<div class="container-fluid pb-4">
+  <div class="row pb-2 w-100">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Уведомления
+          <button class="btn btn-info pull-right" (click)="deleteMessage()">Удалить все</button>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let message of messages">
+        <td  style="cursor: pointer;">
+              <span (click)="openTask({id : message.taskId, number: message.number })">
           <span><i class="fas fa-tasks pr-3"></i>
           {{ message.time | getDate }} {{ message.text }}
           </span>
-          </div>
+              </span>
           <span class="pull-right mr-5"><i (click)="deleteMessage(message.id)" class="fas fa-remove"></i></span>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

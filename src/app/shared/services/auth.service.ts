@@ -6,6 +6,7 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { AuthResponse, UserResponse } from '../models/interfaces';
 import { UserService } from './user.service';
+import {CustomEncoder} from '../custom-encoder';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -21,7 +22,7 @@ export class AuthService {
   }
 
   login(user: LoginModel = {login: 'anonymous', password: '123'}): Observable<AuthResponse> {
-    let param = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     param = param.append('login', user.login);
     param = param.append('password', user.password);
     return this.http.post(`${environment.url}/rest/auth/login`, param)
@@ -90,8 +91,7 @@ export class AuthService {
   logOut() {
     const url = `${environment.url}/rest/auth/logout`;
     const sessionId = localStorage.getItem('sessionId');
-    let param = new HttpParams();
-    //param = param.append('action', 'logout');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     param = param.append('sessionId', sessionId);
     localStorage.clear();
     return this.http.post(url, param);
@@ -116,8 +116,7 @@ export class AuthService {
   updateProfile(userId: string, email: string, name: string) {
     const url = `${environment.url}/rest/user/update`;
     const sessionId = localStorage.getItem('sessionId');
-    let param = new HttpParams();
-    //param = param.append('action', 'update');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     param = param.append('sessionId', sessionId);
     param = param.append('userId', userId);
     param = param.append('email', email);

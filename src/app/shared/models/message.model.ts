@@ -9,6 +9,7 @@ export class MessageModel {
     public handlerUserId?: string,
     public  deadline?: number,
     public  tsId?: string,
+    public  taskId?: string,
     public budget?: number,
     public number?: string,
     public text?: string,

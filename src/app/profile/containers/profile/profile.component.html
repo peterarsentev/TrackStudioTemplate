@@ -28,15 +28,12 @@
           <tr>
             <td>Уведомления</td>
             <td>
-              <div class="custom-control custom-switch">
-                <input [checked]="showNotification"
-                       (change)="sendNotification()"
-                       type="checkbox"
-                       class="custom-control-input"
-                       id="customSwitch1">
-                <label *ngIf="showNotification" class="custom-control-label" for="customSwitch1">Включено</label>
-                <label *ngIf="!showNotification" class="custom-control-label" for="customSwitch1">Выключено</label>
-              </div>
+                <label class="switch pull-left" >
+                  <input type="checkbox" class="info" [checked]="showNotification" (change)="sendNotification()">
+                  <span class="slider round"></span>
+                </label>
+                <!--<label *ngIf="showNotification" class="custom-control-label" for="customSwitch1">Включено</label>-->
+                <!--<label *ngIf="!showNotification" class="custom-control-label" for="customSwitch1">Выключено</label>-->
             </td>
           </tr>
         </table>

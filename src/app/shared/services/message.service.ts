@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { MessageModel } from '../models/message.model';
 import { BookmarksModel } from '../models/bookmarks.model';
 import { DiscussionModel } from '../models/discussionModel';
+import {CustomEncoder} from '../custom-encoder';
 
 
 @Injectable({providedIn: 'root'})
@@ -15,25 +16,22 @@ export class MessageService {
 
 
   getNotifications(userId: string): Observable<{ total: number }> {
-
-    let params = new HttpParams();
-    //params = params.append('action', 'has');
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    const url = `https://job4j.ru/jedu/notification/has `;
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    params = params.append('userId', userId);
-    return this.http.post<{ total: number }>(this.url + 'has', params);
+    return this.http.post<{ total: number }>(url, params);
   }
 
   getMessages(id: string): Observable<MessageModel[]> {
     const url = `https://job4j.ru/jedu/notification/get`;
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     //params = params.append('action', 'messages');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<MessageModel[]>(url, params);
   }
 
   getBookmarks(): Observable<{ bookmarks: BookmarksModel[] }> {
-    let params = new HttpParams();
-    //params = params.append('action', 'read');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = `${environment.url}/rest/bookmark/read`;
     return this.http.post<{ bookmarks: BookmarksModel[] }>(url, params);
@@ -41,8 +39,7 @@ export class MessageService {
 
   addToFavorite(name: string, taskId: string, list: boolean) {
     const url = `${environment.url}/rest/bookmark/create`;
-    let params = new HttpParams();
-    //params = params.append('action', 'create');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('name', name);
     params = params.append('taskId', taskId);
     params = list ?  params.append('filterId', '1') : params;
@@ -61,7 +58,7 @@ export class MessageService {
 
   deleteMessage(id?: string) {
     const url = `https://job4j.ru/jedu/notification/delete `;
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = id ? params.append('msgId', id) : params;
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);
@@ -69,8 +66,7 @@ export class MessageService {
 
   getDiscussions(shortName: string): Observable<DiscussionModel[]> {
     const url = `https://job4j.ru/jedu/comment/get`;
-    let params = new HttpParams();
-    //params = params.append('action', 'get');
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('task', shortName);
     return this.http.post<DiscussionModel[]>(url, params);
   }
@@ -88,14 +84,14 @@ export class MessageService {
 
   getNotificationState(): Observable<{ notification: boolean }> {
     const url = `https://job4j.ru/jedu/notification/check `;
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<{ notification: boolean }>(url, params);
   }
 
   updateNotificationState(state: boolean) {
     const url = `https://job4j.ru/jedu/notification/save `;
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('notification', Boolean(state).toString());
     return this.http.post(url, params);
