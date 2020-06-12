@@ -20,7 +20,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let exam of exams" style="cursor: pointer" (click)="moreDetails(exam.id)">
+      <tr *ngFor="let exam of exams" style="cursor: pointer" (click)="moreDetails(exam.id)" title="Start exam">
         <ng-container  *ngIf="exam.active">
           <td>{{ exam.position }}</td>
           <td>{{ exam.name }}</td>
@@ -32,6 +32,9 @@
       </tr>
       </tbody>
     </table>
+  </div>
+  <div class="container-fluid" *ngIf="!moreDetailed">
+    There are questions
   </div>
 </div>
 

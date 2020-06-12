@@ -7,6 +7,9 @@ import { Subject } from 'rxjs';
 import { ExamModels } from '../../../shared/models/exam.models';
 import { ExamsService } from '../../../shared/services/exams.service';
 import { ExamUser } from '../../../shared/models/examuser.model';
+import { ExamstorageService } from '../../../shared/services/examstorage.service';
+import { Question } from '../../../shared/models/question.model';
+import { QuestionsService } from '../../../shared/services/questions.service';
 
 @Component({
   selector: 'app-exam',
@@ -18,15 +21,20 @@ export class ExamComponent implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private examsService: ExamsService) {
+    private examsService: ExamsService,
+    private questionsService: QuestionsService,
+    private storageServiec: ExamstorageService ) {
   }
 
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
-  user: UserModels;
-  exams: ExamModels[];
-  userExams: ExamUser[];
-  moreDetailed: boolean = true;
-  oneExam: ExamModels;
+  private user: UserModels;
+  private exams: ExamModels[];
+  private userExams: ExamUser[];
+  private moreDetailed: boolean = true;
+
+  private oneExam: ExamModels;
+  private questions: Question[];
+  private pos: number = 0;
 
   ngOnInit() {
     this.userService.getModel()
@@ -40,6 +48,11 @@ export class ExamComponent implements OnInit {
 
   moreDetails(id: number) {
     this.moreDetailed = false;
-    this.oneExam = this.exams[id];
+    this.oneExam = this.exams
+      .filter(ex => ex.id === id)
+      .shift();
+    this.questionsService
+      .getByExamId(this.oneExam.id)
+      .subscribe(quests => this.questions = quests);
   }
 }

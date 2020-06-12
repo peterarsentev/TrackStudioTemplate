@@ -14,7 +14,7 @@ export class QuestionsService {
   constructor(private http: HttpClient) {
   }
 
-  getByExamId(id: string): Observable<Question[]> {
+  getByExamId(id): Observable<Question[]> {
     const url = this.url + 'question/getByExamId';
     let params = new HttpParams();
     params = params.append('id', id);
@@ -27,7 +27,7 @@ export class QuestionsService {
     return this.http.post<Question[]>(url, params);
   }
 
-  getById(id: string): Observable<Question> {
+  getById(id): Observable<Question> {
     const url = this.url + 'question/getById';
     let params = new HttpParams();
     params = params.append('id', id);
