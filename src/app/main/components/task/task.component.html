@@ -65,7 +65,7 @@
               (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
     </span>
   </div>
-  <div class="row" *ngIf="messages.length > 0">
+  <div class="row" *ngIf="messages.length > 0"  style="word-break: break-all;">
     <div class="w-100 card">
       <div class="card-header">
         <div class="font-weight-bold">Сообщения</div>
@@ -129,7 +129,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!!task.shortname" class="row mt-lg-5">
+  <div *ngIf="!!task.shortname" class="row mt-lg-5" style="word-break: break-all;">
     <div class="w-100 card">
       <div class="card-header">
         <div class="font-weight-bold">Обсуждения. Комментариев : {{discussions.length}}</div>
