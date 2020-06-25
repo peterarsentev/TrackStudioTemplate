@@ -25,6 +25,7 @@ import { TreeModule } from 'angular-tree-component';
 import { DiscussionComponent } from './components/discussion/discussion.component';
 import { SandboxComponent } from './components/sandbox/sandbox.component';
 import { ExamComponent } from './components/exam/exam.component';
+import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.component';
 
 
 
@@ -48,7 +49,8 @@ import { ExamComponent } from './components/exam/exam.component';
     MessagesComponent,
     DiscussionComponent,
     SandboxComponent,
-    ExamComponent
+    ExamComponent,
+    LeftSideBarComponent
   ],
     imports: [
         CommonModule,
