@@ -21,11 +21,11 @@ export class AnswersService {
     return this.http.post<Answer[]>(url, params);
   }
 
-  getById(id): Observable<Answer[]> {
+  getById(id): Observable<Answer> {
     const url = this.url + 'answer/getById';
     let params = new HttpParams();
     params = params.append('id', id);
-    return this.http.post<Answer[]>(url, params);
+    return this.http.post<Answer>(url, params);
   }
 
   get(): Observable<Answer[]> {
@@ -34,13 +34,13 @@ export class AnswersService {
     return this.http.post<Answer[]>(url, params);
   }
 
-  saveOrUpdateQuestion(answer: Answer) {
-    const url = answer.id === 0 ? this.url + 'answer/add' : this.url + 'answer/update';
+  saveOrUpdateQuestion(answer: Answer): Observable<Answer> {
+    const url = answer.id == 0 ? this.url + 'answer/add' : this.url + 'answer/update';
     let params = new HttpParams();
     params = params.append('id', String(answer.id));
     params = params.append('question', String(answer.question.id));
     params = params.append('examuser', String(answer.examuser.id));
-    return this.http.post(url, params);
+    return this.http.post<Answer>(url, params);
   }
 
 }

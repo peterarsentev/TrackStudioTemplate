@@ -4,12 +4,12 @@ import { ExamModels } from './exam.models';
 export class Question {
 
   constructor(
-    public id?: number,
     public exam?: ExamModels,
     public name?: string,
     public description?: string,
     public pos?: number,
-    public hint?: string
+    public hint?: string,
+    public id?: number
   ) {
   }
 

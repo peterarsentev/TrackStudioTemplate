@@ -28,11 +28,11 @@ export class ExamsService {
     return this.http.post<ExamModels[]>(url, params);
   }
 
-  getExamById(id: string): Observable<{ exam: ExamModels }> {
+  getExamById(id): Observable<ExamModels> {
     const url = this.url + 'exam/getById';
     let params = new HttpParams();
     params = params.append('id', id);
-    return this.http.post<{ exam: ExamModels }>(url, params);
+    return this.http.post<ExamModels>(url, params);
   }
 
   saveOrUpdateExam(save: boolean, examen: ExamModels) {

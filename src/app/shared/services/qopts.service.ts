@@ -14,14 +14,14 @@ export class QoptsService {
   constructor(private http: HttpClient) {
   }
 
-  getByQuestId(id: string): Observable<Qopt[]> {
+  getByQuestId(id): Observable<Qopt[]> {
     const url = this.url + 'qoopt/getByQuestId';
     let params = new HttpParams();
     params = params.append('id', id);
     return this.http.post<Qopt[]>(url, params);
   }
 
-  getById(id: string): Observable<Qopt> {
+  getById(id): Observable<Qopt> {
     const url = this.url + 'qoopt/getById';
     let params = new HttpParams();
     params = params.append('id', id);

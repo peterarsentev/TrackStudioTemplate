@@ -21,11 +21,11 @@ export class ExamuserService {
     return this.http.post<ExamUser[]>(url, params);
   }
 
-  getById(id): Observable<ExamUser[]> {
+  getById(id): Observable<ExamUser> {
     const url = this.url + 'examuser/getById';
     let params = new HttpParams();
     params = params.append('id', id);
-    return this.http.post<ExamUser[]>(url, params);
+    return this.http.post<ExamUser>(url, params);
   }
 
   get(): Observable<ExamUser[]> {
@@ -34,7 +34,7 @@ export class ExamuserService {
     return this.http.post<ExamUser[]>(url, params);
   }
 
-  saveOrUpdateQuestion(examUser: ExamUser) {
+  saveOrUpdateQuestion(examUser: ExamUser): Observable<ExamUser>  {
     const url = examUser.id === 0 ? this.url + 'examuser/add' : this.url + 'examuser/update';
     let params = new HttpParams();
     params = params.append('id', String(examUser.id));
@@ -44,6 +44,6 @@ export class ExamuserService {
     params = params.append('finish', String(examUser.finish));
     params = params.append('userId', String(examUser.userid));
     params = params.append('total', String(examUser.total));
-    return this.http.post(url, params);
+    return this.http.post<ExamUser>(url, params);
   }
 }
