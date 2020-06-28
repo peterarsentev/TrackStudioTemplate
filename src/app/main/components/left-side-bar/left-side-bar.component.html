@@ -19,9 +19,9 @@
         <i *ngIf="items" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!items" class="fas fa-chevron-down fa_icons mr-3"></i>
       </a>
-      <ng-container *ngIf="!!items">
+      <ng-container *ngIf="!!items" (click)="scroll()">
         <ul class="list-unstyled">
-          <li>
+          <li (click)="scroll()">
             <a
               [routerLink]="['/']"
               class="list-group-item list-group-item-action bg-light"
@@ -30,7 +30,7 @@
               ><span class="font-weight-bold">Процесс обучения</span>
             </a>
           </li>
-          <li>
+          <li (click)="scroll()">
             <a
               [routerLink]="['/task']"
               [queryParams]="{
@@ -56,7 +56,7 @@
               ><span class="font-weight-bold">Критика и предложения</span>
             </a>
           </li>
-          <li>
+          <li (click)="scroll()">
             <a
               [routerLink]="['/exams']"
               class="list-group-item list-group-item-action bg-light"
@@ -66,7 +66,7 @@
             </a>
           </li>
           <li *ngFor="let book of bookmarks">
-            <a class="list-group-item list-group-item-action bg-light">
+            <a (click)="scroll()" class="list-group-item list-group-item-action bg-light">
                 <span
                   (click)="goToBook(book)"
                   style="cursor: pointer;"
@@ -95,7 +95,7 @@
       <ng-container *ngIf="!!proven && !!provenTasks?.length">
         <ul class="list-unstyled">
           <li *ngFor="let task of provenTasks">
-            <a
+            <a (click)="scroll()"
               [routerLink]="['/task']"
               [queryParams]="{ taskId: task.task.id, action: 'task' }"
               class="list-group-item list-group-item-action bg-light"
@@ -119,7 +119,7 @@
       <ng-container *ngIf="newTask && !!newTasks?.length">
         <ul class="list-unstyled">
           <li *ngFor="let task of newTasks">
-            <a
+            <a (click)="scroll()"
               [routerLink]="['/task']"
               [queryParams]="{ taskId: task.task.id, action: 'task' }"
               class="list-group-item list-group-item-action bg-light"

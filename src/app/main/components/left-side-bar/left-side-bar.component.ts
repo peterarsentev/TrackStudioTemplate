@@ -238,4 +238,9 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
   }
+
+  scroll() {
+    console.log('scroll')
+    window.scrollTo(0, 0);
+  }
 }
