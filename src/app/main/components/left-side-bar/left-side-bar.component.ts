@@ -50,6 +50,7 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
             queryParams: {
               action: url,
               taskId: node.data.taskId,
+              number: node.data.number,
               tree: true,
             },
           });
@@ -75,7 +76,7 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
     this.getNewTasks();
     this.getBookmarks();
     this.getBookSubscribe();
-    this.getTree();
+    // this.getTree();
   }
 
   showNew() {
@@ -199,7 +200,6 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   }
 
   goToBook(book: BookmarksModel) {
-    console.log("boook");
     this.tasksService
       .getTask(book.taskId, "task", "1")
       .pipe(takeUntil(this.ngUnsubscribe$))

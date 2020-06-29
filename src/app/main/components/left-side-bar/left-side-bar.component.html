@@ -19,9 +19,9 @@
         <i *ngIf="items" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!items" class="fas fa-chevron-down fa_icons mr-3"></i>
       </a>
-      <ng-container *ngIf="!!items" (click)="scroll()">
+      <ng-container *ngIf="!!items">
         <ul class="list-unstyled">
-          <li (click)="scroll()">
+          <li>
             <a
               [routerLink]="['/']"
               class="list-group-item list-group-item-action bg-light"
@@ -30,12 +30,13 @@
               ><span class="font-weight-bold">Процесс обучения</span>
             </a>
           </li>
-          <li (click)="scroll()">
+          <li>
             <a
               [routerLink]="['/task']"
               [queryParams]="{
+                  action: 'task',
                   taskId: 'ae84b50d554cbf1d01558646352721c5',
-                  action: 'task'
+                  number: '1151'
                 }"
               class="list-group-item list-group-item-action bg-light"
             >
@@ -47,8 +48,9 @@
             <a
               [routerLink]="['/tasks']"
               [queryParams]="{
+                  action: 'tasks',
                   taskId: 'ae84b50d571fe2340157387103bd1a68',
-                  action: 'tasks'
+                  number: '2699'
                 }"
               class="list-group-item list-group-item-action bg-light"
             >
@@ -56,7 +58,7 @@
               ><span class="font-weight-bold">Критика и предложения</span>
             </a>
           </li>
-          <li (click)="scroll()">
+          <li>
             <a
               [routerLink]="['/exams']"
               class="list-group-item list-group-item-action bg-light"
@@ -66,7 +68,7 @@
             </a>
           </li>
           <li *ngFor="let book of bookmarks">
-            <a (click)="scroll()" class="list-group-item list-group-item-action bg-light">
+            <a class="list-group-item list-group-item-action bg-light">
                 <span
                   (click)="goToBook(book)"
                   style="cursor: pointer;"
@@ -95,9 +97,9 @@
       <ng-container *ngIf="!!proven && !!provenTasks?.length">
         <ul class="list-unstyled">
           <li *ngFor="let task of provenTasks">
-            <a (click)="scroll()"
+            <a
               [routerLink]="['/task']"
-              [queryParams]="{ taskId: task.task.id, action: 'task' }"
+              [queryParams]="{ taskId: task.task.id, action: 'task', number: task.task.number }"
               class="list-group-item list-group-item-action bg-light"
             >
                 <span class="font-weight-bold">
@@ -119,9 +121,9 @@
       <ng-container *ngIf="newTask && !!newTasks?.length">
         <ul class="list-unstyled">
           <li *ngFor="let task of newTasks">
-            <a (click)="scroll()"
+            <a
               [routerLink]="['/task']"
-              [queryParams]="{ taskId: task.task.id, action: 'task' }"
+              [queryParams]="{ action: 'task', taskId: task.task.id, number: task.task.number }"
               class="list-group-item list-group-item-action bg-light"
             >
                 <span class="font-weight-bold">

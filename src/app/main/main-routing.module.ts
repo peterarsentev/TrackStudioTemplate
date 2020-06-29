@@ -10,6 +10,9 @@ import {NewTaskComponent} from './components/new-task/new-task.component';
 import {MessagesComponent} from './components/messages/messages.component';
 import {SandboxComponent} from './components/sandbox/sandbox.component';
 import {ExamComponent} from './components/exam/exam.component';
+import {TaskNotFoundComponent} from './components/task-not-found/task-not-found.component';
+import {TaskAccessComponent} from './components/task-access/task-access.component';
+import {ErrorComponent} from './components/error/error.component';
 
 const routes: Routes = [
   {
@@ -19,6 +22,9 @@ const routes: Routes = [
       {path: '', redirectTo: '/', pathMatch: 'full'}, // позволяет загрузить и  дочерний роут
       {path: '', component: MainPageComponent},
       {path: 'login', component: LoginComponent},
+      {path: 'taskNotFound', component: TaskNotFoundComponent},
+      {path: 'taskAccess', component: TaskAccessComponent},
+      {path: 'error', component: ErrorComponent},
       {path: 'task', component: TaskComponent},
       {path: 'tasks', component: TasksComponent},
       {path: 'comments', component: CommentsComponent},

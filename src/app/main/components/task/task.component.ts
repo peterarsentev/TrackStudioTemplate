@@ -53,7 +53,6 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getTask();
-
   }
 
   private getTask() {
@@ -165,7 +164,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.tasksService.getMessages(taskId)
       .subscribe(res => {
         this.messages = res.messages;
-      })
+      });
   }
 
   private getButtons(taskId: string) {
@@ -182,7 +181,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         action: 'task',
         taskId: taskId
       }
-    })
+    });
   }
 
   saveComment(button: CommentButtonsModel) {
