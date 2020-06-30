@@ -83,7 +83,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     params = params.append('code', code);
-    const url = `https://job4j.ru/jedu/taskcode/run`;
+    const url = `https://job4j.ru/jedu/code/run`;
     return this.http.post<OutputModel>(url, params);
   }
 

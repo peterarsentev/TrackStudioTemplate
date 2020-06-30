@@ -1,7 +1,9 @@
+import {TaskModel} from './task.model';
+
 export class PreviousNextNavModels {
   constructor(
-    public next?: string,
-    public previous?: string
+    public next?: TaskModel,
+    public previous?: TaskModel
   ) {
   }
 }
