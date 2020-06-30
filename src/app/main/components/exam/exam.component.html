@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <!--Main page with test tables-->
+  <div class="row" *ngIf="!startTest">
+    <table class="table">
+      <colgroup>
+        <col style="width: 10%">
+        <col style="width: 20%">
+        <col style="width: 30%">
+        <col style="width: 15%">
+        <col style="width: 20%">
+        <col style="width: 15%">
+      </colgroup>
+      <thead>
+      <tr style="text-align: center">
+        <th>Позиция:</th>
+        <th>Название:</th>
+        <th>Описание:</th>
+        <th>Попыток:</th>
+        <th>Время последней попытки:</th>
+        <th>Макс. результат:</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="mycenter" *ngFor="let exam of exams" title="Start exam" (click)="startExam(exam)">
+        <ng-container *ngIf="exam.active">
+          <td>{{ exam.position }}</td>
+          <td>{{ exam.name }}</td>
+          <td [innerHTML]="exam.description"></td>
+          <td [innerHTML]="getTimes(exam.id)"></td>
+          <td [innerHTML]="getLastTime(exam.id)"></td>
+          <td [innerHTML]="getResult(exam.id)"></td>
+        </ng-container>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--Test table-->
+  <div class="container-fluid" *ngIf="startTest">
+    <div class="row" *ngIf="currentQuestion" title="{{currentQuestion.hint}}">
+      <div class="col-3" [innerHTML]="'Вопрос: <p>' + currentQuestion.name +'</p>'"></div>
+      <div class="col-4" [innerHTML]="'Опиcание: ' + currentQuestion.description"></div>
+    </div>
+    <hr class="mt-2 mb-3"/>
+    <div class="row" *ngFor="let qp of currentQopts">
+      <div class="w-100"></div>
+      <div class="col-2">Ответ:</div>
+      <div class="col-4" [innerHTML]="qp.description"></div>
+      <div class="col-4"><input type="checkbox" [checked]="checked(qp)" (change)="choose(qp, $event.target)"></div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <button type="button" class="btn btn-primary float-left" (click)="back()" *ngIf="hasBack()">Back</button>
+        <button type="button" class="btn btn-primary float-right" (click)="next()" *ngIf="hasNext()">Next</button>
+        <button type="button" class="btn btn-primary float-right" (click)="finish()" *ngIf="!hasNext()">Finish</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

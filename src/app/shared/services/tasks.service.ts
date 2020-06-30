@@ -83,7 +83,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     params = params.append('code', code);
-    const url = `https://job4j.ru/jedu/taskcode/run`;
+    const url = `https://job4j.ru/jedu/code/run`;
     return this.http.post<OutputModel>(url, params);
   }
 
@@ -94,12 +94,16 @@ export class TasksService {
     params = filterId ? params.append('filterId', filterId) : params;
     return this.http.post<ResponseModel>(this.url + action, params)
       .pipe(catchError((err: HttpErrorResponse) => {
-        if (err.status === 403 || err.status === 500) {
-          this.router.navigate(['/prevention'], {
-            queryParams: {
-              pageNotFound: true
-            }
-          });
+        if (err.status === 404) {
+          this.router.navigate(['/taskNotFound'], {});
+          return EMPTY;
+        }
+        if (err.status === 403) {
+          this.router.navigate(['/taskAccess'], {});
+          return EMPTY;
+        }
+        if (err.status === 500) {
+          this.router.navigate(['/error'], {});
           return EMPTY;
         }
         localStorage.clear();

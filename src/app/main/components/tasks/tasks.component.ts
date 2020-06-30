@@ -95,7 +95,7 @@ export class TasksComponent implements OnInit, OnDestroy {
         .subscribe(() => {
           this.disable = true;
           this.bookmarksService.setUpModel(true);
-        })
+        });
     }
   }
 

@@ -24,6 +24,11 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { TreeModule } from 'angular-tree-component';
 import { DiscussionComponent } from './components/discussion/discussion.component';
 import { SandboxComponent } from './components/sandbox/sandbox.component';
+import { ExamComponent } from './components/exam/exam.component';
+import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.component';
+import { TaskNotFoundComponent } from './components/task-not-found/task-not-found.component';
+import { TaskAccessComponent } from './components/task-access/task-access.component';
+import { ErrorComponent } from './components/error/error.component';
 
 
 
@@ -46,7 +51,12 @@ import { SandboxComponent } from './components/sandbox/sandbox.component';
     DiagramComponent,
     MessagesComponent,
     DiscussionComponent,
-    SandboxComponent
+    SandboxComponent,
+    ExamComponent,
+    LeftSideBarComponent,
+    TaskNotFoundComponent,
+    TaskAccessComponent,
+    ErrorComponent
   ],
     imports: [
         CommonModule,

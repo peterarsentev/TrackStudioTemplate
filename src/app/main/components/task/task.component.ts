@@ -16,6 +16,7 @@ import { DiscussionModel } from '../../../shared/models/discussionModel';
 import { UserService } from '../../../shared/services/user.service';
 import { ResponseRatingModel } from '../../../shared/models/response.rating.model';
 import { RateModel } from '../../../shared/models/rate.model';
+import {browser} from 'protractor';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -53,7 +54,6 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getTask();
-
   }
 
   private getTask() {
@@ -165,7 +165,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.tasksService.getMessages(taskId)
       .subscribe(res => {
         this.messages = res.messages;
-      })
+      });
   }
 
   private getButtons(taskId: string) {
@@ -175,14 +175,15 @@ export class TaskComponent implements OnInit, OnDestroy {
       });
   }
 
-  goTo(taskId: string) {
+  goTo(task: TaskModel) {
     window.scroll(0,0);
     this.router.navigate(['task'], {
       queryParams: {
         action: 'task',
-        taskId: taskId
+        taskId: task.id,
+        number: task.number
       }
-    })
+    });
   }
 
   saveComment(button: CommentButtonsModel) {
