@@ -29,6 +29,12 @@ import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.c
 import { TaskNotFoundComponent } from './components/task-not-found/task-not-found.component';
 import { TaskAccessComponent } from './components/task-access/task-access.component';
 import { ErrorComponent } from './components/error/error.component';
+import { TopicsComponent } from './components/task_code/topics/topics.component';
+import { TaskCodeListComponent } from './components/task_code/task-code/task-code-list.component';
+import { TaskCodeFormComponent } from './components/task_code/task-code-form/task-code-form.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { TaskCodeSolutionComponent } from './components/task_code/task-code-solution/task-code-solution.component';
+import { TaskCodeViewComponent } from './components/task_code/task-code-view/task-code-view.component';
 
 
 
@@ -56,18 +62,24 @@ import { ErrorComponent } from './components/error/error.component';
     LeftSideBarComponent,
     TaskNotFoundComponent,
     TaskAccessComponent,
-    ErrorComponent
+    ErrorComponent,
+    TopicsComponent,
+    TaskCodeListComponent,
+    TaskCodeFormComponent,
+    TaskCodeSolutionComponent,
+    TaskCodeViewComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatDialogModule,
-        MainRoutingModule,
-        SharedModule,
-        ChartsModule,
-      TreeModule.forRoot()
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MainRoutingModule,
+    SharedModule,
+    ChartsModule,
+    TreeModule.forRoot(),
+    CodemirrorModule
+  ],
   entryComponents: [
   ],
   providers: [

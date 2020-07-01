@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Название задачи</th>
+        <th scope="col">Действие</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let task of taskCodeList; let idx = index">
+        <td  (click)="goToTasks(task.id, task.status, task.solutionId)" style="cursor: pointer;">
+          <div>
+            <i class="fas fa-tasks pr-3"></i>
+            <span class="font-weight-bold">{{task.name}}</span>
+          </div>
+          <small class="mb-2 text-muted">
+            <span>
+          <span *ngIf="task.status === 1" class="badge badge-danger mr-3">Новая</span>
+          <span *ngIf="task.status === 2" class="badge badge-warning mr-3">В процессе</span>
+          <span *ngIf="task.status === 3" class="badge badge-warning mr-3">В процессе</span>
+          <span *ngIf="task.status === 4" class="badge badge-success mr-3">Решена</span>
+            </span>
+          </small>
+        </td>
+        <td>
+          <button *ngIf="task.status === 1" class="btn btn-info" (click)="goToTasks(task.id, task.status, task.solutionId)">Решать</button>
+          <button *ngIf="task.status === 2" class="btn btn-warning" (click)="goToTasks(task.id, task.status, task.solutionId)">Продолжить</button>
+          <button *ngIf="task.status === 3" class="btn btn-warning" (click)="goToTasks(task.id, task.status, task.solutionId)">Продолжить</button>
+          <button *ngIf="task.status === 4" class="btn btn-danger" (click)="goToTasks(task.id, task.status, task.solutionId)">Решить заново</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

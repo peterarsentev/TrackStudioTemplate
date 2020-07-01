@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <h2>{{ taskModel.name }}</h2>
+  </div>
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-body">
+        <p class="card-text" [innerHTML]="taskModel.description | safeCode"></p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-body">
+        <ngx-codemirror
+          [(ngModel)]="taskClass"
+          [options]="options"
+        ></ngx-codemirror>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-body">
+        <ngx-codemirror
+          [(ngModel)]="taskTest"
+          [options]="optionsTest"
+        ></ngx-codemirror>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="textArea" class="row">
+    <div class="w-100 card">
+      <div class="card-body">
+        <ngx-codemirror
+          [(ngModel)]="text"
+        ></ngx-codemirror>
+      </div>
+    </div>
+
+  </div>
+  <button *ngIf="status === 1" (click)="start()" class="btn btn-success m-2">Решить</button>
+  <button *ngIf="status === 2" (click)="submit(taskClass)" class="btn btn-warning m-2">Проверить</button>
+  <button *ngIf="status === 3" (click)="submit(taskClass)" class="btn btn-warning m-2">Проверить</button>
+  <button *ngIf="status === 4" (click)="submit(taskClass)" class="btn btn-warning m-2">Проверить</button>
+</div>

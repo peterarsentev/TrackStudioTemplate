@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="card" *ngFor="let topic of topic$ | async">
+    <div class="card-body">
+    {{ topic.name }}
+      <button class="btn btn-info pull-right" (click)="goToTasks(topic.id)">Решать</button>
+    </div>
+  </div>
+</div>

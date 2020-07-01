@@ -8,6 +8,8 @@ import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterseptorService } from './shared/services/interseptor.service';
 import { ChartsModule } from 'ng2-charts';
+import { FormsModule } from '@angular/forms';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -24,7 +26,9 @@ const INTERCEPTOR_PROVIDER: Provider = {
     AppRoutingModule,
     BrowserAnimationsModule,
     ChartsModule,
-    SharedModule
+    FormsModule,
+    CodemirrorModule,
+    SharedModule,
   ],
   providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
