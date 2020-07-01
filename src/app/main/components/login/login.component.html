@@ -10,52 +10,60 @@
         <div class="alert text-center" role="alert" *ngIf="!error">
           Авторизуйтесь
         </div>
-        <form [formGroup]="form">
-          <div class="form-group mt-3">
-            <label for="email">Логин:</label>
-            <input  formControlName="login"
-                    type="text"
-                    (ngModelChange)="resetError()"
-                    class="form-control"
-                    placeholder="Введите логин" id="email">
-            <div *ngFor="let error of validationErrors.login">
+        <div>
+          <form [formGroup]="form">
+            <div class="form-group mt-3">
+              <label for="email">Логин:</label>
+              <input  formControlName="login"
+                      type="text"
+                      (ngModelChange)="resetError()"
+                      class="form-control"
+                      placeholder="Введите логин" id="email">
+              <div *ngFor="let error of validationErrors.login">
                             <span *ngIf="form.get('login').hasError(error.type)
                                         && (form.get('login').dirty
                                         || form.get('login').touched)"
                                   class="validation">{{ error.message }}</span>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="pwd">Пароль:</label>
-            <input formControlName="password"
-                   type="password"
-                   (ngModelChange)="resetError()"
-                   class="form-control"
-                   placeholder="Введите пароль" id="pwd">
-            <div *ngFor="let error of validationErrors.password">
+            <div class="form-group">
+              <label for="pwd">Пароль:</label>
+              <input formControlName="password"
+                     type="password"
+                     (ngModelChange)="resetError()"
+                     class="form-control"
+                     placeholder="Введите пароль" id="pwd">
+              <div *ngFor="let error of validationErrors.password">
                         <span *ngIf="form.get('password').hasError(error.type)
                                     && (form.get('password').dirty
                                     || form.get('password').touched)"
                               class="validation">{{ error.message }}</span>
+              </div>
+
             </div>
-
-          </div>
-          <button (click)="goMain()"
-                  [disabled]="submit"
-                  type="button"
-                  class="btn btn-secondary pull-right">
-            <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Отмена
-          </button>
-          <button (click)="login()"
-                  [disabled]="form.invalid || submit"
-                  type="submit"
-                  class="btn btn-primary pull-left">
-            <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Войти
-          </button>
-
-        </form>
+            <div class="form-group">
+              <button (click)="goMain()"
+                      [disabled]="submit"
+                      type="button"
+                      class="btn btn-secondary pull-right">
+                <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Отмена
+              </button>
+              <button (click)="login()"
+                      [disabled]="form.invalid || submit"
+                      type="submit"
+                      class="btn btn-primary pull-left">
+                <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Войти
+              </button>
+              <button (click)="goMain()"
+                      type="button"
+                      class="btn btn-primary pull-left  ml-3">
+                Войти как гость
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
       <div class="col-sm">
       </div>
