@@ -6,32 +6,32 @@ import { TopicModels } from '../models/topic.models';
 import { TaskCodeModel } from '../models/task.code.models';
 import { SolutionTaskCodeModels } from '../models/solution.task.code.models';
 import { SolutionModels } from '../models/solution.models';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskCodeService {
-  urlJedu = `https://job4j.ru/jedu/`;
-  localUrl = `http://localhost:9090/`
+  urlJedu = `${environment.urlJedu}/`;
 
   constructor(private http: HttpClient) { }
 
   getAllTopics(): Observable<TopicModels[]> {
-    const url = this.localUrl + 'topic/getAll'
+    const url = this.urlJedu + 'topic/getAll'
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<TopicModels[]>(url, params);
   }
 
   getTaskCodeByTopicId(id: string): Observable<TaskCodeModel[]> {
-    const url = this.localUrl + 'taskcode/topic'
+    const url = this.urlJedu + 'taskcode/topic'
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('topicId', id);
     return this.http.post<TaskCodeModel[]>(url, params);
   }
 
   getTasksWithStatus(id: string) {
-    const url = this.localUrl + 'taskcode/solutions'
+    const url = this.urlJedu + 'taskcode/solutions'
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('topicId', id);
@@ -39,7 +39,7 @@ export class TaskCodeService {
   }
 
   getNewTask(taskId: string): Observable<{ rate: TaskCodeModel }> {
-    const url = this.localUrl + 'taskcode/get'
+    const url = this.urlJedu + 'taskcode/get'
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('id', taskId);
@@ -47,7 +47,7 @@ export class TaskCodeService {
   }
 
   startTask(taskId: string): Observable<TaskCodeModel> {
-    const url = this.localUrl + 'taskcode/start'
+    const url = this.urlJedu + 'taskcode/start'
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskCodeId', taskId);
@@ -55,7 +55,7 @@ export class TaskCodeService {
   }
 
   getSolution(taskCodeId: string, solutionId: string): Observable<SolutionTaskCodeModels> {
-    const url = this.localUrl + 'taskcode/solution'
+    const url = this.urlJedu + 'taskcode/solution'
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskCodeId', taskCodeId);
@@ -64,7 +64,7 @@ export class TaskCodeService {
   }
 
   submitSolution(solution: SolutionModels): Observable<{ output: string }> {
-    const url = this.localUrl + 'taskcode/submit'
+    const url = this.urlJedu + 'taskcode/submit'
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskCodeId', String(solution.taskCodeId));

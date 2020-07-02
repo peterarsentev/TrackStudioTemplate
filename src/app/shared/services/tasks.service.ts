@@ -24,6 +24,7 @@ export class TasksService {
   private allTasks = '0873958f665da72301665dcdf8c4032a';
   private solvedTasks = '0873958f665da72301665dce8608034b';
   private url = `${environment.url}/rest/task/`;
+  urlJedu = `${environment.urlJedu}/`;
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
   }
@@ -83,7 +84,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     params = params.append('code', code);
-    const url = `https://job4j.ru/jedu/code/run`;
+    const url = this.urlJedu + `code/run`;
     return this.http.post<OutputModel>(url, params);
   }
 
@@ -246,7 +247,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    const url = `https://job4j.ru/jedu/ratetask/get`;
+    const url = this.urlJedu + `ratetask/get`;
     return this.http.post<ResponseRatingModel>(url, params);
   }
 
@@ -254,7 +255,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    const url = `https://job4j.ru/jedu/ratetask/upOn`;
+    const url = this.urlJedu + `ratetask/upOn`;
     return this.http.post<ResponseRatingModel>(url, params);
   }
 
@@ -262,7 +263,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    const url = `https://job4j.ru/jedu/ratetask/off`;
+    const url = this.urlJedu + `ratetask/off`;
     return this.http.post<ResponseRatingModel>(url, params);
   }
 
@@ -270,7 +271,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('number', shortname);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    const url = `https://job4j.ru/jedu/ratetask/downOn`;
+    const url = this.urlJedu + `ratetask/downOn`;
     return this.http.post<ResponseRatingModel>(url, params);
   }
 }

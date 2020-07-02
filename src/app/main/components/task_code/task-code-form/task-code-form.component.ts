@@ -37,6 +37,12 @@ export class TaskCodeFormComponent implements OnInit {
     mode: 'text/x-java'
   };
 
+  optionsOutput = {
+    lineNumbers: true,
+    readOnly: true,
+    mode: 'text/x-java'
+  };
+
   constructor() {}
 
   ngOnInit() {}
