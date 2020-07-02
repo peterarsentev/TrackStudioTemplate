@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { TaskCodeService } from '../../../../shared/services/task-code.service';
 import { SolutionTaskCodeModels } from '../../../../shared/models/solution.task.code.models';
+import { AlertService } from '../../../../shared/services/alertService';
+import { TypeAlertsModel } from '../../../../shared/models/type.alerts.model';
 
 @Component({
   selector: 'app-task-code-solution',
@@ -23,6 +25,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
+              private alertService: AlertService,
               private taskCodeService: TaskCodeService
   ) { }
 
@@ -54,6 +57,14 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
     const solution = this.solutionAndTaskCode.solution;
     solution.code = code;
     this.taskCodeService.submitSolution(solution)
-      .subscribe(res => this.output = res.output)
+      .subscribe(res => {
+        this.output = res.output
+        if (res.status === 3) {
+          this.alertService.setUpMessage("Задача решена не верно, попробуйте еще раз", TypeAlertsModel.DANGER);
+        }
+        if (res.status == 4) {
+          this.alertService.setUpMessage("Поздравляем! Задача решена верно!", TypeAlertsModel.SUCCESS);
+        }
+      })
   }
 }

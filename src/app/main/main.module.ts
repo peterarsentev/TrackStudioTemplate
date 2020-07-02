@@ -35,6 +35,7 @@ import { TaskCodeFormComponent } from './components/task_code/task-code-form/tas
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { TaskCodeSolutionComponent } from './components/task_code/task-code-solution/task-code-solution.component';
 import { TaskCodeViewComponent } from './components/task_code/task-code-view/task-code-view.component';
+import { AlertMessageComponent } from './components/alert-message/alert-message.component';
 
 
 
@@ -67,7 +68,8 @@ import { TaskCodeViewComponent } from './components/task_code/task-code-view/tas
     TaskCodeListComponent,
     TaskCodeFormComponent,
     TaskCodeSolutionComponent,
-    TaskCodeViewComponent
+    TaskCodeViewComponent,
+    AlertMessageComponent
   ],
   imports: [
     CommonModule,
