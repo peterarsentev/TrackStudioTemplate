@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">В этом разделе вы можете оттачивать синкасис языка Java.</div>
+        <div>
+          <small class="mb-2 text-muted">
+            Здесь собраны дополнительные упражения. Каждая задача состоит из каркаса и теста. Проверка этих заданий происходит автоматически.
+          </small>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+          <tr>
+            <th>Тема</th>
+          </tr>
+          <tr *ngFor="let topic of topic$ | async" (click)="goToTasks(topic.id)" style="cursor: pointer;">
+            <td>
+              <span class="font-weight-bold">{{ topic.name }}</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

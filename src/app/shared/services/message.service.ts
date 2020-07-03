@@ -11,19 +11,20 @@ import {CustomEncoder} from '../custom-encoder';
 @Injectable({providedIn: 'root'})
 export class MessageService {
   private url = `${environment.url}/rest/messenger/`;
+  urlJedu = `${environment.urlJedu}/`;
   constructor(private http: HttpClient) {}
 
 
 
   getNotifications(userId: string): Observable<{ total: number }> {
     let params = new HttpParams({encoder: new CustomEncoder()});
-    const url = `https://job4j.ru/jedu/notification/has `;
+    const url = this.urlJedu + `notification/has `;
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<{ total: number }>(url, params);
   }
 
   getMessages(id: string): Observable<MessageModel[]> {
-    const url = `https://job4j.ru/jedu/notification/get`;
+    const url = this.urlJedu + `notification/get`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     //params = params.append('action', 'messages');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
@@ -57,7 +58,7 @@ export class MessageService {
   }
 
   deleteMessage(id?: string) {
-    const url = `https://job4j.ru/jedu/notification/delete `;
+    const url = this.urlJedu + `notification/delete `;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = id ? params.append('msgId', id) : params;
     params = params.append('sessionId', localStorage.getItem('sessionId'));
@@ -65,14 +66,14 @@ export class MessageService {
   }
 
   getDiscussions(shortName: string): Observable<DiscussionModel[]> {
-    const url = `https://job4j.ru/jedu/comment/get`;
+    const url = this.urlJedu + `comment/get`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('task', shortName);
     return this.http.post<DiscussionModel[]>(url, params);
   }
 
   addDiscussion(shortName: string, text: string) {
-    const url = `https://job4j.ru/jedu/comment/save`;
+    const url = this.urlJedu + `comment/save`;
     let params = new HttpParams();
     //params = params.append('action', 'save');
     params = params.append('task', shortName);
@@ -83,14 +84,14 @@ export class MessageService {
 
 
   getNotificationState(): Observable<{ notification: boolean }> {
-    const url = `https://job4j.ru/jedu/notification/check `;
+    const url = this.urlJedu + `notification/check `;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<{ notification: boolean }>(url, params);
   }
 
   updateNotificationState(state: boolean) {
-    const url = `https://job4j.ru/jedu/notification/save `;
+    const url = this.urlJedu + `notification/save `;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('notification', Boolean(state).toString());

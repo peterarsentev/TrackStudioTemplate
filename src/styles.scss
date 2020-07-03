@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~angular-tree-component/dist/angular-tree-component.css';
+@import "~codemirror/lib/codemirror";
+@import "~codemirror/theme/material";
+
+html, body {
+  height: 100%; }
+body {
+  margin: 0;
+  font-family: Arial, "Helvetica Neue", sans-serif; }
 @import "~angular-tree-component/dist/angular-tree-component.css";
 @import "./src/app/shared/components/redactor/redactor.component.scss";
 

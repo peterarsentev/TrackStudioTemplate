@@ -1,0 +1,8 @@
+<app-task-code-form [taskClass]="solutionAndTaskCode.solution?.code"
+                    [taskModel]="solutionAndTaskCode?.taskcode"
+                    [taskTest]="solutionAndTaskCode.taskcode?.testCode"
+                    [status]="solutionAndTaskCode.solution?.statusId"
+                    [readOnlyClassCode]="false"
+                    [output]="output"
+                    (submitTaskEmitter)="submitTask($event)"
+></app-task-code-form>

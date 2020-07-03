@@ -13,6 +13,11 @@ import {ExamComponent} from './components/exam/exam.component';
 import {TaskNotFoundComponent} from './components/task-not-found/task-not-found.component';
 import {TaskAccessComponent} from './components/task-access/task-access.component';
 import {ErrorComponent} from './components/error/error.component';
+import { TopicsComponent } from './components/task_code/topics/topics.component';
+import { TaskCodeListComponent } from './components/task_code/task-code/task-code-list.component';
+import { TaskCodeFormComponent } from './components/task_code/task-code-form/task-code-form.component';
+import { TaskCodeSolutionComponent } from './components/task_code/task-code-solution/task-code-solution.component';
+import { TaskCodeViewComponent } from './components/task_code/task-code-view/task-code-view.component';
 
 const routes: Routes = [
   {
@@ -32,6 +37,10 @@ const routes: Routes = [
       {path: 'messages', component: MessagesComponent},
       {path: 'sandbox', component: SandboxComponent},
       {path: 'exams', component: ExamComponent},
+      {path: 'topics', component: TopicsComponent},
+      {path: 'tasks_code_list/:id', component: TaskCodeListComponent},
+      {path: 'task_view/:id', component: TaskCodeViewComponent},
+      {path: 'task_code/:taskId/status/:status/solution/:solutionId', component: TaskCodeSolutionComponent},
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then(mod => mod.ProfileModule)
