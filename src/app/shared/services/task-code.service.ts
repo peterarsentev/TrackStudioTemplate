@@ -46,12 +46,12 @@ export class TaskCodeService {
     return this.http.post<{ rate: TaskCodeModel }>(url, params);
   }
 
-  startTask(taskId: string): Observable<TaskCodeModel> {
+  startTask(taskId: string): Observable<SolutionModels> {
     const url = this.urlJedu + 'taskcode/start'
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskCodeId', taskId);
-    return this.http.post<TaskCodeModel>(url, params);
+    return this.http.post<SolutionModels>(url, params);
   }
 
   getSolution(taskCodeId: string, solutionId: string): Observable<SolutionTaskCodeModels> {

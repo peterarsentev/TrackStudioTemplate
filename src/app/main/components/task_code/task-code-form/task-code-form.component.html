@@ -17,7 +17,7 @@
           ></ngx-codemirror>
         </div>
         <div>
-          <button *ngIf="status === 1" (click)="start()" class="btn btn-success mt-2"><i class="fa fa-caret-right mr-2"></i>Решить</button>
+          <button *ngIf="status === 1" (click)="submit(taskClass)" class="btn btn-success mt-2"><i class="fa fa-caret-right mr-2"></i>Решить</button>
           <button *ngIf="status === 2" (click)="submit(taskClass)" class="btn btn-warning mt-2"><i class="fa fa-caret-right mr-2"></i>Проверить</button>
           <button *ngIf="status === 3" (click)="submit(taskClass)" class="btn btn-warning mt-2"><i class="fa fa-caret-right mr-2"></i>Проверить</button>
           <button *ngIf="status === 4" (click)="submit(taskClass)" class="btn btn-warning mt-2"><i class="fa fa-caret-right mr-2"></i>Проверить</button>

@@ -40,9 +40,9 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
   goToTasks(taskId: string, status: number, solutionId: number) {
     console.log(solutionId)
     if (status === 1) {
-      this.router.navigate(['task_view', `${taskId}`]);
+      this.router.navigate(['task_code', `${taskId}`, 'solution',`new_task`]);
     } else {
-      this.router.navigate(['task_code', `${taskId}`, 'status', `${status}`, 'solution',`${solutionId}`])
+      this.router.navigate(['task_code', `${taskId}`, 'solution',`${solutionId}`])
     }
   }
 }

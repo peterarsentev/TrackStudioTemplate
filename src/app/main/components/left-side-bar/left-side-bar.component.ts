@@ -240,7 +240,6 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   }
 
   scroll() {
-    console.log('scroll')
     window.scrollTo(0, 0);
   }
 }
