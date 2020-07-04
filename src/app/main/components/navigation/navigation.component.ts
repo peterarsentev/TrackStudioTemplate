@@ -30,7 +30,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
       ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.tasks = res.tasks;
-        // this.emitter.emit(this.tasks);
       })
     this.getEmergencyMessage();
     this.checkRout();
@@ -79,7 +78,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   checkUrl(url: string) {
     this.show = url !== '/login';
-
+    console.log(url)
+    console.log(this.tasks)
+    if (url === '/topics') {
+      console.log('topics')
+    } else if (url === '/tasks_code_list') {
+      console.log('tasks_code_list')
+    }
   }
 
 }

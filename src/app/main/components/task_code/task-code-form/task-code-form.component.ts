@@ -18,16 +18,13 @@ export class TaskCodeFormComponent implements OnInit {
       this.text = output;
     }
   };
-  @Input() set  readOnlyClassCode(readOnlyClassCode: boolean) {
-    this.options[`readOnly`] = readOnlyClassCode;
-  };
   @Output() startTaskEmitter: EventEmitter<void> = new EventEmitter<void>();
   @Output() submitTaskEmitter: EventEmitter<string> = new EventEmitter<string>();
   textArea: boolean;
   text: string;
   options = {
     lineNumbers: true,
-    readOnly: this.readOnlyClassCode,
+    readOnly: false,
     mode: 'text/x-java',
   };
 

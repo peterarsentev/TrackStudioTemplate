@@ -17,6 +17,6 @@ export class TopicsComponent implements OnInit {
   }
 
   goToTasks(id: string) {
-    this.router.navigate(['tasks_code_list', `${id}`])
+    this.router.navigate(['topic', `${id}`])
   }
 }
