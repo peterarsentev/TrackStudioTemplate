@@ -15,10 +15,7 @@ import {Answer} from "../../../shared/models/answer.model";
 import {Aopt} from "../../../shared/models/aopt.model";
 import {AnswersService} from "../../../shared/services/answers.service";
 import {ExamUser} from "../../../shared/models/examuser.model";
-import {UserforexamService} from "../../../shared/services/userforexam.service";
-import {Userforexam} from "../../../shared/models/userforexam.model";
 import {ExamuserService} from "../../../shared/services/examuser.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-exam',
@@ -30,14 +27,12 @@ export class ExamComponent implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private userListService: UserforexamService,
     private examsService: ExamsService,
     private examuserService: ExamuserService,
     private questionsService: QuestionsService,
     private answersService: AnswersService,
     private qoptsService: QoptsService,
-    private aoptsService: AoptsService,
-    private router: Router) {
+    private aoptsService: AoptsService) {
   }
 
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
@@ -48,7 +43,6 @@ export class ExamComponent implements OnInit {
   exams: ExamModels[] = [];
   examUsers: ExamUser[] = [];
 
-  currentUser: Userforexam = {};
   currentExamUser: ExamUser = new ExamUser();
   currentExam: ExamModels = {};
   currentQuestion: Question = {};
@@ -74,11 +68,8 @@ export class ExamComponent implements OnInit {
         takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => {
       this.user = res;
-      this.userListService.getByLogin(res.login).subscribe((userlist) => {
-        this.examuserService.getUserExamsById(userlist.id).subscribe((data) => {
-          this.examUsers = data;
-        });
-      });
+      this.examuserService.getByUserId(this.user.id)
+        .subscribe((data) => this.examUsers = data);
     });
     this.examsService
       .getActiveExams()
@@ -116,27 +107,14 @@ export class ExamComponent implements OnInit {
   }
 
   startExam(exam: ExamModels) {
-    if (this.user != undefined && this.user.login) {
+    if (this.user != undefined && this.user.login != 'anonymous') {
       this.currentExam = exam;
-      this.userListService.getByLogin(this.user.login).subscribe((data) => {
-        if (data == null) {
-          this.currentUser = new Userforexam(0, this.user.login);
-          this.userListService.saveOrUpdateQuestion(this.currentUser).subscribe(answer => this.currentUser = answer);
-        } else {
-          this.currentUser = data;
-        }
-        this.currentExamUser.userid = this.currentUser.id;
-      });
+      this.currentExamUser.userid = this.user.id;
       this.currentExamUser.exam = this.currentExam;
       this.currentExamUser.start = Date.now();
       this.loadQuestion();
       this.startTest = true;
     }
-  }
-
-  brokeExam() {
-    this.currentExam = {};
-    this.startTest = false;
   }
 
   loadQuestion() {
@@ -272,6 +250,7 @@ export class ExamComponent implements OnInit {
   toExamList() {
     this.showResult = false;
     this.startTest = false;
+    this.currentExam = {};
     this.loadInfo();
   }
 

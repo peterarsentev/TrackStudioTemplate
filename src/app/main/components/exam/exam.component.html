@@ -21,16 +21,16 @@
       </tr>
       </thead>
       <tbody>
-      <tr class="mycenter" *ngFor="let exam of exams" title="Start exam" (click)="startExam(exam)">
-        <ng-container *ngIf="exam.active">
-          <td>{{ exam.position }}</td>
-          <td>{{ exam.name }}</td>
-          <td [innerHTML]="exam.description"></td>
-          <td [innerHTML]="getTimes(exam.id)"></td>
-          <td [innerHTML]="getLastTime(exam.id)"></td>
-          <td [innerHTML]="getResult(exam.id)"></td>
-        </ng-container>
-      </tr>
+        <tr class="mycenter" *ngFor="let exam of exams" title="Start exam" (click)="startExam(exam)">
+          <ng-container *ngIf="exam.active">
+            <td>{{ exam.position }}</td>
+            <td>{{ exam.name }}</td>
+            <td [innerHTML]="exam.description"></td>
+            <td [innerHTML]="getTimes(exam.id)"></td>
+            <td [innerHTML]="getLastTime(exam.id)"></td>
+            <td [innerHTML]="getResult(exam.id)"></td>
+          </ng-container>
+        </tr>
       </tbody>
     </table>
   </div>
