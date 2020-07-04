@@ -35,7 +35,7 @@
     </table>
   </div>
   <!--Test table-->
-  <div class="container-fluid" *ngIf="startTest">
+  <div class="container-fluid" *ngIf="startTest && !showResult">
     <div class="row" *ngIf="currentQuestion" title="{{currentQuestion.hint}}">
       <div class="col-3" [innerHTML]="'Вопрос: <p>' + currentQuestion.name +'</p>'"></div>
       <div class="col-4" [innerHTML]="'Опиcание: ' + currentQuestion.description"></div>
@@ -49,10 +49,49 @@
     </div>
     <div class="row">
       <div class="col-8">
-        <button type="button" class="btn btn-primary float-left" (click)="back()" *ngIf="hasBack()">Back</button>
-        <button type="button" class="btn btn-primary float-right" (click)="next()" *ngIf="hasNext()">Next</button>
-        <button type="button" class="btn btn-primary float-right" (click)="finish()" *ngIf="!hasNext()">Finish</button>
+        <button type="button" class="btn btn-info float-left" (click)="back()" *ngIf="hasBack()">Back</button>
+        <button type="button" class="btn btn-info float-right" (click)="next()" *ngIf="hasNext()">Next</button>
+        <button type="button" class="btn btn-info float-right" (click)="finish()" *ngIf="!hasNext()">Finish</button>
       </div>
+    </div>
+  </div>
+  <!--  Show user results table-->
+  <div class="container-fluid" *ngIf="showResult">
+    <div class="row">
+      <h4>Правила подсчёта баллов:</h4>
+    </div>
+    <div class="row">
+      <ul>
+        <li>за каждый правильный ответ Вам начисляется один балл</li>
+        <li>за каждый неправильный ответ у Вас отнимается один балл</li>
+      </ul>
+    </div>
+    <ng-container *ngFor="let resultQuest of questions">
+      <div class="row">
+        <div class="col-3" [innerHTML]="'Вопрос: <p>' + resultQuest.name +'</p>'"></div>
+        <div class="col-4" [innerHTML]="'Опиcание: ' + resultQuest.description"></div>
+        <div class="w-100"></div>
+      </div>
+      <div class="row" *ngFor="let qp of filterQopts(resultQuest.id)">
+        <ng-container *ngIf="qp.correct">
+          <div class="w-100"></div>
+          <div class="col-3">Правильный ответ:</div>
+          <div class="col-4" [innerHTML]="qp.description"></div>
+        </ng-container>
+      </div>
+      <div class="row">
+        <div class="col-3" [innerHTML]="findAopts(resultQuest.id).length > 1 ?
+        'Ваши ответы:' : 'Ваш ответ:'"></div>
+        <ng-container *ngFor="let aop of findAopts(resultQuest.id)">
+          <div class="col-2" [innerHTML]="aop.opt.description" [className]="incorrect(aop.opt.correct)"></div>
+        </ng-container>
+      </div>
+      <hr class="mt-2 mb-3"/>
+    </ng-container>
+    <div class="row">
+      <div class="col-3" [innerHTML]="'<strong>Ваш результат:</strong>'"></div>
+      <div class="col-4" [innerHTML]="result()"></div>
+      <button type="button" class="btn btn-info float-right" (click)="toExamList()">Назад к списку экзаменов</button>
     </div>
   </div>
 </div>

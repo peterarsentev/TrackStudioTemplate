@@ -10,7 +10,6 @@ import {Question} from '../../../shared/models/question.model';
 import {QuestionsService} from '../../../shared/services/questions.service';
 import {QoptsService} from "../../../shared/services/qopts.service";
 import {Qopt} from "../../../shared/models/qopt.model";
-import {ActivatedRoute, Route, Router} from "@angular/router";
 import {AoptsService} from "../../../shared/services/aopts.service";
 import {Answer} from "../../../shared/models/answer.model";
 import {Aopt} from "../../../shared/models/aopt.model";
@@ -19,6 +18,7 @@ import {ExamUser} from "../../../shared/models/examuser.model";
 import {UserforexamService} from "../../../shared/services/userforexam.service";
 import {Userforexam} from "../../../shared/models/userforexam.model";
 import {ExamuserService} from "../../../shared/services/examuser.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-exam',
@@ -36,13 +36,15 @@ export class ExamComponent implements OnInit {
     private questionsService: QuestionsService,
     private answersService: AnswersService,
     private qoptsService: QoptsService,
-    private aoptsService: AoptsService) {
+    private aoptsService: AoptsService,
+    private router: Router) {
   }
 
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   user: UserModels = {};
 
   startTest: boolean = false;
+  showResult: boolean = false;
   exams: ExamModels[] = [];
   examUsers: ExamUser[] = [];
 
@@ -106,9 +108,9 @@ export class ExamComponent implements OnInit {
       const date = new Date(this.examUsers
         .filter((x) => x.exam.id === id)
         .sort((x, y) =>
-          x.finish - y.finish
+          new Date(x.finish).getUTCMilliseconds() - new Date(y.finish).getUTCMilliseconds()
         ).shift().finish);
-      return date.getFullYear() + '.' + date.getMonth() + '.' + date.getDay() + ' ' + date.getHours() + ':' + date.getMinutes();
+      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
     }
     return '';
   }
@@ -166,12 +168,19 @@ export class ExamComponent implements OnInit {
           data.forEach((x) => this.qopts.push(x));
         });
     } else {
-      this.currentQopts = this.qopts
-        .filter((x) => x.question.id == this.currentQuestion.id)
-        .sort((x, y) => {
-          return x.pos - y.pos;
-        });
+      this.currentQopts = this.filterQopts(this.currentQuestion.id);
     }
+  }
+
+  filterQopts(id): Qopt[] {
+    return this.qopts.filter(x => x.question.id == id)
+      .sort((x, y) => x.pos - y.pos);
+  }
+
+  findAopts(id): Aopt[] {
+    const answer = this.aopts.filter(x => x.answer.question.id == id)
+      .sort((x, y) => x.id - y.id);
+    return answer;
   }
 
   prepareAnswers() {
@@ -225,7 +234,9 @@ export class ExamComponent implements OnInit {
   }
 
   result(): number {
-    return this.aopts.filter((x) => x.opt.correct).length;
+    let rightAnswers: number = this.aopts.filter((x) => x.opt.correct).length;
+    let incorrectAnswers: number = this.aopts.length - rightAnswers;
+    return rightAnswers - incorrectAnswers;
   }
 
   total(): number {
@@ -255,7 +266,20 @@ export class ExamComponent implements OnInit {
       });
     });
     this.loadInfo();
+    this.showResult = true;
+  }
+
+  toExamList() {
+    this.showResult = false;
     this.startTest = false;
+    this.loadInfo();
+  }
+
+  incorrect(check: boolean): string {
+    if (!check) {
+      return 'col-2 incorrect';
+    } else
+      return 'col-2';
   }
 
 }
