@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { catchError, map, switchMap, takeUntil } from 'rxjs/operators';
 import { TaskCodeService } from '../../../../shared/services/task-code.service';
 import { SolutionTaskCodeModels } from '../../../../shared/models/solution.task.code.models';
 import { AlertService } from '../../../../shared/services/alertService';
@@ -81,7 +81,14 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
             this.router.navigate(['task_code', `${this.taskId}`, 'solution',`${solutionId}`])
             return result;
           }),
-          takeUntil(this.ngUnsubscribe$)
+          takeUntil(this.ngUnsubscribe$),
+          catchError(err => {
+              err.status === 401 ?
+                this.alertService.setUpMessage("Вам необходимо авторизоваться в системе.", TypeAlertsModel.DANGER) :
+                this.alertService.setUpMessage("Сервис не доступен, попробуйте позже еще раз", TypeAlertsModel.DANGER);
+              return throwError(err)
+            }
+          )
         )
         .subscribe(res => this.prepareResult(res))
     } else {

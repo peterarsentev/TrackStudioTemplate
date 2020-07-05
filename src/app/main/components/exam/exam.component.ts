@@ -10,14 +10,11 @@ import {Question} from '../../../shared/models/question.model';
 import {QuestionsService} from '../../../shared/services/questions.service';
 import {QoptsService} from "../../../shared/services/qopts.service";
 import {Qopt} from "../../../shared/models/qopt.model";
-import {ActivatedRoute, Route, Router} from "@angular/router";
 import {AoptsService} from "../../../shared/services/aopts.service";
 import {Answer} from "../../../shared/models/answer.model";
 import {Aopt} from "../../../shared/models/aopt.model";
 import {AnswersService} from "../../../shared/services/answers.service";
 import {ExamUser} from "../../../shared/models/examuser.model";
-import {UserforexamService} from "../../../shared/services/userforexam.service";
-import {Userforexam} from "../../../shared/models/userforexam.model";
 import {ExamuserService} from "../../../shared/services/examuser.service";
 
 @Component({
@@ -30,7 +27,6 @@ export class ExamComponent implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private userListService: UserforexamService,
     private examsService: ExamsService,
     private examuserService: ExamuserService,
     private questionsService: QuestionsService,
@@ -43,10 +39,10 @@ export class ExamComponent implements OnInit {
   user: UserModels = {};
 
   startTest: boolean = false;
+  showResult: boolean = false;
   exams: ExamModels[] = [];
   examUsers: ExamUser[] = [];
 
-  currentUser: Userforexam = {};
   currentExamUser: ExamUser = new ExamUser();
   currentExam: ExamModels = {};
   currentQuestion: Question = {};
@@ -72,11 +68,8 @@ export class ExamComponent implements OnInit {
         takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => {
       this.user = res;
-      this.userListService.getByLogin(res.login).subscribe((userlist) => {
-        this.examuserService.getUserExamsById(userlist.id).subscribe((data) => {
-          this.examUsers = data;
-        });
-      });
+      this.examuserService.getByUserId(this.user.id)
+        .subscribe((data) => this.examUsers = data);
     });
     this.examsService
       .getActiveExams()
@@ -106,35 +99,22 @@ export class ExamComponent implements OnInit {
       const date = new Date(this.examUsers
         .filter((x) => x.exam.id === id)
         .sort((x, y) =>
-          x.finish - y.finish
+          new Date(x.finish).getUTCMilliseconds() - new Date(y.finish).getUTCMilliseconds()
         ).shift().finish);
-      return date.getFullYear() + '.' + date.getMonth() + '.' + date.getDay() + ' ' + date.getHours() + ':' + date.getMinutes();
+      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
     }
     return '';
   }
 
   startExam(exam: ExamModels) {
-    if (this.user != undefined && this.user.login) {
+    if (this.user != undefined && this.user.login != 'anonymous') {
       this.currentExam = exam;
-      this.userListService.getByLogin(this.user.login).subscribe((data) => {
-        if (data == null) {
-          this.currentUser = new Userforexam(0, this.user.login);
-          this.userListService.saveOrUpdateQuestion(this.currentUser).subscribe(answer => this.currentUser = answer);
-        } else {
-          this.currentUser = data;
-        }
-        this.currentExamUser.userid = this.currentUser.id;
-      });
+      this.currentExamUser.userid = this.user.id;
       this.currentExamUser.exam = this.currentExam;
       this.currentExamUser.start = Date.now();
       this.loadQuestion();
       this.startTest = true;
     }
-  }
-
-  brokeExam() {
-    this.currentExam = {};
-    this.startTest = false;
   }
 
   loadQuestion() {
@@ -166,12 +146,19 @@ export class ExamComponent implements OnInit {
           data.forEach((x) => this.qopts.push(x));
         });
     } else {
-      this.currentQopts = this.qopts
-        .filter((x) => x.question.id == this.currentQuestion.id)
-        .sort((x, y) => {
-          return x.pos - y.pos;
-        });
+      this.currentQopts = this.filterQopts(this.currentQuestion.id);
     }
+  }
+
+  filterQopts(id): Qopt[] {
+    return this.qopts.filter(x => x.question.id == id)
+      .sort((x, y) => x.pos - y.pos);
+  }
+
+  findAopts(id): Aopt[] {
+    const answer = this.aopts.filter(x => x.answer.question.id == id)
+      .sort((x, y) => x.id - y.id);
+    return answer;
   }
 
   prepareAnswers() {
@@ -225,7 +212,9 @@ export class ExamComponent implements OnInit {
   }
 
   result(): number {
-    return this.aopts.filter((x) => x.opt.correct).length;
+    let rightAnswers: number = this.aopts.filter((x) => x.opt.correct).length;
+    let incorrectAnswers: number = this.aopts.length - rightAnswers;
+    return rightAnswers - incorrectAnswers;
   }
 
   total(): number {
@@ -255,7 +244,21 @@ export class ExamComponent implements OnInit {
       });
     });
     this.loadInfo();
+    this.showResult = true;
+  }
+
+  toExamList() {
+    this.showResult = false;
     this.startTest = false;
+    this.currentExam = {};
+    this.loadInfo();
+  }
+
+  incorrect(check: boolean): string {
+    if (!check) {
+      return 'col-2 incorrect';
+    } else
+      return 'col-2';
   }
 
 }

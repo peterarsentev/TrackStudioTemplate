@@ -8,7 +8,7 @@ export class ExamUser {
     public result?: number,
     public start?: number,
     public finish?: number,
-    public userid?: number,
+    public userid?: string,
     public total?: number
   ) {}
 }
