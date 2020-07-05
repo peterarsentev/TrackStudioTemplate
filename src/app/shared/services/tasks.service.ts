@@ -16,6 +16,7 @@ import { PreviousNextNavModels } from '../models/previous.next.nav.models';
 import { ResponseRatingModel } from '../models/response.rating.model';
 import {OutputModel} from '../models/output.model';
 import {CustomEncoder} from '../custom-encoder';
+import { SolvedAllCountModels } from '../models/solved.all.count.models';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -273,5 +274,13 @@ export class TasksService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = this.urlJedu + `ratetask/downOn`;
     return this.http.post<ResponseRatingModel>(url, params);
+  }
+
+  getSolvedAndAllProgress(topicId: string): Observable<SolvedAllCountModels> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('topicId', topicId);
+    const url = this.urlJedu + `taskcode/progress`;
+    return this.http.post<SolvedAllCountModels>(url, params);
   }
 }

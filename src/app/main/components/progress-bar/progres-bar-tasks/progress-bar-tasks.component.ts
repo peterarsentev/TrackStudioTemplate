@@ -1,15 +1,15 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { TasksService } from '../../../shared/services/tasks.service';
-import { TaskModel } from '../../../shared/models/task.model';
+import { TasksService } from '../../../../shared/services/tasks.service';
+import { TaskModel } from '../../../../shared/models/task.model';
 import { forkJoin, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-progress-bar',
-  templateUrl: './progress-bar.component.html',
-  styleUrls: ['./progress-bar.component.scss']
+  templateUrl: './progress-bar-tasks.component.html',
+  styleUrls: ['./progress-bar-tasks.component.scss']
 })
-export class ProgressBarComponent implements OnInit, OnDestroy {
+export class ProgressBarTasksComponent implements OnInit, OnDestroy {
 
   @Input() task: TaskModel = {};
   allTasksCount  = 1;

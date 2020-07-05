@@ -14,11 +14,16 @@
           <tbody>
           <tr>
             <th>Тема</th>
+            <th>Прогресс</th>
           </tr>
           <tr *ngFor="let topic of topic$ | async" (click)="goToTasks(topic.id)" style="cursor: pointer;">
             <td>
               <span class="font-weight-bold">{{ topic.name }}</span>
             </td>
+          <td>
+            <app-progress-bar-solutions [topicId]="topic.id"
+            ></app-progress-bar-solutions>
+          </td>
           </tr>
           </tbody>
         </table>

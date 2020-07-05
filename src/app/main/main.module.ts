@@ -12,7 +12,7 @@ import { TaskComponent } from './components/task/task.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { ProgressBarTasksComponent } from './components/progress-bar/progres-bar-tasks/progress-bar-tasks.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { SafeCodePipe } from './safe-code.pipe';
 import { MessageComponent } from './components/message/message.component';
@@ -35,6 +35,8 @@ import { TaskCodeFormComponent } from './components/task_code/task-code-form/tas
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { TaskCodeSolutionComponent } from './components/task_code/task-code-solution/task-code-solution.component';
 import { AlertMessageComponent } from './components/alert-message/alert-message.component';
+import { ProgressBarViewComponent } from './components/progress-bar/progress-bar-view/progress-bar-view.component';
+import { ProgressBarSolutionsComponent } from './components/progress-bar/progress-bar-solutions/progress-bar-solutions.component';
 
 
 @NgModule({
@@ -47,7 +49,7 @@ import { AlertMessageComponent } from './components/alert-message/alert-message.
     TasksComponent,
     NavigationComponent,
     FooterComponent,
-    ProgressBarComponent,
+    ProgressBarTasksComponent,
     CommentsComponent,
     SafeCodePipe,
     MessageComponent,
@@ -66,7 +68,9 @@ import { AlertMessageComponent } from './components/alert-message/alert-message.
     TaskCodeListComponent,
     TaskCodeFormComponent,
     TaskCodeSolutionComponent,
-    AlertMessageComponent
+    AlertMessageComponent,
+    ProgressBarViewComponent,
+    ProgressBarSolutionsComponent
   ],
   imports: [
     CommonModule,
