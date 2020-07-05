@@ -14,10 +14,10 @@ export class ExamuserService {
   constructor(private http: HttpClient) {
   }
 
-  getUserExamsById(userid): Observable<ExamUser[]> {
+  getByUserId(userId): Observable<ExamUser[]> {
     const url = this.url + 'examuser/getByUserId';
     let params = new HttpParams();
-    params = params.append('userId', userid);
+    params = params.append('userId', userId);
     return this.http.post<ExamUser[]>(url, params);
   }
 
