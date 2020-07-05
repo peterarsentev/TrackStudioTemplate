@@ -56,7 +56,7 @@ export class TasksService {
     return this.http.post<{tasks: ResponseModel[]}>(this.url + 'tasks', params)
       .pipe(catchError(err => {
         return this.authService.getDefaultProjectId().pipe(
-          switchMap(() => this.getTaskByProjectId(projectId, localStorage.getItem('sessionId')))
+          switchMap((res) => this.getTaskByProjectId(res.user.defaultProjectId, localStorage.getItem('sessionId')))
         );
       }));
   }
