@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TaskCodeService } from '../../../../shared/services/task-code.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { TaskCodeModel } from '../../../../shared/models/task.code.models';
 
 @Component({
@@ -20,16 +20,16 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getTaskCodeByTopicId(this.route.snapshot.paramMap.get('id'))
-  }
-
-  getTaskCodeByTopicId(id: string) {
-    this.taskCodeService.getTasksWithStatus(id)
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => {
-        this.taskCodeList = res;
-        this.taskCodeList.forEach(task => task.status === null || task.status === undefined ? task.status = 1 : task);
-      });
+    this.route.queryParams
+      .pipe(
+        switchMap(res => this.taskCodeService.getTasksWithStatus(res.topicId))
+      )
+      .subscribe(
+        res => {
+          this.taskCodeList = res;
+          this.taskCodeList.forEach(task => task.status === null || task.status === undefined ? task.status = 1 : task);
+        }
+      )
   }
 
   ngOnDestroy(): void {
@@ -37,12 +37,19 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  goToTasks(taskId: string, status: number, solutionId: number) {
-    console.log(solutionId)
+  goToTasks(topicId: string, taskId: string, status: number, solutionId: number) {
     if (status === 1) {
-      this.router.navigate(['task_code', `${taskId}`, 'solution',`new_task`]);
+      this.router.navigate(['task_code'], {queryParams: {
+          topicId,
+          taskCodeId: taskId,
+          solutionId: 'new_task'
+        }});
     } else {
-      this.router.navigate(['task_code', `${taskId}`, 'solution',`${solutionId}`])
+      this.router.navigate(['task_code'], {queryParams: {
+          topicId,
+          taskCodeId: taskId,
+          solutionId
+        }})
     }
   }
 }

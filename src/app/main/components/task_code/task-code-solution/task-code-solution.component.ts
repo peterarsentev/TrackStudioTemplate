@@ -35,10 +35,10 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   }
 
   private getParamsAndSolution() {
-    this.route.params
+    this.route.queryParams
       .pipe(
         switchMap(params => {
-          this.taskId = params.taskId;
+          this.taskId = params.taskCodeId;
           this.solutionId = params.solutionId;
           if (this.solutionId === 'new_task') {
             return this.taskCodeService.getNewTask(this.taskId)
@@ -57,7 +57,6 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
         })
       ).subscribe(res => {
       this.solutionAndTaskCode = res;
-      console.log(this.solutionAndTaskCode)
     });
   }
 

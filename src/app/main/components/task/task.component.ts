@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit,ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
@@ -14,9 +14,7 @@ import { MessageService } from '../../../shared/services/message.service';
 import { BookmarksService } from '../../../shared/services/bookmarks.service';
 import { DiscussionModel } from '../../../shared/models/discussionModel';
 import { UserService } from '../../../shared/services/user.service';
-import { ResponseRatingModel } from '../../../shared/models/response.rating.model';
 import { RateModel } from '../../../shared/models/rate.model';
-import {browser} from 'protractor';
 
 declare var CodeMirror: any;
 declare var hljs: any;

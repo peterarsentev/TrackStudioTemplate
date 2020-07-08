@@ -1,11 +1,7 @@
 <div class="row" *ngIf="show">
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb bg-dark text-white">
-      <li
-        class="breadcrumb-item small"
-        style="cursor: pointer;"
-        *ngFor="let nav of tasks; let idx = index"
-      >
+    <ol class="breadcrumb" style="background-color: #ffffff;">
+      <li class="breadcrumb-item small ref-link" *ngFor="let nav of tasks; let idx=index">
         <a (click)="goToNav(nav)">
           {{ nav.nameCutted }}
         </a>
@@ -13,13 +9,26 @@
     </ol>
   </nav>
 </div>
-<ng-container *ngIf="show">
-  <div class="row p-3" *ngFor="let message of emergency">
+<ng-container *ngIf="solution">
+<div class="row">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb" style="background-color: #ffffff;">
+      <li class="breadcrumb-item small ref-link" *ngFor="let nav of solutions">
+        <a (click)="goToSol(nav)">
+          {{ nav.name }}
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+</ng-container>
+<ng-container  *ngIf="show">
+<div class="row p-3" *ngFor="let message of emergency">
     <div class="card w-100">
-      <div class="card-body bg-dark">
-        <small class="card-text text-white">{{ message.key }}</small>
-        <pre class="text-white">{{ message.value }}</pre>
+      <div class="card-body">
+        <small class="card-text">{{ message.key }}</small>
+        <pre>{{ message.value }}</pre>
       </div>
     </div>
-  </div>
+</div>
 </ng-container>
