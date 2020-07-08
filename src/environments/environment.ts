@@ -7,7 +7,8 @@ import { Environment } from './interface';
 export const environment: Environment = {
   production: false,
    url: 'https://job4j.ru/TrackStudio',
-   urlJedu: 'https://job4j.ru/jedu'
+   //urlJedu: 'https://job4j.ru/jedu',
+  urlJedu: 'http://localhost:9090',
 };
 
 /*

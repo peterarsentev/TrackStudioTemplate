@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskCodeService } from '../../../../shared/services/task-code.service';
 import { Router } from '@angular/router';
+import { TopicModels } from '../../../../shared/models/topic.models';
 
 @Component({
   selector: 'app-topics',
@@ -16,7 +17,9 @@ export class TopicsComponent implements OnInit {
   ngOnInit() {
   }
 
-  goToTasks(id: string) {
-    this.router.navigate(['topic', `${id}`])
+  goToTasks(topic: TopicModels) {
+    this.router.navigate(['topic'], {queryParams: {
+      topicId: topic.id
+      }})
   }
 }

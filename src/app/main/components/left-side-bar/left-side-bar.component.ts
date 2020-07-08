@@ -69,7 +69,6 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    console.log("init")
     this.loadTasks();
     this.getNavNodes();
     this.getProvenTasks();

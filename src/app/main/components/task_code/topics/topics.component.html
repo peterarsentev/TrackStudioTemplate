@@ -16,7 +16,7 @@
             <th>Тема</th>
             <th>Прогресс</th>
           </tr>
-          <tr *ngFor="let topic of topic$ | async" (click)="goToTasks(topic.id)" style="cursor: pointer;">
+          <tr *ngFor="let topic of topic$ | async" (click)="goToTasks(topic)" style="cursor: pointer;">
             <td>
               <span class="font-weight-bold">{{ topic.name }}</span>
             </td>

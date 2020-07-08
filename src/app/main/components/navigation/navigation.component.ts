@@ -5,6 +5,7 @@ import { TasksService } from '../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
 import { TaskModel } from '../../../shared/models/task.model';
 import { EmergencyModel } from '../../../shared/models/emergency.model';
+import { NavNode } from '../../../shared/models/nav.node';
 
 @Component({
   selector: 'app-navigation',
@@ -17,7 +18,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
   tasks: TaskModel[];
   emergency: EmergencyModel[] = [];
   show = true;
+  solution = false;
+  solutions: NavNode[] = [];
   @Output() emitter: EventEmitter<TaskModel[]> = new EventEmitter<TaskModel[]>();
+  private taskCodeId: string;
+  private topicId: string;
+  private solutionId: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -26,7 +32,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.queryParams
       .pipe(
-        switchMap(res => this.tasksService.getNavRout(res.taskId))
+        switchMap(res => {
+          this.taskCodeId = res.taskCodeId;
+          this.topicId = res.topicId;
+          this.solutionId = res.solutionId;
+          return this.tasksService.getNavRout(res.taskId)
+        })
       ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.tasks = res.tasks;
@@ -70,21 +81,45 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private checkRout() {
     this.checkUrl(this.router.url);
     this.router.events.pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: any) => {
+      .subscribe((event: NavigationEnd) => {
         const url: string = event.url;
         this.checkUrl(url);
       })
   }
 
   checkUrl(url: string) {
+    this.solution = false;
     this.show = url !== '/login';
-    console.log(url)
-    console.log(this.tasks)
-    if (url === '/topics') {
-      console.log('topics')
-    } else if (url === '/tasks_code_list') {
-      console.log('tasks_code_list')
+    this.show = this.show && !url.startsWith('/topic');
+    this.show = this.show && !url.startsWith('/task_code');
+    this.isSolutions(url);
+  }
+
+  private isSolutions(url: string) {
+    if (!this.show && url !== '/login') {
+      this.tasksService.getNavsForSolutions(this.topicId, this.taskCodeId)
+        .subscribe(res => {
+          this.solutions = res
+        })
+      this.solution = true;
     }
   }
 
+  goToSol(nav: NavNode) {
+    if (!!nav.taskCodeId) {
+      this.router.navigate([`${nav.url}`], {queryParams: {
+          topicId: nav.topicId,
+          solutionId: this.solutionId,
+          taskCodeId: nav.taskCodeId
+        }});
+      return;
+    }
+    if (!!nav.topicId) {
+      this.router.navigate([`${nav.url}`], {queryParams: {
+        topicId: nav.topicId
+        }});
+      return;
+    }
+    this.router.navigate([`${nav.url}`]);
+  }
 }

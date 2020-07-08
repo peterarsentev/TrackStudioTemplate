@@ -36,8 +36,8 @@ const routes: Routes = [
       {path: 'sandbox', component: SandboxComponent},
       {path: 'exams', component: ExamComponent},
       {path: 'topics', component: TopicsComponent},
-      {path: 'topic/:id', component: TaskCodeListComponent},
-      {path: 'task_code/:taskId/solution/:solutionId', component: TaskCodeSolutionComponent},
+      {path: 'topic', component: TaskCodeListComponent},
+      {path: 'task_code', component: TaskCodeSolutionComponent},
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module')

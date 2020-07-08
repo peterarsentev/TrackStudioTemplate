@@ -9,6 +9,19 @@
     </ol>
   </nav>
 </div>
+<ng-container *ngIf="solution">
+<div class="row">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb" style="background-color: #ffffff;">
+      <li class="breadcrumb-item small ref-link" *ngFor="let nav of solutions">
+        <a (click)="goToSol(nav)">
+          {{ nav.name }}
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+</ng-container>
 <ng-container  *ngIf="show">
 <div class="row p-3" *ngFor="let message of emergency">
     <div class="card w-100">
