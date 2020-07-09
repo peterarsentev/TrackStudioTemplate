@@ -25,10 +25,14 @@
           ></ngx-codemirror>
         </div>
         <div>
-          <button *ngIf="status === 1" (click)="submit(taskClass)" [disabled]="dis" class="btn btn-success mt-2"><i class="fa fa-caret-right mr-2"></i>Решить</button>
-          <button *ngIf="status === 2" (click)="submit(taskClass)" [disabled]="dis" class="btn btn-warning mt-2"><i class="fa fa-caret-right mr-2"></i>Проверить</button>
-          <button *ngIf="status === 3" (click)="submit(taskClass)" [disabled]="dis" class="btn btn-warning mt-2"><i class="fa fa-caret-right mr-2"></i>Проверить</button>
-          <button *ngIf="status === 4" (click)="submit(taskClass)" [disabled]="dis" class="btn btn-warning mt-2"><i class="fa fa-caret-right mr-2"></i>Проверить</button>
+          <button *ngIf="status === 1" (click)="submit(taskClass)" [disabled]="dis" class="btn btn-success mt-2"><i class="fa fa-caret-right mr-2"></i>
+            <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Решить</button>
+          <button *ngIf="status === 2" (click)="submit(taskClass)" [disabled]="dis" class="btn btn-warning mt-2"><i class="fa fa-caret-right mr-2"></i>
+            <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Проверить</button>
+          <button *ngIf="status === 3" (click)="submit(taskClass)" [disabled]="dis" class="btn btn-warning mt-2"><i class="fa fa-caret-right mr-2"></i>
+            <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Проверить</button>
+          <button *ngIf="status === 4" (click)="submit(taskClass)" [disabled]="dis" class="btn btn-warning mt-2"><i class="fa fa-caret-right mr-2"></i>
+            <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Проверить</button>
         </div>
         <div class="mt-3 font-weight-bold">Результат:</div>
         <div>
