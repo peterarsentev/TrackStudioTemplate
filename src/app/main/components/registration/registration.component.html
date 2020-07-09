@@ -5,10 +5,10 @@
     <div class="w-100 card">
       <div class="card-body">
         <div class="alert alert-danger" role="alert" *ngIf="error">
-          Неверный логин или пароль!
+        {{errorMessage}}
         </div>
         <div class="alert text-center" role="alert" *ngIf="!error">
-          Авторизуйтесь
+          Регистрация
         </div>
         <form [formGroup]="form">
           <div class="form-group mt-3">
@@ -17,28 +17,39 @@
                     type="text"
                     (ngModelChange)="resetError()"
                     class="form-control"
-                    placeholder="Введите логин" id="email">
+                    placeholder="Введите логин" id="login">
             <div *ngFor="let error of validationErrors.login">
                             <span *ngIf="form.get('login').hasError(error.type)
                                         && (form.get('login').dirty
                                         || form.get('login').touched)"
                                   class="validation">{{ error.message }}</span>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="pwd">Пароль:</label>
-            <input formControlName="password"
-                   type="password"
-                   (ngModelChange)="resetError()"
-                   class="form-control"
-                   placeholder="Введите пароль" id="pwd">
-            <div *ngFor="let error of validationErrors.password">
-                        <span *ngIf="form.get('password').hasError(error.type)
-                                    && (form.get('password').dirty
-                                    || form.get('password').touched)"
-                              class="validation">{{ error.message }}</span>
+          </div>          <div class="form-group mt-3">
+            <label for="email">Имя:</label>
+            <input  formControlName="name"
+                    type="text"
+                    (ngModelChange)="resetError()"
+                    class="form-control"
+                    placeholder="Введите имя" id="name">
+            <div *ngFor="let error of validationErrors.name">
+                            <span *ngIf="form.get('name').hasError(error.type)
+                                        && (form.get('name').dirty
+                                        || form.get('name').touched)"
+                                  class="validation">{{ error.message }}</span>
             </div>
-
+          </div>          <div class="form-group mt-3">
+            <label for="email">Email:</label>
+            <input  formControlName="email"
+                    type="email"
+                    (ngModelChange)="resetError()"
+                    class="form-control"
+                    placeholder="Введите email" id="email">
+            <div *ngFor="let error of validationErrors.email">
+                            <span *ngIf="form.get('email').hasError(error.type)
+                                        && (form.get('email').dirty
+                                        || form.get('email').touched)"
+                                  class="validation">{{ error.message }}</span>
+            </div>
           </div>
           <button (click)="goMain()"
                   [disabled]="submit"
@@ -47,17 +58,17 @@
             <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             Отмена
           </button>
-          <button (click)="login()"
+          <button (click)="registration()"
                   [disabled]="form.invalid || submit"
                   type="button"
                   class="btn btn-primary pull-left">
             <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Войти
+            Зарегистрироваться
           </button>
-          <button (click)="registration()"
+          <button (click)="auth()"
                   type="button"
                   class="btn btn-primary pull-left ml-2">
-            Регистрация
+            Авторизация
           </button>
 
         </form>

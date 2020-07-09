@@ -37,6 +37,7 @@ import { TaskCodeSolutionComponent } from './components/task_code/task-code-solu
 import { AlertMessageComponent } from './components/alert-message/alert-message.component';
 import { ProgressBarViewComponent } from './components/progress-bar/progress-bar-view/progress-bar-view.component';
 import { ProgressBarSolutionsComponent } from './components/progress-bar/progress-bar-solutions/progress-bar-solutions.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { ProgressBarSolutionsComponent } from './components/progress-bar/progres
     TaskCodeSolutionComponent,
     AlertMessageComponent,
     ProgressBarViewComponent,
-    ProgressBarSolutionsComponent
+    ProgressBarSolutionsComponent,
+    RegistrationComponent
   ],
   imports: [
     CommonModule,

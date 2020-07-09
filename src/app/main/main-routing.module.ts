@@ -16,6 +16,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { TopicsComponent } from './components/task_code/topics/topics.component';
 import { TaskCodeListComponent } from './components/task_code/task-code/task-code-list.component';
 import { TaskCodeSolutionComponent } from './components/task_code/task-code-solution/task-code-solution.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,7 @@ const routes: Routes = [
       {path: 'topics', component: TopicsComponent},
       {path: 'topic', component: TaskCodeListComponent},
       {path: 'task_code', component: TaskCodeSolutionComponent},
+      {path: 'registration', component: RegistrationComponent},
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module')

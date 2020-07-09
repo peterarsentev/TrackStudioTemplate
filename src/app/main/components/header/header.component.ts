@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.navShow = !(this.router.url == "/login"  || this.router.url == '/registration');
     this.userService
       .getModel()
       .pipe(takeUntil(this.ngUnsubscribe$))
@@ -113,7 +114,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.navShow = this.router.url != "/login";
+        this.navShow = !(this.router.url == "/login"  || this.router.url == '/registration')
       });
   }
 

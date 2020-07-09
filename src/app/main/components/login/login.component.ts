@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log('init')
     this.prepMain();
     this.initForm();
   }
@@ -100,8 +99,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.submit = false;
         this.route.navigate(["/"], {});
-       this.prepMain();
+        this.prepMain();
       });
+  }
+
+  registration() {
+    this.route.navigate(['registration'])
   }
 }
 
