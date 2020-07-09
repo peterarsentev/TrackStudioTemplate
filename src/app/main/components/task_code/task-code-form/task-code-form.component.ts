@@ -1,5 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { TaskCodeModel } from '../../../../shared/models/task.code.models';
+import { NextPreviousSolutions } from '../../../../shared/models/nextPreviousSolutions';
+import { NavNode } from '../../../../shared/models/nav.node';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { TasksService } from '../../../../shared/services/tasks.service';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -7,16 +13,23 @@ import { TaskCodeModel } from '../../../../shared/models/task.code.models';
   templateUrl: './task-code-form.component.html',
   styleUrls: ['./task-code-form.component.scss']
 })
-export class TaskCodeFormComponent implements OnInit {
+export class TaskCodeFormComponent implements OnInit, OnDestroy {
+  previousAndNext: NextPreviousSolutions = {};
+  private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  dis = false;
   @Input()taskModel: TaskCodeModel = {}
   @Input() taskClass: string;
   @Input() taskTest: string;
   @Input() status: number;
+  private taskId: string;
   @Input() set output(output: string) {
     if (!!output) {
       this.textArea = true;
       this.text = output;
     }
+  };
+  @Input() set disabled(disabled: boolean) {
+    this.dis = disabled;
   };
   @Output() startTaskEmitter: EventEmitter<void> = new EventEmitter<void>();
   @Output() submitTaskEmitter: EventEmitter<string> = new EventEmitter<string>();
@@ -40,9 +53,23 @@ export class TaskCodeFormComponent implements OnInit {
     mode: 'text/x-java'
   };
 
-  constructor() {}
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private taskService: TasksService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.queryParams
+      .pipe(
+        switchMap(params => {
+          this.taskId = params.taskCodeId;
+          return this.taskService.getNextPreviousSol(this.taskId)
+        }),
+        takeUntil(this.ngUnsubscribe$),
+      ).subscribe(res => {
+        console.log(res)
+      this.previousAndNext = res;
+    })
+  }
 
   start() {
     this.startTaskEmitter.emit();
@@ -50,5 +77,18 @@ export class TaskCodeFormComponent implements OnInit {
 
   submit(taskClass: string) {
     this.submitTaskEmitter.emit(taskClass);
+  }
+
+  goTo(nav: TaskCodeModel) {
+    this.router.navigate(['task_code'], {queryParams: {
+        topicId: nav.topicId,
+        taskCodeId: nav.id,
+        solutionId: !!nav.solutionId ? nav.solutionId : 'new_task'
+      }})
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 }

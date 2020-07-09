@@ -3,5 +3,6 @@
                     [taskTest]="solutionAndTaskCode.taskcode?.testCode"
                     [status]="solutionAndTaskCode.solution?.statusId"
                     [output]="output"
+                    [disabled]="disabled"
                     (submitTaskEmitter)="submitTask($event)"
 ></app-task-code-form>

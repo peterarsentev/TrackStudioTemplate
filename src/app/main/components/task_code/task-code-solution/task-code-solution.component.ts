@@ -23,6 +23,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
     solution: {}, taskcode: {}
   };
   output: string = undefined;
+  disabled: boolean;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -54,7 +55,8 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
               )
           }
           return this.taskCodeService.getSolution(this.taskId, this.solutionId);
-        })
+        }),
+        takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => {
       this.solutionAndTaskCode = res;
     });
@@ -66,6 +68,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   }
 
   submitTask(code: string) {
+    this.disabled = true;
     const solution = this.solutionAndTaskCode.solution;
     solution.code = code;
     if (this.solutionId === 'new_task') {
@@ -89,11 +92,17 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
             }
           )
         )
-        .subscribe(res => this.prepareResult(res))
+        .subscribe(res => {
+          this.prepareResult(res);
+          this.disabled = false;
+        })
     } else {
       this.taskCodeService.submitSolution(solution)
         .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(res => this.prepareResult(res));
+        .subscribe(res => {
+          this.prepareResult(res);
+          this.disabled = false;
+        });
     }
   }
 

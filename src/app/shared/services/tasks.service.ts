@@ -18,6 +18,7 @@ import {OutputModel} from '../models/output.model';
 import {CustomEncoder} from '../custom-encoder';
 import { SolvedAllCountModels } from '../models/solved.all.count.models';
 import { NavNode } from '../models/nav.node';
+import { NextPreviousSolutions } from '../models/nextPreviousSolutions';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -292,5 +293,13 @@ export class TasksService {
     params = taskCodeId ? params.append('taskCodeId', taskCodeId) : params;
     const url = this.urlJedu + `taskcode/navs`;
     return this.http.post<NavNode[]>(url, params);
+  }
+
+  getNextPreviousSol(taskCodeId: string): Observable<NextPreviousSolutions> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskCodeId', taskCodeId);
+    const url = this.urlJedu + `taskcode/nextPrevious`;
+    return this.http.post<NextPreviousSolutions>(url, params);
   }
 }
