@@ -82,13 +82,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   goMain() {
-    this.authService
-      .login()
-      .pipe(
-        switchMap(() => this.authService.getDefaultProjectId()),
-        takeUntil(this.ngUnsubscribe$)
-      )
-      .subscribe(() => this.router.navigate(["/"], {}));
+    this.router.navigate(["/"], {});
   }
 
   getNotifications(id: string) {
