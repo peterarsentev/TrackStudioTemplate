@@ -69,18 +69,9 @@ export class RegistrationComponent implements OnInit {
       .subscribe(() => {
         this.submit = false;
         this.route.navigate(["/"], {});
-        this.prepMain();
       });
   }
 
-  prepMain(){
-    const elementById = document.getElementById("resizable");
-    if (elementById.classList.contains("hide")) {
-      elementById.classList.remove("hide");
-      if (elementById.classList.contains("toggle"))elementById.classList.remove('toggle');
-    } //hide sidebar
-    else elementById.classList.add("hide");
-  }
 
   auth() {
     this.route.navigate(['/login'])

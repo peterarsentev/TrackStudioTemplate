@@ -46,7 +46,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .getDefaultProjectId()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {});
-    this.skipSideBar();
   }
 
   initResize() {

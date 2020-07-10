@@ -25,7 +25,6 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: '/', pathMatch: 'full'},
       {path: '', component: MainPageComponent},
-      {path: 'login', component: LoginComponent},
       {path: 'taskNotFound', component: TaskNotFoundComponent},
       {path: 'taskAccess', component: TaskAccessComponent},
       {path: 'error', component: ErrorComponent},
@@ -39,14 +38,16 @@ const routes: Routes = [
       {path: 'topics', component: TopicsComponent},
       {path: 'topic', component: TaskCodeListComponent},
       {path: 'task_code', component: TaskCodeSolutionComponent},
-      {path: 'registration', component: RegistrationComponent},
+
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module')
           .then(mod => mod.ProfileModule)
       }
     ]
-  }
+  },
+  {path: 'login', component: LoginComponent},
+  {path: 'registration', component: RegistrationComponent},
 ];
 
 @NgModule({
