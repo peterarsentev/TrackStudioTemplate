@@ -10,7 +10,7 @@ export class AlertService {
   private alertSubject: Subject<{message: string, type: TypeAlertsModel}> = new ReplaySubject<{message: string, type: TypeAlertsModel}>(1);
   alertMessage$: Observable<{ message: string, type: TypeAlertsModel }> = this.alertSubject.asObservable();
 
-  setUpMessage(message: string, type: TypeAlertsModel) {
+  setUpMessage(message: string, type?: TypeAlertsModel) {
     this.alertSubject.next({message, type});
   }
 

@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
+import { AlertService } from '../../../../shared/services/alertService';
 
 
 @Component({
@@ -55,6 +56,7 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private alertService: AlertService,
               private taskService: TasksService) {}
 
   ngOnInit() {
@@ -80,6 +82,7 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
   }
 
   goTo(nav: TaskCodeModel) {
+    this.alertService.setUpMessage(undefined)
     this.router.navigate(['task_code'], {queryParams: {
         topicId: nav.topicId,
         taskCodeId: nav.id,
