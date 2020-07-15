@@ -82,12 +82,13 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
   }
 
   goTo(nav: TaskCodeModel) {
+    window.scroll(0, 0);
     this.alertService.setUpMessage(undefined)
     this.router.navigate(['task_code'], {queryParams: {
         topicId: nav.topicId,
         taskCodeId: nav.id,
         solutionId: !!nav.solutionId ? nav.solutionId : 'new_task'
-      }})
+      }});
   }
 
   ngOnDestroy(): void {
