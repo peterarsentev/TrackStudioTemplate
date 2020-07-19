@@ -10,7 +10,7 @@ import { TopicModels } from '../../../../shared/models/topic.models';
 })
 export class TopicsComponent implements OnInit {
 
-  topic$ = this.taskCodeService.getAllTopics();
+  topic$ = this.taskCodeService.exercises();
   constructor(private taskCodeService: TaskCodeService,
               private router: Router) { }
 
