@@ -16,8 +16,8 @@ export class TaskCodeService {
 
   constructor(private http: HttpClient) { }
 
-  getAllTopics(): Observable<TopicModels[]> {
-    const url = this.urlJedu + 'topic/getAll'
+  exercises(): Observable<TopicModels[]> {
+    const url = this.urlJedu + 'topic/exercises'
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<TopicModels[]>(url, params);
