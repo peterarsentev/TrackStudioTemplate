@@ -7,6 +7,7 @@ import { catchError, switchMap, tap } from 'rxjs/operators';
 import { AuthResponse, UserResponse } from '../models/interfaces';
 import { UserService } from './user.service';
 import {CustomEncoder} from '../custom-encoder';
+import { RegistrationModel } from '../models/registration.model';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -119,6 +120,16 @@ export class AuthService {
     params = params.append('userId', userId);
     params = params.append('email', email);
     params = params.append('name', name);
+    return this.http.post(url, params);
+  }
+
+  registration(loginModel: RegistrationModel) {
+    const url = `${environment.url}/rest/registration/registration`;
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('login', loginModel.login);
+    params = params.append('username', loginModel.name);
+    params = params.append('email', loginModel.email);
+    params = params.append('registrationId', '0873958f731ecce301732d369cbe3c29');
     return this.http.post(url, params);
   }
 }

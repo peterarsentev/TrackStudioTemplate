@@ -19,10 +19,7 @@ export class AlertMessageComponent implements OnInit {
     this.alertService.getModel().subscribe(({message, type}) => {
       this.message = message;
       this.inputType = type;
-      setTimeout(() => {
-        this.alertService.setUpMessage(undefined, undefined);
-      }, 5000)
-    })
+    });
   }
 
 }

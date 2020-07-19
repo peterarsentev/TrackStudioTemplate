@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
-import { catchError, map, switchMap, takeUntil } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { TaskCodeService } from '../../../../shared/services/task-code.service';
 import { SolutionTaskCodeModels } from '../../../../shared/models/solution.task.code.models';
 import { AlertService } from '../../../../shared/services/alertService';
@@ -23,6 +23,8 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
     solution: {}, taskcode: {}
   };
   output: string = undefined;
+  disabled: boolean;
+  private topicId: string;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -39,22 +41,24 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(params => {
           this.taskId = params.taskCodeId;
+          this.topicId = params.topicId;
           this.solutionId = params.solutionId;
           if (this.solutionId === 'new_task') {
             return this.taskCodeService.getNewTask(this.taskId)
               .pipe(
                 map(res => {
-                  res.rate.status = 1;
+                  res.status = 1;
                   return {
                     ...new SolutionTaskCodeModels(),
-                    taskcode: res.rate,
-                    solution: {... new SolutionModels(), code: res.rate.classCode, statusId: 1 }
+                    taskcode: res,
+                    solution: {... new SolutionModels(), code: res.classCode, statusId: 1 }
                   }
                 })
               )
           }
           return this.taskCodeService.getSolution(this.taskId, this.solutionId);
-        })
+        }),
+        takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => {
       this.solutionAndTaskCode = res;
     });
@@ -66,6 +70,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   }
 
   submitTask(code: string) {
+    this.disabled = true;
     const solution = this.solutionAndTaskCode.solution;
     solution.code = code;
     if (this.solutionId === 'new_task') {
@@ -77,7 +82,11 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
             return this.taskCodeService.submitSolution({...res, code})
           }),
           map(result => {
-            this.router.navigate(['task_code', `${this.taskId}`, 'solution',`${solutionId}`])
+            this.router.navigate(['task_code'], { queryParams: {
+                topicId: this.topicId,
+                taskCodeId: this.taskId,
+                solutionId: solutionId
+              } });
             return result;
           }),
           takeUntil(this.ngUnsubscribe$),
@@ -89,11 +98,17 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
             }
           )
         )
-        .subscribe(res => this.prepareResult(res))
+        .subscribe(res => {
+          this.prepareResult(res);
+          this.disabled = false;
+        })
     } else {
       this.taskCodeService.submitSolution(solution)
         .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(res => this.prepareResult(res));
+        .subscribe(res => {
+          this.prepareResult(res);
+          this.disabled = false;
+        });
     }
   }
 

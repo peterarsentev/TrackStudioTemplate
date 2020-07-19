@@ -38,12 +38,12 @@ export class TaskCodeService {
     return this.http.post<TaskCodeModel[]>(url, params);
   }
 
-  getNewTask(taskId: string): Observable<{ rate: TaskCodeModel }> {
+  getNewTask(taskId: string): Observable<TaskCodeModel> {
     const url = this.urlJedu + 'taskcode/get'
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('id', taskId);
-    return this.http.post<{ rate: TaskCodeModel }>(url, params);
+    return this.http.post<TaskCodeModel>(url, params);
   }
 
   startTask(taskId: string): Observable<SolutionModels> {

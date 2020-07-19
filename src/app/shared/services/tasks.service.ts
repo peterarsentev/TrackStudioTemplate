@@ -18,6 +18,7 @@ import {OutputModel} from '../models/output.model';
 import {CustomEncoder} from '../custom-encoder';
 import { SolvedAllCountModels } from '../models/solved.all.count.models';
 import { NavNode } from '../models/nav.node';
+import { NextPreviousSolutions } from '../models/nextPreviousSolutions';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -142,16 +143,17 @@ export class TasksService {
   getTaskCount(taskId: string, all: boolean, general: boolean): Observable<{ [total: string]: number }> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     const sessionId = localStorage.getItem('sessionId');
-    if (!!sessionId) {
+    if (!!sessionId && !!taskId) {
       params = params.append('sessionId', sessionId);
       params = params.append('taskId', taskId);
       params = params.append('filterId', general ? this.allTasksGeneral : all ? this.allTasks : this.solvedTasks);
       return this.http.post<{ [total: string]: number }>(this.url + 'size', params);
-    } else {
-      return this.authService.getDefaultProjectId()
-        .pipe(switchMap(() => this.getTaskCount(taskId, all, general)
-        ));
     }
+    // } else {
+    //   return this.authService.getDefaultProjectId()
+    //     .pipe(switchMap(() => this.getTaskCount(taskId, all, general)
+    //     ));
+    // }
   }
 
   getButtons(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{mstatuses: MStatusesModel[]}> {
@@ -160,12 +162,13 @@ export class TasksService {
     // params = params.append('action', 'categories');
     params = params.append('sessionId', sessionId);
     params = params.append('taskId', projectId);
-    return this.http.post<{mstatuses: MStatusesModel[]}>(this.url + 'categories', params)
-      .pipe(catchError(err => {
-        return this.authService.getDefaultProjectId().pipe(
-          switchMap(() => this.getButtons(projectId, localStorage.getItem('sessionId')))
-        );
-      }));
+    return this.http.post<{mstatuses: MStatusesModel[]}>(this.url + 'categories', params);
+      // .pipe(catchError(err => {
+      //   return this.authService.getDefaultProjectId().pipe(
+      //     switchMap(() => this.getButtons(projectId, localStorage.getItem('sessionId')))
+      //   );
+      // }));+
+
   }
 
   getMessages(taskId: string): Observable<{ messages: MessagesModel[] }> {
@@ -292,5 +295,13 @@ export class TasksService {
     params = taskCodeId ? params.append('taskCodeId', taskCodeId) : params;
     const url = this.urlJedu + `taskcode/navs`;
     return this.http.post<NavNode[]>(url, params);
+  }
+
+  getNextPreviousSol(taskCodeId: string): Observable<NextPreviousSolutions> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskCodeId', taskCodeId);
+    const url = this.urlJedu + `taskcode/nextPrevious`;
+    return this.http.post<NextPreviousSolutions>(url, params);
   }
 }

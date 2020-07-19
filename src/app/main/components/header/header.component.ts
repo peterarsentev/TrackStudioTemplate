@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.navShow = !(this.router.url == "/login"  || this.router.url == '/registration');
     this.userService
       .getModel()
       .pipe(takeUntil(this.ngUnsubscribe$))
@@ -45,7 +46,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .getDefaultProjectId()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {});
-    this.skipSideBar();
   }
 
   initResize() {
@@ -82,13 +82,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   goMain() {
-    this.authService
-      .login()
-      .pipe(
-        switchMap(() => this.authService.getDefaultProjectId()),
-        takeUntil(this.ngUnsubscribe$)
-      )
-      .subscribe(() => this.router.navigate(["/"], {}));
+    this.router.navigate(["/"], {});
   }
 
   getNotifications(id: string) {
@@ -113,7 +107,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.navShow = this.router.url != "/login";
+        this.navShow = !(this.router.url == "/login"  || this.router.url == '/registration')
       });
   }
 
