@@ -293,7 +293,7 @@ export class TasksService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = topicId ? params.append('topicId', topicId) : params;
     params = taskCodeId ? params.append('taskCodeId', taskCodeId) : params;
-    const url = this.urlJedu + `taskcode/navs`;
+    const url = this.urlJedu + `taskcode/breadcrumbs`;
     return this.http.post<NavNode[]>(url, params);
   }
 

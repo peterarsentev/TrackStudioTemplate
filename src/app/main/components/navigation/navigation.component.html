@@ -25,9 +25,9 @@
 <ng-container  *ngIf="show">
 <div class="row p-3" *ngFor="let message of emergency">
     <div class="card w-100">
-      <div class="card-body bg-dark text-white">
+      <div class="card-body bg-white">
         <small class="card-text">{{ message.key }}</small>
-        <pre>{{ message.value }}</pre>
+        <div>{{ message.value }}</div>
       </div>
     </div>
 </div>
