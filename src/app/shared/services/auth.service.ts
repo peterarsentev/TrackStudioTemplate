@@ -13,6 +13,8 @@ import { RegistrationModel } from '../models/registration.model';
 export class AuthService {
   public error$: Subject<string> = new Subject<string>();
   public api_Host = '';
+  private eduUrl = 'https://job4j.ru/jedu';
+  private eduUrlLocal = 'http://localhost:9090';
 
   constructor(private http: HttpClient, private userService: UserService) {
     this.initApiHost();
@@ -26,7 +28,7 @@ export class AuthService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('login', user.login);
     params = params.append('password', user.password);
-    return this.http.post(`${environment.url}/rest/auth/login`, params)
+    return this.http.post(`${this.eduUrl}/login/login`, params)
       .pipe(
         tap(this.setSessionId),
         catchError(this.handleError.bind(this))
