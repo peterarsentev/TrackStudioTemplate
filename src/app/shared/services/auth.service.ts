@@ -28,9 +28,11 @@ export class AuthService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('login', user.login);
     params = params.append('password', user.password);
-    return this.http.post(`${this.eduUrl}/login/login`, params)
+    return this.http.post(`${this.eduUrlLocal}/login/login`, params)
       .pipe(
         tap(this.setSessionId),
+        tap(response => this.userService.setUpModel(response.user)),
+        tap(() => localStorage.setItem('defaultProjectId', '1')),
         catchError(this.handleError.bind(this))
       );
   }
@@ -59,26 +61,26 @@ export class AuthService {
     params = params.append('sessionId', sessionId);
     if (!!sessionId) {
       return this.http.post<UserResponse>(`${environment.url}/rest/auth/session`, params)
-        .pipe(
-          catchError(err => {
-              localStorage.clear();
-              console.error('err', err);
-              return this.login()
-                .pipe(
-                  switchMap(res => this.getDefaultProjectId())
-                );
-            }
-          ),
-          tap(response => this.setdefaultProjectId(response.user.defaultProjectId)),
-          tap(response => this.userService.setUpModel(response.user)),
-        );
+        // .pipe(
+        //   catchError(err => {
+        //       localStorage.clear();
+        //       console.error('err', err);
+        //       return this.login()
+        //         .pipe(
+        //           switchMap(res => this.getDefaultProjectId())
+        //         );
+        //     }
+        //   ),
+        //   tap(response => this.setdefaultProjectId(response.user.defaultProjectId)),
+        //   tap(response => this.userService.setUpModel(response.user)),
+        // );
     } else {
-      return this.login()
-        .pipe(
-          switchMap(() => this.getDefaultProjectId()),
-          tap(response => this.setdefaultProjectId(response.user.defaultProjectId)),
-          tap(response => this.userService.setUpModel(response.user)),
-        )
+      // return this.login()
+      //   .pipe(
+      //     switchMap(() => this.getDefaultProjectId()),
+      //     tap(response => this.setdefaultProjectId(response.user.defaultProjectId)),
+      //     tap(response => this.userService.setUpModel(response.user)),
+      //   )
     }
   }
 
@@ -91,7 +93,7 @@ export class AuthService {
   }
 
   logOut() {
-    const url = `${environment.url}/rest/auth/logout`;
+    const url = `${this.eduUrlLocal}/login/logout`;
     const sessionId = localStorage.getItem('sessionId');
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);

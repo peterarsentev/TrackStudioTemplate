@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="container">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>№:</th>
+          <th>Название:</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let task of tasks$ | async ; let idx = index"
+            style="cursor: pointer">
+          <td (click)="showTask(task.id)">{{ idx }}</td>
+          <td (click)="showTask(task.id)">{{ task.name }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

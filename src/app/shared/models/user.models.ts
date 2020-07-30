@@ -15,7 +15,11 @@ export class UserModels {
     public  id?: string,
     public prstatusId?: string,
     public lastLogonDate?: number,
-    public email?: string
+    public email?: string,
+
+    // edu
+
+  public pwd?: string,
   ) {
   }
 }
