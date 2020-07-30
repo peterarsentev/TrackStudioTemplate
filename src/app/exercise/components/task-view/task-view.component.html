@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <button (click)="goBackToList()" class="btn btn-info">Назад к списку</button>
+  </div>
+  <div class="row">
+    Номер задачи: {{ task.number }}
+  </div>
+  <div class="row">
+    <span>Название задачи:</span> {{ task.name }}
+  </div>
+  <div class="row">
+    <div class="card-text" [innerHTML]="task.description"></div>
+  </div>
+</div>
