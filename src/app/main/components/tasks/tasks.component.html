@@ -18,7 +18,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let task of tasks; let idx = index">
-        <td (click)="openTask(task.task)" style="cursor: pointer;">
+        <td (mousedown)="openTask(task.task, $event)" style="cursor: pointer;">
           <div>
             <i *ngIf="!task.task.preferences.includes('V')" class="fas fa-folder pr-3"></i>
             <i *ngIf="task.task.preferences.includes('V')" class="fas fa-tasks pr-3"></i>

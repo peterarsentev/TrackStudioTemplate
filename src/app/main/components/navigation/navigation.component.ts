@@ -51,17 +51,31 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  goToNav(nav: TaskModel) {
+  goToNav(nav: TaskModel, event?: any) {
+    console.log(event.which)
     const action  = nav.preferences.includes('V') ? 'task' : 'tasks';
     const taskId = nav.id;
-
-    this.router.navigate([action], {
-      queryParams: {
-        action,
-        taskId
-      }
-    })
+    if (event.which === 2) {
+      this.openNewWindow(action, taskId);
+    } else {
+      this.router.navigate([action], {
+        queryParams: {
+          action,
+          taskId
+        }
+      });
+    }
   }
+
+  private openNewWindow(action: string, taskId: string) {
+    const url = `/${action}?action=${action}&taskId=${taskId}`;
+    window.open(url, '_blank');
+  }
+
+  // editUser(id: number) {
+  //   const url = `/admin/users/${id}`;
+  //   window.open(url, '_blank');
+  // }
 
   getClass(idx: number) {
     if (!!this.tasks.length && idx < this.tasks.length - 1)
@@ -122,4 +136,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     }
     this.router.navigate([`${nav.url}`]);
   }
+
+
 }

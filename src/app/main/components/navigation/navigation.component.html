@@ -2,7 +2,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb bg-white">
       <li class="breadcrumb-item small ref-link" *ngFor="let nav of tasks; let idx=index">
-        <a (click)="goToNav(nav)">
+        <a (mousedown)="goToNav(nav, $event)">
           {{ nav.nameCutted }}
         </a>
       </li>
