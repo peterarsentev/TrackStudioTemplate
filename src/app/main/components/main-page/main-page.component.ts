@@ -19,6 +19,8 @@ export class MainPageComponent implements OnInit {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   allTasksCount  = 1;
   solvedTasksCount = 0;
+  solvedExerciseCount = 0;
+  totalExerciseCount = 0;
   barValue = 0;
   mstatuses: MStatusesModel[] = [];
   tasks: ResponseModel[];
@@ -39,6 +41,7 @@ export class MainPageComponent implements OnInit {
     this.getTotalAndSolvedTasks();
     this.getProvenTasks();
     this.getNewTasks();
+    this.getSolvedAndAllExerciseCount();
   }
 
   openTask(task: TaskModel) {
@@ -126,6 +129,15 @@ export class MainPageComponent implements OnInit {
       .subscribe((res) => {
         this.newTasks = res.tasks;
       })
+  }
+
+  private getSolvedAndAllExerciseCount() {
+    this.tasksService.getSolvedAndAllExerciseCount()
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe((res) => {
+          this.solvedExerciseCount = res.solved;
+          this.totalExerciseCount = res.all;
+        })
   }
 }
 
