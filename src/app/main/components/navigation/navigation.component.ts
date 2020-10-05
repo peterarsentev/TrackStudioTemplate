@@ -68,8 +68,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   private openNewWindow(action: string, taskId: string) {
-    const url = `/${action}?action=${action}&taskId=${taskId}`;
-    window.open(url, '_blank');
+    const href = window.location.href;
+    if (href.includes('localhost')) {
+      const url = `/${action}?action=${action}&taskId=${taskId}`;
+      window.open(url, '_blank');
+    } else {
+      const url = `/edu/${action}?action=${action}&taskId=${taskId}`;
+      window.open(url, '_blank');
+    }
   }
 
   // editUser(id: number) {

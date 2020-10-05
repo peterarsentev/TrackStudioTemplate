@@ -71,8 +71,14 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   private openNewWindow(taskUrl: string, taskId: string, number: string) {
-    const url = `/${taskUrl}?action=${taskUrl}&taskId=${taskId}&number=${number}`;
-    window.open(url, '_blank');
+    const href = window.location.href;
+    if (href.includes('localhost')) {
+      const url = `/${taskUrl}?action=${taskUrl}&taskId=${taskId}&number=${number}`;
+      window.open(url, '_blank');
+    } else {
+      const url = `/edu/${taskUrl}?action=${taskUrl}&taskId=${taskId}&number=${number}`;
+      window.open(url, '_blank');
+    }
   }
 
   geButtons(taskId: string) {
