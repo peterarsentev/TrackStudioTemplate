@@ -2,83 +2,44 @@
   <div class="row">
     <div class="pb-3">
       <ng-container *ngFor="let status of mstatuses">
-        <button
-          class="m btn btn-secondary btn-sm pr-6 mr-2 text-white"
-          (click)="goToNewTask(status)"
-        >
+        <button class="m btn btn-light btn-sm pr-6 mr-2" (click)="goToNewTask(status)">
           <i class="fas fa-plus pr-1"></i>{{ status.name }}
         </button>
       </ng-container>
     </div>
   </div>
   <div class="row">
-    <table class="table text-white">
+    <table class="table">
       <thead>
-        <tr>
-          <th scope="col">{{ title }} : {{ tasks.length }}</th>
-          <th
-            scope="col"
-            *ngIf="tasks?.length && !tasks[0].task.preferences.includes('V')"
-          >
-            Прогресс
-          </th>
-        </tr>
+      <tr>
+        <th scope="col">{{ title }} : {{tasks.length}}</th>
+        <th scope="col" *ngIf="tasks?.length && !tasks[0].task.preferences.includes('V')">Прогресс</th>
+      </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let task of tasks; let idx = index">
-          <td (click)="openTask(task.task)" style="cursor: pointer;">
-            <div>
-              <i
-                *ngIf="!task.task.preferences.includes('V')"
-                class="fas fa-folder pr-3"
-              ></i>
-              <i
-                *ngIf="task.task.preferences.includes('V')"
-                class="fas fa-tasks pr-3"
-              ></i>
-              <span class="font-weight-bold"
-                >{{ task.task.name }} &nbsp;[#{{ task.task.number }}]</span
-              >
-            </div>
-            <small class="mb-2 text-muted">
-              <span *ngIf="task.task.preferences.includes('V')">
-                <span
-                  *ngIf="task.status.start"
-                  class="badge badge-danger mr-3"
-                  >{{ task.status.name }}</span
-                >
-                <span
-                  *ngIf="task.status.finish"
-                  class="badge badge-success mr-3"
-                  >{{ task.status.name }}</span
-                >
-                <span
-                  *ngIf="!(task.status.finish || task.status.start)"
-                  class="badge badge-warning mr-3"
-                  >{{ task.status.name }}</span
-                >
-                <span *ngIf="task.handler" class="mr-3"
-                  >Ответственный : {{ task.handler.name }}</span
-                >
-              </span>
-              <span class="mr-3"
-                >Создана :
-                {{ task.task.submitdate | date: "hh:mm dd.MM.yyyy" }}</span
-              >
-              <span class="mr-3"
-                >Обновлена :
-                {{ task.task.updatedate | date: "hh:mm dd.MM.yyyy" }}</span
-              >
-              <span class="mr-3" *ngIf="!task.task.preferences.includes('V')">
-                Потрачено :
-                {{ getSpentDays(task.task.submitdate, task.task.updatedate) }}
-              </span>
-            </small>
-          </td>
-          <td *ngIf="!task.task.preferences.includes('V')">
-            <app-progress-bar [task]="task.task"></app-progress-bar>
-          </td>
-        </tr>
+      <tr *ngFor="let task of tasks; let idx = index">
+        <td (mousedown)="openTask(task.task, $event)" style="cursor: pointer;">
+          <div>
+            <i *ngIf="!task.task.preferences.includes('V')" class="fas fa-folder pr-3"></i>
+            <i *ngIf="task.task.preferences.includes('V')" class="fas fa-tasks pr-3"></i>
+            <span class="font-weight-bold">{{task.task.name}} &nbsp;[#{{task.task.number}}]</span>
+          </div>
+          <small class="mb-2 text-muted">
+            <span *ngIf="task.task.preferences.includes('V')">
+              <span *ngIf="task.status.start" class="badge badge-danger mr-3">{{ task.status.name }}</span>
+              <span *ngIf="task.status.finish" class="badge badge-success mr-3">{{ task.status.name }}</span>
+              <span *ngIf="!(task.status.finish || task.status.start)" class="badge badge-warning mr-3">{{ task.status.name }}</span>
+              <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>
+            </span>
+            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
+            <span class="mr-3">Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
+            <span class="mr-3" *ngIf="!task.task.preferences.includes('V')"> Потрачено : {{ getSpentDays( task.task.submitdate, task.task.updatedate)}} </span>
+          </small>
+        </td>
+        <td *ngIf="!task.task.preferences.includes('V')">
+          <app-progress-bar [task]="task.task"></app-progress-bar>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>

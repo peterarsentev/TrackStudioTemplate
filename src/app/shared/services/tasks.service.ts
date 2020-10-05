@@ -19,6 +19,7 @@ import {CustomEncoder} from '../custom-encoder';
 import { SolvedAllCountModels } from '../models/solved.all.count.models';
 import { NavNode } from '../models/nav.node';
 import { NextPreviousSolutions } from '../models/nextPreviousSolutions';
+import { ExercisesCountModels } from '../models/exercisesCountModels';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -293,7 +294,7 @@ export class TasksService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = topicId ? params.append('topicId', topicId) : params;
     params = taskCodeId ? params.append('taskCodeId', taskCodeId) : params;
-    const url = this.urlJedu + `taskcode/navs`;
+    const url = this.urlJedu + `taskcode/breadcrumbs`;
     return this.http.post<NavNode[]>(url, params);
   }
 
@@ -303,5 +304,12 @@ export class TasksService {
     params = params.append('taskCodeId', taskCodeId);
     const url = this.urlJedu + `taskcode/nextPrevious`;
     return this.http.post<NextPreviousSolutions>(url, params);
+  }
+
+  getSolvedAndAllExerciseCount(): Observable<ExercisesCountModels> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = this.urlJedu + `taskcode/countTasks`;
+    return this.http.post<ExercisesCountModels>(url, params);
   }
 }

@@ -75,4 +75,9 @@ export class TaskCodeService {
     params = params.append('statusId', String(solution.statusId));
     return this.http.post<{ output: string, status: number }>(url, params);
   }
+
+  total(): Observable<{ [total: string]: number }> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    return this.http.post<{ [total: string]: number }>(this.urlJedu + 'taskcode/total', params);
+  }
 }

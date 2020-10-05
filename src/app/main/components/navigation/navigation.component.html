@@ -1,8 +1,8 @@
 <div class="row" *ngIf="show">
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb bg-dark">
-      <li class="breadcrumb-item small ref-link text-white" *ngFor="let nav of tasks; let idx=index">
-        <a (click)="goToNav(nav)">
+    <ol class="breadcrumb bg-white">
+      <li class="breadcrumb-item small ref-link" *ngFor="let nav of tasks; let idx=index">
+        <a (mousedown)="goToNav(nav, $event)">
           {{ nav.nameCutted }}
         </a>
       </li>
@@ -12,8 +12,8 @@
 <ng-container *ngIf="solution">
 <div class="row">
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb bg-dark">
-      <li class="breadcrumb-item small ref-link text-white" *ngFor="let nav of solutions">
+    <ol class="breadcrumb bg-white">
+      <li class="breadcrumb-item small ref-link" *ngFor="let nav of solutions">
         <a (click)="goToSol(nav)">
           {{ nav.name }}
         </a>
@@ -25,9 +25,9 @@
 <ng-container  *ngIf="show">
 <div class="row p-3" *ngFor="let message of emergency">
     <div class="card w-100">
-      <div class="card-body bg-dark text-white">
+      <div class="card-body bg-white">
         <small class="card-text">{{ message.key }}</small>
-        <pre>{{ message.value }}</pre>
+        <div>{{ message.value }}</div>
       </div>
     </div>
 </div>

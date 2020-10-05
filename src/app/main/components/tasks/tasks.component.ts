@@ -55,15 +55,24 @@ export class TasksComponent implements OnInit, OnDestroy {
     })
   }
 
-  openTask(task: TaskModel) {
+  openTask(task: TaskModel, event) {
     const url = task.preferences.includes('V') ? 'task' : 'tasks';
-    this.router.navigate([url], {
-      queryParams: {
-        action: url,
-        taskId: task.id,
-        number: task.number
-      }
-    });
+    if (event.which === 2) {
+      this.openNewWindow(url, task.id, task.number);
+    } else {
+      this.router.navigate([url], {
+        queryParams: {
+          action: url,
+          taskId: task.id,
+          number: task.number
+        }
+      });
+    }
+  }
+
+  private openNewWindow(taskUrl: string, taskId: string, number: string) {
+    const url = `/${taskUrl}?action=${taskUrl}&taskId=${taskId}&number=${number}`;
+    window.open(url, '_blank');
   }
 
   geButtons(taskId: string) {
