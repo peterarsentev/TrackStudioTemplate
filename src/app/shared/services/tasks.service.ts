@@ -20,6 +20,8 @@ import { SolvedAllCountModels } from '../models/solved.all.count.models';
 import { NavNode } from '../models/nav.node';
 import { NextPreviousSolutions } from '../models/nextPreviousSolutions';
 import { ExercisesCountModels } from '../models/exercisesCountModels';
+import { TopicModels } from '../models/topic.models';
+import { TaskTopicModel } from '../models/task.topic.model';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -29,6 +31,7 @@ export class TasksService {
   private solvedTasks = '0873958f665da72301665dce8608034b';
   private url = `${environment.url}/rest/task/`;
   urlJedu = `${environment.urlJedu}/`;
+  private eduUrlLocal = 'http://localhost:9090/';
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
   }
@@ -312,4 +315,40 @@ export class TasksService {
     const url = this.urlJedu + `taskcode/countTasks`;
     return this.http.post<ExercisesCountModels>(url, params);
   }
+
+  getTasksTopicsList(): Observable<TopicModels[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = this.eduUrlLocal + `task/topic`;
+    return this.http.post<TopicModels[]>(url, params)
+      .pipe(
+        catchError(() => {
+          this.router.navigate(['/login'])
+          return EMPTY;
+        })
+      );
+  }
+
+  getTasksByTopicId(id: string): Observable<TaskTopicModel[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('id', id);
+    const url = this.eduUrlLocal + `task/tasksByTopic`;
+    return this.http.post<TaskTopicModel[]>(url, params)
+      .pipe(
+        catchError(() => {
+          this.router.navigate(['/login'])
+          return EMPTY;
+        })
+      );
+  }
+
+  getTaskById(id: string): Observable<TaskTopicModel> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', id);
+    const url = this.eduUrlLocal + `task/get`;
+    return this.http.post<TaskTopicModel>(url, params)
+  }
+  //curl http://localhost:9090/task/get -d sessionId=GFi2T7UArRYzq4up -d taskId=1 запрос.
 }
