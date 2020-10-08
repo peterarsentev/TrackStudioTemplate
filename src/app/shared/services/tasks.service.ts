@@ -22,6 +22,7 @@ import { NextPreviousSolutions } from '../models/nextPreviousSolutions';
 import { ExercisesCountModels } from '../models/exercisesCountModels';
 import { TopicModels } from '../models/topic.models';
 import { TaskTopicModel } from '../models/task.topic.model';
+import { UserEduModels } from '../models/userEduModels';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -319,7 +320,8 @@ export class TasksService {
   getTasksTopicsList(): Observable<TopicModels[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    const url = this.eduUrlLocal + `task/topic`;
+    const url = this.urlJedu + `task/topic`;
+    console.log(this.urlJedu)
     return this.http.post<TopicModels[]>(url, params)
       .pipe(
         catchError(() => {
@@ -332,8 +334,8 @@ export class TasksService {
   getTasksByTopicId(id: string): Observable<TaskTopicModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    params = params.append('id', id);
-    const url = this.eduUrlLocal + `task/tasksByTopic`;
+    params = params.append('topicId', id);
+    const url = this.eduUrlLocal + `task/tasksByTopicId`;
     return this.http.post<TaskTopicModel[]>(url, params)
       .pipe(
         catchError(() => {
@@ -347,8 +349,15 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', id);
-    const url = this.eduUrlLocal + `task/get`;
+    const url = this.eduUrlLocal + `task/task`;
     return this.http.post<TaskTopicModel>(url, params)
   }
-  //curl http://localhost:9090/task/get -d sessionId=GFi2T7UArRYzq4up -d taskId=1 запрос.
+
+
+  getHandlers(): Observable<UserEduModels[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = this.eduUrlLocal + `user/handlers`;
+    return this.http.post<UserEduModels[]>(url, params)
+  }
 }

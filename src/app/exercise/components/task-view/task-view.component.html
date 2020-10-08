@@ -1,14 +1,138 @@
-<div class="container">
-  <div class="row">
-    <button (click)="goBackToList()" class="btn btn-info">Назад к списку</button>
+<div class="container-fluid pb-4">
+  <div class="row pb-2">
+    <span class="w-50">
+        <button class="btn btn-info btn-sm" (click)="goToComments(2)">Открыть</button>
+        <button class="ml-2 btn btn-info btn-sm" (click)="goToComments(2)">Комментировать</button>
+        <button class="ml-2 btn btn-info btn-sm" (click)="goToComments(3)">Закрыть</button>
+    </span>
+    <span class="w-50 pull-right">
+      <button type="button" class="m btn btn-light btn-sm pull-right"
+              (click)="goBackToList()"><i class="fas fa-angle-left pr-1"></i>Назад</button>
+    </span>
   </div>
   <div class="row">
-    Номер задачи: {{ task.number }}
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="grid">
+          <div class="row">
+            <div class="col-sm-10">
+              <div class="font-weight-bold">{{ task?.task?.name }}</div>
+              <div>
+                <small class="mb-2 text-muted">
+                  <span *ngIf="task.status?.start" class="badge badge-danger mr-3">{{ task.status?.statusName }}</span>
+                  <span *ngIf="task.status?.finish" class="badge badge-success mr-3">{{ task.status?.statusName }}</span>
+                  <span *ngIf="!(task.status?.finish || task.status?.start)" class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
+                  <span *ngIf="task.handler" class="mr-3">Ответственный : {{task.handler.name }}</span>
+<!--                  <span class="mr-3">Создана : {{ task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
+<!--                  <span>Обновлена : {{  task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-text" [innerHTML]="task?.task?.description"></p>
+      </div>
+    </div>
+  </div>
+<!--  <div class="row pb-2 pt-3">-->
+<!--    <span class="w-50" *ngIf="!showCommentForm">-->
+<!--      <ng-container *ngFor="let button of buttons">-->
+<!--        <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>-->
+<!--      </ng-container>-->
+<!--    </span>-->
+<!--  </div>-->
+<!--  <div class="row" *ngIf="messages.length > 0"  style="word-break: break-all;">-->
+<!--    <div class="w-100 card">-->
+<!--      <div class="card-header">-->
+<!--        <div class="font-weight-bold">Сообщения</div>-->
+<!--      </div>-->
+<!--      <div class="card-body">-->
+<!--        <table class="table">-->
+<!--          <tbody>-->
+<!--          <tr *ngFor="let message of messages"-->
+<!--              class="{{message.submitter.prstatusId === '4028816a5525e65b015525f8e0db007f' ? 'bg-light' : ''}}">-->
+<!--            <td>-->
+<!--              <div class="pb-3 small">-->
+<!--                <span>Oт <span class="font-weight-bold">{{ message.submitter.name }}</span> к <span class="font-weight-bold">{{ message.handler.name }}</span></span>-->
+<!--                <span class="pull-right">{{ message.message.time | getDate }}</span>-->
+<!--              </div>-->
+<!--              <div [innerHTML]="message.message.description | safeCode"></div>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="row pt-2" *ngIf="messages.length > 0 && !showCommentForm">-->
+<!--   <span class="w-50">-->
+<!--      <ng-container *ngFor="let button of buttons">-->
+<!--        <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>-->
+<!--      </ng-container>-->
+<!--    </span>-->
+
+<!--  </div>-->
+  <div class="row pt-2">
+    <span class="w-50">
+        <button class="btn btn-info btn-sm" (click)="goToComments(2)">Открыть</button>
+        <button class="ml-2 btn btn-info btn-sm" (click)="goToComments(2)">Комментировать</button>
+        <button class="ml-2 btn btn-info btn-sm" (click)="goToComments(3)">Закрыть</button>
+    </span>
+    <span class="w-50 pull-right">
+      <button type="button" class="m btn btn-light btn-sm pull-right"
+              (click)="goBackToList()"><i class="fas fa-angle-left pr-1"></i>Назад</button>
+    </span>
   </div>
   <div class="row">
-    <span>Название задачи:</span> {{ task.name }}
+<!--    <app-comments *ngIf="showCommentForm"-->
+<!--                  [mstatusId]="mstatusId"-->
+<!--                  [operation]="operationName"-->
+<!--                  [taskId]="task.id"-->
+<!--                  (save)="saveComment($event)"-->
+<!--    ></app-comments>-->
   </div>
-  <div class="row">
-    <div class="card-text" [innerHTML]="task.description"></div>
-  </div>
+<!--  <div *ngIf="!!task.shortname" class="row mt-lg-5" style="word-break: break-all;">-->
+<!--    <div class="w-100 card">-->
+<!--      <div class="card-header">-->
+<!--        <div class="font-weight-bold">Обсуждения. Комментариев : {{discussions.length}}</div>-->
+<!--        <div>-->
+<!--          <small class="mb-2 text-muted">-->
+<!--            Эти комментарии доступны всем ученикам. Поделитесь своим мнением о задаче,-->
+<!--            полезными ссылками, рекомендациями по решению. Не скидывайте решения целиком!-->
+<!--          </small>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="card-body">-->
+<!--        <table class="table" *ngIf="discussions.length > 0">-->
+<!--          <tbody>-->
+<!--          <tr *ngFor="let discussion of discussions">-->
+<!--            <td>-->
+<!--              <div class="pb-3 small">-->
+<!--                <span>Oт-->
+<!--                  <span class="font-weight-bold">{{ discussion.name }}</span>-->
+<!--                </span>-->
+<!--                <span class="pull-right">{{ discussion.time | getDate }}</span>-->
+<!--              </div>-->
+<!--              <div [innerHTML]="discussion.text | safeCode"></div>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div *ngIf="!!task.shortname && user?.login !== 'anonymous'" class="row pt-2">-->
+<!--   <span class="mt-3 w-50">-->
+<!--        <button class="m btn btn-info btn-sm"-->
+<!--                (click)="showDiscussionForm()">{{'Обсудить'}}</button>-->
+<!--    </span>-->
+<!--  </div>-->
+<!--  <div class="row" *ngIf="showDiscussion">-->
+<!--    <app-discussion-->
+<!--      [shortname]="task.shortname"-->
+<!--      (closeEmitter)="closeDiscussion($event)"-->
+<!--    ></app-discussion>-->
+<!--  </div>-->
 </div>

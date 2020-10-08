@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { ButtonCommentModel } from '../../../shared/models/button.comment.model';
 import { MessagesModel } from '../../../shared/models/messages.model';
 import { PreviousNextNavModels } from '../../../shared/models/previous.next.nav.models';
-import { CommentButtonsModel } from '../../../shared/models/comment.buttons.model';
+import { CommentAndButtonsModel } from '../../../shared/models/commentAndButtonsModel';
 import { StatusModel } from '../../../shared/models/status.model';
 import { UserModels } from '../../../shared/models/user.models';
 import { MessageService } from '../../../shared/services/message.service';
@@ -15,6 +15,7 @@ import { BookmarksService } from '../../../shared/services/bookmarks.service';
 import { DiscussionModel } from '../../../shared/models/discussionModel';
 import { UserService } from '../../../shared/services/user.service';
 import { RateModel } from '../../../shared/models/rate.model';
+import { CommentService } from '../../../shared/services/comment.service';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -42,9 +43,11 @@ export class TaskComponent implements OnInit, OnDestroy {
   showDiscussion: boolean;
   user: UserModels;
   rating: RateModel;
+  handlers: UserModels[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private commentService: CommentService,
               private messageService: MessageService,
               private bookmarksService: BookmarksService,
               private userService :UserService,
@@ -52,6 +55,7 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getTask();
+
   }
 
   private getTask() {
@@ -73,6 +77,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         this.getMessages(this.task.id);
         this.getButtons(this.task.id);
         this.showCommentForm = false;
+        this.getHandlersList();
         setTimeout(() => {
           document.querySelectorAll('pre code').forEach((block) => {
             if (block.parentElement && block.parentElement.className.indexOf('run_main') > -1) {
@@ -184,8 +189,21 @@ export class TaskComponent implements OnInit, OnDestroy {
     });
   }
 
-  saveComment(button: CommentButtonsModel) {
+  getHandlersList() {
+    return this.tasksService.gerResponsiblePeople(this.task.id, this.mstatusId)
+      .pipe( takeUntil(this.ngUnsubscribe$))
+      .subscribe(handlers => {
+        this.handlers = handlers.handlers;
+      })
+  }
+
+  saveComment(button: CommentAndButtonsModel) {
     this.showCommentForm = false;
+    this.tasksService.sendComment(this.task.id, this.mstatusId, button.handlerId, button.description)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => {
+        this.commentService.setUpModel(true);
+      })
     if (button.save) {
       this.getMessages(this.task.id);
       this.getButtons(this.task.id);

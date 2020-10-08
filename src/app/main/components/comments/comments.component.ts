@@ -6,7 +6,7 @@ import { TasksService } from '../../../shared/services/tasks.service';
 import { UserModels } from '../../../shared/models/user.models';
 import { Subject } from 'rxjs';
 import { CommentService } from '../../../shared/services/comment.service';
-import { CommentButtonsModel } from '../../../shared/models/comment.buttons.model';
+import { CommentAndButtonsModel } from '../../../shared/models/commentAndButtonsModel';
 
 declare var hljs: any;
 
@@ -21,8 +21,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
   @Input() mstatusId: string;
   @Input() taskId: string;
   @Input() operation: string;
-  @Output() save: EventEmitter<CommentButtonsModel> = new EventEmitter<CommentButtonsModel>();
-  handlers: UserModels[] = [];
+  @Output() save: EventEmitter<CommentAndButtonsModel> = new EventEmitter<CommentAndButtonsModel>();
+  @Input() handlers: UserModels[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   disabled: boolean;
   validationErrors = {
@@ -34,12 +34,12 @@ export class CommentsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private fb: FormBuilder,
-              private commentService: CommentService,
               private tasksService: TasksService) {};
 
   ngOnInit() {
     this.initForm();
-    this.getRoutParams();
+    this.handlers.forEach(user => user.name === 'Петр Арсентьев' ?  this.form.get('handlerId').setValue(user.id) : null)
+   // this.getRoutParams();
   }
 
   private initForm() {
@@ -49,27 +49,15 @@ export class CommentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  submitComment(button: CommentButtonsModel) {
+  submitComment(button: CommentAndButtonsModel) {
     this.disabled = true;
     const handlerId = this.form.get('handlerId').value;
-    let description = this.form.get('description').value;
-    this.tasksService.sendComment(this.taskId, this.mstatusId, handlerId, description)
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(() => {
-        this.commentService.setUpModel(true);
-        this.form.reset();
-        this.save.emit(button);
-      })
+    const description = this.form.get('description').value;
+    this.save.emit({...button, handlerId: handlerId, description: description});
+    this.form.reset();
+
   }
 
-  private getRoutParams() {
-    return this.tasksService.gerResponsiblePeople(this.taskId, this.mstatusId)
-      .pipe( takeUntil(this.ngUnsubscribe$))
-      .subscribe(handlers => {
-      this.handlers = handlers.handlers;
-      this.handlers.forEach(user => user.name === 'Петр Арсентьев' ?  this.form.get('handlerId').setValue(user.id) : null)
-    })
-  }
 
   selectPerson(user: UserModels) {
     this.form.get('handlerId').setValue(user.id);

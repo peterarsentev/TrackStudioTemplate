@@ -1,4 +1,4 @@
-export class UserEduModules {
+export class UserEduModels {
   constructor(
     public id?: number,
     public name?: string,

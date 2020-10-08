@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       { path: '', component: ExerciseListComponent },
       { path: ':id', component: TasksListComponent, resolve: {data: TasksListResolve} },
-      { path: 'task-view/:id', component: TaskViewComponent }
+      { path: ':topicId/task-view/:id', component: TaskViewComponent }
     ]
   }
 ]

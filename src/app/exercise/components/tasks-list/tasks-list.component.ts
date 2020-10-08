@@ -11,18 +11,20 @@ import { TaskTopicModel } from '../../../shared/models/task.topic.model';
 })
 export class TasksListComponent implements OnInit {
 
+  topicId;
   tasks: TaskTopicModel[] = [];
   constructor(private tasksService: TasksService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.topicId = this.route.snapshot.params.id
     this.route.data
       .pipe(pluck('data'))
       .subscribe(res => this.tasks = res);
   }
 
   showTask(id: number) {
-    this.router.navigate(['exercise', 'task-view', `${id}`]);
+    this.router.navigate(['exercise',`${this.topicId}`, 'task-view', `${id}`]);
   }
 }

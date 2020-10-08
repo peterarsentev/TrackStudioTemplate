@@ -4,22 +4,25 @@ import { NgxSummernoteModule } from 'ngx-summernote';
 import { HendlersComponent } from './components/hendlers/hendlers.component';
 import { CommonModule } from '@angular/common';
 import { RedactorComponent } from './components/redactor/redactor.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommentsComponent } from '../main/components/comments/comments.component';
 
 @NgModule({
   imports: [
     HttpClientModule,
     NgxSummernoteModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     HttpClientModule,
     NgxSummernoteModule,
     HendlersComponent,
+    CommentsComponent,
     RedactorComponent
   ],
-  declarations: [HendlersComponent, RedactorComponent]
+  declarations: [HendlersComponent, CommentsComponent, RedactorComponent]
 })
 export class SharedModule {
 

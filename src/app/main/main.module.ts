@@ -41,58 +41,58 @@ import { RegistrationComponent } from './components/registration/registration.co
 
 
 @NgModule({
-  declarations: [
-    MainLayoutComponent,
-    HeaderComponent,
-    LoginComponent,
-    MainPageComponent,
-    TaskComponent,
-    TasksComponent,
-    NavigationComponent,
-    FooterComponent,
-    ProgressBarTasksComponent,
-    CommentsComponent,
-    SafeCodePipe,
-    MessageComponent,
-    GetDatePipe,
-    NewTaskComponent,
-    DiagramComponent,
-    MessagesComponent,
-    DiscussionComponent,
-    SandboxComponent,
-    ExamComponent,
-    LeftSideBarComponent,
-    TaskNotFoundComponent,
-    TaskAccessComponent,
-    ErrorComponent,
-    TopicsComponent,
-    TaskCodeListComponent,
-    TaskCodeFormComponent,
-    TaskCodeSolutionComponent,
-    AlertMessageComponent,
-    ProgressBarViewComponent,
-    ProgressBarSolutionsComponent,
-    RegistrationComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MainRoutingModule,
-    SharedModule,
-    ChartsModule,
-    TreeModule.forRoot(),
-    CodemirrorModule
-  ],
-  entryComponents: [
-  ],
-  providers: [
-    {
-      provide: MatDialogRef,
-      useValue: {}
-    }
-  ]
+    declarations: [
+        MainLayoutComponent,
+        HeaderComponent,
+        LoginComponent,
+        MainPageComponent,
+        TaskComponent,
+        TasksComponent,
+        NavigationComponent,
+        FooterComponent,
+        ProgressBarTasksComponent,
+        SafeCodePipe,
+        MessageComponent,
+        GetDatePipe,
+        NewTaskComponent,
+        DiagramComponent,
+        MessagesComponent,
+        DiscussionComponent,
+        SandboxComponent,
+        ExamComponent,
+        LeftSideBarComponent,
+        TaskNotFoundComponent,
+        TaskAccessComponent,
+        ErrorComponent,
+        TopicsComponent,
+        TaskCodeListComponent,
+        TaskCodeFormComponent,
+        TaskCodeSolutionComponent,
+        AlertMessageComponent,
+        ProgressBarViewComponent,
+        ProgressBarSolutionsComponent,
+        RegistrationComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MainRoutingModule,
+        SharedModule,
+        ChartsModule,
+        TreeModule.forRoot(),
+        CodemirrorModule
+    ],
+    entryComponents: [],
+    exports: [
+    ],
+    providers: [
+        {
+            provide: MatDialogRef,
+            useValue: {}
+        }
+    ]
 })
 export class MainModule {
 

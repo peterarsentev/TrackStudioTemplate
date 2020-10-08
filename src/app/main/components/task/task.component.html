@@ -104,6 +104,7 @@
   <div class="row">
     <app-comments *ngIf="showCommentForm"
                   [mstatusId]="mstatusId"
+                  [handlers]="handlers"
                   [operation]="operationName"
                   [taskId]="task.id"
                   (save)="saveComment($event)"
@@ -159,7 +160,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!!task.shortname && user.login !== 'anonymous'" class="row pt-2">
+  <div *ngIf="!!task.shortname && user?.login !== 'anonymous'" class="row pt-2">
    <span class="mt-3 w-50">
         <button class="m btn btn-info btn-sm"
                 (click)="showDiscussionForm()">{{'Обсудить'}}</button>
