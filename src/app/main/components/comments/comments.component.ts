@@ -38,6 +38,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
+    console.log(this.handlers)
     this.handlers.forEach(user => user.name === 'Петр Арсентьев' ?  this.form.get('handlerId').setValue(user.id) : null)
    // this.getRoutParams();
   }

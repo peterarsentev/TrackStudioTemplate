@@ -4,7 +4,8 @@ export class TaskTopicModel {
   constructor(
     public task?: TaskModel,
     public handler?: UserEduModels,
-    public status?: TaskStatus
+    public status?: TaskStatus,
+    public solution?: Solution
   ) {
   }
 }
@@ -26,6 +27,19 @@ class TaskStatus {
     public id?: number,
     public start?: boolean,
     public statusName?: string
+  ) {
+  }
+}
+class Solution {
+  constructor(
+    public authorId: number,
+  public createdTime: number,
+  public handlerId: number,
+  public id: number,
+  public statusId: number,
+  public submitterId: number,
+  public taskId: number,
+  public updatedTime: number
   ) {
   }
 }

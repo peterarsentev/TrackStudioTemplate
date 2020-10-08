@@ -13,7 +13,11 @@ export class MessageModel {
     public budget?: number,
     public number?: string,
     public text?: string,
-    public userId?: string
+    public userId?: string,
+
+    public handlerId?: number,
+    public solutionId?: number,
+    public timeMils?: number
   ) {
   }
 }

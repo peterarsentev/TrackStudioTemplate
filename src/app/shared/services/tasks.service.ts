@@ -360,4 +360,35 @@ export class TasksService {
     const url = this.eduUrlLocal + `user/handlers`;
     return this.http.post<UserEduModels[]>(url, params)
   }
+
+  createSolutionAndAddComment(taskId: number, operationId: number, handlerId: string, description: string) {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', String(taskId));
+    params = params.append('operationId', String(operationId));
+    params = params.append('handlerId', String(handlerId));
+    params = params.append('description', description);
+    const url = this.eduUrlLocal + `task/solution`;
+    return this.http.post(url, params)
+  }
+
+  getComments(id: number): Observable<MessagesModel[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('solutionId', String(id));
+    const url = this.eduUrlLocal + `comment/solution`;
+    return this.http.post<MessagesModel[]>(url, params)
+  }
+
+  updateSolutionAndAddComment(taskId: number, solutionId: number, operationId: number, handlerId: string, description: string) {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', String(taskId));
+    params = params.append('solutionId', String(solutionId));
+    params = params.append('operationId', String(operationId));
+    params = params.append('handlerId', String(handlerId));
+    params = params.append('description', description);
+    const url = this.eduUrlLocal + `task/updateSolution`;
+    return this.http.post(url, params)
+  }
 }
