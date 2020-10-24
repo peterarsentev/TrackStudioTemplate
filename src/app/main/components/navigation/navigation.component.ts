@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { TaskModel } from '../../../shared/models/task.model';
 import { EmergencyModel } from '../../../shared/models/emergency.model';
 import { NavNode } from '../../../shared/models/nav.node';
+import { NavService } from '../../../shared/services/nav.service';
 
 @Component({
   selector: 'app-navigation',
@@ -20,30 +21,47 @@ export class NavigationComponent implements OnInit, OnDestroy {
   show = true;
   solution = false;
   solutions: NavNode[] = [];
-  @Output() emitter: EventEmitter<TaskModel[]> = new EventEmitter<TaskModel[]>();
   private taskCodeId: string;
   private topicId: string;
   private solutionId: string;
 
   constructor(private route: ActivatedRoute,
+              private navService: NavService,
               private router: Router,
               private tasksService: TasksService) { }
 
   ngOnInit() {
-    this.route.queryParams
-      .pipe(
-        switchMap(res => {
-          this.taskCodeId = res.taskCodeId;
-          this.topicId = res.topicId;
-          this.solutionId = res.solutionId;
-          return this.tasksService.getNavRout(res.taskId)
-        })
-      ).pipe(takeUntil(this.ngUnsubscribe$))
+    this.navService.getModel()
       .subscribe(res => {
-        this.tasks = res.tasks;
+        if (res) {
+          this.topicId = res.topicId ? '' + res.topicId : undefined;
+          this.taskCodeId = res.taskId ? '' + res.taskId : undefined;
+          if (this.router.url !== '/login') {
+            if (res.exercise) {
+              this.getNavsForTasks();
+            }
+            if (res.task_code) {
+              this.getNavsForSolutions();
+            }
+            if (!res.task_code && !res.exercise) {
+              this.solutions = [{...new NavNode(), name: 'Job4j', url: '/'}]
+            }
+          }
+        }
       })
+
     this.getEmergencyMessage();
-    this.checkRout();
+   // this.checkRout();
+  }
+
+  getNavsForSolutions() {
+    this.tasksService.getNavsForSolutions(this.topicId, this.taskCodeId)
+      .subscribe(res => this.solutions = res);
+  }
+
+  getNavsForTasks() {
+    this.tasksService.getNavsForTasks(this.topicId, this.taskCodeId)
+      .subscribe(res => this.solutions = res);
   }
 
   ngOnDestroy(): void {
@@ -85,9 +103,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   getClass(idx: number) {
     if (!!this.tasks.length && idx < this.tasks.length - 1)
-    return {
-      'ref-link': true
-    }
+      return {
+        'ref-link': true
+      }
   }
 
   getEmergencyMessage() {
@@ -125,23 +143,18 @@ export class NavigationComponent implements OnInit, OnDestroy {
     }
   }
 
-  goToSol(nav: NavNode) {
-    if (!!nav.taskCodeId) {
-      this.router.navigate([`${nav.url}`], {queryParams: {
-          topicId: nav.topicId,
-          solutionId: this.solutionId,
-          taskCodeId: nav.taskCodeId
-        }});
+  goToSol(nav: NavNode, idx: number) {
+    if (idx < this.solutions.length -1) {
+      if (nav.url === '/') {
+        this.navService.setUpModel({...new NavNode()})
+      }
+      if (!!nav.topicId) {
+        this.router.navigate([`${nav.url}`, `${nav.topicId}`]);
+      } else {
+        this.router.navigate([`${nav.url}`]);
+      }
       return;
     }
-    if (!!nav.topicId) {
-      this.router.navigate([`${nav.url}`], {queryParams: {
-        topicId: nav.topicId
-        }});
-      return;
-    }
-    this.router.navigate([`${nav.url}`]);
   }
-
 
 }

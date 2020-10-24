@@ -2,11 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
 import { catchError, filter, map, switchMap, takeUntil } from 'rxjs/operators';
-import { TaskCodeService } from '../../../../shared/services/task-code.service';
-import { SolutionTaskCodeModels } from '../../../../shared/models/solution.task.code.models';
-import { AlertService } from '../../../../shared/services/alertService';
-import { TypeAlertsModel } from '../../../../shared/models/type.alerts.model';
-import { SolutionModels } from '../../../../shared/models/solution.models';
+import { TaskCodeService } from '../../shared/services/task-code.service';
+import { SolutionTaskCodeModels } from '../../shared/models/solution.task.code.models';
+import { AlertService } from '../../shared/services/alertService';
+import { TypeAlertsModel } from '../../shared/models/type.alerts.model';
+import { SolutionModels } from '../../shared/models/solution.models';
+import { NavService } from '../../shared/services/nav.service';
+import { NavNode } from '../../shared/models/nav.node';
 
 @Component({
   selector: 'app-task-code-solution',
@@ -29,6 +31,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private alertService: AlertService,
+              private navService: NavService,
               private taskCodeService: TaskCodeService
   ) { }
 
@@ -37,12 +40,13 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   }
 
   private getParamsAndSolution() {
-    this.route.queryParams
+    this.route.params
       .pipe(
         switchMap(params => {
-          this.taskId = params.taskCodeId;
+          this.taskId = params.task_code_id;
           this.topicId = params.topicId;
           this.solutionId = params.solutionId;
+          this.navService.setUpModel({... new NavNode(), task_code: true, topicId: +this.topicId, taskId: +this.taskId,solutionId: this.solutionId })
           if (this.solutionId === 'new_task') {
             return this.taskCodeService.getNewTask(this.taskId)
               .pipe(

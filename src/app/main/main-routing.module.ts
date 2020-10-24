@@ -13,9 +13,6 @@ import { ExamComponent } from './components/exam/exam.component';
 import { TaskNotFoundComponent } from './components/task-not-found/task-not-found.component';
 import { TaskAccessComponent } from './components/task-access/task-access.component';
 import { ErrorComponent } from './components/error/error.component';
-import { TopicsComponent } from './components/task_code/topics/topics.component';
-import { TaskCodeListComponent } from './components/task_code/task-code/task-code-list.component';
-import { TaskCodeSolutionComponent } from './components/task_code/task-code-solution/task-code-solution.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 
 const routes: Routes = [
@@ -35,10 +32,6 @@ const routes: Routes = [
       {path: 'messages', component: MessagesComponent},
       {path: 'sandbox', component: SandboxComponent},
       {path: 'exams', component: ExamComponent},
-      {path: 'topics', component: TopicsComponent},
-      {path: 'topic', component: TaskCodeListComponent},
-      {path: 'task_code', component: TaskCodeSolutionComponent},
-
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module')
@@ -48,6 +41,11 @@ const routes: Routes = [
         path: 'exercise',
         loadChildren: () => import('../exercise/exercise.module')
           .then(mod => mod.ExerciseModule)
+      },
+      {
+        path: 'topics',
+        loadChildren: () => import('../task_code/task.code.module')
+          .then(mod => mod.TaskCodeModule)
       }
     ]
   },

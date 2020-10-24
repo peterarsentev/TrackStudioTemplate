@@ -4,14 +4,14 @@ import { NavNode } from '../models/nav.node';
 
 @Injectable({providedIn: 'root'})
 export class NavService {
-  private navSubject: Subject<NavNode[]> = new ReplaySubject<NavNode[]>(1);
-  navModel$: Observable<NavNode[]> = this.navSubject.asObservable();
+  private navSubject: Subject<NavNode> = new ReplaySubject<NavNode>(1);
+  navModel$: Observable<NavNode> = this.navSubject.asObservable();
 
-  setUpModel(navs: NavNode[]) {
+  setUpModel(navs: NavNode) {
     this.navSubject.next(navs);
   }
 
-  getModel(): Observable<NavNode[]> {
+  getModel(): Observable<NavNode> {
     return this.navModel$;
   }
 }

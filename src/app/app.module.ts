@@ -1,5 +1,5 @@
-import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
-import { NgModule, Pipe, PipeTransform, Provider } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, Provider } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +29,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     FormsModule,
     CodemirrorModule,
     SharedModule,
+  ],
+  exports: [
   ],
   providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]

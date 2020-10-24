@@ -8,6 +8,8 @@ import { UserEduModels } from '../../../shared/models/userEduModels';
 import { CommentAndButtonsModel } from '../../../shared/models/commentAndButtonsModel';
 import { CommentService } from '../../../shared/services/comment.service';
 import { MessagesModel } from '../../../shared/models/messages.model';
+import { NavService } from '../../../shared/services/nav.service';
+import { NavNode } from '../../../shared/models/nav.node';
 
 @Component({
   selector: 'app-task-view',
@@ -15,10 +17,6 @@ import { MessagesModel } from '../../../shared/models/messages.model';
   styleUrls: ['./task-view.component.scss']
 })
 export class TaskViewComponent implements OnInit, OnDestroy {
-  ngOnDestroy(): void {
-    this.ngUnsubscribe$.next();
-    this.ngUnsubscribe$.complete();
-  }
 
   topicId;
   taskId;
@@ -28,18 +26,21 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   handlers: UserEduModels[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   operation :{ name?: string, id?: number } = {};
+
   constructor(private tasksService: TasksService,
+              private navService: NavService,
               private router: Router,
               private commentService: CommentService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.topicId = this.route.snapshot.params.topicId
     this.route.params
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res =>  {
-      this.getTaskById(res.id);
-      this.taskId = res.id;
+        this.taskId = res.id;
+        this.topicId = res.topicId
+        this.navService.setUpModel({...new NavNode(), topicId: this.topicId, taskId: this.taskId, exercise: true});
+        this.getTaskById(res.id);
     })
     this.getHandlersList();
 
@@ -96,5 +97,10 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.tasksService.getComments(id)
       .subscribe(res => this.messages = res)
   }
-}
 
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
+  }
+
+}

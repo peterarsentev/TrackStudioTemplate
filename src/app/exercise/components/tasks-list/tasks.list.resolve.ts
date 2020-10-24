@@ -10,7 +10,7 @@ export class TasksListResolve implements Resolve<TaskTopicModel[]>{
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<TaskTopicModel[]>
     | Promise<TaskTopicModel[]> | TaskTopicModel[] {
-    const id = route.params.id;
+    const id = route.params.topicId;
     return this.taskService.getTasksByTopicId(id);
   }
 

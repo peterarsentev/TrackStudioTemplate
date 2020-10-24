@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TaskCodeService } from '../../../../shared/services/task-code.service';
+import { TaskCodeService } from '../../shared/services/task-code.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { TaskCodeModel } from '../../../../shared/models/task.code.models';
+import { TaskCodeModel } from '../../shared/models/task.code.models';
+import { NavService } from '../../shared/services/nav.service';
+import { NavNode } from '../../shared/models/nav.node';
 
 @Component({
   selector: 'app-task-code',
@@ -17,12 +19,16 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
 
   constructor(private taskCodeService: TaskCodeService,
               private router: Router,
+              private navService: NavService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.queryParams
+    this.route.params
       .pipe(
-        switchMap(res => this.taskCodeService.getTasksWithStatus(res.topicId))
+        switchMap(res => {
+          this.navService.setUpModel({...new NavNode(), topicId: res.topicId, task_code: true})
+          return this.taskCodeService.getTasksWithStatus(res.topicId);
+        })
       )
       .subscribe(
         res => {
@@ -38,18 +44,7 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
   }
 
   goToTasks(topicId: string, taskId: string, status: number, solutionId: number) {
-    if (status === 1) {
-      this.router.navigate(['task_code'], {queryParams: {
-          topicId,
-          taskCodeId: taskId,
-          solutionId: 'new_task'
-        }});
-    } else {
-      this.router.navigate(['task_code'], {queryParams: {
-          topicId,
-          taskCodeId: taskId,
-          solutionId
-        }})
-    }
+    const id = status === 1 ? 'new_task' : solutionId;
+    this.router.navigate(['task_code', `${taskId}`,'solution', `${id}`], {relativeTo: this.route});
   }
 }

@@ -9,7 +9,11 @@ import { TaskViewComponent } from './components/task-view/task-view.component';
 
 
 @NgModule({
-  declarations: [ExerciseListComponent, TasksListComponent, TaskViewComponent],
+  declarations: [
+    ExerciseListComponent,
+    TasksListComponent,
+    TaskViewComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,

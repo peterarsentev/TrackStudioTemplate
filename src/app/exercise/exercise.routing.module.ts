@@ -10,7 +10,7 @@ const routes: Routes = [
     path:'',
     children: [
       { path: '', component: ExerciseListComponent },
-      { path: ':id', component: TasksListComponent, resolve: {data: TasksListResolve} },
+      { path: ':topicId', component: TasksListComponent, resolve: {data: TasksListResolve} },
       { path: ':topicId/task-view/:id', component: TaskViewComponent }
     ]
   }

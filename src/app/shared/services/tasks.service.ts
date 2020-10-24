@@ -302,6 +302,15 @@ export class TasksService {
     return this.http.post<NavNode[]>(url, params);
   }
 
+  getNavsForTasks(topicId?: string, taskId?: string): Observable<NavNode[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = topicId ? params.append('topicId', topicId) : params;
+    params = taskId ? params.append('taskId', taskId) : params;
+    const url = this.urlJedu + `task/breadcrumbs`;
+    return this.http.post<NavNode[]>(url, params);
+  }
+
   getNextPreviousSol(taskCodeId: string): Observable<NextPreviousSolutions> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));

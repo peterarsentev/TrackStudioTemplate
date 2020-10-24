@@ -10,10 +10,8 @@ import { SharedModule } from '../shared/shared.module';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { TaskComponent } from './components/task/task.component';
 import { TasksComponent } from './components/tasks/tasks.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProgressBarTasksComponent } from './components/progress-bar/progres-bar-tasks/progress-bar-tasks.component';
-import { CommentsComponent } from './components/comments/comments.component';
 import { SafeCodePipe } from './safe-code.pipe';
 import { MessageComponent } from './components/message/message.component';
 import { GetDatePipe } from '../shared/get-date.pipe';
@@ -29,14 +27,7 @@ import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.c
 import { TaskNotFoundComponent } from './components/task-not-found/task-not-found.component';
 import { TaskAccessComponent } from './components/task-access/task-access.component';
 import { ErrorComponent } from './components/error/error.component';
-import { TopicsComponent } from './components/task_code/topics/topics.component';
-import { TaskCodeListComponent } from './components/task_code/task-code/task-code-list.component';
-import { TaskCodeFormComponent } from './components/task_code/task-code-form/task-code-form.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { TaskCodeSolutionComponent } from './components/task_code/task-code-solution/task-code-solution.component';
-import { AlertMessageComponent } from './components/alert-message/alert-message.component';
-import { ProgressBarViewComponent } from './components/progress-bar/progress-bar-view/progress-bar-view.component';
-import { ProgressBarSolutionsComponent } from './components/progress-bar/progress-bar-solutions/progress-bar-solutions.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 
 
@@ -48,7 +39,7 @@ import { RegistrationComponent } from './components/registration/registration.co
         MainPageComponent,
         TaskComponent,
         TasksComponent,
-        NavigationComponent,
+        // NavigationComponent,
         FooterComponent,
         ProgressBarTasksComponent,
         SafeCodePipe,
@@ -64,13 +55,6 @@ import { RegistrationComponent } from './components/registration/registration.co
         TaskNotFoundComponent,
         TaskAccessComponent,
         ErrorComponent,
-        TopicsComponent,
-        TaskCodeListComponent,
-        TaskCodeFormComponent,
-        TaskCodeSolutionComponent,
-        AlertMessageComponent,
-        ProgressBarViewComponent,
-        ProgressBarSolutionsComponent,
         RegistrationComponent
     ],
     imports: [

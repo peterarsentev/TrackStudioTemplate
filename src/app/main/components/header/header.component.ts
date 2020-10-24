@@ -6,6 +6,8 @@ import { UserModels } from "../../../shared/models/user.models";
 import { AuthService } from "../../../shared/services/auth.service";
 import { MessageService } from "../../../shared/services/message.service";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { NavService } from '../../../shared/services/nav.service';
+import { NavNode } from '../../../shared/models/nav.node';
 
 
 @Component({
@@ -26,10 +28,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private navService: NavService
   ) {}
 
   ngOnInit() {
+    if (this.router.url === '/') {
+      this.navService.setUpModel({...new NavNode()})
+    }
+    console.log(this.router.url);
     this.navShow = !(this.router.url == "/login"  || this.router.url == '/registration');
     this.userService
       .getModel()
@@ -112,8 +119,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private executor(id: string) {
-    setInterval(() => {
-      this.getNotifications(this.user.id);
-    }, 30000);
+    // setInterval(() => {
+    //   this.getNotifications(this.user.id);
+    // }, 30000);
   }
 }

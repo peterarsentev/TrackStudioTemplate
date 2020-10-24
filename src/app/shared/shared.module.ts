@@ -6,6 +6,11 @@ import { CommonModule } from '@angular/common';
 import { RedactorComponent } from './components/redactor/redactor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommentsComponent } from '../main/components/comments/comments.component';
+import { NavigationComponent } from '../main/components/navigation/navigation.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { AlertMessageComponent } from '../main/components/alert-message/alert-message.component';
+import { ProgressBarSolutionsComponent } from '../main/components/progress-bar/progress-bar-solutions/progress-bar-solutions.component';
+import { ProgressBarViewComponent } from '../main/components/progress-bar/progress-bar-view/progress-bar-view.component';
 
 @NgModule({
   imports: [
@@ -13,16 +18,31 @@ import { CommentsComponent } from '../main/components/comments/comments.componen
     NgxSummernoteModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CodemirrorModule
   ],
   exports: [
     HttpClientModule,
     NgxSummernoteModule,
     HendlersComponent,
     CommentsComponent,
-    RedactorComponent
+    RedactorComponent,
+    FormsModule,
+    NavigationComponent,
+    CodemirrorModule,
+    AlertMessageComponent,
+    ProgressBarSolutionsComponent,
+    ProgressBarViewComponent,
   ],
-  declarations: [HendlersComponent, CommentsComponent, RedactorComponent]
+  declarations: [
+    AlertMessageComponent,
+    ProgressBarSolutionsComponent,
+    HendlersComponent,
+    CommentsComponent,
+    RedactorComponent,
+    NavigationComponent,
+    ProgressBarViewComponent,
+  ]
 })
 export class SharedModule {
 
