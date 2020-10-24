@@ -1,10 +1,7 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { EMPTY, Subject } from 'rxjs';
-import { ITreeOptions, TREE_ACTIONS, TreeComponent } from 'angular-tree-component';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, take, takeUntil } from 'rxjs/operators';
-import { TaskModel } from '../../../shared/models/task.model';
-import { TreeNodeModel } from '../../../shared/models/tree.node.model';
+import { takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { BookmarksModel } from '../../../shared/models/bookmarks.model';
 import { MessageService } from '../../../shared/services/message.service';
@@ -23,44 +20,17 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   newTask = true;
   navShow = true;
   proven = true;
-  @ViewChild("tree", { static: false })
-  private tree: TreeComponent;
-  nodes: any = [];
+  tasks$ = this.taskService.getTasksTopicsList();
   items = true;
+  tasks = true;
   bookmarks: BookmarksModel[] = [];
   provenTasks: ResponseModel[] = [];
   newTasks: ResponseModel[] = [];
 
-  options: ITreeOptions = {
-    getChildren: this.getChildren.bind(this),
-    useCheckbox: false,
-    nodeHeight: 22,
-    actionMapping: {
-      mouse: {
-        click: (tree, node, $event) => {
-          let url = "";
-          if (node.hasChildren) {
-            url = "tasks";
-            TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
-          }
-          if (!node.hasChildren) {
-            url = "task";
-          }
-          this.router.navigate([url], {
-            queryParams: {
-              action: url,
-              taskId: node.data.taskId,
-              number: node.data.number,
-              tree: true,
-            },
-          });
-        },
-      },
-    },
-  };
 
   constructor(
     private router: Router,
+    private taskService: TasksService,
     private route: ActivatedRoute,
     private messageService: MessageService,
     private bookmarksService: BookmarksService,
@@ -70,7 +40,6 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadTasks();
-    this.getNavNodes();
     this.getProvenTasks();
     this.getNewTasks();
     this.getBookmarks();
@@ -82,25 +51,6 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
     this.newTask = !this.newTask;
   }
 
-  private getNavNodes() {
-    this.tasksService
-      .getNavRout("1")
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((res) => {
-        this.nodes = [
-          this.makeNode(res.tasks[0])
-        ];
-      });
-  }
-
-  makeNode(task: TaskModel): TreeNodeModel {
-    return new TreeNodeModel(
-      task.id,
-      task.name + ' [#' + task.number + ']',
-      task.childrenCount > 0,
-      task.id
-    );
-  }
 
   getProvenTasks() {
     this.tasksService
@@ -146,58 +96,6 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
     this.items = !this.items;
   }
 
-  getChildren(node: any) {
-    return this.tasksService
-      .getTaskByProjectId(node.data.taskId)
-      .pipe(
-        take(1),
-        map((res) => {
-          const children: TreeNodeModel[] = [];
-          res.tasks.forEach((t) =>
-            children.push(
-              new TreeNodeModel(
-                t.task.id,
-                t.task.name + " [#" + t.task.number + "]",
-                t.task.childrenCount > 0,
-                t.task.id,
-                t.task.parentId
-              )
-            )
-          );
-          this.tree.treeModel.getNodeById(node.data.taskId);
-          return children;
-        })
-      ).toPromise();
-  }
-
-  private getTree() {
-    this.route.queryParams
-      .pipe(
-        switchMap(res => {
-          if (res.tree) return EMPTY;
-          if (this.router.url === '/login') return EMPTY;
-          return this.tasksService.getNavRout(res.taskId);
-        })
-      ).pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => {
-        if (res) {
-          for (let i = 0; i < res.tasks.length; i++) {
-            const exists = this.tree.treeModel.getNodeById(res.tasks[i].id);
-            if (exists) {
-              exists.expand();
-              exists.focus();
-            } else {
-              setTimeout(() => {
-                const node = this.tree.treeModel.getNodeById(res.tasks[i].id);
-                node.expand();
-                node.focus();
-              }, 1000 * i);
-            }
-          }
-        }
-      });
-  }
-
   goToBook(book: BookmarksModel) {
     this.tasksService
       .getTask(book.taskId, "task", "1")
@@ -240,5 +138,9 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
 
   scroll() {
     window.scrollTo(0, 0);
+  }
+
+  showTasks() {
+    this.tasks = !this.tasks;
   }
 }
