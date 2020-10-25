@@ -30,16 +30,7 @@ private ngUnsubscribe$: Subject<void> = new Subject<void>();
   ngOnInit() {
     this.getNotificationState();
     this.userService.getModel()
-      .pipe(
-        switchMap((user) => {
-          if (!user) {
-            return this.authService.getDefaultProjectId()
-              .pipe(map(resp => resp.user));
-          }
-          return of(user);
-        }),
-        takeUntil(this.ngUnsubscribe$)
-      )
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(user => {
         this.user = user;
   });

@@ -56,11 +56,9 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     const email = this.form.get('email').value;
     const name = this.form.get('name').value;
     this.authService.updateProfile(this.user.id, email, name)
-      .pipe(
-        switchMap(() =>  this.authService.getDefaultProjectId()),
-        takeUntil(this.ngUnsubscribe$))
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {
-        this.router.navigate(['/profile'], { relativeTo: this.route });
+        this.router.navigate(['profile']);
       });
   }
 }

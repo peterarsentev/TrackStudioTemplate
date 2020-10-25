@@ -18,6 +18,8 @@ export class PasswordComponent implements OnInit, OnDestroy {
   form: FormGroup;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   user: UserModels;
+  alert: boolean;
+
   constructor(private fb:FormBuilder,
               private authService: AuthService,
               private userService: UserService,
@@ -45,9 +47,13 @@ export class PasswordComponent implements OnInit, OnDestroy {
   submit() {
     const password = this.form.get('password').value;
     const confirm = this.form.get('confirm').value;
-    this.authService.changePassword(this.user.id, password, confirm)
+    this.authService.changePassword(this.user.id, btoa(password), btoa(confirm))
       .subscribe(res => {
-        this.router.navigate(['/'])
+        this.form.disable()
+        this.alert = true;
+        setTimeout(()=>{
+          this.router.navigate(['profile'])
+        }, 1500)
         console.log(res)
       })
   }

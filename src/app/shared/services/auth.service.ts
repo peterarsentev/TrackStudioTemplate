@@ -13,8 +13,7 @@ import { RegistrationModel } from '../models/registration.model';
 export class AuthService {
   public error$: Subject<string> = new Subject<string>();
   public api_Host = '';
-  private eduUrl = 'https://job4j.ru/jedu';
-  private eduUrlLocal = 'http://localhost:9090';
+  private urlJedu = `${environment.urlJedu}/`;
 
   constructor(private http: HttpClient, private userService: UserService) {
     this.initApiHost();
@@ -28,7 +27,7 @@ export class AuthService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('login', user.login);
     params = params.append('password', user.password);
-    return this.http.post(`${this.eduUrlLocal}/login/login`, params)
+    return this.http.post(`${this.urlJedu}login/login`, params)
       .pipe(
         tap(this.setSessionId),
         tap(response => this.userService.setUpModel(response.user)),
@@ -93,7 +92,7 @@ export class AuthService {
   }
 
   logOut() {
-    const url = `${this.eduUrlLocal}/login/logout`;
+    const url = `${this.urlJedu}login/logout`;
     const sessionId = localStorage.getItem('sessionId');
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
@@ -106,7 +105,7 @@ export class AuthService {
   }
 
   changePassword(userId: string, password: string, confirm: string) {
-    const url = `${environment.url}/rest/user/password`;
+    const url = this.urlJedu + 'user/password';
     let params = new HttpParams({encoder: new CustomEncoder()});
     const sessionId = localStorage.getItem('sessionId');
     params = params.append('sessionId', sessionId);
@@ -117,14 +116,20 @@ export class AuthService {
   }
 
   updateProfile(userId: string, email: string, name: string) {
-    const url = `${environment.url}/rest/user/update`;
+    const url = this.urlJedu + 'user/update';
     const sessionId = localStorage.getItem('sessionId');
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
-    params = params.append('userId', userId);
+    params = params.append('id', userId);
     params = params.append('email', email);
     params = params.append('name', name);
-    return this.http.post(url, params);
+    return this.http.post(url, params)
+      .pipe(
+        tap(this.setSessionId),
+        tap(response => this.userService.setUpModel(response.user)),
+        tap(() => localStorage.setItem('defaultProjectId', '1')),
+        catchError(this.handleError.bind(this))
+      );
   }
 
   registration(loginModel: RegistrationModel) {
@@ -134,6 +139,14 @@ export class AuthService {
     params = params.append('username', loginModel.name);
     params = params.append('email', loginModel.email);
     params = params.append('registrationId', '0873958f731ecce301732d369cbe3c29');
+    return this.http.post(url, params);
+  }
+
+  checkSession(): Observable<AuthResponse> {
+    const url = this.urlJedu + 'user/session';
+    const sessionId = localStorage.getItem('sessionId');
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', sessionId);
     return this.http.post(url, params);
   }
 }

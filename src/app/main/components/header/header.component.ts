@@ -53,6 +53,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .getDefaultProjectId()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {});
+    this.authService.checkSession()
+      .subscribe(res => this.userService.setUpModel(res.user))
   }
 
   initResize() {
@@ -119,8 +121,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private executor(id: string) {
-    // setInterval(() => {
-    //   this.getNotifications(this.user.id);
-    // }, 30000);
+    setInterval(() => {
+      this.getNotifications(this.user.id);
+    }, 30000);
   }
 }

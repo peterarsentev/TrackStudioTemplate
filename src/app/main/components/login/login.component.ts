@@ -43,10 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     loginModel.password = this.form.get("password").value;
     this.authService
       .login(loginModel)
-      .pipe(
-        switchMap(() => this.authService.getDefaultProjectId()),
-        takeUntil(this.ngUnsubscribe$)
-      )
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(
         (res) => {
           console.log("res", res);
@@ -62,7 +59,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-
     this.form = this.fb.group({
       login: [{ value: "", disabled: this.submit }, Validators.required],
       password: [{ value: "", disabled: this.submit }, Validators.required],
@@ -80,13 +76,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   goMain() {
     this.submit = true;
-
     this.authService
       .login()
-      .pipe(
-        switchMap(() => this.authService.getDefaultProjectId()),
-        takeUntil(this.ngUnsubscribe$)
-      )
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {
         this.submit = false;
         this.route.navigate(["/"], {});
