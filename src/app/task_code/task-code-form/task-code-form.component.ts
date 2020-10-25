@@ -71,6 +71,11 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
         console.log(res)
       this.previousAndNext = res;
     })
+    setTimeout(() => {
+      document.querySelectorAll('a img').forEach((block) => {
+        block.parentElement.setAttribute('data-lightbox', 'images');
+      });
+    }, 0);
   }
 
   start() {

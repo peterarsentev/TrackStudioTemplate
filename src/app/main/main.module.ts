@@ -12,7 +12,6 @@ import { TaskComponent } from './components/task/task.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProgressBarTasksComponent } from './components/progress-bar/progres-bar-tasks/progress-bar-tasks.component';
-import { SafeCodePipe } from './safe-code.pipe';
 import { MessageComponent } from './components/message/message.component';
 import { GetDatePipe } from '../shared/get-date.pipe';
 import { NewTaskComponent } from './components/new-task/new-task.component';
@@ -42,7 +41,6 @@ import { RegistrationComponent } from './components/registration/registration.co
         // NavigationComponent,
         FooterComponent,
         ProgressBarTasksComponent,
-        SafeCodePipe,
         MessageComponent,
         GetDatePipe,
         NewTaskComponent,

@@ -11,6 +11,8 @@ import { MessagesModel } from '../../../shared/models/messages.model';
 import { NavService } from '../../../shared/services/nav.service';
 import { NavNode } from '../../../shared/models/nav.node';
 
+declare var hljs: any;
+
 @Component({
   selector: 'app-task-view',
   templateUrl: './task-view.component.html',
@@ -43,7 +45,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.getTaskById(res.id);
     })
     this.getHandlersList();
-
   }
 
   getTaskById(id: string) {
@@ -53,6 +54,11 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         if (this.task.solution) {
           this.getMessages(this.task.solution.id);
         }
+        setTimeout(() => {
+          document.querySelectorAll('a img').forEach((block) => {
+            block.parentElement.setAttribute('data-lightbox', 'images');
+          });
+        }, 0);
       });
   }
 

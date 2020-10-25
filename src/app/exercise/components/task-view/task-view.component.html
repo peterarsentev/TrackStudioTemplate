@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="card-body">
-        <p class="card-text" [innerHTML]="task?.task?.description"></p>
+        <p class="card-text" [innerHTML]="task?.task?.description | safeCode"></p>
       </div>
     </div>
   </div>

@@ -11,6 +11,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { AlertMessageComponent } from '../main/components/alert-message/alert-message.component';
 import { ProgressBarSolutionsComponent } from '../main/components/progress-bar/progress-bar-solutions/progress-bar-solutions.component';
 import { ProgressBarViewComponent } from '../main/components/progress-bar/progress-bar-view/progress-bar-view.component';
+import { SafeCodePipe } from '../main/safe-code.pipe';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { ProgressBarViewComponent } from '../main/components/progress-bar/progre
     AlertMessageComponent,
     ProgressBarSolutionsComponent,
     ProgressBarViewComponent,
+    SafeCodePipe,
   ],
   declarations: [
     AlertMessageComponent,
@@ -42,6 +44,7 @@ import { ProgressBarViewComponent } from '../main/components/progress-bar/progre
     RedactorComponent,
     NavigationComponent,
     ProgressBarViewComponent,
+    SafeCodePipe,
   ]
 })
 export class SharedModule {
