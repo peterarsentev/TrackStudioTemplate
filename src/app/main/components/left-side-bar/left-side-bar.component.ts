@@ -8,6 +8,8 @@ import { MessageService } from '../../../shared/services/message.service';
 import { BookmarksService } from '../../../shared/services/bookmarks.service';
 import { ResponseModel } from '../../../shared/models/response.model';
 import { CommentService } from '../../../shared/services/comment.service';
+import { TaskTopicModel } from '../../../shared/models/task.topic.model';
+import { VerifiedTasksModel } from '../../../shared/models/verifiedTasksModel';
 
 @Component({
   selector: 'app-left-side-bar',
@@ -24,8 +26,8 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   items = true;
   tasks = true;
   bookmarks: BookmarksModel[] = [];
-  provenTasks: ResponseModel[] = [];
-  newTasks: ResponseModel[] = [];
+  provenTasks: VerifiedTasksModel[] = [];
+  newTasks: VerifiedTasksModel[] = [];
 
 
   constructor(
@@ -54,23 +56,19 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
 
   getProvenTasks() {
     this.tasksService
-      .getTaskByProjectId(
-        localStorage.getItem("defaultProjectId"),
-        undefined,
-        "0873958f661c804c01665919befa18b9"
-      )
+      .getVerifiedTasks()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
-        this.provenTasks = res.tasks;
+        this.provenTasks = res;
       });
   }
 
   getNewTasks() {
     this.tasksService
-      .getTaskByProjectIdLimit("0873958f665da72301665dcf99c50388", "10", "0")
+      .getNewTasks()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
-        this.newTasks = res.tasks;
+        this.newTasks = res;
       });
   }
 

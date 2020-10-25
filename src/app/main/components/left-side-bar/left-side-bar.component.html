@@ -102,10 +102,8 @@
           </li>
         </ul>
       </ng-container>
-      <a
-        (click)="showProven()"
-        class="list-group-item list-group-item-action bg-info"
-      >
+      <a (click)="showProven()"
+        class="list-group-item list-group-item-action bg-info">
         Проверенные задачи
         <i *ngIf="proven" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!proven" class="fas fa-chevron-down fa_icons mr-3"></i>
@@ -114,22 +112,18 @@
         <ul class="list-unstyled">
           <li *ngFor="let task of provenTasks">
             <a (click)="scroll()"
-              [routerLink]="['/task']"
-              [queryParams]="{ taskId: task.task.id, action: 'task', number: task.task.number }"
-              class="list-group-item list-group-item-action bg-light"
-            >
+              [routerLink]="['/exercise', task.topicId, 'task-view', task.taskId]"
+              class="list-group-item list-group-item-action bg-light">
                 <span class="font-weight-bold">
-                  <i class="fas fa-tasks mr-2 bg-warning"></i
-                  >{{ task.task.name }} &nbsp;[#{{ task.task.number }}]
+                  <i class="fas fa-tasks mr-2 bg-warning"></i>
+                  {{ task.taskName }}
                 </span>
             </a>
           </li>
         </ul>
       </ng-container>
-      <a
-        (click)="showNew()"
-        class="list-group-item list-group-item-action bg-info"
-      >
+      <a (click)="showNew()"
+        class="list-group-item list-group-item-action bg-info">
         Новые задачи
         <i *ngIf="newTask" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!newTask" class="fas fa-chevron-down fa_icons mr-3"></i>
@@ -138,13 +132,11 @@
         <ul class="list-unstyled">
           <li *ngFor="let task of newTasks">
             <a (click)="scroll()"
-              [routerLink]="['/task']"
-              [queryParams]="{ action: 'task', taskId: task.task.id, number: task.task.number }"
-              class="list-group-item list-group-item-action bg-light"
-            >
+               [routerLink]="['/exercise', task.topicId, 'task-view', task.taskId]"
+              class="list-group-item list-group-item-action bg-light">
                 <span class="font-weight-bold">
-                  <i class="fas fa-tasks mr-2 bg-danger"></i
-                  >{{ task.task.name }} &nbsp;[#{{ task.task.number }}]
+                  <i class="fas fa-tasks mr-2 bg-danger"></i>
+                  {{ task.taskName }}
                 </span>
             </a>
           </li>

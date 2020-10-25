@@ -23,6 +23,7 @@ import { ExercisesCountModels } from '../models/exercisesCountModels';
 import { TopicModels } from '../models/topic.models';
 import { TaskTopicModel } from '../models/task.topic.model';
 import { UserEduModels } from '../models/userEduModels';
+import { VerifiedTasksModel } from '../models/verifiedTasksModel';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -399,5 +400,19 @@ export class TasksService {
     params = params.append('description', description);
     const url = this.eduUrlLocal + `task/updateSolution`;
     return this.http.post(url, params)
+  }
+
+  getVerifiedTasks(): Observable<VerifiedTasksModel[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = this.eduUrlLocal + `task/verified`;
+    return this.http.post<VerifiedTasksModel[]>(url, params)
+  }
+
+  getNewTasks(): Observable<VerifiedTasksModel[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = this.eduUrlLocal + `task/newTasks`;
+    return this.http.post<VerifiedTasksModel[]>(url, params)
   }
 }
