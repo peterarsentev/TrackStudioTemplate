@@ -8,19 +8,19 @@
       </thead>
       <tbody>
       <tr *ngFor="let task of provenTasks; let idx = index">
-        <td (click)="openTask(task.task)" style="cursor: pointer;">
+        <td (click)="openTask(task)" style="cursor: pointer;">
           <div>
             <span class="font-weight-bold">
               <i class="fas fa-tasks pr-3"></i>
-              {{task.task.name}} &nbsp;[#{{task.task.number}}]
+              {{task.taskName}} &nbsp;[#{{task.taskNumber}}]
             </span>
           </div>
-          <small class="mb-2 text-muted">
-            <span class="badge badge-warning mr-3">{{ task.status.name }}</span>
-            <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task?.handler.name }}</span>
-            <span class="mr-3">Создана : {{ task?.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
-            <span>Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
-          </small>
+<!--          <small class="mb-2 text-muted">-->
+<!--            <span class="badge badge-warning mr-3">{{ task.status.name }}</span>-->
+<!--            <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task?.handler.name }}</span>-->
+<!--            <span class="mr-3">Создана : {{ task?.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
+<!--            <span>Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
+<!--          </small>-->
         </td>
       </tr>
       </tbody>
@@ -35,52 +35,52 @@
       </thead>
       <tbody>
       <tr *ngFor="let task of newTasks; let idx = index">
-        <td (click)="openTask(task.task)" style="cursor: pointer;">
+        <td (click)="openTask(task)" style="cursor: pointer;">
           <div>
             <span class="font-weight-bold">
               <i class="fas fa-tasks pr-3"></i>
-              {{task.task.name}} &nbsp;[#{{task.task.number}}]
+              {{task.taskName}} &nbsp;[#{{task.taskNumber}}]
             </span>
           </div>
-          <small class="mb-2 text-muted">
-            <span class="badge badge-danger mr-3">{{ task.status.name }}</span>
-            <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>
-            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
-            <span>Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
-          </small>
+<!--          <small class="mb-2 text-muted">-->
+<!--            <span class="badge badge-danger mr-3">{{ task.status.name }}</span>-->
+<!--            <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>-->
+<!--            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
+<!--            <span>Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
+<!--          </small>-->
         </td>
       </tr>
       </tbody>
     </table>
   </div>
   <div class="row">
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Процесс обучения</th><th scope="col"></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Выполнено / всего:</td><td>{{ solvedTasksCount }} / {{ allTasksCount }}</td>
-      </tr>
-      <tr>
-        <td>Выполнено упражнений / всего:</td><td>{{ solvedExerciseCount }} / {{ totalExerciseCount }}</td>
-      </tr>
-      <tr>
-        <td>Начало обучения:</td><td>{{ submitDate | getDate }}</td>
-      </tr>
-      <tr>
-        <td>Последняя активность в курсе:</td><td>{{ updateDate | getDate }}</td>
-      </tr>
-      <tr>
-        <td>Всего дней с начала обучения:</td><td>{{ countOfDays }}</td>
-      </tr>
-      <tr>
-        <td>Количество задач в день:</td><td>{{ speed | number: '1.2-2' }}</td>
-      </tr>
-      </tbody>
-    </table>
+<!--    <table class="table">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th scope="col">Процесс обучения</th><th scope="col"></th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr>-->
+<!--        <td>Выполнено / всего:</td><td>{{ solvedTasksCount }} / {{ allTasksCount }}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>Выполнено упражнений / всего:</td><td>{{ solvedExerciseCount }} / {{ totalExerciseCount }}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>Начало обучения:</td><td>{{ submitDate | getDate }}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>Последняя активность в курсе:</td><td>{{ updateDate | getDate }}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>Всего дней с начала обучения:</td><td>{{ countOfDays }}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>Количество задач в день:</td><td>{{ speed | number: '1.2-2' }}</td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
   </div>
   <app-tasks></app-tasks>
   <div class="row pt-3">

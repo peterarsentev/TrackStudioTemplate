@@ -3,7 +3,8 @@ export class VerifiedTasksModel {
     public solutionId?: number,
     public taskId?: number,
     public taskName?: string,
-    public topicId?: number
+    public topicId?: number,
+    public taskNumber?: number
   ) {
   }
 }

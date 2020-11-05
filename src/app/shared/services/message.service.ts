@@ -31,12 +31,12 @@ export class MessageService {
     return this.http.post<MessageModel[]>(url, params);
   }
 
-  getBookmarks(): Observable<{ bookmarks: BookmarksModel[] }> {
-    let params = new HttpParams({encoder: new CustomEncoder()});
-    params = params.append('sessionId', localStorage.getItem('sessionId'));
-    const url = `${environment.url}/rest/bookmark/read`;
-    return this.http.post<{ bookmarks: BookmarksModel[] }>(url, params);
-  }
+  // getBookmarks(): Observable<{ bookmarks: BookmarksModel[] }> {
+  //   let params = new HttpParams({encoder: new CustomEncoder()});
+  //   params = params.append('sessionId', localStorage.getItem('sessionId'));
+  //   const url = `${environment.url}/rest/bookmark/read`;
+  //   return this.http.post<{ bookmarks: BookmarksModel[] }>(url, params);
+  // }
 
   addToFavorite(name: string, taskId: string, list: boolean) {
     const url = `${environment.url}/rest/bookmark/create`;

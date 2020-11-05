@@ -25,7 +25,7 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   tasks$ = this.taskService.getTasksTopicsList();
   items = true;
   tasks = true;
-  bookmarks: BookmarksModel[] = [];
+  // bookmarks: BookmarksModel[] = [];
   provenTasks: VerifiedTasksModel[] = [];
   newTasks: VerifiedTasksModel[] = [];
 
@@ -44,8 +44,8 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
     this.loadTasks();
     this.getProvenTasks();
     this.getNewTasks();
-    this.getBookmarks();
-    this.getBookSubscribe();
+    // this.getBookmarks();
+    // this.getBookSubscribe();
     // this.getTree();
   }
 
@@ -72,19 +72,19 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
       });
   }
 
-  getBookmarks() {
-    this.messageService
-      .getBookmarks()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((res) => (this.bookmarks = res.bookmarks));
-  }
+  // getBookmarks() {
+  //   this.messageService
+  //     .getBookmarks()
+  //     .pipe(takeUntil(this.ngUnsubscribe$))
+  //     .subscribe((res) => (this.bookmarks = res.bookmarks));
+  // }
 
-  private getBookSubscribe() {
-    this.bookmarksService
-      .getModel()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(() => this.getBookmarks());
-  }
+  // private getBookSubscribe() {
+  //   this.bookmarksService
+  //     .getModel()
+  //     .pipe(takeUntil(this.ngUnsubscribe$))
+  //     .subscribe(() => this.getBookmarks());
+  // }
 
   showProven() {
     this.proven = !this.proven;

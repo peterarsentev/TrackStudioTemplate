@@ -1,25 +1,6 @@
 <div id="sidebar">
   <div *ngIf="navShow" class="bg-light border-right" id="sidebar-wrapper">
     <div class="list-group list-group-flush small">
-      <a (click)="showTasks()"
-         class="list-group-item list-group-item-action bg-info">
-        Темы
-        <i *ngIf="tasks" class="fas fa-chevron-up fa_icons mr-3"></i>
-        <i *ngIf="!tasks" class="fas fa-chevron-down fa_icons mr-3"></i>
-      </a>
-      <ng-container *ngIf="!!tasks">
-        <ul class="list-unstyled">
-          <li *ngFor="let task of tasks$ | async" (click)="scroll()">
-            <a [routerLink]="['/exercise', task.id]"
-              class="list-group-item list-group-item-action bg-light">
-              <i class="fa fa-folder mr-2"></i
-              ><span class="font-weight-bold">{{ task.name }}</span>
-            </a>
-          </li>
-        </ul>
-      </ng-container>
-    </div>
-    <div class="list-group list-group-flush small">
       <a (click)="showItems()"
         class="list-group-item list-group-item-action bg-info">
         Закладки
@@ -29,21 +10,24 @@
       <ng-container *ngIf="!!items">
         <ul class="list-unstyled">
           <li (click)="scroll()">
-            <a
-              [routerLink]="['/topics']"
-              class="list-group-item list-group-item-action bg-light"
-            >
-              <i class="fas fa-info mr-2"></i
-              ><span class="font-weight-bold">Упражнения</span>
+            <a [routerLink]="['/exercise']"
+               class="list-group-item list-group-item-action bg-light">
+              <i class="fas fa-info mr-2"></i>
+              <span class="font-weight-bold">Курс</span>
+            </a>
+          </li>
+          <li (click)="scroll()">
+            <a [routerLink]="['/topics']"
+              class="list-group-item list-group-item-action bg-light">
+              <i class="fas fa-info mr-2"></i>
+              <span class="font-weight-bold">Упражнения</span>
             </a>
           </li>
           <li>
-            <a
-              [routerLink]="['/']"
-              class="list-group-item list-group-item-action bg-light"
-            >
-              <i class="fas fa-info mr-2"></i
-              ><span class="font-weight-bold">Процесс обучения</span>
+            <a [routerLink]="['/']"
+              class="list-group-item list-group-item-action bg-light">
+              <i class="fas fa-info mr-2"></i>
+              <span class="font-weight-bold">Процесс обучения</span>
             </a>
           </li>
           <li>
@@ -83,23 +67,23 @@
 <!--              ><span class="font-weight-bold">Тесты</span>-->
 <!--            </a>-->
 <!--          </li>-->
-          <li *ngFor="let book of bookmarks">
-            <a (click)="scroll()" class="list-group-item list-group-item-action bg-light">
-                <span
-                  (click)="goToBook(book)"
-                  style="cursor: pointer;"
-                  class="font-weight-bold"
-                >{{ book.name }}</span
-                >
-              <span
-                (click)="deleteBook(book)"
-                class="pull-right font-weight-bold"
-                style="cursor: pointer;"
-              >
-                  <i class="fas fa-remove" aria-hidden="true"></i>
-                </span>
-            </a>
-          </li>
+<!--          <li *ngFor="let book of bookmarks">-->
+<!--            <a (click)="scroll()" class="list-group-item list-group-item-action bg-light">-->
+<!--                <span-->
+<!--                  (click)="goToBook(book)"-->
+<!--                  style="cursor: pointer;"-->
+<!--                  class="font-weight-bold"-->
+<!--                >{{ book.name }}</span-->
+<!--                >-->
+<!--              <span-->
+<!--                (click)="deleteBook(book)"-->
+<!--                class="pull-right font-weight-bold"-->
+<!--                style="cursor: pointer;"-->
+<!--              >-->
+<!--                  <i class="fas fa-remove" aria-hidden="true"></i>-->
+<!--                </span>-->
+<!--            </a>-->
+<!--          </li>-->
         </ul>
       </ng-container>
       <a (click)="showProven()"

@@ -8,6 +8,7 @@ import { MStatusesModel } from '../../../shared/models/m.statuses.model';
 import { forkJoin, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { DiagramaModel } from '../../../shared/models/diagrama.model';
+import { VerifiedTasksModel } from '../../../shared/models/verifiedTasksModel';
 
 @Component({
   selector: 'app-main',
@@ -24,8 +25,8 @@ export class MainPageComponent implements OnInit {
   barValue = 0;
   mstatuses: MStatusesModel[] = [];
   tasks: ResponseModel[];
-  provenTasks: ResponseModel[] = [];
-  newTasks: ResponseModel[];
+  provenTasks: VerifiedTasksModel[] = [];
+  newTasks: VerifiedTasksModel[] = [];
 
   updateDate: number;
   submitDate: number;
@@ -37,74 +38,68 @@ export class MainPageComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.getCountAllAndSolvedTasks();
-    this.getTotalAndSolvedTasks();
+    // this.getCountAllAndSolvedTasks();
+    // this.getTotalAndSolvedTasks();
     this.getProvenTasks();
     this.getNewTasks();
     this.getSolvedAndAllExerciseCount();
   }
 
-  openTask(task: TaskModel) {
-      this.router.navigate(['task'], {
-        queryParams: {
-          action: 'task',
-          taskId: task.id,
-          number: task.number
-        }
-      });
+  openTask(task: VerifiedTasksModel) {
+      this.router.navigate(['exercise', `${task.topicId}`]);
   }
 
-  geButtons(taskId: string) {
-    console.log(taskId)
-    this.tasksService.getButtons(taskId)
-      .subscribe(res => this.mstatuses = res.mstatuses)
-  }
+  // geButtons(taskId: string) {
+  //   console.log(taskId)
+  //   this.tasksService.getButtons(taskId)
+  //     .subscribe(res => this.mstatuses = res.mstatuses)
+  // }
 
   goToNewTask(status: MStatusesModel) {
     this.router.navigate(['/new-task'])
   }
+  //
+  // getCountAllAndSolvedTasks() {
+  //   const defaultProjectId = localStorage.getItem('defaultProjectId');
+  //   if (!!defaultProjectId) {
+  //     forkJoin([this.tasksService.getTaskCount(defaultProjectId, true, true),
+  //       this.tasksService.getTaskCount(defaultProjectId, false, false),
+  //       this.tasksService.getTask(defaultProjectId, 'task')
+  //     ])
+  //       .pipe(takeUntil(this.ngUnsubscribe$))
+  //       .subscribe(([all, solved, stat]) => {
+  //         this.setResult(all, solved, stat);
+  //       });
+  //   } else {
+  //     this.authService.getDefaultProjectId()
+  //       .pipe(
+  //         switchMap(() => forkJoin([this.tasksService.getTaskCount(localStorage.getItem('defaultProjectId'), true, true),
+  //           this.tasksService.getTaskCount(localStorage.getItem('defaultProjectId'), false, false),
+  //           this.tasksService.getTask(localStorage.getItem('defaultProjectId'), 'task')
+  //         ]))
+  //       ).subscribe(([all, solved, stat]) => {
+  //       this.setResult(all, solved, stat);
+  //     })
+  //   }
+  // }
 
-  getCountAllAndSolvedTasks() {
-    const defaultProjectId = localStorage.getItem('defaultProjectId');
-    if (!!defaultProjectId) {
-      forkJoin([this.tasksService.getTaskCount(defaultProjectId, true, true),
-        this.tasksService.getTaskCount(defaultProjectId, false, false),
-        this.tasksService.getTask(defaultProjectId, 'task')
-      ])
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(([all, solved, stat]) => {
-          this.setResult(all, solved, stat);
-        });
-    } else {
-      this.authService.getDefaultProjectId()
-        .pipe(
-          switchMap(() => forkJoin([this.tasksService.getTaskCount(localStorage.getItem('defaultProjectId'), true, true),
-            this.tasksService.getTaskCount(localStorage.getItem('defaultProjectId'), false, false),
-            this.tasksService.getTask(localStorage.getItem('defaultProjectId'), 'task')
-          ]))
-        ).subscribe(([all, solved, stat]) => {
-        this.setResult(all, solved, stat);
-      })
-    }
-  }
+  // private setResult(all: { [p: string]: number }, solved: { [p: string]: number }, stat: ResponseModel) {
+  //   this.allTasksCount = all.total;
+  //   this.solvedTasksCount = solved.total;
+  //   this.barValue = Math.round((this.solvedTasksCount / this.allTasksCount) * 100);
+  //   this.submitDate = stat.task.submitdate;
+  //   this.updateDate = stat.task.updatedate;
+  //   this.countOfDays = Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24)
+  //   this.speed = this.solvedTasksCount / this.countOfDays;
+  // }
 
-  private setResult(all: { [p: string]: number }, solved: { [p: string]: number }, stat: ResponseModel) {
-    this.allTasksCount = all.total;
-    this.solvedTasksCount = solved.total;
-    this.barValue = Math.round((this.solvedTasksCount / this.allTasksCount) * 100);
-    this.submitDate = stat.task.submitdate;
-    this.updateDate = stat.task.updatedate;
-    this.countOfDays = Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24)
-    this.speed = this.solvedTasksCount / this.countOfDays;
-  }
-
-  getTotalAndSolvedTasks() {
-    this.tasksService.getTasks()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(tasks => {
-        tasks.tasks.forEach(task => task.task.childrenCount > 0 ? this.getProgress(task.task) : null)
-      })
-  }
+  // getTotalAndSolvedTasks() {
+  //   this.tasksService.getTasks()
+  //     .pipe(takeUntil(this.ngUnsubscribe$))
+  //     .subscribe(tasks => {
+  //       tasks.tasks.forEach(task => task.task.childrenCount > 0 ? this.getProgress(task.task) : null)
+  //     })
+  // }
 
   private getProgress(task: TaskModel) {
     forkJoin([this.tasksService.getTaskCount(task.id, true, false),
@@ -116,19 +111,21 @@ export class MainPageComponent implements OnInit {
   }
 
   getProvenTasks() {
-    this.tasksService.getTaskByProjectId(localStorage.getItem('defaultProjectId'), undefined, '0873958f661c804c01665919befa18b9')
+    this.tasksService
+      .getVerifiedTasks()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
-        this.provenTasks = res.tasks;
-      })
+        this.provenTasks = res;
+      });
   }
 
   getNewTasks() {
-    this.tasksService.getTaskByProjectIdLimit('0873958f665da72301665dcf99c50388', '10', '0')
+    this.tasksService
+      .getNewTasks()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
-        this.newTasks = res.tasks;
-      })
+        this.newTasks = res;
+      });
   }
 
   private getSolvedAndAllExerciseCount() {
