@@ -17,6 +17,9 @@ export class InterseptorService implements HttpInterceptor {
           if (err.status === 404) {
             this.router.navigate(['/prevention']);
           }
+          if (err.status === 401 || !localStorage.getItem('sessionId')) {
+            this.router.navigate(['/login'])
+          }
           return throwError(err);
         })
       );

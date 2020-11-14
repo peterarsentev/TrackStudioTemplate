@@ -123,28 +123,28 @@ export class TasksService {
       }));
   }
 
-  getNavRout(id?: string): Observable<{tasks: TaskModel[]}> {
-    id = id ? id : localStorage.getItem('defaultProjectId');
-    const sessionId =  localStorage.getItem('sessionId');
-    let params = new HttpParams({encoder: new CustomEncoder()});
-    params = params.append('sessionId', sessionId);
-    params = params.append('toId', id);
-    if (!!id && !!sessionId) {
-      return this.http.post<{ tasks: TaskModel[] }>(this.url + 'chain', params)
-        .pipe(
-          catchError(() => {
-            localStorage.clear();
-            return this.getTasks().pipe(
-              switchMap(() => this.getNavRout(id))
-            );
-          })
-        );
-    } else {
-      return this.authService.getDefaultProjectId().pipe(
-        switchMap(() => this.getNavRout(id))
-      );
-    }
-  }
+  // getNavRout(id?: string): Observable<{tasks: TaskModel[]}> {
+  //   id = id ? id : localStorage.getItem('defaultProjectId');
+  //   const sessionId =  localStorage.getItem('sessionId');
+  //   let params = new HttpParams({encoder: new CustomEncoder()});
+  //   params = params.append('sessionId', sessionId);
+  //   params = params.append('toId', id);
+  //   if (!!id && !!sessionId) {
+  //     return this.http.post<{ tasks: TaskModel[] }>(this.url + 'chain', params)
+  //       .pipe(
+  //         catchError(() => {
+  //           localStorage.clear();
+  //           return this.getTasks().pipe(
+  //             switchMap(() => this.getNavRout(id))
+  //           );
+  //         })
+  //       );
+  //   } else {
+  //     return this.authService.getDefaultProjectId().pipe(
+  //       switchMap(() => this.getNavRout(id))
+  //     );
+  //   }
+  // }
 
   getTaskCount(taskId: string, all: boolean, general: boolean): Observable<{ [total: string]: number }> {
     let params = new HttpParams({encoder: new CustomEncoder()});

@@ -31,28 +31,28 @@ export class TasksComponent implements OnInit, OnDestroy {
               private router: Router) { }
 
   ngOnInit() {
-    this.route.queryParams
-      .pipe(
-        switchMap(res => {
-          if (!!res.taskId) {
-            this.taskId = res.taskId;
-            this.geButtons(res.taskId);
-            this.title = 'Задания'
-            return this.tasksService.getTaskByProjectId(res.taskId);
-          }
-          return this.tasksService.getNavRout()
-            .pipe(
-              switchMap((res) => {
-                this.title = 'Уровни'
-                return this.tasksService.getTaskByProjectId(res.tasks[res.tasks.length - 1].id)
-              })
-            )
-        })
-      ).pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((res) => {
-      this.tasks = res.tasks;
-      this.disable = false;
-    })
+    // this.route.queryParams
+    //   .pipe(
+    //     switchMap(res => {
+    //       if (!!res.taskId) {
+    //         this.taskId = res.taskId;
+    //         this.geButtons(res.taskId);
+    //         this.title = 'Задания'
+    //         return this.tasksService.getTaskByProjectId(res.taskId);
+    //       }
+    //       return this.tasksService.getNavRout()
+    //         .pipe(
+    //           switchMap((res) => {
+    //             this.title = 'Уровни'
+    //             return this.tasksService.getTaskByProjectId(res.tasks[res.tasks.length - 1].id)
+    //           })
+    //         )
+    //     })
+    //   ).pipe(takeUntil(this.ngUnsubscribe$))
+    //   .subscribe((res) => {
+    //   this.tasks = res.tasks;
+    //   this.disable = false;
+    // })
   }
 
   openTask(task: TaskModel, event) {
