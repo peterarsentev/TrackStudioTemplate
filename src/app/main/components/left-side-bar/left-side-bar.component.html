@@ -96,11 +96,11 @@
         <ul class="list-unstyled">
           <li *ngFor="let task of provenTasks">
             <a (click)="scroll()"
-              [routerLink]="['/exercise', task.topicId, 'task-view', task.taskId]"
+              [routerLink]="['/exercise', task.task.topicId, 'task-view', task.task.taskId]"
               class="list-group-item list-group-item-action bg-light">
                 <span class="font-weight-bold">
                   <i class="fas fa-tasks mr-2 bg-warning"></i>
-                  {{ task.taskName }}
+                  {{ task.task.taskName }}
                 </span>
             </a>
           </li>

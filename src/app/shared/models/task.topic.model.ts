@@ -12,10 +12,13 @@ export class TaskTopicModel {
 class TaskModel {
   constructor(
     public id?: number,
+    public taskId?: number,
     public name?: string,
     public topicId?: number,
     public number?: string,
-    public description?: string
+    public description?: string,
+    public taskName?: string,
+    public taskNumber?: number
   ) {
   }
 }

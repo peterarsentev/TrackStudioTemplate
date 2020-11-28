@@ -9,6 +9,8 @@ import { forkJoin, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { DiagramaModel } from '../../../shared/models/diagrama.model';
 import { VerifiedTasksModel } from '../../../shared/models/verifiedTasksModel';
+import { TaskTopicModel } from '../../../shared/models/task.topic.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-main',
@@ -25,7 +27,7 @@ export class MainPageComponent implements OnInit {
   barValue = 0;
   mstatuses: MStatusesModel[] = [];
   tasks: ResponseModel[];
-  provenTasks: VerifiedTasksModel[] = [];
+  provenTasks: TaskTopicModel[] = [];
   newTasks: VerifiedTasksModel[] = [];
 
   updateDate: number;
@@ -135,6 +137,18 @@ export class MainPageComponent implements OnInit {
           this.solvedExerciseCount = res.solved;
           this.totalExerciseCount = res.all;
         })
+  }
+
+  getSpentDays(submitdate: number, updatedate: number) {
+    const days =(moment(updatedate).diff(moment(submitdate), 'days'));
+    if (days < 1) {
+      const time = ((updatedate - submitdate) / 3600000);
+      if (time < 0.1) {
+        return 'менее часа.';
+      }
+      return 'часы - ' + time + '.';
+    }
+    return 'дни - ' + days + '.';
   }
 }
 

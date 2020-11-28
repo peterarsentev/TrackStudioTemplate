@@ -402,11 +402,11 @@ export class TasksService {
     return this.http.post(url, params)
   }
 
-  getVerifiedTasks(): Observable<VerifiedTasksModel[]> {
+  getVerifiedTasks(): Observable<TaskTopicModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = this.eduUrlLocal + `task/verified`;
-    return this.http.post<VerifiedTasksModel[]>(url, params)
+    return this.http.post<TaskTopicModel[]>(url, params)
   }
 
   getNewTasks(): Observable<VerifiedTasksModel[]> {
