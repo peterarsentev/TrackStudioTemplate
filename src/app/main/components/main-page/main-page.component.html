@@ -8,7 +8,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let task of provenTasks; let idx = index">
-        <td (click)="openTask(task.task)" style="cursor: pointer;">
+        <td (click)="openTask(task)" style="cursor: pointer;">
           <div>
             <span class="font-weight-bold">
               <i class="fas fa-tasks pr-3"></i>
@@ -44,15 +44,16 @@
           <div>
             <span class="font-weight-bold">
               <i class="fas fa-tasks pr-3"></i>
-              {{task.taskName}} &nbsp;[#{{task.taskNumber}}]
+              {{task.task.taskName}} &nbsp;[#{{task.task.taskNumber}}]
             </span>
           </div>
-          <!--          <small class="mb-2 text-muted">-->
-          <!--            <span class="badge badge-danger mr-3">{{ task.status.name }}</span>-->
-          <!--            <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>-->
-          <!--            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
-          <!--            <span>Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
-          <!--          </small>-->
+          <small class="mb-2 text-muted">
+            <span>
+              <span *ngIf="task.status.start" class="badge badge-danger mr-3">{{ task.status.statusName }}</span>
+              <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>
+            </span>
+            <span class="mr-3">Создана : {{ task.handler.created | date: 'hh:mm dd.MM.yyyy' }}</span>
+          </small>
         </td>
       </tr>
       </tbody>

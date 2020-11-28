@@ -28,7 +28,7 @@ export class MainPageComponent implements OnInit {
   mstatuses: MStatusesModel[] = [];
   tasks: ResponseModel[];
   provenTasks: TaskTopicModel[] = [];
-  newTasks: VerifiedTasksModel[] = [];
+  newTasks: TaskTopicModel[] = [];
 
   updateDate: number;
   submitDate: number;
@@ -47,8 +47,8 @@ export class MainPageComponent implements OnInit {
     this.getSolvedAndAllExerciseCount();
   }
 
-  openTask(task: VerifiedTasksModel) {
-      this.router.navigate(['exercise', `${task.topicId}`]);
+  openTask(task: TaskTopicModel) {
+      this.router.navigate(['exercise', `${task.task.topicId}`, 'task-view', `${task.task.taskId}`]);
   }
 
   // geButtons(taskId: string) {

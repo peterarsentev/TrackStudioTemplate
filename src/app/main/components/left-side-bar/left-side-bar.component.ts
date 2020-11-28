@@ -27,7 +27,7 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   tasks = true;
   // bookmarks: BookmarksModel[] = [];
   provenTasks: TaskTopicModel[] = [];
-  newTasks: VerifiedTasksModel[] = [];
+  newTasks: TaskTopicModel[] = [];
 
 
   constructor(

@@ -5,7 +5,8 @@ export class UserEduModels {
     public login?: string,
     public email?: string,
     public pwd?: string,
-    public enabled?: string
+    public enabled?: string,
+    public created?: number
   ) {
   }
 }
