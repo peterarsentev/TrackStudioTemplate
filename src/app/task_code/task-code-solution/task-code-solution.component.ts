@@ -37,6 +37,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getParamsAndSolution();
+    this.alertService.setUpMessage(undefined, undefined);
   }
 
   private getParamsAndSolution() {
