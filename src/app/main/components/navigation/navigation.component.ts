@@ -32,6 +32,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.navService.getModel()
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         if (res) {
           this.topicId = res.topicId ? '' + res.topicId : undefined;
@@ -56,11 +57,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   getNavsForSolutions() {
     this.tasksService.getNavsForSolutions(this.topicId, this.taskCodeId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.solutions = res);
   }
 
   getNavsForTasks() {
     this.tasksService.getNavsForTasks(this.topicId, this.taskCodeId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.solutions = res);
   }
 
@@ -136,6 +139,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private isSolutions(url: string) {
     if (!this.show && url !== '/login') {
       this.tasksService.getNavsForSolutions(this.topicId, this.taskCodeId)
+        .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(res => {
           this.solutions = res
         })

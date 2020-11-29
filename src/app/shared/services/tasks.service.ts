@@ -415,4 +415,12 @@ export class TasksService {
     const url = this.eduUrlLocal + `task/newTasks`;
     return this.http.post<TaskTopicModel[]>(url, params)
   }
+
+  getSolvedAndAllProgressTasks(topicId: string): Observable<SolvedAllCountModels> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('topicId', topicId);
+    const url = this.urlJedu + `task/progress`;
+    return this.http.post<SolvedAllCountModels>(url, params);
+  }
 }

@@ -4,7 +4,7 @@
       <thead>
       <tr>
         <th scope="col">{{ 'Название темы:' }}</th>
-        <th scope="col"></th>
+        <th scope="col">{{ 'Прогресс' }}</th>
       </tr>
       </thead>
       <tbody>
@@ -25,6 +25,10 @@
             <!--            <span class="mr-3">Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
             <!--            <span class="mr-3" *ngIf="!task.task.preferences.includes('V')"> Потрачено : {{ getSpentDays( task.task.submitdate, task.task.updatedate)}} </span>-->
           </small>
+        </td>
+        <td>
+          <app-progress-bar-solutions [topicId]="task.id"
+          ></app-progress-bar-solutions>
         </td>
       </tr>
       </tbody>
