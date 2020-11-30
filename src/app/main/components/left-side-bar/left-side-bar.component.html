@@ -1,10 +1,10 @@
 <div id="sidebar">
-  <div *ngIf="navShow" class="bg-dark text-white border-right" id="sidebar-wrapper">
+  <div *ngIf="navShow" class="bg-light border-right" id="sidebar-wrapper">
     <div class="list-group list-group-flush small">
-      <div class="list-group-item list-group-item-action bg-secondary text-white">
+      <div class="list-group-item list-group-item-action bg-info">
         Навигация
       </div>
-      <div class="pl-3 pb-2 ">
+      <div class="pl-3 pb-2">
         <tree-root #tree
                    [nodes]="nodes" [focused]="true" [options]="options">
         </tree-root>
@@ -13,7 +13,7 @@
     <div class="list-group list-group-flush small">
       <a
         (click)="showItems()"
-        class="list-group-item list-group-item-action bg-secondary text-white"
+        class="list-group-item list-group-item-action bg-info"
       >
         Закладки
         <i *ngIf="items" class="fas fa-chevron-up fa_icons mr-3"></i>
@@ -24,7 +24,7 @@
           <li (click)="scroll()">
             <a
               [routerLink]="['/topics']"
-              class="list-group-item list-group-item-action  bg-dark text-white"
+              class="list-group-item list-group-item-action bg-light"
             >
               <i class="fas fa-info mr-2"></i
               ><span class="font-weight-bold">Упражнения</span>
@@ -33,7 +33,7 @@
           <li>
             <a
               [routerLink]="['/']"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-light"
             >
               <i class="fas fa-info mr-2"></i
               ><span class="font-weight-bold">Процесс обучения</span>
@@ -47,37 +47,30 @@
                   taskId: 'ae84b50d554cbf1d01558646352721c5',
                   number: '1151'
                 }"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-light"
             >
               <i class="fas fa-info mr-2"></i
               ><span class="font-weight-bold">Реквизиты</span>
             </a>
           </li>
           <li>
-            <a
-              [routerLink]="['/tasks']"
-              [queryParams]="{
-                  action: 'tasks',
-                  taskId: 'ae84b50d571fe2340157387103bd1a68',
-                  number: '2699'
-                }"
-              class="list-group-item list-group-item-action bg-dark text-white"
-            >
+            <a href="https://github.com/peterarsentev/job4j_features_bugs" target="_blank"
+               class="list-group-item list-group-item-action bg-light">
               <i class="fas fa-info mr-2"></i
               ><span class="font-weight-bold">Критика и предложения</span>
             </a>
           </li>
-          <li (click)="scroll()">
-            <a
-              [routerLink]="['/exams']"
-              class="list-group-item list-group-item-action bg-dark text-white"
-            >
-              <i class="fas fa-info mr-2"></i
-              ><span class="font-weight-bold">Тесты</span>
-            </a>
-          </li>
+          <!--<li (click)="scroll()">-->
+            <!--<a-->
+              <!--[routerLink]="['/exams']"-->
+              <!--class="list-group-item list-group-item-action bg-light"-->
+            <!--&gt;-->
+              <!--<i class="fas fa-info mr-2"></i-->
+              <!--&gt;<span class="font-weight-bold">Тесты</span>-->
+            <!--</a>-->
+          <!--</li>-->
           <li *ngFor="let book of bookmarks">
-            <a (click)="scroll()" class="list-group-item list-group-item-action bg-dark text-white">
+            <a (click)="scroll()" class="list-group-item list-group-item-action bg-light">
                 <span
                   (click)="goToBook(book)"
                   style="cursor: pointer;"
@@ -97,7 +90,7 @@
       </ng-container>
       <a
         (click)="showProven()"
-        class="list-group-item list-group-item-action bg-secondary text-white"
+        class="list-group-item list-group-item-action bg-info"
       >
         Проверенные задачи
         <i *ngIf="proven" class="fas fa-chevron-up fa_icons mr-3"></i>
@@ -109,7 +102,7 @@
             <a (click)="scroll()"
               [routerLink]="['/task']"
               [queryParams]="{ taskId: task.task.id, action: 'task', number: task.task.number }"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-light"
             >
                 <span class="font-weight-bold">
                   <i class="fas fa-tasks mr-2 bg-warning"></i
@@ -121,7 +114,7 @@
       </ng-container>
       <a
         (click)="showNew()"
-        class="list-group-item list-group-item-action bg-secondary text-white"
+        class="list-group-item list-group-item-action bg-info"
       >
         Новые задачи
         <i *ngIf="newTask" class="fas fa-chevron-up fa_icons mr-3"></i>
@@ -133,7 +126,7 @@
             <a (click)="scroll()"
               [routerLink]="['/task']"
               [queryParams]="{ action: 'task', taskId: task.task.id, number: task.task.number }"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-light"
             >
                 <span class="font-weight-bold">
                   <i class="fas fa-tasks mr-2 bg-danger"></i
