@@ -10,6 +10,7 @@ import { ResponseModel } from '../../../shared/models/response.model';
 import { CommentService } from '../../../shared/services/comment.service';
 import { TaskTopicModel } from '../../../shared/models/task.topic.model';
 import { VerifiedTasksModel } from '../../../shared/models/verifiedTasksModel';
+import { NavService } from '../../../shared/services/nav.service';
 
 @Component({
   selector: 'app-left-side-bar',
@@ -31,6 +32,7 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    private navService: NavService,
     private router: Router,
     private taskService: TasksService,
     private route: ActivatedRoute,
@@ -140,5 +142,9 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
 
   showTasks() {
     this.tasks = !this.tasks;
+  }
+
+  setNaw() {
+    this.navService.setUpModel({});
   }
 }
