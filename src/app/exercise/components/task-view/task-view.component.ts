@@ -128,16 +128,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         div.classList.add('pt-2');
         div.innerText = 'Вывод:';
         divEnd.classList.add('mt-3');
-        button.classList.add('mt-3');
-        button.classList.add('mb-1');
-        button.classList.add('m');
-        button.classList.add('btn');
-        button.classList.add('btn-success');
-        button.classList.add('btn-sm');
+        button.classList.add('mt-3', 'mb-1', 'm', 'btn', 'btn-success', 'btn-sm');
         const i = document.createElement('i');
-        i.classList.add('fa');
-        i.classList.add('fa-caret-right');
-        i.classList.add('mr-1');
+        i.classList.add('fa', 'fa-caret-right', 'mr-1');
         button.append(i);
         button.append('Запустить');
         block.parentElement.before(button);
