@@ -3,13 +3,17 @@
     <span class="w-50">
     <span class="w-50">
         <button *ngIf="task.status?.id === 3" class="btn btn-info btn-sm" (click)="goToComments({name: 'Комментировать', id: 2})">Открыть</button>
-        <button class="btn btn-info btn-sm" (click)="goToComments({name: 'Комментировать', id: 2})">Комментировать</button>
-        <button *ngIf="task.status?.id === 2" class="ml-2 btn btn-info btn-sm" (click)="goToComments({name: 'Закрыть', id: 3})">Закрыть</button>
+        <button class="btn btn-info btn-sm ml-1" (click)="goToComments({name: 'Комментировать', id: 2})">Комментировать</button>
+        <button *ngIf="task.status?.id === 2" class="ml-1 btn btn-info btn-sm" (click)="goToComments({name: 'Закрыть', id: 3})">Закрыть</button>
     </span>
     </span>
     <span class="w-50 pull-right">
-      <button type="button" class="m btn btn-light btn-sm pull-right"
-              (click)="goBackToList()"><i class="fas fa-angle-left pr-1"></i>Назад</button>
+      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+              (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
+      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+               (click)="goBackToList()">Следующая<i class="fas fa-angle-right pl-1"></i></button>
+      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+              (click)="goBackToList()"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
     </span>
   </div>
   <div class="row">
@@ -78,8 +82,8 @@
   <div class="row pt-2">
     <span class="w-50">
         <button *ngIf="task.status?.id === 3" class="btn btn-info btn-sm" (click)="goToComments({name: 'Комментировать', id: 2})">Открыть</button>
-        <button class="btn btn-info btn-sm" (click)="goToComments({name: 'Комментировать', id: 2})">Комментировать</button>
-        <button *ngIf="task.status?.id === 2" class="ml-2 btn btn-info btn-sm" (click)="goToComments({name: 'Закрыть', id: 3})">Закрыть</button>
+        <button class="btn btn-info btn-sm ml-1" (click)="goToComments({name: 'Комментировать', id: 2})">Комментировать</button>
+        <button *ngIf="task.status?.id === 2" class="ml-1 btn btn-info btn-sm" (click)="goToComments({name: 'Закрыть', id: 3})">Закрыть</button>
     </span>
     <span class="w-50 pull-right">
       <button type="button" class="m btn btn-light btn-sm pull-right"
