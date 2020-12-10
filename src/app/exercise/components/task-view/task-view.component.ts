@@ -44,7 +44,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.topicId = res.topicId
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, taskId: this.taskId, exercise: true});
         this.getTaskById(res.id);
-    })
+      });
     this.getHandlersList();
   }
 
@@ -64,8 +64,12 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       });
   }
 
-  goBackToList() {
-    this.router.navigate(['exercise', `${this.topicId}`])
+  goBackToList(taskId?: number) {
+    if (!taskId || taskId == -1) {
+      this.router.navigate(['exercise', `${this.topicId}`]);
+    } else {
+      this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${taskId}`]);
+    }
   }
 
   goToComments(operation: { name: string, id: number }) {
@@ -100,12 +104,19 @@ export class TaskViewComponent implements OnInit, OnDestroy {
           this.commentService.setUpModel(true);
         })
     }
-    if (button.save || button.saveAndUp) {
-      // this.getMessages(this.task.id);
-      // this.getButtons(this.task.id);
-          window.scrollTo(0, 0);
-        }
+    if (button.saveAndUp) {
+      window.scrollTo(0, 0);
     }
+    if (button.saveAndNext) {
+      if (this.task.nextId == -1) {
+        this.router.navigate(['exercise', `${this.topicId}`]);
+        window.scrollTo(0, 0);
+      } else {
+        this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${this.task.nextId}`]);
+        window.scrollTo(0, 0);
+      }
+    }
+  }
 
   private getMessages(id: number) {
     this.tasksService.getComments(id)
