@@ -112,11 +112,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   getEmergencyMessage() {
-    this.tasksService.getEmergencyMessage()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => {
-        this.emergency = res.emergency;
-      });
+    // this.tasksService.getEmergencyMessage()
+    //   .pipe(takeUntil(this.ngUnsubscribe$))
+    //   .subscribe(res => {
+    //     this.emergency = res.emergency;
+    //   });
   }
 
   private checkRout() {

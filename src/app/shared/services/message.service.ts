@@ -10,7 +10,7 @@ import {CustomEncoder} from '../custom-encoder';
 
 @Injectable({providedIn: 'root'})
 export class MessageService {
-  private url = `${environment.url}/rest/messenger/`;
+  private url = `${environment.urlJedu}/rest/messenger/`;
   urlJedu = `${environment.urlJedu}/`;
   constructor(private http: HttpClient) {}
 
@@ -39,7 +39,7 @@ export class MessageService {
   // }
 
   addToFavorite(name: string, taskId: string, list: boolean) {
-    const url = `${environment.url}/rest/bookmark/create`;
+    const url = `${environment.urlJedu}/rest/bookmark/create`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('name', name);
     params = params.append('taskId', taskId);
@@ -49,7 +49,7 @@ export class MessageService {
   }
 
   deleteBook(bookmarkId: string) {
-    const url = `${environment.url}/rest/bookmark/delete`;
+    const url = `${environment.urlJedu}/rest/bookmark/delete`;
     let params = new HttpParams();
     //params = params.append('action', 'delete');
     params = params.append('bookmarkId', bookmarkId);

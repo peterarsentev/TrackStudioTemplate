@@ -59,7 +59,7 @@ export class AuthService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     if (!!sessionId) {
-      return this.http.post<UserResponse>(`${environment.url}/rest/auth/session`, params)
+      return this.http.post<UserResponse>(`${environment.urlJedu}/login/session`, params)
         // .pipe(
         //   catchError(err => {
         //       localStorage.clear();
@@ -101,7 +101,7 @@ export class AuthService {
   }
 
   private initApiHost() {
-    this.api_Host = environment.url;
+    this.api_Host = environment.urlJedu;
   }
 
   changePassword(userId: string, password: string, confirm: string) {
@@ -133,7 +133,7 @@ export class AuthService {
   }
 
   registration(loginModel: RegistrationModel) {
-    const url = `${environment.url}/rest/registration/registration`;
+    const url = `${environment.urlJedu}/rest/registration/registration`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('login', loginModel.login);
     params = params.append('username', loginModel.name);
