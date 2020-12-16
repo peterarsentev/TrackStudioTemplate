@@ -31,7 +31,7 @@ export class TasksService {
   private allTasksGeneral = '4028808a1953022d0119537e664c0335';
   private allTasks = '0873958f665da72301665dcdf8c4032a';
   private solvedTasks = '0873958f665da72301665dce8608034b';
-  private url = `${environment.url}/rest/task/`;
+  private url = `${environment.urlJedu}/rest/task/`;
   urlJedu = `${environment.urlJedu}/`;
   private eduUrlLocal = 'http://localhost:9090/';
 
@@ -193,7 +193,7 @@ export class TasksService {
   }
 
   gerResponsiblePeople(taskId: string, mstatusId: string): Observable<{ handlers: UserModels[] }> {
-    const url = `${environment.url}/rest/message`;
+    const url = `${environment.urlJedu}/rest/message`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
@@ -210,7 +210,7 @@ export class TasksService {
   }
 
   sendComment(taskId: string, mstatusId: string, handlerId: string, description: string) {
-    const url = `${environment.url}/rest/message`;
+    const url = `${environment.urlJedu}/rest/message`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
