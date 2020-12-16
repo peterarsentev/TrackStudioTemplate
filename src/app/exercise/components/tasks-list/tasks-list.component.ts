@@ -37,12 +37,21 @@ export class TasksListComponent implements OnInit, OnDestroy {
       ).subscribe(res => this.tasks = res);
   }
 
-  showTask(id: number) {
-    this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${id}`]);
+  showTask(taskTopic: TaskTopicModel) {
+    if (taskTopic.solution) {
+      this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${taskTopic.task.id}`, 'solutionId', `${taskTopic.solution.id}`]);
+    } else {
+      this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${taskTopic.task.id}`]);
+    }
   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  getSolutionId(task: TaskTopicModel) {
+    if (!task.solution) {return ''}
+    return '[#' + task.solution.id + ']';
   }
 }

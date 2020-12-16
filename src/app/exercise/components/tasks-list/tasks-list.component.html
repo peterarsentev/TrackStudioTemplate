@@ -9,10 +9,10 @@
       </thead>
       <tbody>
       <tr *ngFor="let task of tasks; let idx = index">
-        <td (mousedown)="showTask(task.task?.id)" style="cursor: pointer;">
+        <td (mousedown)="showTask(task)" style="cursor: pointer;">
           <div>
             <i class="fas fa-tasks pr-3"></i>
-            <span class="font-weight-bold">{{task.task.name}} &nbsp;[#{{task.task.number}}]</span>
+            <span class="font-weight-bold">{{task.task.name}} &nbsp;{{getSolutionId(task)}}</span>
           </div>
           <small class="mb-2 text-muted">
             <span>

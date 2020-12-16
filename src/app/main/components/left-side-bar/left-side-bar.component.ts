@@ -55,6 +55,10 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
     this.newTask = !this.newTask;
   }
 
+  getSolutionId(task: TaskTopicModel) {
+    if (!task.solution) {return ''; }
+    return ' [#'+ task.solution.id + ']';
+  }
 
   getProvenTasks() {
     this.tasksService

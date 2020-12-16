@@ -178,4 +178,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  getSolutionId() {
+    if (!this.task.solution) {return ''; }
+    return ' [#'+ this.task.solution.id + ']';
+  }
 }

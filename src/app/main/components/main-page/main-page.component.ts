@@ -47,8 +47,19 @@ export class MainPageComponent implements OnInit {
     this.getSolvedAndAllExerciseCount();
   }
 
+  getSolutionId(task: TaskTopicModel) {
+    if (!task.solution) {return ''; }
+    return ' [#'+ task.solution.id + ']';
+  }
+
   openTask(task: TaskTopicModel) {
+    if (!task.solution) {
       this.router.navigate(['exercise', `${task.task.topicId}`, 'task-view', `${task.task.taskId}`]);
+    } else {
+      this.router
+        .navigate(
+          ['exercise', `${task.task.topicId}`, 'task-view', `${task.task.taskId}`, 'solutionId', `${task.solution.id}`]);
+    }
   }
 
   // geButtons(taskId: string) {

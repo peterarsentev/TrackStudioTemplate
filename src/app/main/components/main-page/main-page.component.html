@@ -12,7 +12,7 @@
           <div>
             <span class="font-weight-bold">
               <i class="fas fa-tasks pr-3"></i>
-              {{task.task.taskName}} &nbsp;[#{{task.task.taskNumber}}]
+              {{task.task.taskName}} &nbsp;{{getSolutionId(task)}}
             </span>
           </div>
           <small class="mb-2 text-muted">
@@ -44,7 +44,7 @@
           <div>
             <span class="font-weight-bold">
               <i class="fas fa-tasks pr-3"></i>
-              {{task.task.taskName}} &nbsp;[#{{task.task.taskNumber}}]
+              {{task.task.taskName}}
             </span>
           </div>
           <small class="mb-2 text-muted">
