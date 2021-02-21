@@ -15,7 +15,7 @@ export class InterseptorService implements HttpInterceptor {
       .pipe(
         catchError((err: HttpErrorResponse) => {
           if (err.status === 404) {
-            this.router.navigate(['/prevention']);
+            this.router.navigate(['/login']);
           }
           if (err.status === 401 || !localStorage.getItem('sessionId')) {
             this.router.navigate(['/login'])
