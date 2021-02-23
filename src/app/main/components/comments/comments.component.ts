@@ -69,9 +69,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
     return this.tasksService.gerResponsiblePeople(this.taskId, this.mstatusId)
       .pipe( takeUntil(this.ngUnsubscribe$))
       .subscribe(handlers => {
-      this.handlers = handlers.handlers;
-      this.handlers.forEach(user => user.name === 'Петр Арсентьев' ?  this.form.get('handlerId').setValue(user.id) : null)
-    })
+        this.handlers = handlers.handlers;
+        this.handlers.forEach(user => user.name === 'Петр Арсентьев' ?  this.form.get('handlerId').setValue(user.id) : null)
+      })
   }
 
   selectPerson(user: UserModels) {
@@ -87,10 +87,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
     const element = document.createElement('div');
     element.innerHTML = text;
     const message = element.textContent || element.innerText || '';
-    console.log('message', message)
-  !!message.trim().length ?
-      this.form.get('description').setValue(text) : this.form.get('description').setValue('');
-
+    !!message.trim().length ? this.form.get('description').setValue(text)
+      : this.form.get('description').setValue('');
     this.form.get('description').markAsTouched();
     this.form.get('description').markAsDirty();
   }
