@@ -15,23 +15,29 @@
         <app-redactor [titleLabel]="'Выполняется: ' + operation + '.' "
                       (outputEmitter)="setDescription($event)"
         ></app-redactor>
+        <div *ngFor="let error of validationErrors.description">
+                            <span *ngIf="form.get('description').hasError(error.type)
+                                        && (form.get('description').dirty
+                                        || form.get('description').touched)"
+                                  class="validation">{{ error.message }}</span>
+        </div>
       </div>
       <button
-        class="btn btn-primary"
+        class="btn btn-primary mt-4"
         [disabled]="form.invalid || disabled"
         (click)="form.valid && submitComment({ save: true })"
       >
         <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Сохранить</button>
       <button
-        class="btn btn-primary ml-2"
+        class="btn btn-primary ml-2  mt-4"
         [disabled]="form.invalid || disabled"
         (click)="form.valid && submitComment({ saveAndUp: true })"
       >
         <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Сохранить и перейти наверх</button>
       <button
-        class="btn btn-primary ml-2"
+        class="btn btn-primary ml-2  mt-4"
         [disabled]="form.invalid || disabled"
         (click)="form.valid && submitComment({ saveAndNext: true })"
       >
@@ -40,7 +46,7 @@
       <button
         [disabled]="disabled"
         style="float: right;"
-        class="btn btn-info ml-2"
+        class="btn btn-info ml-2  mt-4"
         (click)="closeForm()"
       >
         <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
