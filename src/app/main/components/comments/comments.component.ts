@@ -29,6 +29,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
     handlerId: [
       { type: 'required', message: 'Ответственный'}
     ],
+    description: [
+      { type: 'required', message: 'Напишите комментарий.'}
+    ]
   };
 
   constructor(private route: ActivatedRoute,
@@ -44,7 +47,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   private initForm() {
     this.form = this.fb.group({
-      description: [''],
+      description: ['', Validators.required],
       handlerId: ['', Validators.required]
     });
   }
@@ -81,7 +84,15 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   setDescription(text: string) {
-    this.form.get('description').setValue(text);
+    const element = document.createElement('div');
+    element.innerHTML = text;
+    const message = element.textContent || element.innerText || '';
+    console.log('message', message)
+  !!message.trim().length ?
+      this.form.get('description').setValue(text) : this.form.get('description').setValue('');
+
+    this.form.get('description').markAsTouched();
+    this.form.get('description').markAsDirty();
   }
 
   closeForm() {

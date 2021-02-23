@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
+import {ReplaySubject, Subject} from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -69,7 +69,7 @@ export class RedactorComponent implements OnInit, OnDestroy {
 
   text: string
   inputText$ = new Subject<string>();
-  private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  private ngUnsubscribe$: Subject<void> = new ReplaySubject<void>(1);
 
   constructor() { }
 
