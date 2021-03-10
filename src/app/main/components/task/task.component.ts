@@ -186,6 +186,9 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   saveComment(button: CommentButtonsModel) {
     this.showCommentForm = false;
+    if (button.saveAndNext) {
+      this.goTo(this.previousAndNext.next)
+    }
     if (button.save) {
       this.getMessages(this.task.id);
       this.getButtons(this.task.id);
@@ -208,9 +211,10 @@ export class TaskComponent implements OnInit, OnDestroy {
       this.getMessages(this.task.id);
       this.getButtons(this.task.id);
     }
-    if (button.saveAndNext) {
-      this.goTo(this.previousAndNext.next)
-    }
+
+    // if (button.close) {
+    //   this.goTo(this.previousAndNext.next)
+    // }
   }
 
   addToFavorite() {
