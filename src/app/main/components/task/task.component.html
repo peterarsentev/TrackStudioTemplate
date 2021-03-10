@@ -41,7 +41,7 @@
                   <span class="ml-1">{{ rating?.up }}</span>
               </span>
               <span class="pull-right mr-3">
-                  <i (click)="addToFavorite()" class="fas fa-star"></i>
+                  <i style="cursor: pointer" (click)="addToFavorite()" class="fas fa-star"></i>
               </span>
             </div>
           </div>
@@ -77,7 +77,8 @@
               class="{{message.submitter.prstatusId === '4028816a5525e65b015525f8e0db007f' ? 'bg-light' : ''}}">
             <td>
               <div class="pb-3 small">
-                <span>Oт <span class="font-weight-bold">{{ message.submitter.name }}</span> к <span class="font-weight-bold">{{ message.handler.name }}</span></span>
+                <span>{{message.message.mstatusId === '4028816a55259664015525aee8a0000c' ? 'Комментировать ' : 'Закрыть '}}
+                  от <span class="font-weight-bold">{{ message.submitter.name }}</span> к <span class="font-weight-bold">{{ message.handler.name }}</span></span>
                 <span class="pull-right">{{ message.message.time | getDate }}</span>
               </div>
               <div [innerHTML]="message.message.description | safeCode"></div>
@@ -101,7 +102,7 @@
               (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
     </span>
   </div>
-  <div class="row">
+  <div id="comment" class="row comment">
     <app-comments *ngIf="showCommentForm"
                   [mstatusId]="mstatusId"
                   [operation]="operationName"

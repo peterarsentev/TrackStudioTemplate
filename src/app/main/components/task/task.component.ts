@@ -154,8 +154,8 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.operationName = button.name;
     this.showCommentForm = true;
     setTimeout(() => {
-      const el = document.querySelector('.end')
-      el.scrollIntoView({behavior: 'smooth', block: 'end'});
+      const el = document.querySelector('.comment')
+      el.scrollIntoView({behavior: 'smooth', block: 'start'});
     }, 1)
   }
 

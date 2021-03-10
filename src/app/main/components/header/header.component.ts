@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   count: number;
   toggled = false;
   navShow = true;
+  iconComment: boolean;
 
   constructor(
     private userService: UserService,
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.iconComment = this.router.url.startsWith('/task?')
     this.navShow = !(this.router.url == "/login"  || this.router.url == '/registration');
     this.userService
       .getModel()
@@ -46,6 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .getDefaultProjectId()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {});
+    this.showIconComment();
   }
 
   initResize() {
@@ -103,11 +106,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
-  private skipSideBar() {
+  private showIconComment() {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.navShow = !(this.router.url == "/login"  || this.router.url == '/registration')
+        console.log(this.router.url)
+        this.iconComment = this.router.url.startsWith('/task?')
+        console.log(this.iconComment)
       });
   }
 
@@ -115,5 +120,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     setInterval(() => {
       this.getNotifications(this.user.id);
     }, 30000);
+  }
+
+  goToComments() {
+    setTimeout(() => {
+      const el = document.querySelector('.comment')
+      el.scrollIntoView({behavior: 'smooth', block: 'end'});
+    }, 1)
   }
 }

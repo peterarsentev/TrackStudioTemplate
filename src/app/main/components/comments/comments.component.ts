@@ -50,6 +50,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
       description: ['', Validators.required],
       handlerId: ['', Validators.required]
     });
+    if (this.operation === 'Закрыть') {
+      this.form.get('description').setValidators([]);
+      this.form.get('description').clearValidators();
+    }
   }
 
   submitComment(button: CommentButtonsModel) {
