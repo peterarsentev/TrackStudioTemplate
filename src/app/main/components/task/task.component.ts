@@ -156,7 +156,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       this.tasksService.gerResponsiblePeople(this.task.id, this.mstatusId)
         .pipe(
           map(handlers => handlers.handlers.find(user => user.name === 'Петр Арсентьев')),
-          switchMap(user => this.tasksService.sendComment(this.task.id, this.mstatusId, user.id))
+          switchMap(user => this.tasksService.sendComment(this.task.id, this.mstatusId, user.id, '  '))
         )
         .subscribe(() => this.goTo(this.previousAndNext.next));
     } else {
