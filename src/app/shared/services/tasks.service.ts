@@ -204,7 +204,7 @@ export class TasksService {
     return this.http.post<{ handlers: UserModels[] }>(this.url + 'handlers', params);
   }
 
-  sendComment(taskId: string, mstatusId: string, handlerId: string, description: string) {
+  sendComment(taskId: string, mstatusId: string, handlerId: string, description?: string) {
     const url = `${environment.url}/rest/message`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
