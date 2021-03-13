@@ -58,6 +58,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   submitComment(button: CommentButtonsModel) {
     this.disabled = true;
+    if (this.operation === 'Закрыть') {
+      button.saveAndNext = true;
+    }
     const handlerId = this.form.get('handlerId').value;
     let description = this.form.get('description').value;
     this.tasksService.sendComment(this.taskId, this.mstatusId, handlerId, description)

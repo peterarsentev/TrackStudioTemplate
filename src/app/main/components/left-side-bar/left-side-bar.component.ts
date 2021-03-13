@@ -23,7 +23,7 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   newTask = true;
   navShow = true;
   proven = true;
-  @ViewChild("tree", { static: false })
+
   private tree: TreeComponent;
   nodes: any = [];
   items = true;
@@ -240,5 +240,12 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
 
   scroll() {
     window.scrollTo(0, 0);
+  }
+
+  goToCurse() {
+    this.router.navigate(['tasks'], {queryParams: {
+      action: 'tasks',
+        taskId: localStorage.getItem('defaultProjectId')
+      }})
   }
 }

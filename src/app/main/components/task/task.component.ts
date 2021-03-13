@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import {map, switchMap, takeUntil} from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { TaskModel } from '../../../shared/models/task.model';
 import { Subject } from 'rxjs';
@@ -152,11 +152,20 @@ export class TaskComponent implements OnInit, OnDestroy {
   goToComments(button: ButtonCommentModel) {
     this.mstatusId = button.id;
     this.operationName = button.name;
-    this.showCommentForm = true;
-    setTimeout(() => {
-      const el = document.querySelector('.comment')
-      el.scrollIntoView({behavior: 'smooth', block: 'start'});
-    }, 1)
+    if (this.operationName === 'Закрыть') {
+      this.tasksService.gerResponsiblePeople(this.task.id, this.mstatusId)
+        .pipe(
+          map(handlers => handlers.handlers.find(user => user.name === 'Петр Арсентьев')),
+          switchMap(user => this.tasksService.sendComment(this.task.id, this.mstatusId, user.id))
+        )
+        .subscribe(() => this.goTo(this.previousAndNext.next));
+    } else {
+      this.showCommentForm = true;
+      setTimeout(() => {
+        const el = document.querySelector('.comment')
+        el.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }, 1)
+    }
   }
 
   private getMessages(taskId: string) {
@@ -186,6 +195,9 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   saveComment(button: CommentButtonsModel) {
     this.showCommentForm = false;
+    if (button.saveAndNext) {
+      this.goTo(this.previousAndNext.next)
+    }
     if (button.save) {
       this.getMessages(this.task.id);
       this.getButtons(this.task.id);
@@ -208,9 +220,10 @@ export class TaskComponent implements OnInit, OnDestroy {
       this.getMessages(this.task.id);
       this.getButtons(this.task.id);
     }
-    if (button.saveAndNext) {
-      this.goTo(this.previousAndNext.next)
-    }
+
+    // if (button.close) {
+    //   this.goTo(this.previousAndNext.next)
+    // }
   }
 
   addToFavorite() {
