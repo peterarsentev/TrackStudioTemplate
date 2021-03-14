@@ -120,5 +120,8 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
     if (res.status == 4) {
       this.alertService.setUpMessage("Поздравляем! Задача решена верно!", TypeAlertsModel.SUCCESS);
     }
+    setTimeout(() => {
+      this.alertService.setUpMessage(undefined);
+    }, 2000)
   }
 }
