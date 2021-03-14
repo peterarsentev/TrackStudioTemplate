@@ -110,9 +110,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        console.log(this.router.url)
         this.iconComment = this.router.url.startsWith('/task?')
-        console.log(this.iconComment)
       });
   }
 

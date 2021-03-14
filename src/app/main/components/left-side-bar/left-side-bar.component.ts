@@ -128,7 +128,10 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
     this.messageService
       .getBookmarks()
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((res) => (this.bookmarks = res.bookmarks));
+      .subscribe((res) => {
+        this.bookmarks = res.bookmarks;
+        this.bookmarksService.bookmarks = this.bookmarks;
+      });
   }
 
   private getBookSubscribe() {

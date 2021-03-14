@@ -227,7 +227,8 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   addToFavorite() {
-    if (!this.disable) {
+    const bookmarksModel = this.bookmarksService.bookmarks.find(task => task.taskId == this.task.id);
+    if (!bookmarksModel) {
       this.messageService.addToFavorite(this.task.string, this.task.id, false)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => {
