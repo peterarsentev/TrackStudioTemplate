@@ -26,8 +26,8 @@
                   <span *ngIf="status.finish" class="badge badge-success mr-3">{{ status.name }}</span>
                   <span *ngIf="!(status.finish || status.start)" class="badge badge-warning mr-3">{{ status.name }}</span>
                   <span *ngIf="handler" class="mr-3">Ответственный : {{handler.name }}</span>
-                  <span class="mr-3">Создана : {{ task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>
-                  <span>Обновлена : {{  task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>
+                  <span class="mr-3">Создана : {{ task.submitdate | date: 'HH:mm dd.MM.yyyy' }}</span>
+                  <span>Обновлена : {{  task.updatedate | date: 'HH:mm dd.MM.yyyy' }}</span>
                 </small>
               </div>
             </div>
