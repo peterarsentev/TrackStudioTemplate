@@ -1,0 +1,27 @@
+<div class="container-fluid pb-4">
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="grid">
+          <div class="row">
+            <div class="col-sm-10">
+              <div class="font-weight-bold">{{ vacancy.name }}</div>
+              <div>
+                <small class="mb-2 text-muted">
+                  <span *ngIf="!vacancy.open" class="badge badge-danger mr-3">{{ 'Черновик' }}</span>
+                  <span *ngIf="vacancy.open" class="badge badge-success mr-3">{{ 'Опубликовано' }}</span>
+                  <span class="mr-3">Создана : {{ vacancy.created | date: 'HH:mm dd.MM.yyyy' }}</span>
+                  <span>Обновлена : {{ vacancy.updated | date: 'HH:mm dd.MM.yyyy' }}</span>
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-text" [innerHTML]="vacancy.description"></p>
+      </div>
+    </div>
+  </div>
+</div>
+

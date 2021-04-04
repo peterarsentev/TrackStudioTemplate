@@ -1,0 +1,49 @@
+<ng-container *ngIf="user.login !== 'anonymous'; else auth">
+<nav class="navbar sticky-top navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/vacancies">Вакансии</a>
+  <button class="btn badge-pill" type="button" (click)="gotoDetail()">Добавить Вакансию</button>
+  <button (click)="getVac(false, true)" class="btn badge-pill">Мои Вакансии</button>
+  <button (click)="getVac(true, false)"  class="btn badge-pill">Открытые Вакансии</button>
+  <button (click)="getVac(false, false)"  class="btn badge-pill">Показать Все Вакансии</button>
+</nav>
+<div class="container-fluid">
+  <div class="row">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">{{ 'Вакансия' }}</th>
+        <th scope="col" ></th>
+        <th scope="col" ></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr  *ngFor="let vacancy of vacancies; let idx = index">
+        <td (click)="goToView(vacancy.id)" style="cursor: pointer;">
+          <div>
+            <span class="font-weight-bold">{{idx + 1 + ' '}} {{ vacancy.name }}</span>
+          </div>
+          <small class="mb-2 text-muted">
+            <span>
+              <span *ngIf="!vacancy.open" class="badge badge-danger mr-3">{{ 'Черновик' }}</span>
+              <span *ngIf="vacancy.open" class="badge badge-success mr-3">{{ 'Опубликовано' }}</span>
+              <span class="mr-3">Автор : {{ vacancy.authorName }}</span>
+            </span>
+            <span class="mr-3">Создана : {{ vacancy.created | date: 'HH:mm dd.MM.yyyy' }}</span>
+            <span class="mr-3">Обновлена : {{ vacancy.updated | date: 'HH:mm dd.MM.yyyy' }}</span>
+          </small>
+        </td>
+        <td>
+        <button *ngIf="user.id == vacancy.authorId" (click)="gotoDetail(vacancy.id)"  class="btn btn-outline-primary">Редактировать</button>
+        </td>
+        <td>
+        <button *ngIf="user.id == vacancy.authorId" (click)="delete(vacancy.id)"  class="btn btn-outline-danger">Удалить</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</ng-container>
+<ng-template #auth>
+  <h5>Вам необходимо авторизироваться для просмотра вакансий</h5>
+</ng-template>

@@ -43,6 +43,11 @@ const routes: Routes = [
         path: 'profile',
         loadChildren: () => import('../profile/profile.module')
           .then(mod => mod.ProfileModule)
+      },
+      {
+        path: 'vacancies',
+        loadChildren: () => import('../vacancies/vacancies.module')
+          .then(mod => mod.VacanciesModule)
       }
     ]
   },

@@ -1,0 +1,23 @@
+<div >
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Название вакансии</label>
+      <input formControlName="name"
+             type="email" class="form-control" id="exampleInputEmail1"
+             aria-describedby="emailHelp" placeholder="Введите название">
+    </div>
+    <div class="form-group">
+    <app-redactor [text]="form?.get('description').value"
+                  [titleLabel]="'Описание вакансии'"
+                  (outputEmitter)="setDescription($event)">
+    </app-redactor>
+    </div>
+    <div class="form-check">
+      <input [checked]="vacancy.open"
+             (change)="setOpen()"
+             type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Опубликовать</label>
+    </div>
+    <button (click)="save()" type="button" class="btn btn-primary">Сохранить</button>
+  </form>
+</div>
