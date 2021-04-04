@@ -39,6 +39,11 @@ const routes: Routes = [
           .then(mod => mod.ProfileModule)
       },
       {
+        path: 'vacancies',
+        loadChildren: () => import('../vacancies/vacancies.module')
+          .then(mod => mod.VacanciesModule)
+      },
+      {
         path: 'exercise',
         loadChildren: () => import('../exercise/exercise.module')
           .then(mod => mod.ExerciseModule)

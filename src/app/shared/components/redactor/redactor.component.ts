@@ -67,7 +67,7 @@ export class RedactorComponent implements OnInit, OnDestroy {
     codeviewIframeFilter: true
   };
 
-  text: string
+  @Input() text: string;
   inputText$ = new Subject<string>();
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
 
@@ -78,11 +78,11 @@ export class RedactorComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(500),
         takeUntil(this.ngUnsubscribe$)
-      ).subscribe(res => this.outputEmitter.emit(this.text))
+      ).subscribe(res => this.outputEmitter.emit(this.text));
   }
 
   change() {
-    this.inputText$.next(this.text.trim())
+    this.inputText$.next(this.text.trim());
   }
 
   ngOnDestroy(): void {
