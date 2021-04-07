@@ -74,11 +74,11 @@
         <table class="table">
           <tbody>
           <tr *ngFor="let message of messages"
-              class="{{message.submitter.prstatusId === '4028816a5525e65b015525f8e0db007f' ? 'bg-light' : ''}}">
+              class="{{message.submitter.prstatusId === '4028816a5525e65b015525f8e0db007f' ? 'bg-warning' : ''}}">
             <td>
               <div class="pb-3 small">
                 <span>{{message.message.mstatusId === '4028816a55259664015525aee8a0000c' ? 'Комментировать ' : 'Закрыть '}}
-                  от <span class="font-weight-bold">{{ message.submitter.name }}</span> к <span class="font-weight-bold">{{ message.handler.name }}</span></span>
+                  от <span class="font-weight-bold">{{ message.submitter.name }} {{message.submitter.prstatusId === '4028816a5525e65b015525f8e0db007f' ? '[Ментор]' : ''}}</span> к <span class="font-weight-bold">{{ message.handler.name }}</span></span>
                 <span class="pull-right">{{ message.message.time | getDate }}</span>
               </div>
               <div [innerHTML]="message.message.description | safeCode"></div>
