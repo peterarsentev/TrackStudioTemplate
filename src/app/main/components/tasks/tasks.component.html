@@ -33,7 +33,6 @@
             </span>
             <span class="mr-3">Создана : {{ task.task.submitdate | date: 'HH:mm dd.MM.yyyy' }}</span>
             <span class="mr-3">Обновлена : {{  task.task.updatedate | date: 'HH:mm dd.MM.yyyy' }}</span>
-            <span class="mr-3" *ngIf="!task.task.preferences.includes('V')"> Потрачено : {{ getSpentDays( task.task.submitdate, task.task.updatedate)}} </span>
           </small>
         </td>
         <td *ngIf="!task.task.preferences.includes('V')">
