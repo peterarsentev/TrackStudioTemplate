@@ -13,6 +13,6 @@
            id="{{idx}}" name="groupOfDefaultRadios"
            [checked]="handler.name === 'Петр Арсентьев'"
            (change)="select(handler)">
-    <label class="custom-control-label" for="{{idx}}">{{ handler.name }}</label>
+    <label class="custom-control-label" for="{{idx}}">{{ handler.name }} {{ handler.prstatusId === '4028816a5525e65b015525f8e0db007f' ? '[Ментор]' : '[Ученик]'}}</label>
   </div>
 </div>
