@@ -33,7 +33,6 @@ export class TasksService {
   private solvedTasks = '0873958f665da72301665dce8608034b';
   private url = `${environment.urlJedu}/rest/task/`;
   urlJedu = `${environment.urlJedu}/`;
-  private eduUrlLocal = 'http://localhost:9090/';
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
   }
@@ -345,7 +344,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('topicId', id);
-    const url = this.eduUrlLocal + `task/tasksByTopicId`;
+    const url = this.urlJedu + `task/tasksByTopicId`;
     return this.http.post<TaskTopicModel[]>(url, params)
       .pipe(
         catchError(() => {
@@ -359,7 +358,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', id);
-    const url = this.eduUrlLocal + `task/task`;
+    const url = this.urlJedu + `task/task`;
     return this.http.post<TaskTopicModel>(url, params)
   }
 
@@ -367,7 +366,7 @@ export class TasksService {
   getHandlers(): Observable<UserEduModels[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    const url = this.eduUrlLocal + `user/handlers`;
+    const url = this.urlJedu + `user/handlers`;
     return this.http.post<UserEduModels[]>(url, params)
   }
 
@@ -378,7 +377,7 @@ export class TasksService {
     params = params.append('operationId', String(operationId));
     params = params.append('handlerId', String(handlerId));
     params = params.append('description', description);
-    const url = this.eduUrlLocal + `task/solution`;
+    const url = this.urlJedu + `task/solution`;
     return this.http.post(url, params)
   }
 
@@ -386,7 +385,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('solutionId', String(id));
-    const url = this.eduUrlLocal + `comment/solution`;
+    const url = this.urlJedu + `comment/solution`;
     return this.http.post<MessagesModel[]>(url, params)
   }
 
@@ -398,21 +397,21 @@ export class TasksService {
     params = params.append('operationId', String(operationId));
     params = params.append('handlerId', String(handlerId));
     params = params.append('description', description);
-    const url = this.eduUrlLocal + `task/updateSolution`;
+    const url = this.urlJedu + `task/updateSolution`;
     return this.http.post(url, params)
   }
 
   getVerifiedTasks(): Observable<TaskTopicModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    const url = this.eduUrlLocal + `task/verified`;
+    const url = this.urlJedu + `task/verified`;
     return this.http.post<TaskTopicModel[]>(url, params)
   }
 
   getNewTasks(): Observable<TaskTopicModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    const url = this.eduUrlLocal + `task/newTasks`;
+    const url = this.urlJedu + `task/newTasks`;
     return this.http.post<TaskTopicModel[]>(url, params)
   }
 
