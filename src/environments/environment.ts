@@ -6,7 +6,7 @@ import { Environment } from './interface';
 
 export const environment: Environment = {
   production: false,
-  urlJedu: 'https://localhost:9070'
+  urlJedu: 'http://localhost:9070'
 };
 
 /*
