@@ -86,8 +86,12 @@
         <button *ngIf="task.status?.id === 2" class="ml-1 btn btn-info btn-sm" (click)="goToComments({name: 'Закрыть', id: 3})">Закрыть</button>
     </span>
     <span class="w-50 pull-right">
-      <button type="button" class="m btn btn-light btn-sm pull-right"
-              (click)="goBackToList()"><i class="fas fa-angle-left pr-1"></i>Назад</button>
+      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+              (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
+      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+              (click)="goBackToList(task.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
+      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+              (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
     </span>
   </div>
   <div class="row">

@@ -50,7 +50,7 @@ export class TaskComponent implements OnInit, OnDestroy {
               private commentService: CommentService,
               private messageService: MessageService,
               private bookmarksService: BookmarksService,
-              private userService :UserService,
+              private userService: UserService,
               private tasksService: TasksService) { }
 
   ngOnInit() {
@@ -146,7 +146,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => {
       this.user = res;
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -159,9 +159,9 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.operationName = button.name;
     this.showCommentForm = true;
     setTimeout(() => {
-      const el = document.querySelector('.end')
+      const el = document.querySelector('.end');
       el.scrollIntoView({behavior: 'smooth', block: 'end'});
-    }, 1)
+    }, 1);
   }
 
   private getMessages(taskId: string) {
@@ -174,12 +174,12 @@ export class TaskComponent implements OnInit, OnDestroy {
   private getButtons(taskId: string) {
     this.tasksService.getButtonsForTask(taskId)
       .subscribe((buttons) => {
-        this.buttons = buttons.mstatuses
+        this.buttons = buttons.mstatuses;
       });
   }
 
   goTo(task: TaskModel) {
-    window.scroll(0,0);
+    window.scroll(0, 0);
     this.router.navigate(['task'], {
       queryParams: {
         action: 'task',
@@ -194,7 +194,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       .pipe( takeUntil(this.ngUnsubscribe$))
       .subscribe(handlers => {
         this.handlers = handlers.handlers;
-      })
+      });
   }
 
   saveComment(button: CommentAndButtonsModel) {
@@ -203,7 +203,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {
         this.commentService.setUpModel(true);
-      })
+      });
     if (button.save) {
       this.getMessages(this.task.id);
       this.getButtons(this.task.id);
@@ -222,12 +222,12 @@ export class TaskComponent implements OnInit, OnDestroy {
           action: 'tasks',
           taskId: this.task.parentId
         }
-      })
+      });
       this.getMessages(this.task.id);
       this.getButtons(this.task.id);
     }
     if (button.saveAndNext) {
-      this.goTo(this.previousAndNext.next)
+      this.goTo(this.previousAndNext.next);
     }
   }
 
@@ -238,7 +238,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         .subscribe(() => {
           this.disable = true;
           this.bookmarksService.setUpModel(true);
-        })
+        });
     }
   }
 

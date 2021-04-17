@@ -28,7 +28,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   messages: MessagesModel[] = [];
   handlers: UserEduModels[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
-  operation :{ name?: string, id?: number } = {};
+  operation: { name?: string, id?: number } = {};
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
@@ -41,7 +41,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res =>  {
         this.taskId = res.id;
-        this.topicId = res.topicId
+        this.topicId = res.topicId;
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, taskId: this.taskId, exercise: true});
         this.getTaskById(res.id);
       });
@@ -65,7 +65,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   goBackToList(taskId?: number) {
-    if (!taskId || taskId == -1) {
+    if (!taskId || taskId === -1) {
       this.router.navigate(['exercise', `${this.topicId}`]);
     } else {
       this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${taskId}`]);
@@ -74,9 +74,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   goToComments(operation: { name: string, id: number }) {
     setTimeout(() => {
-      const el = document.querySelector('.end')
+      const el = document.querySelector('.end');
       el.scrollIntoView({behavior: 'smooth', block: 'end'});
-    }, 1)
+    }, 1);
     this.operation = operation;
     this.showCommentForm = true;
   }
@@ -86,7 +86,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .pipe( takeUntil(this.ngUnsubscribe$))
       .subscribe(handlers => {
         this.handlers = handlers;
-      })
+      });
   }
 
   saveComment(button: CommentAndButtonsModel) {
@@ -96,19 +96,20 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         .subscribe(() => {
           this.getTaskById(this.taskId);
           this.commentService.setUpModel(true);
-        })
+        });
     } else {
-      this.tasksService.updateSolutionAndAddComment(this.task.task.id, this.task.solution.id, this.operation.id, button.handlerId, button.description)
+      this.tasksService.updateSolutionAndAddComment(
+        this.task.task.id, this.task.solution.id, this.operation.id, button.handlerId, button.description)
         .subscribe(() => {
-          this.getTaskById(this.taskId)
+          this.getTaskById(this.taskId);
           this.commentService.setUpModel(true);
-        })
+        });
     }
     if (button.saveAndUp) {
       window.scrollTo(0, 0);
     }
     if (button.saveAndNext) {
-      if (this.task.nextId == -1) {
+      if (this.task.nextId === -1) {
         this.router.navigate(['exercise', `${this.topicId}`]);
         window.scrollTo(0, 0);
       } else {
@@ -120,7 +121,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   private getMessages(id: number) {
     this.tasksService.getComments(id)
-      .subscribe(res => this.messages = res)
+      .subscribe(res => this.messages = res);
   }
 
   ngOnDestroy(): void {
@@ -181,6 +182,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   getSolutionId() {
     if (!this.task.solution) {return ''; }
-    return ' [#'+ this.task.solution.id + ']';
+    return ' [#' + this.task.solution.id + ']';
   }
 }

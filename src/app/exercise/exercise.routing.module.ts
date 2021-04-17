@@ -7,7 +7,7 @@ import { TaskViewComponent } from './components/task-view/task-view.component';
 
 const routes: Routes = [
   {
-    path:'',
+    path: '',
     children: [
       { path: '', component: ExerciseListComponent },
       { path: ':topicId', component: TasksListComponent, resolve: {data: TasksListResolve} },
