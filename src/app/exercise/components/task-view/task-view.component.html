@@ -10,9 +10,9 @@
     <span class="w-50 pull-right">
       <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
               (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
-      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+      <button *ngIf="task.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
                (click)="goBackToList(task.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+      <button *ngIf="task.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
               (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
     </span>
   </div>
@@ -88,9 +88,9 @@
     <span class="w-50 pull-right">
       <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
               (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
-      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+      <button *ngIf="task.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
               (click)="goBackToList(task.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+      <button *ngIf="task.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
               (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
     </span>
   </div>
