@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { TaskCodeModel } from '../../shared/models/task.code.models';
 import { NextPreviousSolutions } from '../../shared/models/nextPreviousSolutions';
-import { NavNode } from '../../shared/models/nav.node';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../shared/services/tasks.service';
@@ -90,6 +89,7 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
     window.scroll(0, 0);
     const solutionId = !!nav.solutionId ? nav.solutionId : 'new_task';
     this.alertService.setUpMessage(undefined)
+    this.text = '';
     this.router.navigate(['topics', `${nav.topicId}`, 'task_code', `${nav.id}`, 'solution', `${solutionId}`]);
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
-import { catchError, filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { catchError, map, switchMap, takeUntil } from 'rxjs/operators';
 import { TaskCodeService } from '../../shared/services/task-code.service';
 import { SolutionTaskCodeModels } from '../../shared/models/solution.task.code.models';
 import { AlertService } from '../../shared/services/alertService';
@@ -87,11 +87,13 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
             return this.taskCodeService.submitSolution({...res, code})
           }),
           map(result => {
-            this.router.navigate(['task_code'], { queryParams: {
-                topicId: this.topicId,
-                taskCodeId: this.taskId,
-                solutionId: solutionId
-              } });
+            this.router.navigate(
+              [
+                'topics', `${this.topicId}`,
+                'task_code', `${this.taskId}`,
+                'solution', `${solutionId}`
+              ]
+            );
             return result;
           }),
           takeUntil(this.ngUnsubscribe$),
