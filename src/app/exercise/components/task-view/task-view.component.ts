@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskTopicModel } from '../../../shared/models/task.topic.model';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UserEduModels } from '../../../shared/models/userEduModels';
 import { CommentAndButtonsModel } from '../../../shared/models/commentAndButtonsModel';
@@ -41,15 +41,17 @@ export class TaskViewComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getHandlersList();
     this.route.params
-      .pipe(takeUntil(this.ngUnsubscribe$))
+      .pipe(takeUntil(this.ngUnsubscribe$),
+        debounceTime(200))
       .subscribe(res =>  {
         this.taskId = res.id;
         this.topicId = res.topicId;
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, taskId: this.taskId, exercise: true});
         this.getTaskById(res.id);
       });
-    this.getHandlersList();
+
     this.userService.getModel()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.user = res);
@@ -133,7 +135,10 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   private getMessages(id: number) {
     this.tasksService.getComments(id)
-      .subscribe(res => this.messages = res);
+      .subscribe(res => {
+        this.messages = res;
+        this.messages.forEach(message => message.submitter.mentor = !!this.handlers.find(h => h.name === message.submitter.name));
+      });
   }
 
   ngOnDestroy(): void {

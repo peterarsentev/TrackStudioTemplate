@@ -51,7 +51,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
   }
 
   getSolutionId(task: TaskTopicModel) {
-    if (!task.solution) {return ''}
+    if (!task.solution) { return ''; }
     return '[#' + task.solution.id + ']';
   }
 }

@@ -16,10 +16,11 @@ export class UserModels {
     public prstatusId?: string,
     public lastLogonDate?: number,
     public email?: string,
+    public mentor?: boolean,
 
     // edu
 
-  public pwd?: string,
+    public pwd?: string,
   ) {
   }
 }
