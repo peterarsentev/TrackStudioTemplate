@@ -35,38 +35,33 @@
         <span class="input-group mr-3 w-50">
           <input
             type="text"
+            #text
             class="form-control"
             placeholder="Поиск"
             aria-label="Поиск"
-            aria-describedby="basic-addon2"
-          />
+            aria-describedby="basic-addon2"/>
           <span class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button">
+            <button (click)="search(text.value)" class="btn btn-outline-secondary" type="button">
               <i class="fa fa-search" aria-hidden="true"></i>
             </button>
           </span>
         </span>
         <span class="navbar-text mr-3">
           <a [routerLink]="['/']"
-          ><i class="fa fa-home fa-2x" aria-hidden="true"></i
-          ></a>
+          ><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
         </span>
-        <span
-          *ngIf="notifications && count > 0"
+        <span *ngIf="notifications && count > 0"
           style="cursor: pointer;"
           (click)="readMessages()"
           class="ml-3 badge badge-primary badge-pill"
-        >{{ count }}</span
-        >
+        >{{ count }}</span>
         <a class="nav-item nav-link float-right" [routerLink]="['/profile']">{{
           user?.name || "Гость"
           }}</a>
-        <a
-          class="nav-item nav-link float-right"
+        <a class="nav-item nav-link float-right"
           (click)="clearStorage()"
           [routerLink]="['/login']"
-        >Выйти</a
-        >
+        >Выйти</a>
       </div>
     </nav>
     <div class="container-fluid">

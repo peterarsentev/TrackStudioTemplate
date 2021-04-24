@@ -28,7 +28,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.route.params
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        this.topicId = res.topicId
+        this.topicId = res.topicId;
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, exercise: true});
       });
     this.route.data

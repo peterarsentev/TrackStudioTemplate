@@ -1,19 +1,19 @@
-import { Component, OnDestroy, OnInit, } from "@angular/core";
-import { UserService } from "../../../shared/services/user.service";
-import { Subject } from "rxjs";
-import { filter, switchMap, takeUntil } from "rxjs/operators";
-import { UserModels } from "../../../shared/models/user.models";
-import { AuthService } from "../../../shared/services/auth.service";
-import { MessageService } from "../../../shared/services/message.service";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { Component, OnDestroy, OnInit, } from '@angular/core';
+import { UserService } from '../../../shared/services/user.service';
+import { Subject } from 'rxjs';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { UserModels } from '../../../shared/models/user.models';
+import { AuthService } from '../../../shared/services/auth.service';
+import { MessageService } from '../../../shared/services/message.service';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NavService } from '../../../shared/services/nav.service';
 import { NavNode } from '../../../shared/models/nav.node';
 
 
 @Component({
-  selector: "app-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.scss"],
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
@@ -34,16 +34,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.router.url === '/') {
-      this.navService.setUpModel({...new NavNode()})
+      this.navService.setUpModel({...new NavNode()});
     }
     console.log(this.router.url);
-    this.navShow = !(this.router.url == "/login"  || this.router.url == '/registration');
+    this.navShow = !(this.router.url === '/login'  || this.router.url === '/registration');
     this.userService
       .getModel()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((user) => {
         this.user = user;
-        this.notifications = !!this.user.name && this.user.name !== "Аnonymous";
+        this.notifications = !!this.user.name && this.user.name !== 'Аnonymous';
         if (this.notifications) {
           this.getNotifications(this.user.id);
           this.executor(this.user.id);
@@ -54,22 +54,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {});
     this.authService.checkSession()
-      .subscribe(res => this.userService.setUpModel(res.user))
+      .subscribe(res => this.userService.setUpModel(res.user));
   }
 
   initResize() {
     const wrapper = document.getElementById('wrapper');
     wrapper.addEventListener('mousemove', this.Resize, false);
   }
-  Resize(e){
+  Resize(e) {
     const element = document.getElementById('resizable');
-    element.style.minWidth =`${e.clientX}px`;
+    element.style.minWidth = `${e.clientX}px`;
   }
   stopResize(e) {
     const wrapper = document.getElementById('wrapper');
     console.log('dragend');
     const element = document.getElementById('resizable');
-    element.style.minWidth =`${e.clientX}px`;
+    element.style.minWidth = `${e.clientX}px`;
     wrapper.removeEventListener('mousemove', this.Resize, false);
   }
 
@@ -80,7 +80,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   clearStorage() {
     this.userService.setUpModel({});
-    if (this.user.name !== "Аnonymous") {
+    if (this.user.name !== 'Аnonymous') {
       this.authService
         .logOut()
         .pipe(takeUntil(this.ngUnsubscribe$))
@@ -91,7 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   goMain() {
-    this.router.navigate(["/"], {});
+    this.router.navigate(['/'], {});
   }
 
   getNotifications(id: string) {
@@ -102,13 +102,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   readMessages() {
-    this.router.navigate(["/messages"]);
+    this.router.navigate(['/messages']);
   }
 
   onToggle() {
-    const elementById = document.getElementById("resizable");
-    if(elementById.classList.contains("hide")) elementById.classList.remove("hide"); //delete class from clearStorage func
-    elementById.classList.toggle("toggle");
+    const elementById = document.getElementById('resizable');
+    if (elementById.classList.contains('hide')) { elementById.classList.remove('hide'); } // delete class from clearStorage func
+    elementById.classList.toggle('toggle');
 
   }
 
@@ -116,7 +116,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.navShow = !(this.router.url == "/login"  || this.router.url == '/registration')
+        this.navShow = !(this.router.url === '/login'  || this.router.url === '/registration');
       });
   }
 
@@ -124,5 +124,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     setInterval(() => {
       this.getNotifications(this.user.id);
     }, 30000);
+  }
+
+  search(value: string) {
+    if (!value) {
+      this.router.navigate(['exercise']);
+    } else {
+      this.router.navigate(['exercise', 'search', `${value}`]);
+    }
   }
 }
