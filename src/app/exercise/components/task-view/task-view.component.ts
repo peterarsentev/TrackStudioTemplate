@@ -10,6 +10,8 @@ import { CommentService } from '../../../shared/services/comment.service';
 import { MessagesModel } from '../../../shared/models/messages.model';
 import { NavService } from '../../../shared/services/nav.service';
 import { NavNode } from '../../../shared/models/nav.node';
+import { UserService } from '../../../shared/services/user.service';
+import { UserModels } from '../../../shared/models/user.models';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -29,11 +31,13 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   handlers: UserEduModels[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   operation: { name?: string, id?: number } = {};
+  private user: UserModels;
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
               private router: Router,
               private commentService: CommentService,
+              private userService: UserService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -46,6 +50,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.getTaskById(res.id);
       });
     this.getHandlersList();
+    this.userService.getModel()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.user = res);
   }
 
   getTaskById(id: string) {
@@ -84,7 +91,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.operation = operation;
     if (operation.id === 3) {
       this.saveComment(
-        {saveAndUp: false, close: false, saveAndNext: true, save: false, handlerId: '' + this.handlers[0].id, description: ''});
+        {saveAndUp: false, close: false, saveAndNext: true, save: false, handlerId: '' + this.user.id, description: ''});
       return;
     }
     setTimeout(() => {
