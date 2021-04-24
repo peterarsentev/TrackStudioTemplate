@@ -382,14 +382,6 @@ export class TasksService {
     return this.http.post(url, params);
   }
 
-  getComments(id: number): Observable<MessagesModel[]> {
-    let params = new HttpParams({encoder: new CustomEncoder()});
-    params = params.append('sessionId', localStorage.getItem('sessionId'));
-    params = params.append('solutionId', String(id));
-    const url = this.urlJedu + `comment/solution`;
-    return this.http.post<MessagesModel[]>(url, params);
-  }
-
   updateSolutionAndAddComment(taskId: number, solutionId: number, operationId: number, handlerId: string, description: string) {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
@@ -400,6 +392,14 @@ export class TasksService {
     params = params.append('description', description);
     const url = this.urlJedu + `task/updateSolution`;
     return this.http.post(url, params);
+  }
+
+  getComments(id: number): Observable<MessagesModel[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('solutionId', String(id));
+    const url = this.urlJedu + `comment/solution`;
+    return this.http.post<MessagesModel[]>(url, params);
   }
 
   getVerifiedTasks(): Observable<TaskTopicModel[]> {

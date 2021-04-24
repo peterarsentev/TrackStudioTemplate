@@ -2,25 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { LoginModel } from '../models/login.model';
-import { Observable, Subject, throwError } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { Observable, of, Subject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { AuthResponse, UserResponse } from '../models/interfaces';
 import { UserService } from './user.service';
-import {CustomEncoder} from '../custom-encoder';
+import { CustomEncoder } from '../custom-encoder';
 import { RegistrationModel } from '../models/registration.model';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+
   public error$: Subject<string> = new Subject<string>();
-  public api_Host = '';
   private urlJedu = `${environment.urlJedu}/`;
 
   constructor(private http: HttpClient, private userService: UserService) {
-    this.initApiHost();
-  }
-
-  get apiHost() {
-    return this.api_Host;
   }
 
   login(user: LoginModel = {login: 'anonymous', password: '123'}): Observable<AuthResponse> {
@@ -52,14 +47,13 @@ export class AuthService {
 
   /**
    * method returns current user by sessionId
-   * @param sessionId
    */
   getDefaultProjectId(): Observable<UserResponse> {
     const sessionId = localStorage.getItem('sessionId');
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     if (!!sessionId) {
-      return this.http.post<UserResponse>(`${environment.urlJedu}/login/session`, params)
+      return this.http.post<UserResponse>(`${environment.urlJedu}/login/session`, params);
         // .pipe(
         //   catchError(err => {
         //       localStorage.clear();
@@ -74,6 +68,7 @@ export class AuthService {
         //   tap(response => this.userService.setUpModel(response.user)),
         // );
     } else {
+      return of();
       // return this.login()
       //   .pipe(
       //     switchMap(() => this.getDefaultProjectId()),
@@ -98,10 +93,6 @@ export class AuthService {
     params = params.append('sessionId', sessionId);
     localStorage.clear();
     return this.http.post(url, params);
-  }
-
-  private initApiHost() {
-    this.api_Host = environment.urlJedu;
   }
 
   changePassword(userId: string, password: string, confirm: string) {

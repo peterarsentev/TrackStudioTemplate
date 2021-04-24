@@ -12,7 +12,7 @@ export class AppComponent implements OnInit{
   }
   ngOnInit(): void {
     this.iconService.registerIcons();
-    this.authService.getDefaultProjectId().subscribe(() => {})
+    this.authService.getDefaultProjectId().subscribe(() => {});
   }
 
 }

@@ -72,21 +72,26 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  goToComments(operation: { name: string, id: number }) {
-    setTimeout(() => {
-      const el = document.querySelector('.end');
-      el.scrollIntoView({behavior: 'smooth', block: 'end'});
-    }, 1);
-    this.operation = operation;
-    this.showCommentForm = true;
-  }
-
   getHandlersList() {
     return this.tasksService.getHandlers()
       .pipe( takeUntil(this.ngUnsubscribe$))
       .subscribe(handlers => {
         this.handlers = handlers;
       });
+  }
+
+  goToComments(operation: { name: string, id: number }) {
+    this.operation = operation;
+    if (operation.id === 3) {
+      this.saveComment(
+        {saveAndUp: false, close: false, saveAndNext: true, save: false, handlerId: '' + this.handlers[0].id, description: ''});
+      return;
+    }
+    setTimeout(() => {
+      const el = document.querySelector('.end');
+      el.scrollIntoView({behavior: 'smooth', block: 'end'});
+    }, 1);
+    this.showCommentForm = true;
   }
 
   saveComment(button: CommentAndButtonsModel) {
