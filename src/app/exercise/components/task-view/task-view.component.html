@@ -58,7 +58,7 @@
         <table class="table">
           <tbody>
           <tr *ngFor="let message of messages">
-            <td [ngStyle]="{backgroundColor: message.submitter.mentor ? 'yellow' : '#FFFFFF' }">
+            <td class="{{ message.submitter.mentor ? 'bg-warning' : '' }}">
               <div class="pb-3 small">
                 <span>Комментировать от <span class="font-weight-bold">{{ message.submitter.name }}[{{message.submitter.mentor ? 'Ментор' : 'Ученик'}}]
                 </span> к <span class="font-weight-bold">{{ message.handler.name }}[{{!message.submitter.mentor ? 'Ментор' : 'Ученик'}}]</span></span>
