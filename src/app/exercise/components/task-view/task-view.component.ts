@@ -200,7 +200,11 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   getSolutionId() {
-    if (!this.task.solution) {return ''; }
-    return ' [#' + this.task.solution.id + ']';
+    let res =  ' [#' + this.task.task.number;
+    if (this.task.solution) {
+      res += ' #' + this.task.solution.id;
+    }
+    res += ']';
+    return res;
   }
 }
