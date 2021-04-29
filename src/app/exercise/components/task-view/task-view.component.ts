@@ -63,6 +63,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.task = res;
         if (this.task.solution) {
           this.getMessages(this.task.solution.id);
+        } else {
+          this.messages = [];
         }
         setTimeout(() => {
           this.prepareCode();

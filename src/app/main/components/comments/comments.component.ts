@@ -34,13 +34,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private fb: FormBuilder,
-              private tasksService: TasksService) {};
+              private tasksService: TasksService) {}
 
   ngOnInit() {
     this.initForm();
-    console.log(this.handlers)
-    this.handlers.forEach(user => user.name === 'Петр Арсентьев' ?  this.form.get('handlerId').setValue(user.id) : null)
-   // this.getRoutParams();
+    this.handlers.forEach(user => user.name === 'Петр Арсентьев' ?  this.form.get('handlerId').setValue(user.id) : null);
   }
 
   private initForm() {
@@ -54,7 +52,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     this.disabled = true;
     const handlerId = this.form.get('handlerId').value;
     const description = this.form.get('description').value;
-    this.save.emit({...button, handlerId: handlerId, description: description});
+    this.save.emit({...button, handlerId, description});
     this.form.reset();
 
   }
@@ -75,6 +73,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   closeForm() {
     this.form.reset();
-    this.save.emit({ close: true })
+    this.save.emit({ close: true });
   }
 }
