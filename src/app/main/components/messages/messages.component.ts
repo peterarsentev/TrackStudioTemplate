@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from '../../../shared/services/message.service';
 import { UserService } from '../../../shared/services/user.service';
 import { switchMap, takeUntil } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss']
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   messages: MessageModel[];
@@ -26,12 +26,10 @@ export class MessagesComponent implements OnInit {
       .pipe(
         switchMap(user => {
           this.userId = user.id;
-          return this.messageService.getMessages(user.id)
+          return this.messageService.getMessages(user.id);
         }),
         takeUntil(this.ngUnsubscribe$)
-      ).subscribe(res => {
-        this.messages = res
-    });
+      ).subscribe(res => this.messages = res);
   }
 
   ngOnDestroy(): void {
@@ -45,7 +43,7 @@ export class MessagesComponent implements OnInit {
         action: 'task',
         taskId: task.id
       }
-    })
+    });
   }
 
   deleteMessage(messageId?: string) {
@@ -53,6 +51,6 @@ export class MessagesComponent implements OnInit {
       .pipe(
         switchMap(() => this.messageService.getMessages(this.userId)),
         takeUntil(this.ngUnsubscribe$)
-      ).subscribe(res =>  this.messages = res)
+      ).subscribe(res =>  this.messages = res);
   }
 }

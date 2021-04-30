@@ -14,6 +14,7 @@ export class MessageModel {
     public number?: string,
     public text?: string,
     public userId?: string,
+    public topicId?: number,
 
     public handlerId?: number,
     public solutionId?: number,

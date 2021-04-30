@@ -11,9 +11,9 @@
       <tbody>
       <tr *ngFor="let message of messages">
         <td  style="cursor: pointer;">
-              <span (click)="openTask({id : message.taskId, number: message.number })">
-          <span><i class="fas fa-tasks pr-3"></i>
-          {{ message.time | getDate }} {{ message.text }}
+              <span>
+          <span><i class="fas fa-tasks pr-3"></i>{{ message.time | getDate }}
+            <a [routerLink]="['/exercise', message.topicId, 'task-view', message.taskId, 'solutionId', message.solutionId]">{{ message.text }}</a>
           </span>
               </span>
           <span class="pull-right mr-5"><i (click)="deleteMessage(message.id)" class="fas fa-remove"></i></span>
