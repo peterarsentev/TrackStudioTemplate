@@ -12,6 +12,8 @@ import { AlertMessageComponent } from '../main/components/alert-message/alert-me
 import { ProgressBarSolutionsComponent } from '../main/components/progress-bar/progress-bar-solutions/progress-bar-solutions.component';
 import { ProgressBarViewComponent } from '../main/components/progress-bar/progress-bar-view/progress-bar-view.component';
 import { SafeCodePipe } from '../main/safe-code.pipe';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AreYouSureComponent } from './are-you-sure/are-you-sure.component';
 
 @NgModule({
   imports: [
@@ -20,7 +22,8 @@ import { SafeCodePipe } from '../main/safe-code.pipe';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CodemirrorModule
+    CodemirrorModule,
+    MatDialogModule
   ],
   exports: [
     HttpClientModule,
@@ -35,6 +38,8 @@ import { SafeCodePipe } from '../main/safe-code.pipe';
     ProgressBarSolutionsComponent,
     ProgressBarViewComponent,
     SafeCodePipe,
+    MatDialogModule,
+    AreYouSureComponent
   ],
   declarations: [
     AlertMessageComponent,
@@ -45,6 +50,10 @@ import { SafeCodePipe } from '../main/safe-code.pipe';
     NavigationComponent,
     ProgressBarViewComponent,
     SafeCodePipe,
+    AreYouSureComponent
+  ],
+  entryComponents: [
+    AreYouSureComponent
   ]
 })
 export class SharedModule {

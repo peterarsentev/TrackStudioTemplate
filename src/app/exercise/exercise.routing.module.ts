@@ -16,7 +16,7 @@ const routes: Routes = [
       { path: ':topicId/task-view/:id/solutionId/:solutionId', component: TaskViewComponent },
     ]
   }
-]
+];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

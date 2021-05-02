@@ -12,6 +12,7 @@ import { NavService } from '../../../shared/services/nav.service';
 import { NavNode } from '../../../shared/models/nav.node';
 import { UserService } from '../../../shared/services/user.service';
 import { UserModels } from '../../../shared/models/user.models';
+import { ModalService, TypeModals } from '../../../shared/modal.service';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -38,6 +39,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
               private router: Router,
               private commentService: CommentService,
               private userService: UserService,
+              private modalService: ModalService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -94,8 +96,13 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   goToComments(operation: { name: string, id: number }) {
     this.operation = operation;
     if (operation.id === 3) {
-      this.saveComment(
-        {saveAndUp: false, close: false, saveAndNext: true, save: false, handlerId: '' + this.user.id, description: ''});
+      this.modalService.openDialog(TypeModals.ARE_YOU_SURE)
+        .subscribe(res => {
+          if (res) {
+            this.saveComment(
+              {saveAndUp: false, close: false, saveAndNext: true, save: false, handlerId: '' + this.user.id, description: ''});
+          }
+        });
       return;
     }
     setTimeout(() => {
