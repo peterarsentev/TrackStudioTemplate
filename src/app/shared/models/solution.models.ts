@@ -5,11 +5,8 @@ export class SolutionModels {
     public  tsUserId?: string,
     public  code?: string,
     public  statusId?: number,
-    public  created?: string,
-    public  updated?: string,
     public  createdTime?: number,
     public  updatedTime?: number,
-
   ) {
   }
 }
