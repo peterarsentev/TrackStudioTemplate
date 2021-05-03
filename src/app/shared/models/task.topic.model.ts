@@ -25,7 +25,7 @@ class TaskModel {
   }
 }
 
-class TaskStatus {
+export class TaskStatus {
   constructor(
     public color?: string,
     public finish?: boolean,
