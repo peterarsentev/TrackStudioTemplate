@@ -34,7 +34,10 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.route.data
       .pipe(pluck('data'),
         takeUntil(this.ngUnsubscribe$)
-      ).subscribe(res => this.tasks = res);
+      ).subscribe(res => {
+        this.tasks = res;
+        window.scrollTo(0, 0);
+    });
   }
 
   showTask(taskTopic: TaskTopicModel) {
