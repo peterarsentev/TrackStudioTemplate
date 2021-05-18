@@ -68,12 +68,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         } else {
           this.messages = [];
         }
-        setTimeout(() => {
-          this.prepareCode();
-          document.querySelectorAll('a img').forEach((block) => {
-            block.parentElement.setAttribute('data-lightbox', 'images');
-          });
-        }, 0);
+        this.updateImages();
       });
   }
 
@@ -148,6 +143,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.messages = res;
         this.messages.forEach(message => message.submitter.mentor = !!this.handlers.find(h => h.name === message.submitter.name));
+        this.updateImages();
       });
   }
 
@@ -217,5 +213,14 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       return res;
     }
     return '';
+  }
+
+  private updateImages() {
+    setTimeout(() => {
+      this.prepareCode();
+      document.querySelectorAll('a img').forEach((block) => {
+        block.parentElement.setAttribute('data-lightbox', 'images');
+      });
+    }, 0);
   }
 }
