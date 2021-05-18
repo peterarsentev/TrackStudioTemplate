@@ -68,6 +68,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         } else {
           this.messages = [];
         }
+        this.prepareCode();
         this.updateImages();
       });
   }
@@ -217,7 +218,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   private updateImages() {
     setTimeout(() => {
-      this.prepareCode();
       document.querySelectorAll('a img').forEach((block) => {
         block.parentElement.setAttribute('data-lightbox', 'images');
       });
