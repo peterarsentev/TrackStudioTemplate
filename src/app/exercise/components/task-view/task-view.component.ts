@@ -43,6 +43,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    console.log('init')
     this.getHandlersList();
     this.route.params
       .pipe(takeUntil(this.ngUnsubscribe$),
@@ -61,8 +62,12 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   getTaskById(id: string) {
     this.tasksService.getTaskById(id)
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.task = res;
+        if (this.task.status.start) {
+          this.messages = [];
+        }
         if (this.task.solution) {
           this.getMessages(this.task.solution.id);
         } else {
@@ -141,6 +146,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   private getMessages(id: number) {
     this.tasksService.getComments(id)
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.messages = res;
         this.messages.forEach(message => message.submitter.mentor = !!this.handlers.find(h => h.name === message.submitter.name));

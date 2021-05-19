@@ -77,7 +77,7 @@
                 </span> к <span class="font-weight-bold">{{ message.handler.name }}
                   [{{!message.submitter.mentor ? 'Ментор' : 'Ученик'}}]</span>
                 </span>
-                <span class="pull-right">{{ message.message.timeMils | date: 'hh:mm dd.MM.yyyy' }}</span>
+                <span class="pull-right">{{ message.message.timeMils | date: 'HH:mm dd.MM.yyyy' }}</span>
               </div>
               <div [innerHTML]="message.message.text"></div>
             </td>
