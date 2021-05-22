@@ -46,7 +46,7 @@ import { RegistrationComponent } from './components/registration/registration.co
         NewTaskComponent,
         DiagramComponent,
         MessagesComponent,
-        DiscussionComponent,
+
         SandboxComponent,
         ExamComponent,
         LeftSideBarComponent,

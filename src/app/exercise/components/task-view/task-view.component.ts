@@ -13,6 +13,8 @@ import { NavNode } from '../../../shared/models/nav.node';
 import { UserService } from '../../../shared/services/user.service';
 import { UserModels } from '../../../shared/models/user.models';
 import { ModalService, TypeModals } from '../../../shared/modal.service';
+import { DiscussionModel } from '../../../shared/models/discussionModel';
+import { MessageService } from '../../../shared/services/message.service';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -30,9 +32,11 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   task: TaskTopicModel = {};
   messages: MessagesModel[] = [];
   handlers: UserEduModels[] = [];
+  discussions: DiscussionModel[] = [];
+  showDiscussion: boolean;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   operation: { name?: string, id?: number } = {};
-  private user: UserModels;
+  user: UserModels;
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
@@ -40,6 +44,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
               private commentService: CommentService,
               private userService: UserService,
               private modalService: ModalService,
+              private messageService: MessageService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -51,6 +56,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .subscribe(res =>  {
         this.taskId = res.id;
         this.topicId = res.topicId;
+        this.getDiscussions();
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, taskId: this.taskId, exercise: true});
         this.getTaskById(res.id);
       });
@@ -68,7 +74,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         if (this.task.status.start) {
           this.messages = [];
         }
-        if (this.task.solution) {
+        if (!!this.task.solution && !!this.task.solution.id) {
           this.getMessages(this.task.solution.id);
         } else {
           this.messages = [];
@@ -145,7 +151,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   private getMessages(id: number) {
-    this.tasksService.getComments(id)
+    this.tasksService.getOperations(id)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.messages = res;
@@ -228,5 +234,25 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         block.parentElement.setAttribute('data-lightbox', 'images');
       });
     }, 0);
+  }
+
+  showDiscussionForm() {
+    this.showDiscussion = !this.showDiscussion;
+  }
+
+  getDiscussions() {
+    this.messageService.getDiscussions(this.taskId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        console.log(res)
+        this.discussions = res
+      });
+  }
+
+  closeDiscussion(close: boolean) {
+    this.showDiscussion = false;
+    if (close) {
+      this.getDiscussions();
+    }
   }
 }

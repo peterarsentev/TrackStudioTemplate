@@ -26,7 +26,7 @@ export class MessageService {
   getMessages(id: string): Observable<MessageModel[]> {
     const url = this.urlJedu + `notification/get`;
     let params = new HttpParams({encoder: new CustomEncoder()});
-    //params = params.append('action', 'messages');
+    // params = params.append('action', 'messages');
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<MessageModel[]>(url, params);
   }
@@ -51,7 +51,7 @@ export class MessageService {
   deleteBook(bookmarkId: string) {
     const url = `${environment.urlJedu}/rest/bookmark/delete`;
     let params = new HttpParams();
-    //params = params.append('action', 'delete');
+    // params = params.append('action', 'delete');
     params = params.append('bookmarkId', bookmarkId);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);
@@ -65,18 +65,18 @@ export class MessageService {
     return this.http.post(url, params);
   }
 
-  getDiscussions(shortName: string): Observable<DiscussionModel[]> {
+  getDiscussions(id: number): Observable<DiscussionModel[]> {
     const url = this.urlJedu + `comment/get`;
     let params = new HttpParams({encoder: new CustomEncoder()});
-    params = params.append('task', shortName);
+    params = params.append('taskId', String(id));
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<DiscussionModel[]>(url, params);
   }
 
-  addDiscussion(shortName: string, text: string) {
+  addDiscussion(shortName: number, text: string) {
     const url = this.urlJedu + `comment/save`;
     let params = new HttpParams();
-    //params = params.append('action', 'save');
-    params = params.append('task', shortName);
+    params = params.append('taskId', String(shortName));
     params = params.append('text', text);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);

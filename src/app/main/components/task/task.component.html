@@ -168,7 +168,7 @@
   </div>
   <div class="row" *ngIf="showDiscussion">
     <app-discussion
-      [shortname]="task.shortname"
+      [taskId]="+task.id"
       (closeEmitter)="closeDiscussion($event)"
     ></app-discussion>
   </div>

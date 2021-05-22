@@ -14,6 +14,7 @@ import { ProgressBarViewComponent } from '../main/components/progress-bar/progre
 import { SafeCodePipe } from '../main/safe-code.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AreYouSureComponent } from './are-you-sure/are-you-sure.component';
+import { DiscussionComponent } from '../main/components/discussion/discussion.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { AreYouSureComponent } from './are-you-sure/are-you-sure.component';
     ProgressBarViewComponent,
     SafeCodePipe,
     MatDialogModule,
-    AreYouSureComponent
+    AreYouSureComponent,
+    DiscussionComponent,
   ],
   declarations: [
     AlertMessageComponent,
@@ -50,7 +52,8 @@ import { AreYouSureComponent } from './are-you-sure/are-you-sure.component';
     NavigationComponent,
     ProgressBarViewComponent,
     SafeCodePipe,
-    AreYouSureComponent
+    AreYouSureComponent,
+    DiscussionComponent,
   ],
   entryComponents: [
     AreYouSureComponent

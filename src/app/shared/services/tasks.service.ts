@@ -394,11 +394,11 @@ export class TasksService {
     return this.http.post(url, params);
   }
 
-  getComments(id: number): Observable<MessagesModel[]> {
+  getOperations(id: number): Observable<MessagesModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('solutionId', String(id));
-    const url = this.urlJedu + `comment/solution`;
+    const url = this.urlJedu + `solution/operations`;
     return this.http.post<MessagesModel[]>(url, params);
   }
 
