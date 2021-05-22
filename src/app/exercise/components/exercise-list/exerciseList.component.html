@@ -15,12 +15,10 @@
             <span class="font-weight-bold">{{task.name}}</span>
           </div>
           <small class="mb-2 text-muted">
-<!--            <span>-->
-<!--              <span *ngIf="task.status.start" class="badge badge-danger mr-3">{{ task.status.statusName }}</span>-->
-<!--              <span *ngIf="task.status.finish" class="badge badge-success mr-3">{{ task.status.statusName }}</span>-->
-<!--              <span *ngIf="!(task.status.finish || task.status.start)" class="badge badge-warning mr-3">{{ task.status.statusName }}</span>-->
-<!--              <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>-->
-<!--            </span>-->
+            <span>
+              <span class="badge badge-danger mr-1">{{ task.level.name }}</span>
+              <span class="badge badge-success mr-1">{{ task.category.name }}</span>
+            </span>
             <!--            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
             <!--            <span class="mr-3">Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
             <!--            <span class="mr-3" *ngIf="!task.task.preferences.includes('V')"> Потрачено : {{ getSpentDays( task.task.submitdate, task.task.updatedate)}} </span>-->
