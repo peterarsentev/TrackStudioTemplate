@@ -26,6 +26,13 @@
               <div class="font-weight-bold">{{ task?.task?.name }} {{ getSolutionId() }}</div>
               <div>
                 <small class="mb-2 text-muted">
+                  <span class="mr-3">Уровень : {{  task.task.level.name }}</span>
+                  <span class="mr-3">Категория : {{  task.task.category.name }}</span>
+                  <span class="mr-3">Топик : {{  task.task.topic.name }}</span>
+                </small>
+              </div>
+              <div>
+                <small class="mb-2 text-muted">
                   <span *ngIf="task.status?.start" class="badge badge-danger mr-3">{{ task.status?.statusName }}</span>
                   <span *ngIf="task.status?.finish"
                         class="badge badge-success mr-3">{{ task.status?.statusName }}</span>

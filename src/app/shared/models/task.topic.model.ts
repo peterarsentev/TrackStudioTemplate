@@ -1,4 +1,7 @@
 import { UserEduModels } from './userEduModels';
+import { LevelModels } from './level.models';
+import { CategoryModels } from './category.models';
+import { TopicModels } from './topic.models';
 
 export class TaskTopicModel {
   constructor(
@@ -20,7 +23,10 @@ class TaskModel {
     public number?: string,
     public description?: string,
     public taskName?: string,
-    public taskNumber?: number
+    public taskNumber?: number,
+    public level?: LevelModels,
+    public category?: CategoryModels,
+    public topic?: TopicModels
   ) {
   }
 }
