@@ -48,7 +48,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log('init')
     this.getHandlersList();
     this.route.params
       .pipe(takeUntil(this.ngUnsubscribe$),
@@ -243,10 +242,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   getDiscussions() {
     this.messageService.getDiscussions(this.taskId)
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => {
-        console.log(res)
-        this.discussions = res
-      });
+      .subscribe(res => this.discussions = res);
   }
 
   closeDiscussion(close: boolean) {
