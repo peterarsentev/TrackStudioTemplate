@@ -78,8 +78,8 @@ export class MainPageComponent implements OnInit {
       .subscribe(res => {
         this.allTasksCount = res.all;
         this.solvedTasksCount = res.solved;
-        this.submitDate = res.submitDate;
-        this.updateDate = res.updateDate;
+        this.submitDate = res.submitDate === 0 ? new Date().getTime() : res.submitDate;
+        this.updateDate = res.updateDate === 0 ? new Date().getTime() : res.updateDate;
         this.countOfDays = Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24);
         this.speed = this.solvedTasksCount / this.countOfDays;
       });
