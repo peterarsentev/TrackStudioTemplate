@@ -45,11 +45,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
               this.getNavsForSolutions();
             }
             if (!res.task_code && !res.exercise) {
-              this.solutions = [{...new NavNode(), name: 'Job4j', url: '/'}]
+              this.solutions = [{...new NavNode(), name: 'Job4j', url: '/'}];
             }
           }
         }
-      })
+      });
 
     this.getEmergencyMessage();
    // this.checkRout();
@@ -73,7 +73,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   goToNav(nav: TaskModel, event?: any) {
-    console.log(event.which)
     const action  = nav.preferences.includes('V') ? 'task' : 'tasks';
     const taskId = nav.id;
     if (event.which === 2) {
@@ -105,10 +104,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
   // }
 
   getClass(idx: number) {
-    if (!!this.tasks.length && idx < this.tasks.length - 1)
+    if (!!this.tasks.length && idx < this.tasks.length - 1) {
       return {
         'ref-link': true
-      }
+      };
+    }
   }
 
   getEmergencyMessage() {
@@ -125,7 +125,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       .subscribe((event: NavigationEnd) => {
         const url: string = event.url;
         this.checkUrl(url);
-      })
+      });
   }
 
   checkUrl(url: string) {
@@ -140,17 +140,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
     if (!this.show && url !== '/login') {
       this.tasksService.getNavsForSolutions(this.topicId, this.taskCodeId)
         .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(res => {
-          this.solutions = res
-        })
+        .subscribe(res => this.solutions = res);
       this.solution = true;
     }
   }
 
   goToSol(nav: NavNode, idx: number) {
-    if (idx < this.solutions.length -1) {
+    if (idx < this.solutions.length - 1) {
       if (nav.url === '/') {
-        this.navService.setUpModel({...new NavNode()})
+        this.navService.setUpModel({...new NavNode()});
       }
       if (!!nav.topicId) {
         this.router.navigate([`${nav.url}`, `${nav.topicId}`]);

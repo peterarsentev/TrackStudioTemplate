@@ -19,7 +19,7 @@ import { CustomEncoder } from '../custom-encoder';
 import { SolvedAllCountModels } from '../models/solved.all.count.models';
 import { NavNode } from '../models/nav.node';
 import { NextPreviousSolutions } from '../models/nextPreviousSolutions';
-import { ExercisesCountModels } from '../models/exercisesCountModels';
+import { CountModels } from '../models/countModels';
 import { TopicModels } from '../models/topic.models';
 import { TaskTopicModel } from '../models/task.topic.model';
 import { UserEduModels } from '../models/userEduModels';
@@ -36,7 +36,7 @@ export class TasksService {
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
   }
 
-  getTasks(): Observable<{tasks: ResponseModel[]}> {
+  getTasks(): Observable<{ tasks: ResponseModel[] }> {
     const projectId = localStorage.getItem('defaultProjectId');
     const sessionId = localStorage.getItem('sessionId');
     if (!projectId || !sessionId) {
@@ -53,17 +53,17 @@ export class TasksService {
 
   getTaskByProjectId(projectId: string,
                      sessionId = localStorage.getItem('sessionId'),
-                     filterId?: string): Observable<{tasks: ResponseModel[]}> {
+                     filterId?: string): Observable<{ tasks: ResponseModel[] }> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     params = params.append('taskId', projectId);
     if (projectId === 'ae84b50d571fe2340157387103bd1a68') {
-       // Загрузка папки критики. тут нужен фильтр только открыте задачи
-       filterId = '4028808a1953022d0119535da2c901cc';
+      // Загрузка папки критики. тут нужен фильтр только открыте задачи
+      filterId = '4028808a1953022d0119535da2c901cc';
     }
     params = filterId ? params.append('filterId', filterId) : params.append('filterId', '1');
-    return this.http.post<{tasks: ResponseModel[]}>(this.url + 'tasks', params)
-      .pipe(catchError( err => {
+    return this.http.post<{ tasks: ResponseModel[] }>(this.url + 'tasks', params)
+      .pipe(catchError(err => {
         return this.authService.getDefaultProjectId().pipe(
           switchMap((res) =>
             this.getTaskByProjectId(res.user.defaultProjectId, localStorage.getItem('sessionId')))
@@ -71,7 +71,7 @@ export class TasksService {
       }));
   }
 
-  getTaskByProjectIdLimit(filterId: string, limit: string, offset: string): Observable<{tasks: ResponseModel[]}> {
+  getTaskByProjectIdLimit(filterId: string, limit: string, offset: string): Observable<{ tasks: ResponseModel[] }> {
     const projectId = localStorage.getItem('defaultProjectId');
     const sessionId = localStorage.getItem('sessionId');
     if (!!projectId && !!sessionId) {
@@ -152,8 +152,6 @@ export class TasksService {
     const sessionId = localStorage.getItem('sessionId');
     if (!!sessionId && !!taskId) {
       params = params.append('sessionId', sessionId);
-      params = params.append('taskId', taskId);
-      params = params.append('filterId', general ? this.allTasksGeneral : all ? this.allTasks : this.solvedTasks);
       return this.http.post<{ [total: string]: number }>(this.url + 'size', params);
     }
     // } else {
@@ -163,19 +161,20 @@ export class TasksService {
     // }
   }
 
-  getButtons(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{mstatuses: MStatusesModel[]}> {
+  getCountTasks(): Observable<CountModels> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    const sessionId = localStorage.getItem('sessionId');
+    params = params.append('sessionId', sessionId);
+    return this.http.post<CountModels>(this.urlJedu + 'task/countTasks', params);
+  }
+
+  getButtons(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{ mstatuses: MStatusesModel[] }> {
     let params = new HttpParams();
     projectId = projectId ? projectId : localStorage.getItem('defaultProjectId');
     // params = params.append('action', 'categories');
     params = params.append('sessionId', sessionId);
     params = params.append('taskId', projectId);
-    return this.http.post<{mstatuses: MStatusesModel[]}>(this.url + 'categories', params);
-      // .pipe(catchError(err => {
-      //   return this.authService.getDefaultProjectId().pipe(
-      //     switchMap(() => this.getButtons(projectId, localStorage.getItem('sessionId')))
-      //   );
-      // }));+
-
+    return this.http.post<{ mstatuses: MStatusesModel[] }>(this.url + 'categories', params);
   }
 
   getMessages(taskId: string): Observable<{ messages: MessagesModel[] }> {
@@ -190,7 +189,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
-    return this.http.post<{mstatuses: ButtonCommentModel[]}>(this.url + 'mstatus', params);
+    return this.http.post<{ mstatuses: ButtonCommentModel[] }>(this.url + 'mstatus', params);
   }
 
   gerResponsiblePeople(taskId: string, mstatusId: string): Observable<{ handlers: UserModels[] }> {
@@ -202,7 +201,7 @@ export class TasksService {
     return this.http.post<{ handlers: UserModels[] }>(url + '/handlers', params);
   }
 
-  getResponsePersonsForTask(taskId: string, categoryId: string): Observable<{ handlers: UserModels[] }>  {
+  getResponsePersonsForTask(taskId: string, categoryId: string): Observable<{ handlers: UserModels[] }> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
@@ -321,11 +320,11 @@ export class TasksService {
     return this.http.post<NextPreviousSolutions>(url, params);
   }
 
-  getSolvedAndAllExerciseCount(): Observable<ExercisesCountModels> {
+  getSolvedAndAllExerciseCount(): Observable<CountModels> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = this.urlJedu + `taskcode/countTasks`;
-    return this.http.post<ExercisesCountModels>(url, params);
+    return this.http.post<CountModels>(url, params);
   }
 
   getTasksTopicsList(): Observable<TopicModels[]> {

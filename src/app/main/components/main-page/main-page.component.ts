@@ -40,7 +40,7 @@ export class MainPageComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    // this.getCountAllAndSolvedTasks();
+    this.getCountAllAndSolvedTasks();
     // this.getTotalAndSolvedTasks();
     this.getProvenTasks();
     this.getNewTasks();
@@ -49,7 +49,7 @@ export class MainPageComponent implements OnInit {
 
   getSolutionId(task: TaskTopicModel) {
     if (!task.solution) {return ''; }
-    return ' [#'+ task.solution.id + ']';
+    return ' [#' + task.solution.id + ']';
   }
 
   openTask(task: TaskTopicModel) {
@@ -69,58 +69,20 @@ export class MainPageComponent implements OnInit {
   // }
 
   goToNewTask(status: MStatusesModel) {
-    this.router.navigate(['/new-task'])
+    this.router.navigate(['/new-task']);
   }
-  //
-  // getCountAllAndSolvedTasks() {
-  //   const defaultProjectId = localStorage.getItem('defaultProjectId');
-  //   if (!!defaultProjectId) {
-  //     forkJoin([this.tasksService.getTaskCount(defaultProjectId, true, true),
-  //       this.tasksService.getTaskCount(defaultProjectId, false, false),
-  //       this.tasksService.getTask(defaultProjectId, 'task')
-  //     ])
-  //       .pipe(takeUntil(this.ngUnsubscribe$))
-  //       .subscribe(([all, solved, stat]) => {
-  //         this.setResult(all, solved, stat);
-  //       });
-  //   } else {
-  //     this.authService.getDefaultProjectId()
-  //       .pipe(
-  //         switchMap(() => forkJoin([this.tasksService.getTaskCount(localStorage.getItem('defaultProjectId'), true, true),
-  //           this.tasksService.getTaskCount(localStorage.getItem('defaultProjectId'), false, false),
-  //           this.tasksService.getTask(localStorage.getItem('defaultProjectId'), 'task')
-  //         ]))
-  //       ).subscribe(([all, solved, stat]) => {
-  //       this.setResult(all, solved, stat);
-  //     })
-  //   }
-  // }
 
-  // private setResult(all: { [p: string]: number }, solved: { [p: string]: number }, stat: ResponseModel) {
-  //   this.allTasksCount = all.total;
-  //   this.solvedTasksCount = solved.total;
-  //   this.barValue = Math.round((this.solvedTasksCount / this.allTasksCount) * 100);
-  //   this.submitDate = stat.task.submitdate;
-  //   this.updateDate = stat.task.updatedate;
-  //   this.countOfDays = Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24)
-  //   this.speed = this.solvedTasksCount / this.countOfDays;
-  // }
-
-  // getTotalAndSolvedTasks() {
-  //   this.tasksService.getTasks()
-  //     .pipe(takeUntil(this.ngUnsubscribe$))
-  //     .subscribe(tasks => {
-  //       tasks.tasks.forEach(task => task.task.childrenCount > 0 ? this.getProgress(task.task) : null)
-  //     })
-  // }
-
-  private getProgress(task: TaskModel) {
-    forkJoin([this.tasksService.getTaskCount(task.id, true, false),
-      this.tasksService.getTaskCount(task.id, false, false)])
+  getCountAllAndSolvedTasks() {
+    this.tasksService.getCountTasks()
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(([all, solved]) => {
-        this.diagrams.push({...new DiagramaModel(), label: task.name, solved: solved.total, total: all.total})
-      })
+      .subscribe(res => {
+        this.allTasksCount = res.all;
+        this.solvedTasksCount = res.solved;
+        this.submitDate = res.submitDate;
+        this.updateDate = res.updateDate;
+        this.countOfDays = Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24);
+        this.speed = this.solvedTasksCount / this.countOfDays;
+      });
   }
 
   getProvenTasks() {
@@ -147,11 +109,11 @@ export class MainPageComponent implements OnInit {
         .subscribe((res) => {
           this.solvedExerciseCount = res.solved;
           this.totalExerciseCount = res.all;
-        })
+        });
   }
 
   getSpentDays(submitdate: number, updatedate: number) {
-    const days =(moment(updatedate).diff(moment(submitdate), 'days'));
+    const days = (moment(updatedate).diff(moment(submitdate), 'days'));
     if (days < 1) {
       const time = ((updatedate - submitdate) / 3600000);
       if (time < 0.1) {

@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         (res) => {
           this.form.reset();
           this.submit = false;
-          this.route.navigate(['/exercise']);
+          this.route.navigate(['/']);
         },
         () => {
           this.error = true;

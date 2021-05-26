@@ -1,4 +1,33 @@
 <div class="container-fluid">
+  <div class="row">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Процесс обучения</th><th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Выполнено / всего:</td><td>{{ solvedTasksCount }} / {{ allTasksCount }}</td>
+      </tr>
+      <tr>
+        <td>Выполнено упражнений / всего:</td><td>{{ solvedExerciseCount }} / {{ totalExerciseCount }}</td>
+      </tr>
+      <tr>
+        <td>Начало обучения:</td><td>{{ submitDate | getDate }}</td>
+      </tr>
+      <tr>
+        <td>Последняя активность в курсе:</td><td>{{ updateDate | getDate }}</td>
+      </tr>
+      <tr>
+        <td>Всего дней с начала обучения:</td><td>{{ countOfDays }}</td>
+      </tr>
+      <tr>
+        <td>Количество задач в день:</td><td>{{ speed | number: '1.2-2' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="row pt-3">
     <table class="table">
       <thead>
@@ -59,35 +88,7 @@
       </tbody>
     </table>
   </div>
-  <div class="row">
-    <!--    <table class="table">-->
-    <!--      <thead>-->
-    <!--      <tr>-->
-    <!--        <th scope="col">Процесс обучения</th><th scope="col"></th>-->
-    <!--      </tr>-->
-    <!--      </thead>-->
-    <!--      <tbody>-->
-    <!--      <tr>-->
-    <!--        <td>Выполнено / всего:</td><td>{{ solvedTasksCount }} / {{ allTasksCount }}</td>-->
-    <!--      </tr>-->
-    <!--      <tr>-->
-    <!--        <td>Выполнено упражнений / всего:</td><td>{{ solvedExerciseCount }} / {{ totalExerciseCount }}</td>-->
-    <!--      </tr>-->
-    <!--      <tr>-->
-    <!--        <td>Начало обучения:</td><td>{{ submitDate | getDate }}</td>-->
-    <!--      </tr>-->
-    <!--      <tr>-->
-    <!--        <td>Последняя активность в курсе:</td><td>{{ updateDate | getDate }}</td>-->
-    <!--      </tr>-->
-    <!--      <tr>-->
-    <!--        <td>Всего дней с начала обучения:</td><td>{{ countOfDays }}</td>-->
-    <!--      </tr>-->
-    <!--      <tr>-->
-    <!--        <td>Количество задач в день:</td><td>{{ speed | number: '1.2-2' }}</td>-->
-    <!--      </tr>-->
-    <!--      </tbody>-->
-    <!--    </table>-->
-  </div>
+
   <!--<app-tasks></app-tasks>-->
   <!--<div class="row pt-3">-->
     <!--<table class="table">-->
