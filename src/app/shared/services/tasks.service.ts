@@ -23,6 +23,10 @@ import { CountModels } from '../models/countModels';
 import { TopicModels } from '../models/topic.models';
 import { TaskTopicModel } from '../models/task.topic.model';
 import { UserEduModels } from '../models/userEduModels';
+import { LevelModels } from '../models/level.models';
+import { CategoryModels } from '../models/category.models';
+import { TopicFilterModels } from '../models/topicFilterModels';
+import { TopicFilter } from '../models/topickFilter';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -331,13 +335,7 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = this.urlJedu + `task/topic`;
-    return this.http.post<TopicModels[]>(url, params)
-      .pipe(
-        catchError(() => {
-          this.router.navigate(['/login']);
-          return EMPTY;
-        })
-      );
+    return this.http.post<TopicModels[]>(url, params);
   }
 
   getTasksByTopicId(id: string): Observable<TaskTopicModel[]> {
@@ -435,5 +433,51 @@ export class TasksService {
           return EMPTY;
         })
       );
+  }
+
+  getLevels(): Observable<LevelModels[]> {
+    const url = this.urlJedu + 'level/all';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<LevelModels[]>(url, params);
+  }
+
+  getCategoriesByLevel(id: number): Observable<CategoryModels[]> {
+    const url = this.urlJedu + 'category/getByLevel';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('levelId', String(id));
+    return this.http.post<CategoryModels[]>(url, params);
+  }
+
+  getUserFilters(): Observable<TopicFilterModels> {
+    const url = this.urlJedu + 'filterTopic/get';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<TopicFilterModels>(url, params);
+  }
+
+  getCategories(): Observable<CategoryModels[]> {
+    const url = this.urlJedu + 'category/all';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<CategoryModels[]>(url, params);
+  }
+
+  saveFilter(key: number, value: number): Observable<TopicFilter> {
+    const url = this.urlJedu + 'filterTopic/add';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('key', String(key));
+    params = params.append('value', String(value));
+    return this.http.post<TopicFilter>(url, params);
+  }
+
+  deleteTopicFilter(id: number) {
+    const url = this.urlJedu + 'filterTopic/delete';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('id', String(id));
+    return this.http.post(url, params);
   }
 }

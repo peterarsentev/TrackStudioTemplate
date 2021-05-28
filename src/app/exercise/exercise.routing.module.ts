@@ -4,14 +4,15 @@ import { ExerciseListComponent } from './components/exercise-list/exerciseList.c
 import { TasksListComponent } from './components/tasks-list/tasks-list.component';
 import { TasksListResolve } from './components/tasks-list/tasks.list.resolve';
 import { TaskViewComponent } from './components/task-view/task-view.component';
+import { TopicResolver } from './components/exercise-list/topic-resolver.service';
 
 const routes: Routes = [
   {
     path: '',
     children: [
-      { path: '', component: ExerciseListComponent },
-      { path: ':topicId', component: TasksListComponent, resolve: {data: TasksListResolve} },
-      { path: 'search/:search', component: TasksListComponent, resolve: {data: TasksListResolve} },
+      { path: '', component: ExerciseListComponent , resolve: { data: TopicResolver }},
+      { path: ':topicId', component: TasksListComponent, resolve: { data: TasksListResolve } },
+      { path: 'search/:search', component: TasksListComponent, resolve: { data: TasksListResolve } },
       { path: ':topicId/task-view/:id', component: TaskViewComponent },
       { path: ':topicId/task-view/:id/solutionId/:solutionId', component: TaskViewComponent },
     ]
