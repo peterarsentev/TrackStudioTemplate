@@ -113,8 +113,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       return;
     }
     setTimeout(() => {
-      const el = document.querySelector('.end');
-      el.scrollIntoView({behavior: 'smooth', block: 'end'});
+      const el = document.querySelector('.com');
+      el.scrollIntoView({behavior: 'smooth'});
     }, 1);
     this.showCommentForm = true;
   }
