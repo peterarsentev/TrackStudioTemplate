@@ -26,8 +26,6 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   currentCategories: CategoryModels[] = [];
   levels: LevelModels[] = [];
   level: LevelModels;
-  levelSelected = false;
-  catSelected = false;
   category: CategoryModels;
 
   constructor(private taskService: TasksService,
@@ -68,9 +66,6 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  showCat() {
-    this.catSelected = !this.catSelected;
-  }
 
   selectLevel(level?: LevelModels) {
     if (!level) {
