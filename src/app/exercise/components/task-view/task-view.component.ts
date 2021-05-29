@@ -80,6 +80,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         }
         this.prepareCode();
         this.updateImages();
+
       });
   }
 
@@ -165,6 +166,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   private prepareCode() {
+    setTimeout(() => {
     document.querySelectorAll('pre code').forEach((block) => {
       if (block.parentElement && block.parentElement.className.indexOf('run_main') > -1) {
         const codeEl = document.createElement('textarea');
@@ -213,6 +215,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         hljs.highlightBlock(block);
       }
     });
+    }, 0);
   }
 
   getSolutionId() {
