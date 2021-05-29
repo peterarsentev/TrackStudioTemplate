@@ -2,12 +2,12 @@
   <div class="form-row">
     <div class="form-group mr-2">
       <div class="dropdown">
-        <button class="btn btn-danger dropdown-toggle"
+        <button class="btn btn-sm btn-light dropdown-toggle"
                 type="button"
                 id="dropdownMenuButton"
                 data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-          Выберите Уровень
+          Уровень
         </button>
         <div  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a *ngFor="let l of levels" (click)="selectLevel(l)" class="dropdown-item">{{ l.name }}</a>
@@ -16,13 +16,13 @@
     </div>
     <div class="form-group mr-2">
       <div class="dropdown">
-        <button class="btn btn-warning dropdown-toggle"
+        <button class="btn btn-sm btn-light dropdown-toggle"
                 type="button"
                 (click)="showCat()"
                 id="dropdownMenuButton2"
                 data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-          Выберите Категорию
+          Категория
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
           <a *ngFor="let c of currentCategories" (click)="selectCat(c)" class="dropdown-item">{{ c.name }}</a>
@@ -30,19 +30,15 @@
       </div>
     </div>
     <div class="mr-2" *ngIf="level">
-      <button (click)="selectLevel()" class="btn btn-danger mb-3">
+      <button (click)="selectLevel()" class="btn btn-sm btn-light mb-3">
         {{ level.name }}
-        <button (click)="selectLevel()" type="button" class="close ml-2 mt-1" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <i (click)="selectLevel()" class="fas fa-times pl-1"></i>
       </button>
     </div>
     <div *ngIf="category">
-      <button (click)="selectCat()" class="btn btn-warning mb-3">
+      <button class="btn btn-sm btn-light mb-3">
         {{ category.name }}
-        <button (click)="selectCat()" type="button" class="close ml-2 mt-1" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <i (click)="selectCat()" class="fas fa-times pl-1"></i>
       </button>
     </div>
   </div>

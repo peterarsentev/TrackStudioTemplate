@@ -436,7 +436,7 @@ export class TasksService {
   }
 
   getLevels(): Observable<LevelModels[]> {
-    const url = this.urlJedu + 'level/all';
+    const url = this.urlJedu + 'level/getByPermission';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<LevelModels[]>(url, params);
