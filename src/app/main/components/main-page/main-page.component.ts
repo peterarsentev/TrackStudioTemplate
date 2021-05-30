@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { ResponseModel } from '../../../shared/models/response.model';
 import { MStatusesModel } from '../../../shared/models/m.statuses.model';
 import { forkJoin, Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { count, switchMap, takeUntil } from 'rxjs/operators';
 import { DiagramaModel } from '../../../shared/models/diagrama.model';
 import { VerifiedTasksModel } from '../../../shared/models/verifiedTasksModel';
 import { TaskTopicModel } from '../../../shared/models/task.topic.model';
@@ -26,6 +26,7 @@ export class MainPageComponent implements OnInit {
   solvedExerciseCount = 0;
   totalExerciseCount = 0;
   barValue = 0;
+  endOfCourse: string;
   mstatuses: MStatusesModel[] = [];
   tasks: ResponseModel[];
   provenTasks: TaskTopicModel[] = [];
@@ -73,6 +74,7 @@ export class MainPageComponent implements OnInit {
   //     .subscribe(res => this.mstatuses = res.mstatuses)
   // }
 
+
   goToNewTask(status: MStatusesModel) {
     this.router.navigate(['/new-task']);
   }
@@ -88,6 +90,8 @@ export class MainPageComponent implements OnInit {
         this.updateDate = res.updateDate === 0 ? new Date().getTime() : res.updateDate;
         this.countOfDays = Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24);
         this.speed = this.solvedTasksCount / this.countOfDays;
+        const days = (this.allTasksCount - this.solvedTasksCount) / this.speed;
+        this.endOfCourse = moment(this.submitDate).add(days, 'days').format('DD.MM.YYYY HH:mm');
       });
   }
 
