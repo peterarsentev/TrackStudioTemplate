@@ -6,10 +6,8 @@ import { TasksService } from '../../../shared/services/tasks.service';
 import { BookmarksModel } from '../../../shared/models/bookmarks.model';
 import { MessageService } from '../../../shared/services/message.service';
 import { BookmarksService } from '../../../shared/services/bookmarks.service';
-import { ResponseModel } from '../../../shared/models/response.model';
 import { CommentService } from '../../../shared/services/comment.service';
 import { TaskTopicModel } from '../../../shared/models/task.topic.model';
-import { VerifiedTasksModel } from '../../../shared/models/verifiedTasksModel';
 import { NavService } from '../../../shared/services/nav.service';
 
 @Component({
@@ -39,7 +37,8 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
     private bookmarksService: BookmarksService,
     private tasksService: TasksService,
     private commentService: CommentService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.loadTasks();
@@ -55,8 +54,10 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   }
 
   getSolutionId(task: TaskTopicModel) {
-    if (!task.solution) {return ''; }
-    return ' [#'+ task.solution.id + ']';
+    if (!task.solution) {
+      return '';
+    }
+    return ' [#' + task.solution.id + ']';
   }
 
   getProvenTasks() {
@@ -101,10 +102,10 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
 
   goToBook(book: BookmarksModel) {
     this.tasksService
-      .getTask(book.taskId, "task", "1")
+      .getTask(book.taskId, 'task', '1')
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
-        const url = res.task.preferences.includes("V") ? "task" : "tasks";
+        const url = res.task.preferences.includes('V') ? 'task' : 'tasks';
         this.router.navigate([url], {
           queryParams: {
             action: url,

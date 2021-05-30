@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProgressBarViewComponent implements OnInit {
 
   @Input() solvedTasksCount: number;
-  @Input() allTasksCount: number = 1;
+  @Input() allTasksCount = 1;
   @Input() barValue: number;
 
   constructor() { }

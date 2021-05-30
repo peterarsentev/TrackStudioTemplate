@@ -172,6 +172,14 @@ export class TasksService {
     return this.http.post<CountModels>(this.urlJedu + 'task/countTasks', params);
   }
 
+  getCountTasksByLevel(levelId: number): Observable<CountModels> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    const sessionId = localStorage.getItem('sessionId');
+    params = params.append('sessionId', sessionId);
+    params = params.append('levelId', String(levelId));
+    return this.http.post<CountModels>(this.urlJedu + 'task/countTaskByLevel', params);
+  }
+
   getButtons(projectId: string, sessionId = localStorage.getItem('sessionId')): Observable<{ mstatuses: MStatusesModel[] }> {
     let params = new HttpParams();
     projectId = projectId ? projectId : localStorage.getItem('defaultProjectId');
