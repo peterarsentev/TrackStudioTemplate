@@ -35,6 +35,10 @@ export class DiscussionComponent implements OnInit {
         this.form.reset();
         this.submit = false;
         this.closeEmitter.emit(true);
+      }, error => {
+        if (error.status === 403) {
+          alert('У вас нет прав на эту операцию!');
+        }
       });
   }
 

@@ -1,82 +1,31 @@
-<div class="row pt-3">
-  <div class="col-sm">
-  </div>
-  <div class="col-sm">
-    <div class="w-100 card">
-      <div class="card-body">
-        <div class="alert alert-danger" role="alert" *ngIf="error">
-        {{errorMessage}}
+<div class="container">
+  <div class="row pt-3">
+    <div class="col">
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header">
+          Как получить доступ?
         </div>
-        <div class="alert text-center" role="alert" *ngIf="!error">
-          Регистрация
+        <div class="card-body">
+          <p class="card-text">
+            В проекте Job4j мы активно используем телеграм.<br/><br/>
+            Чтобы начать обучение, добавьте бота @job4j_notification_bot<br/>
+            Отправьте боту сообщение:<br/><br/>
+            <b>new email</b><br/><br/>
+            где email - это ваш email адрес.<br/>
+            Например, new ivan.ivanov@gmail.com<br/>
+            Бот пришлет логин и пароль для входа в систему.<br/><br/>
+            Успешной учебы, Команда Job4j.<br/>
+          </p>
+          <a href="https://telegram.me/job4j_notification_bot" target="_blank"
+             class="btn btn-primary text-center">Открыть телеграм бота</a>
         </div>
-        <form [formGroup]="form">
-          <div class="form-group mt-3">
-            <label for="email">Логин:</label>
-            <input  formControlName="login"
-                    type="text"
-                    (ngModelChange)="resetError()"
-                    class="form-control"
-                    placeholder="Введите логин" id="login">
-            <div *ngFor="let error of validationErrors.login">
-                            <span *ngIf="form.get('login').hasError(error.type)
-                                        && (form.get('login').dirty
-                                        || form.get('login').touched)"
-                                  class="validation">{{ error.message }}</span>
-            </div>
-          </div>          <div class="form-group mt-3">
-            <label for="email">Имя:</label>
-            <input  formControlName="name"
-                    type="text"
-                    (ngModelChange)="resetError()"
-                    class="form-control"
-                    placeholder="Введите имя" id="name">
-            <div *ngFor="let error of validationErrors.name">
-                            <span *ngIf="form.get('name').hasError(error.type)
-                                        && (form.get('name').dirty
-                                        || form.get('name').touched)"
-                                  class="validation">{{ error.message }}</span>
-            </div>
-          </div>          <div class="form-group mt-3">
-            <label for="email">Email:</label>
-            <input  formControlName="email"
-                    type="email"
-                    (ngModelChange)="resetError()"
-                    class="form-control"
-                    placeholder="Введите email" id="email">
-            <div *ngFor="let error of validationErrors.email">
-                            <span *ngIf="form.get('email').hasError(error.type)
-                                        && (form.get('email').dirty
-                                        || form.get('email').touched)"
-                                  class="validation">{{ error.message }}</span>
-            </div>
-          </div>
-          <button (click)="goMain()"
-                  [disabled]="submit"
-                  type="button"
-                  class="btn btn-light pull-right">
-            <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Отмена
-          </button>
-          <button (click)="registration()"
-                  [disabled]="form.invalid || submit"
-                  type="button"
-                  class="btn btn-primary pull-left">
-            <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Зарегистрироваться
-          </button>
-          <button (click)="auth()"
-                  type="button"
-                  class="btn btn-primary pull-left ml-2">
-            Авторизация
-          </button>
-
-        </form>
-      </div>
-      <div class="col-sm">
+        <div class="col-sm">
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm">
+    <div class="col">
+    </div>
   </div>
 </div>
