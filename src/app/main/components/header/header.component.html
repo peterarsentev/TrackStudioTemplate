@@ -64,8 +64,9 @@
         >Выйти</a>
       </div>
     </nav>
+    <app-admin-message *ngIf="message" [message]="message"></app-admin-message>
     <div class="container-fluid">
-      <app-navigation
+      <app-navigation (getMessage)="getMessage()"
         *ngIf="navShow"
       ></app-navigation>
       <router-outlet></router-outlet>

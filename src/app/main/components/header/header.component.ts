@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
 import { Subject } from 'rxjs';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { UserModels } from '../../../shared/models/user.models';
 import { AuthService } from '../../../shared/services/auth.service';
 import { MessageService } from '../../../shared/services/message.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NavService } from '../../../shared/services/nav.service';
 import { NavNode } from '../../../shared/models/nav.node';
+import { InfoModels } from '../../../shared/models/info.models';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   count: number;
   toggled = false;
   navShow = true;
+  message: InfoModels;
 
   constructor(
     private userService: UserService,
@@ -36,7 +38,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.router.url === '/') {
       this.navService.setUpModel({...new NavNode()});
     }
-    console.log(this.router.url);
     this.navShow = !(this.router.url === '/login'  || this.router.url === '/registration');
     this.userService
       .getModel()
@@ -132,5 +133,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['exercise', 'search', `${value}`]);
     }
+  }
+
+  getMessage() {
+    this.messageService.getAdminMessage()
+      .subscribe(res => this.message = res);
   }
 }

@@ -19,7 +19,6 @@ import { ChartsModule } from 'ng2-charts';
 import { DiagramComponent } from './components/diagramma/diagram.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { TreeModule } from 'angular-tree-component';
-import { DiscussionComponent } from './components/discussion/discussion.component';
 import { SandboxComponent } from './components/sandbox/sandbox.component';
 import { ExamComponent } from './components/exam/exam.component';
 import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.component';
@@ -28,6 +27,7 @@ import { TaskAccessComponent } from './components/task-access/task-access.compon
 import { ErrorComponent } from './components/error/error.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { AdminMessageComponent } from './components/header/admin-message/admin-message.component';
 
 
 @NgModule({
@@ -53,7 +53,8 @@ import { RegistrationComponent } from './components/registration/registration.co
         TaskNotFoundComponent,
         TaskAccessComponent,
         ErrorComponent,
-        RegistrationComponent
+        RegistrationComponent,
+        AdminMessageComponent
     ],
     imports: [
         CommonModule,

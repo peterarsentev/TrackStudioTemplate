@@ -6,6 +6,7 @@ import { MessageModel } from '../models/message.model';
 import { BookmarksModel } from '../models/bookmarks.model';
 import { DiscussionModel } from '../models/discussionModel';
 import {CustomEncoder} from '../custom-encoder';
+import { InfoModels } from '../models/info.models';
 
 
 @Injectable({providedIn: 'root'})
@@ -97,6 +98,11 @@ export class MessageService {
     params = params.append('notification', Boolean(state).toString());
     return this.http.post(url, params);
   }
-  /*
-  * curl -k https://job4j.ru/jedu/notification/save -d sessionId=73e550538ec979a7db9c377c64e11b60 -d notification=true*/
+
+  getAdminMessage(): Observable<InfoModels> {
+    const url = this.urlJedu + `info/getCurrent`;
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<InfoModels>(url, params);
+  }
 }

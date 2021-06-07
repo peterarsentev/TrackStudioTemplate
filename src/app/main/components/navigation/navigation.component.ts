@@ -24,6 +24,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private taskCodeId: string;
   private topicId: string;
   private solutionId: string;
+  @Output()getMessage = new EventEmitter();
 
   constructor(private route: ActivatedRoute,
               private navService: NavService,
@@ -34,6 +35,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.navService.getModel()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
+        this.getMessage.emit();
         if (res) {
           this.topicId = res.topicId ? '' + res.topicId : undefined;
           this.taskCodeId = res.taskId ? '' + res.taskId : undefined;
