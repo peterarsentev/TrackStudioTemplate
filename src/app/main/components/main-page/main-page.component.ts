@@ -90,8 +90,8 @@ export class MainPageComponent implements OnInit {
         this.updateDate = res.updateDate === 0 ? new Date().getTime() : res.updateDate;
         this.countOfDays = Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24);
         this.speed = this.solvedTasksCount / this.countOfDays;
-        const days = (this.allTasksCount - this.solvedTasksCount) / this.speed;
-        this.endOfCourse = moment(this.submitDate).add(days, 'days').format('DD.MM.YYYY HH:mm');
+        const days = Math.round((this.allTasksCount - this.solvedTasksCount) / this.speed);
+        this.endOfCourse = moment().add(days, 'days').format('DD.MM.YYYY HH:mm');
       });
   }
 
