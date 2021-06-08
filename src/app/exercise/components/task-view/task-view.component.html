@@ -118,7 +118,7 @@
               (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
     </span>
   </div>
-  <div class="row">
+  <div  id="comment" class="row comment">
     <app-comments *ngIf="showCommentForm"
                   [operation]="operation.name"
                   [handlers]="handlers"
