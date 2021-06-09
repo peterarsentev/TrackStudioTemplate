@@ -28,6 +28,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AdminMessageComponent } from './components/header/admin-message/admin-message.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AdminMessageComponent } from './components/header/admin-message/admin-m
         TaskAccessComponent,
         ErrorComponent,
         RegistrationComponent,
-        AdminMessageComponent
+        AdminMessageComponent,
+        PaymentComponent
     ],
     imports: [
         CommonModule,

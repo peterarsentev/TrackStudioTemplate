@@ -14,6 +14,7 @@ import { TaskNotFoundComponent } from './components/task-not-found/task-not-foun
 import { TaskAccessComponent } from './components/task-access/task-access.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import {PaymentComponent} from './components/payment/payment.component';
 
 const routes: Routes = [
   {
@@ -46,7 +47,8 @@ const routes: Routes = [
         path: 'topics',
         loadChildren: () => import('../task_code/task.code.module')
           .then(mod => mod.TaskCodeModule)
-      }
+      },
+      {path: 'payment', component: PaymentComponent},
     ]
   },
   {path: 'login', component: LoginComponent},
