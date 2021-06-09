@@ -9,7 +9,7 @@
                 aria-haspopup="true" aria-expanded="false">
           Уровень
         </button>
-        <div  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a *ngFor="let l of levels" (click)="selectLevel(l)" class="dropdown-item">{{ l.name }}</a>
         </div>
       </div>
@@ -51,20 +51,22 @@
       </thead>
       <tbody>
       <tr *ngFor="let task of tasks">
-        <td (mousedown)="showTask(task?.id)" style="cursor: pointer;">
-          <div>
-            <i class="fas fa-folder pr-3"></i>
-            <span class="font-weight-bold">{{task.name}}</span>
-          </div>
-          <small class="mb-2 text-muted">
+        <td>
+          <a [routerLink]="['/exercise', task?.id]">
+            <div>
+              <i class="fas fa-folder pr-3"></i>
+              <span class="font-weight-bold">{{task.name}}</span>
+            </div>
+            <small class="mb-2 text-muted">
             <span>
               <span class="badge badge-light mr-1">{{ task.level.name }}</span>
               <span class="badge badge-light mr-1">{{ task.category.name }}</span>
             </span>
-            <!--            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
-            <!--            <span class="mr-3">Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
-            <!--            <span class="mr-3" *ngIf="!task.task.preferences.includes('V')"> Потрачено : {{ getSpentDays( task.task.submitdate, task.task.updatedate)}} </span>-->
-          </small>
+              <!--            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
+              <!--            <span class="mr-3">Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
+              <!--            <span class="mr-3" *ngIf="!task.task.preferences.includes('V')"> Потрачено : {{ getSpentDays( task.task.submitdate, task.task.updatedate)}} </span>-->
+            </small>
+          </a>
         </td>
         <td>
           <app-progress-bar-solutions [topicId]="task.id"

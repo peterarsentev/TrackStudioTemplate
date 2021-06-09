@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   toggled = false;
   navShow = true;
   message: InfoModels;
+  iconComment: boolean;
 
   constructor(
     private userService: UserService,
@@ -35,6 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.iconComment = this.router.url.includes('task-view');
     if (this.router.url === '/') {
       this.navService.setUpModel({...new NavNode()});
     }
@@ -56,6 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(() => {});
     this.authService.checkSession()
       .subscribe(res => this.userService.setUpModel(res.user));
+    this.showIconComment();
   }
 
   initResize() {
@@ -138,5 +141,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getMessage() {
     this.messageService.getAdminMessage()
       .subscribe(res => this.message = res);
+  }
+
+  private showIconComment() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.iconComment = this.router.url.includes('task-view');
+      });
+  }
+
+  goToComments() {
+    setTimeout(() => {
+      const el = document.querySelector('.comment');
+      el.scrollIntoView({behavior: 'smooth', block: 'end'});
+    }, 1);
   }
 }
