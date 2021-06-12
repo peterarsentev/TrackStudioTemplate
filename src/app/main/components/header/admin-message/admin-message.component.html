@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div *ngIf="message.text !== ''" class="container-fluid">
     <div class="alert alert-info mt-2" role="alert">
         <h4 class="alert-heading">Внимание</h4>
         <p [innerHTML]="message.text"></p>
