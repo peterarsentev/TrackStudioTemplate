@@ -414,6 +414,13 @@ export class TasksService {
     return this.http.post<TaskTopicModel[]>(url, params);
   }
 
+  getSolvedTasks(): Observable<TaskTopicModel[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = this.urlJedu + `task/solved`;
+    return this.http.post<TaskTopicModel[]>(url, params);
+  }
+
   getNewTasks(): Observable<TaskTopicModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));

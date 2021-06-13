@@ -31,6 +31,7 @@ export class MainPageComponent implements OnInit {
   tasks: ResponseModel[];
   provenTasks: TaskTopicModel[] = [];
   newTasks: TaskTopicModel[] = [];
+  doneTasks: TaskTopicModel[] = [];
 
   updateDate: number;
   submitDate: number;
@@ -51,6 +52,7 @@ export class MainPageComponent implements OnInit {
     this.getNewTasks();
     this.getSolvedAndAllExerciseCount();
     this.getLevels();
+    this.getSolvedTasks();
   }
 
   getSolutionId(task: TaskTopicModel) {
@@ -68,11 +70,14 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  // geButtons(taskId: string) {
-  //   console.log(taskId)
-  //   this.tasksService.getButtons(taskId)
-  //     .subscribe(res => this.mstatuses = res.mstatuses)
-  // }
+  getSolvedTasks() {
+    this.tasksService
+      .getSolvedTasks()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((res) => {
+        this.doneTasks = res;
+      });
+  }
 
 
   goToNewTask(status: MStatusesModel) {

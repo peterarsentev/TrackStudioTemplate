@@ -81,12 +81,14 @@
       </thead>
       <tbody>
       <tr *ngFor="let task of provenTasks; let idx = index">
-        <td (click)="openTask(task)" style="cursor: pointer;">
+        <td>
           <div>
+            <a [routerLink]="['exercise', task.task.topicId, 'task-view', task.task.taskId, 'solutionId', task.solution.id]">
             <span class="font-weight-bold">
               <i class="fas fa-tasks pr-3"></i>
-              {{task.task.taskName}} &nbsp;{{getSolutionId(task)}}
+              {{task.task.taskName}}
             </span>
+            </a>
           </div>
           <small class="mb-2 text-muted">
             <span>
@@ -99,7 +101,42 @@
             <span class="mr-3">Создана : {{ task.solution.createdTime | date: 'hh:mm dd.MM.yyyy' }}</span>
             <span class="mr-3">Обновлена : {{  task.solution.updatedTime | date: 'hh:mm dd.MM.yyyy' }}</span>
             <span
-              class="mr-3"> Потрачено : {{ getSpentDays(task.solution.createdTime, task.solution.updatedTime)}} </span>
+              class="mr-3"> Потрачено : {{ getSpentDays(task.solution.createdTime, task.solution.updatedTime)}}
+            </span>
+          </small>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row pt-3">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Выполненные задачи : {{doneTasks?.length}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let task of doneTasks; let idx = index">
+        <td>
+          <div>
+            <a [routerLink]="['exercise', task.task.topicId, 'task-view', task.task.taskId, 'solutionId', task.solution.id]">
+            <span class="font-weight-bold">
+              <i class="fas fa-tasks pr-3"></i>
+              {{task.task.taskName}}
+            </span>
+            </a>
+          </div>
+          <small class="mb-2 text-muted">
+            <span>
+                <span *ngIf="task.status.finish" class="badge badge-success mr-3">{{ task.status.statusName }}</span>
+              <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>
+            </span>
+            <span class="mr-3">Создана : {{ task.handler.created | date: 'hh:mm dd.MM.yyyy' }}</span>
+            <span class="mr-3">Обновлена : {{  task.solution.updatedTime | date: 'hh:mm dd.MM.yyyy' }}</span>
+            <span
+              class="mr-3"> Потрачено : {{ getSpentDays(task.solution.createdTime, task.solution.updatedTime)}}
+            </span>
           </small>
         </td>
       </tr>
@@ -115,12 +152,14 @@
       </thead>
       <tbody>
       <tr *ngFor="let task of newTasks; let idx = index">
-        <td (click)="openTask(task)" style="cursor: pointer;">
+        <td>
           <div>
+            <a [routerLink]="['exercise', task.task.topicId, 'task-view', task.task.taskId]">
             <span class="font-weight-bold">
               <i class="fas fa-tasks pr-3"></i>
               {{task.task.taskName}}
             </span>
+            </a>
           </div>
           <small class="mb-2 text-muted">
             <span>
@@ -134,25 +173,4 @@
       </tbody>
     </table>
   </div>
-
-  <!--<app-tasks></app-tasks>-->
-  <!--<div class="row pt-3">-->
-  <!--<table class="table">-->
-  <!--<thead>-->
-  <!--<tr>-->
-  <!--<th scope="col">Полезные ресурсы</th>-->
-  <!--</tr>-->
-  <!--</thead>-->
-  <!--<tbody>-->
-  <!--<tr>-->
-  <!--<td (click)="openTask({id : 'ae84b50d554cbf1d01558646352721c5'})" style="cursor: pointer;">-->
-  <!--<div>-->
-  <!--<i class="fas fa-tasks pr-3"></i>-->
-  <!--Реквизиты-->
-  <!--</div>-->
-  <!--</td>-->
-  <!--</tr>-->
-  <!--</tbody>-->
-  <!--</table>-->
-  <!--</div>-->
 </div>

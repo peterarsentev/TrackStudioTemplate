@@ -26,6 +26,8 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   // bookmarks: BookmarksModel[] = [];
   provenTasks: TaskTopicModel[] = [];
   newTasks: TaskTopicModel[] = [];
+  doneTasks: TaskTopicModel[] = [];
+  flagDoneTasks = true;
 
 
   constructor(
@@ -44,13 +46,15 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
     this.loadTasks();
     this.getProvenTasks();
     this.getNewTasks();
-    // this.getBookmarks();
-    // this.getBookSubscribe();
-    // this.getTree();
+    this.getSolvedTasks();
   }
 
   showNew() {
     this.newTask = !this.newTask;
+  }
+
+  showDoneTasks() {
+    this.flagDoneTasks = !this.flagDoneTasks;
   }
 
   getSolutionId(task: TaskTopicModel) {
@@ -66,6 +70,15 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
         this.provenTasks = res;
+      });
+  }
+
+  getSolvedTasks() {
+    this.tasksService
+      .getSolvedTasks()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((res) => {
+        this.doneTasks = res;
       });
   }
 
