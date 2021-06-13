@@ -64,7 +64,7 @@ export class TaskCodeService {
   }
 
   submitSolution(solution: SolutionModels): Observable<{ output: string, status: number }> {
-    const url = this.urlJedu + 'taskcode/submit'
+    const url = this.urlJedu + 'taskcode/submit';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskCodeId', String(solution.taskCodeId));
@@ -77,7 +77,15 @@ export class TaskCodeService {
   }
 
   total(): Observable<{ [total: string]: number }> {
-    let params = new HttpParams({encoder: new CustomEncoder()});
+    const params = new HttpParams({encoder: new CustomEncoder()});
     return this.http.post<{ [total: string]: number }>(this.urlJedu + 'taskcode/total', params);
+  }
+
+  reset(solutionId: string) {
+    const url = this.urlJedu + 'taskcode/reset';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('solutionId',solutionId);
+    return this.http.post(url, params);
   }
 }

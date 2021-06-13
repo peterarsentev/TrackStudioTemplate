@@ -17,7 +17,7 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
   previousAndNext: NextPreviousSolutions = {};
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   dis = false;
-  @Input()taskModel: TaskCodeModel = {}
+  @Input()taskModel: TaskCodeModel = {};
   @Input() taskClass: string;
   @Input() taskTest: string;
   @Input() status: number;
@@ -27,12 +27,13 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
       this.textArea = true;
       this.text = output;
     }
-  };
+  }
   @Input() set disabled(disabled: boolean) {
     this.dis = disabled;
-  };
+  }
   @Output() startTaskEmitter: EventEmitter<void> = new EventEmitter<void>();
   @Output() submitTaskEmitter: EventEmitter<string> = new EventEmitter<string>();
+  @Output() resetEmitter: EventEmitter<boolean> = new EventEmitter<>();
   textArea: boolean;
   text: string;
   options = {
@@ -63,13 +64,12 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(params => {
           this.taskId = params.task_code_id;
-          return this.taskService.getNextPreviousSol(this.taskId)
+          return this.taskService.getNextPreviousSol(this.taskId);
         }),
         takeUntil(this.ngUnsubscribe$),
       ).subscribe(res => {
-        console.log(res)
       this.previousAndNext = res;
-    })
+    });
     setTimeout(() => {
       document.querySelectorAll('a img').forEach((block) => {
         block.parentElement.setAttribute('data-lightbox', 'images');
@@ -88,7 +88,7 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
   goTo(nav: TaskCodeModel) {
     window.scroll(0, 0);
     const solutionId = !!nav.solutionId ? nav.solutionId : 'new_task';
-    this.alertService.setUpMessage(undefined)
+    this.alertService.setUpMessage(undefined);
     this.text = '';
     this.router.navigate(['topics', `${nav.topicId}`, 'task_code', `${nav.id}`, 'solution', `${solutionId}`]);
   }
@@ -96,5 +96,10 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  reset() {
+    console.log(this.taskModel)
+    this.resetEmitter.emit(true);
   }
 }

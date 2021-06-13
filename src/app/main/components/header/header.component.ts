@@ -134,7 +134,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getMessage() {
     this.messageService.getAdminMessage()
       .subscribe(res => this.message = res);
-    this.getNotifications(this.user.id);
+    if (!!this.user) {
+      this.getNotifications(this.user.id);
+    }
   }
 
   private showIconComment() {

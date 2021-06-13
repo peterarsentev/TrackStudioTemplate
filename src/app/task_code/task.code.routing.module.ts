@@ -6,7 +6,7 @@ import { TaskCodeSolutionComponent } from './task-code-solution/task-code-soluti
 
 const routes: Routes = [
   {
-    path:'',
+    path: '',
     children: [
       { path: '', component: TopicsComponent },
       { path: ':topicId', component: TaskCodeListComponent },

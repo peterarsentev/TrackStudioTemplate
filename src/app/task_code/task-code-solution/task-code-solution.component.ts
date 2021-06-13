@@ -47,7 +47,8 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
           this.taskId = params.task_code_id;
           this.topicId = params.topicId;
           this.solutionId = params.solutionId;
-          this.navService.setUpModel({... new NavNode(), task_code: true, topicId: +this.topicId, taskId: +this.taskId,solutionId: this.solutionId })
+          this.navService.setUpModel(
+            {... new NavNode(), task_code: true, topicId: +this.topicId, taskId: +this.taskId, solutionId: this.solutionId });
           if (this.solutionId === 'new_task') {
             return this.taskCodeService.getNewTask(this.taskId)
               .pipe(
@@ -57,9 +58,9 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
                     ...new SolutionTaskCodeModels(),
                     taskcode: res,
                     solution: {... new SolutionModels(), code: res.classCode, statusId: 1 }
-                  }
+                  };
                 })
-              )
+              );
           }
           return this.taskCodeService.getSolution(this.taskId, this.solutionId);
         }),
@@ -84,7 +85,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
         .pipe(
           switchMap(res => {
             solutionId = res.id;
-            return this.taskCodeService.submitSolution({...res, code})
+            return this.taskCodeService.submitSolution({...res, code});
           }),
           map(result => {
             this.router.navigate(
@@ -99,16 +100,16 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
           takeUntil(this.ngUnsubscribe$),
           catchError(err => {
               err.status === 401 ?
-                this.alertService.setUpMessage("Вам необходимо авторизоваться в системе.", TypeAlertsModel.DANGER) :
-                this.alertService.setUpMessage("Сервис не доступен, попробуйте позже еще раз", TypeAlertsModel.DANGER);
-              return throwError(err)
+                this.alertService.setUpMessage('Вам необходимо авторизоваться в системе.', TypeAlertsModel.DANGER) :
+                this.alertService.setUpMessage('Сервис не доступен, попробуйте позже еще раз', TypeAlertsModel.DANGER);
+              return throwError(err);
             }
           )
         )
         .subscribe(res => {
           this.prepareResult(res);
           this.disabled = false;
-        })
+        });
     } else {
       this.taskCodeService.submitSolution(solution)
         .pipe(takeUntil(this.ngUnsubscribe$))
@@ -120,12 +121,23 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   }
 
   private prepareResult(res: { output: string, status: number }) {
-    this.output = res.output
+    this.output = res.output;
     if (res.status === 3) {
-      this.alertService.setUpMessage("Задача решена не верно, попробуйте еще раз", TypeAlertsModel.DANGER);
+      this.alertService.setUpMessage('Задача решена не верно, попробуйте еще раз', TypeAlertsModel.DANGER);
     }
-    if (res.status == 4) {
-      this.alertService.setUpMessage("Поздравляем! Задача решена верно!", TypeAlertsModel.SUCCESS);
+    if (res.status === 4) {
+      this.alertService.setUpMessage('Поздравляем! Задача решена верно!', TypeAlertsModel.SUCCESS);
+    }
+  }
+
+  resetSolution(reset: boolean) {
+    if (reset) {
+      this.taskCodeService.reset(this.solutionId)
+        .subscribe(res => this.router.navigate([
+          'topics', `${this.topicId}`,
+          'task_code', `${this.taskId}`,
+          'solution', 'new_task'
+        ]));
     }
   }
 }
