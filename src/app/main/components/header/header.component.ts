@@ -49,7 +49,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.notifications = !!this.user.name && this.user.name !== 'Аnonymous';
         if (this.notifications) {
           this.getNotifications(this.user.id);
-          this.executor(this.user.id);
         }
       });
     this.authService
@@ -124,12 +123,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
   }
 
-  private executor(id: string) {
-    setInterval(() => {
-      this.getNotifications(this.user.id);
-    }, 30000);
-  }
-
   search(value: string) {
     if (!value) {
       this.router.navigate(['exercise']);
@@ -141,6 +134,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getMessage() {
     this.messageService.getAdminMessage()
       .subscribe(res => this.message = res);
+    this.getNotifications(this.user.id);
   }
 
   private showIconComment() {
