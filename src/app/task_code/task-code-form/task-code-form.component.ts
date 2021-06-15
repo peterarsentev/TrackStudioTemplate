@@ -33,7 +33,7 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
   }
   @Output() startTaskEmitter: EventEmitter<void> = new EventEmitter<void>();
   @Output() submitTaskEmitter: EventEmitter<string> = new EventEmitter<string>();
-  @Output() resetEmitter: EventEmitter<boolean> = new EventEmitter<>();
+  @Output() resetEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   textArea: boolean;
   text: string;
   options = {

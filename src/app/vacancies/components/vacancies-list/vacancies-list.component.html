@@ -1,4 +1,4 @@
-<ng-container *ngIf="user.login !== 'anonymous'; else auth">
+<ng-container *ngIf="user?.login !== 'anonymous'; else auth">
 <nav class="navbar sticky-top navbar-light bg-light">
   <a class="navbar-brand" routerLink="/vacancies">Вакансии</a>
   <button class="btn badge-pill" type="button" (click)="gotoDetail()">Добавить Вакансию</button>
