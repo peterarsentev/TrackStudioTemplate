@@ -32,12 +32,6 @@
             </a>
           </li>
           <li (click)="scroll()">
-            <a [routerLink]="['/vacancies']" class="list-group-item list-group-item-action bg-light">
-              <i class="fas fa-info mr-2"></i>
-              <span class="font-weight-bold">Вакансии</span>
-            </a>
-          </li>
-          <li (click)="scroll()">
             <a [routerLink]="['/payment']"
                class="list-group-item list-group-item-action bg-light">
               <i class="fas fa-info mr-2"></i>
@@ -49,6 +43,12 @@
                class="list-group-item list-group-item-action bg-light">
               <i class="fas fa-info mr-2"></i
               ><span class="font-weight-bold">Критика и предложения</span>
+            </a>
+          </li>
+          <li (click)="scroll()">
+            <a [routerLink]="['/vacancies']" class="list-group-item list-group-item-action bg-light">
+              <i class="fas fa-info mr-2"></i>
+              <span class="font-weight-bold">Вакансии</span>
             </a>
           </li>
 <!--          <li (click)="scroll()">-->
