@@ -93,12 +93,21 @@ export class TasksService {
     }
   }
 
-  runCode(code: string) {
+  runJava(code: string) {
     const sessionId = localStorage.getItem('sessionId');
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     params = params.append('code', code);
     const url = this.urlJedu + `code/run`;
+    return this.http.post<OutputModel>(url, params);
+  }
+
+  runSql(scripts: string) {
+    const sessionId = localStorage.getItem('sessionId');
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', sessionId);
+    params = params.append('scripts', scripts);
+    const url = this.urlJedu + `sqlSandBox/run`;
     return this.http.post<OutputModel>(url, params);
   }
 
