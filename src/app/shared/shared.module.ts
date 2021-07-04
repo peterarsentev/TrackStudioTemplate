@@ -15,6 +15,8 @@ import { SafeCodePipe } from '../main/safe-code.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AreYouSureComponent } from './are-you-sure/are-you-sure.component';
 import { DiscussionComponent } from '../main/components/discussion/discussion.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { DiscussionBlockComponent } from './components/discussion-block/discussion-block.component';
 
 @NgModule({
   imports: [
@@ -24,7 +26,8 @@ import { DiscussionComponent } from '../main/components/discussion/discussion.co
     FormsModule,
     ReactiveFormsModule,
     CodemirrorModule,
-    MatDialogModule
+    MatDialogModule,
+    InfiniteScrollModule
   ],
   exports: [
     HttpClientModule,
@@ -42,6 +45,7 @@ import { DiscussionComponent } from '../main/components/discussion/discussion.co
     MatDialogModule,
     AreYouSureComponent,
     DiscussionComponent,
+    DiscussionBlockComponent,
   ],
   declarations: [
     AlertMessageComponent,
@@ -54,6 +58,7 @@ import { DiscussionComponent } from '../main/components/discussion/discussion.co
     SafeCodePipe,
     AreYouSureComponent,
     DiscussionComponent,
+    DiscussionBlockComponent,
   ],
   entryComponents: [
     AreYouSureComponent

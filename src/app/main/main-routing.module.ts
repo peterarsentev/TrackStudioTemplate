@@ -53,6 +53,11 @@ const routes: Routes = [
         loadChildren: () => import('../task_code/task.code.module')
           .then(mod => mod.TaskCodeModule)
       },
+      {
+        path: 'discuss',
+        loadChildren: () => import('../main/discuss/discuss.module')
+          .then(mod => mod.DiscussModule)
+      },
       {path: 'payment', component: PaymentComponent},
     ]
   },

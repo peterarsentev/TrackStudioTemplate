@@ -6,6 +6,7 @@ export class NavNode {
     public taskCodeId?: number,
     public taskId?: number,
     public exercise?: boolean,
+    public discuss?: boolean,
     public task_code?: boolean,
     public solutionId?: string,
   ) {

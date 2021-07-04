@@ -20,7 +20,7 @@ export class TopicsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.navService.setUpModel({...new NavNode(), task_code: true})
+    this.navService.setUpModel({...new NavNode(), task_code: true});
     this.taskCodeService.total()
       .subscribe(res => {
         this.total = res.total;
@@ -28,6 +28,6 @@ export class TopicsComponent implements OnInit {
   }
 
   goToTasks(topic: TopicModels) {
-    this.router.navigate([`${topic.id}` ], {relativeTo: this.route})
+    this.router.navigate([`${topic.id}` ], {relativeTo: this.route});
   }
 }

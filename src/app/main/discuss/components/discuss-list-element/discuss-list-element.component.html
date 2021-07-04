@@ -1,0 +1,93 @@
+<div class="container-fluid pb-4">
+  <div class="row pb-2">
+    <span class="w-50">
+    </span>
+<!--    <span class="w-50 pull-right">-->
+<!--      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"-->
+<!--              (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>-->
+<!--      <button *ngIf="task.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"-->
+<!--              (click)="goBackToList(task.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>-->
+<!--      <button *ngIf="task.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"-->
+<!--              (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>-->
+<!--    </span>-->
+  </div>
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="grid">
+          <div class="row">
+            <div class="col-sm-10">
+              <div class="font-weight-bold">{{ discuss.name }}</div>
+              <div>
+                <small class="mb-2 text-muted">
+                  <span  class="mr-3">Автор : {{discuss.submitter.name }}</span>
+                  <span class="mr-3">Дата создания : {{ discuss.created | date: 'hh:mm dd.MM.yyyy' }}</span>
+                  <span>Обновлена : {{  discuss.updated | date: 'hh:mm dd.MM.yyyy' }}</span>
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-text" [innerHTML]="discuss.description | safeCode"></p>
+      </div>
+    </div>
+  </div>
+  <!--  <div class="row pb-2 pt-3">-->
+  <!--    <span class="w-50" *ngIf="!showCommentForm">-->
+  <!--      <ng-container *ngFor="let button of buttons">-->
+  <!--        <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>-->
+  <!--      </ng-container>-->
+  <!--    </span>-->
+  <!--  </div>-->
+  <div class="row mt-2" *ngIf="messages.length > 0" style="word-break: break-all;">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">Сообщения</div>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+          <tr *ngFor="let message of messages">
+            <td class="{{ message.submitter.mentor ? 'bg-warning' : '' }}">
+              <div class="pb-3 small">
+                <span>
+                  <span *ngIf="message.status.id != -1">
+                      <span *ngIf="message.status?.start"
+                            class="badge badge-danger mr-3">{{ message.status?.statusName }}</span>
+                  <span *ngIf="message.status?.finish"
+                        class="badge badge-success mr-3">{{ message.status?.statusName }}</span>
+                  <span *ngIf="!(message.status?.finish || message.status?.start)"
+                        class="badge badge-warning mr-3">{{ message.status?.statusName }}</span>
+                </span>
+                  Сообщение от <span class="font-weight-bold">{{ message.submitter.name }}
+                  [{{message.submitter.mentor ? 'Ментор' : 'Ученик'}}]
+                </span> к <span class="font-weight-bold">{{ message.handler.name }}
+                  [{{!message.submitter.mentor ? 'Ментор' : 'Ученик'}}]</span>
+                </span>
+                <span class="pull-right">{{ message.message.timeMils | date: 'HH:mm dd.MM.yyyy' }}</span>
+              </div>
+              <div [innerHTML]="message.message.text"></div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--  <div class="row pt-2" *ngIf="messages.length > 0 && !showCommentForm">-->
+  <!--   <span class="w-50">-->
+  <!--      <ng-container *ngFor="let button of buttons">-->
+  <!--        <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>-->
+  <!--      </ng-container>-->
+  <!--    </span>-->
+
+  <!--  </div>-->
+
+  <app-discussion-block [discussions]="discussions"
+                        [user]="user"
+                        (closeEmitter)="closeDiscussion($event)"
+  ></app-discussion-block>
+</div>
+

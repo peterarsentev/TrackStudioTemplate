@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <div class="container-fluid mt-3">
+    <div class="form-row ml-5">
+      <div class="form-group">
+        <a routerLink="/discuss/create" class="btn btn-sm btn-light"
+                type="button">
+          Создать Обсуждение
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="container-fluid ml-5 mr-5">
+<!--        <div class="form-group row">-->
+<!--          <label for="inputState" class="col-sm-1 col-form-label ml-1">Фильтр</label>-->
+<!--          <div class="col-sm-3">-->
+<!--            <select id="inputState" [(ngModel)]="selectedFilter" (change)="setFilter()" class="form-control">-->
+<!--              <option *ngFor="let f of filters" [ngValue]="f">{{ f.name }}</option>-->
+<!--            </select>-->
+<!--          </div>-->
+<!--          <button (click)="resetFilters()" class="btn btn-sm btn-light mb-2 ml-1 mr-2">Сбросить Фильтр</button>-->
+<!--        </div>-->
+        <table class="table">
+          <caption></caption>
+          <thead>
+          <tr>
+            <th scope="col">Тема обсуждения</th>
+            <th scope="col">Дата создания</th>
+            <th scope="col">Дата обновления</th>
+          </tr>
+          </thead>
+          <tbody infinite-scroll
+                 class="noscroll"
+                 [infiniteScrollDisabled]="!paginationAllowed"
+                 [infiniteScrollDistance]="scrollDistance"
+                 [infiniteScrollThrottle]="throttle"
+                 (scrolled)="onScrollDown()">
+          <ng-container *ngFor="let discuss of discussList">
+            <tr (click)="goTo(discuss)">
+              <td style="cursor: pointer;">
+                <div>
+                  <i class="fas fa-tasks pr-3"></i>
+                  <span class="font-weight-bold">{{discuss.name}}</span>
+                </div>
+                <small class="mb-2 text-muted">
+            <span>
+              <span class="mr-3">Автор : {{ discuss.submitter.name }}</span>
+            </span>
+                </small>
+              </td>
+              <td>
+                {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}
+              </td>
+              <td>
+                {{ discuss.updated | date: 'dd.MM.yyyy HH:mm' }}
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

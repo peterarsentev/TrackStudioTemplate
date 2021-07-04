@@ -9,6 +9,10 @@ import { TypeAlertsModel } from '../../shared/models/type.alerts.model';
 import { SolutionModels } from '../../shared/models/solution.models';
 import { NavService } from '../../shared/services/nav.service';
 import { NavNode } from '../../shared/models/nav.node';
+import { UserService } from '../../shared/services/user.service';
+import { UserModels } from '../../shared/models/user.models';
+import { MessageService } from '../../shared/services/message.service';
+import { DiscussionModel } from '../../shared/models/discussionModel';
 
 @Component({
   selector: 'app-task-code-solution',
@@ -24,20 +28,28 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   solutionAndTaskCode: SolutionTaskCodeModels = {
     solution: {}, taskcode: {}
   };
+  discussions: DiscussionModel[] = [];
   output: string = undefined;
   disabled: boolean;
   private topicId: string;
+  user: UserModels;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private alertService: AlertService,
               private navService: NavService,
-              private taskCodeService: TaskCodeService
+              private taskCodeService: TaskCodeService,
+              private userService: UserService,
+              private messageService: MessageService
   ) { }
 
   ngOnInit() {
     this.getParamsAndSolution();
     this.alertService.setUpMessage(undefined, undefined);
+    this.userService.getModel()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.user = res);
+    this.getDiscussions();
   }
 
   private getParamsAndSolution() {
@@ -139,5 +151,28 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
           'solution', 'new_task'
         ]));
     }
+  }
+
+  closeDiscussion(text: string) {
+    if (!!text) {
+      this.submitComment(text);
+    }
+  }
+
+  submitComment(text: string) {
+    this.messageService.addDiscussion(undefined, text, +this.taskId)
+      .subscribe(res => {
+        this.getDiscussions();
+      }, error => {
+        if (error.status === 403) {
+          alert('У вас нет прав на эту операцию!');
+        }
+      });
+  }
+
+  private getDiscussions() {
+    this.messageService.getDiscussions(undefined, +this.taskId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.discussions = res);
   }
 }

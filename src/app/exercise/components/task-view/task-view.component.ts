@@ -258,20 +258,27 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     }, 0);
   }
 
-  showDiscussionForm() {
-    this.showDiscussion = !this.showDiscussion;
-  }
-
   getDiscussions() {
-    this.messageService.getDiscussions(this.taskId)
+    this.messageService.getDiscussions(this.taskId, undefined)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.discussions = res);
   }
 
-  closeDiscussion(close: boolean) {
-    this.showDiscussion = false;
-    if (close) {
-      this.getDiscussions();
+
+  closeDiscussion(text: string) {
+    if (!!text) {
+      this.submitComment(text);
     }
+  }
+
+  submitComment(text: string) {
+    this.messageService.addDiscussion(this.taskId, text, undefined)
+      .subscribe(res => {
+        this.getDiscussions();
+      }, error => {
+        if (error.status === 403) {
+          alert('У вас нет прав на эту операцию!');
+        }
+      });
   }
 }

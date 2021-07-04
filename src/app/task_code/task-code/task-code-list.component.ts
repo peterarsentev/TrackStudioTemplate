@@ -26,7 +26,7 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
     this.route.params
       .pipe(
         switchMap(res => {
-          this.navService.setUpModel({...new NavNode(), topicId: res.topicId, task_code: true})
+          this.navService.setUpModel({...new NavNode(), topicId: res.topicId, task_code: true});
           return this.taskCodeService.getTasksWithStatus(res.topicId);
         })
       )
@@ -35,7 +35,7 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
           this.taskCodeList = res;
           this.taskCodeList.forEach(task => task.status === null || task.status === undefined ? task.status = 1 : task);
         }
-      )
+      );
   }
 
   ngOnDestroy(): void {
@@ -45,6 +45,6 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
 
   goToTasks(topicId: string, taskId: string, status: number, solutionId: number) {
     const id = status === 1 ? 'new_task' : solutionId;
-    this.router.navigate(['task_code', `${taskId}`,'solution', `${id}`], {relativeTo: this.route});
+    this.router.navigate(['task_code', `${taskId}`, 'solution', `${id}`], {relativeTo: this.route});
   }
 }

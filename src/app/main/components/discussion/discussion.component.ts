@@ -12,7 +12,7 @@ export class DiscussionComponent implements OnInit {
   submit: boolean;
   @Input()taskId: number;
   form: FormGroup;
-  @Output() closeEmitter: EventEmitter<any> = new EventEmitter<boolean>();
+  @Output() closeEmitter: EventEmitter<any> = new EventEmitter<string>();
 
   constructor(private fb: FormBuilder,
               private messageService: MessageService) { }
@@ -20,7 +20,7 @@ export class DiscussionComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       text: ['']
-    })
+    });
   }
 
   setDescription(text: string) {
@@ -30,16 +30,8 @@ export class DiscussionComponent implements OnInit {
   submitComment() {
     this.submit = true;
     const text = this.form.get('text').value;
-    this.messageService.addDiscussion(this.taskId, text)
-      .subscribe(res => {
-        this.form.reset();
-        this.submit = false;
-        this.closeEmitter.emit(true);
-      }, error => {
-        if (error.status === 403) {
-          alert('У вас нет прав на эту операцию!');
-        }
-      });
+    this.closeEmitter.emit(text);
+    this.form.get('text').setValue('');
   }
 
   closeForm() {

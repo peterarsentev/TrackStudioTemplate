@@ -1,9 +1,15 @@
-<app-task-code-form [taskClass]="solutionAndTaskCode.solution?.code || solutionAndTaskCode.taskcode.code"
-                    [taskModel]="solutionAndTaskCode?.taskcode"
-                    [taskTest]="solutionAndTaskCode.taskcode?.testCode"
-                    [status]="solutionAndTaskCode.solution?.statusId"
-                    [output]="output"
-                    [disabled]="disabled"
-                    (submitTaskEmitter)="submitTask($event)"
-                    (resetEmitter)="resetSolution($event)"
-></app-task-code-form>
+<div class="container-fluid">
+  <app-task-code-form [taskClass]="solutionAndTaskCode.solution?.code || solutionAndTaskCode.taskcode.code"
+                      [taskModel]="solutionAndTaskCode?.taskcode"
+                      [taskTest]="solutionAndTaskCode.taskcode?.testCode"
+                      [status]="solutionAndTaskCode.solution?.statusId"
+                      [output]="output"
+                      [disabled]="disabled"
+                      (submitTaskEmitter)="submitTask($event)"
+                      (resetEmitter)="resetSolution($event)"
+  ></app-task-code-form>
+  <app-discussion-block [discussions]="discussions"
+                        [user]="user"
+                        (closeEmitter)="closeDiscussion($event)"
+  ></app-discussion-block>
+</div>
