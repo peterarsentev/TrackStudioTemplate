@@ -88,7 +88,7 @@
       </ng-container>
       <a (click)="showProven()"
         class="list-group-item list-group-item-action bg-info">
-        Проверенные задачи
+        На исправление
         <i *ngIf="proven" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!proven" class="fas fa-chevron-down fa_icons mr-3"></i>
       </a>
@@ -101,6 +101,26 @@
                 <span class="font-weight-bold">
                   <i class="fas fa-tasks mr-2 bg-warning"></i>
                   {{ task.task.taskName }} {{getSolutionId(task)}}
+                </span>
+            </a>
+          </li>
+        </ul>
+      </ng-container>
+      <a (click)="showNew()"
+         class="list-group-item list-group-item-action bg-info">
+        Новые задачи
+        <i *ngIf="newTask" class="fas fa-chevron-up fa_icons mr-3"></i>
+        <i *ngIf="!newTask" class="fas fa-chevron-down fa_icons mr-3"></i>
+      </a>
+      <ng-container *ngIf="newTask && !!newTasks?.length">
+        <ul class="list-unstyled">
+          <li *ngFor="let task of newTasks">
+            <a (click)="scroll()"
+               [routerLink]="['/exercise', task.task.topicId, 'task-view', task.task.taskId]"
+               class="list-group-item list-group-item-action bg-light">
+                <span class="font-weight-bold">
+                  <i class="fas fa-tasks mr-2 bg-danger"></i>
+                  {{ task.task.taskName }}
                 </span>
             </a>
           </li>
@@ -126,26 +146,7 @@
           </li>
         </ul>
       </ng-container>
-      <a (click)="showNew()"
-        class="list-group-item list-group-item-action bg-info">
-        Новые задачи
-        <i *ngIf="newTask" class="fas fa-chevron-up fa_icons mr-3"></i>
-        <i *ngIf="!newTask" class="fas fa-chevron-down fa_icons mr-3"></i>
-      </a>
-      <ng-container *ngIf="newTask && !!newTasks?.length">
-        <ul class="list-unstyled">
-          <li *ngFor="let task of newTasks">
-            <a (click)="scroll()"
-               [routerLink]="['/exercise', task.task.topicId, 'task-view', task.task.taskId]"
-              class="list-group-item list-group-item-action bg-light">
-                <span class="font-weight-bold">
-                  <i class="fas fa-tasks mr-2 bg-danger"></i>
-                  {{ task.task.taskName }}
-                </span>
-            </a>
-          </li>
-        </ul>
-      </ng-container>
+
     </div>
   </div>
 </div>
