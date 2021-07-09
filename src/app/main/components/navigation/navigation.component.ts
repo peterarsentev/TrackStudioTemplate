@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
 import { TaskModel } from '../../../shared/models/task.model';
@@ -46,17 +46,24 @@ export class NavigationComponent implements OnInit, OnDestroy {
             if (res.task_code) {
               this.getNavsForSolutions();
             }
-            if (!res.task_code && !res.exercise) {
+            if (res.discuss) {
+              this.getNavsForDiscuss();
+            }
+            if (!res.task_code && !res.exercise && ! res.discuss) {
               this.solutions = [{...new NavNode(), name: 'Job4j', url: '/'}];
             }
           }
         }
       });
 
-    this.getEmergencyMessage();
-   // this.checkRout();
   }
 
+  getNavsForDiscuss() {
+    this.tasksService.getNavsForDiscuss(this.taskCodeId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.solutions = res);
+
+  }
   getNavsForSolutions() {
     this.tasksService.getNavsForSolutions(this.topicId, this.taskCodeId)
       .pipe(takeUntil(this.ngUnsubscribe$))
@@ -72,53 +79,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
-  }
-
-  goToNav(nav: TaskModel, event?: any) {
-    const action  = nav.preferences.includes('V') ? 'task' : 'tasks';
-    const taskId = nav.id;
-    if (event.which === 2) {
-      this.openNewWindow(action, taskId);
-    } else {
-      this.router.navigate([action], {
-        queryParams: {
-          action,
-          taskId
-        }
-      });
-    }
-  }
-
-  private openNewWindow(action: string, taskId: string) {
-    const href = window.location.href;
-    if (href.includes('localhost')) {
-      const url = `/${action}?action=${action}&taskId=${taskId}`;
-      window.open(url, '_blank');
-    } else {
-      const url = `/edu/${action}?action=${action}&taskId=${taskId}`;
-      window.open(url, '_blank');
-    }
-  }
-
-  // editUser(id: number) {
-  //   const url = `/admin/users/${id}`;
-  //   window.open(url, '_blank');
-  // }
-
-  getClass(idx: number) {
-    if (!!this.tasks.length && idx < this.tasks.length - 1) {
-      return {
-        'ref-link': true
-      };
-    }
-  }
-
-  getEmergencyMessage() {
-    // this.tasksService.getEmergencyMessage()
-    //   .pipe(takeUntil(this.ngUnsubscribe$))
-    //   .subscribe(res => {
-    //     this.emergency = res.emergency;
-    //   });
   }
 
   private checkRout() {

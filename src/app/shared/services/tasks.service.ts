@@ -333,6 +333,14 @@ export class TasksService {
     return this.http.post<NavNode[]>(url, params);
   }
 
+  getNavsForDiscuss(discussId?: string): Observable<NavNode[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = discussId ? params.append('discussId', discussId) : params;
+    const url = this.urlJedu + `discuss/breadcrumbs`;
+    return this.http.post<NavNode[]>(url, params);
+  }
+
   getNextPreviousSol(taskCodeId: string): Observable<NextPreviousSolutions> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));

@@ -9,6 +9,7 @@ import { DiscussionModel } from '../../../../shared/models/discussionModel';
 import { UserService } from '../../../../shared/services/user.service';
 import { UserModels } from '../../../../shared/models/user.models';
 import { MessageService } from '../../../../shared/services/message.service';
+import { NavService } from '../../../../shared/services/nav.service';
 
 @Component({
   selector: 'app-discuss-list-element',
@@ -26,9 +27,12 @@ export class DiscussListElementComponent implements OnInit, OnDestroy {
               private discussService: DiscussService,
               private userService: UserService,
               private messageService: MessageService,
+              public navService: NavService,
               public route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => this.navService.setUpModel({discuss: true, taskId: res.id}));
     this.route.data
       .pipe(pluck('data'),
         takeUntil(this.unsubscribe$)

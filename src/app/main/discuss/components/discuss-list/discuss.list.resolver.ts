@@ -13,7 +13,7 @@ export class DiscussListResolver implements Resolve<DiscussModel[]> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
     : Observable<DiscussModel[]> | Promise<DiscussModel[]> | DiscussModel[] {
-    this.navService.setUpModel({...new NavNode()});
+    this.navService.setUpModel({...new NavNode(), discuss: true });
     return this.discussService.findAll(0);
   }
 }
