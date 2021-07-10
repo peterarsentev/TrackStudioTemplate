@@ -2,7 +2,7 @@
   <div *ngIf="navShow" class="bg-light border-right" id="sidebar-wrapper">
     <div class="list-group list-group-flush small">
       <a (click)="showItems()"
-        class="list-group-item list-group-item-action bg-info">
+        class="list-group-item list-group-item-action bg-info text-white">
         Закладки
         <i *ngIf="items" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!items" class="fas fa-chevron-down fa_icons mr-3"></i>
@@ -13,7 +13,7 @@
             <a [routerLink]="['/exercise']"
                class="list-group-item list-group-item-action bg-light">
               <i class="fas fa-info mr-2"></i>
-              <span class="font-weight-bold">Курс</span>
+              <span class="font-weight-bold">Уроки</span>
             </a>
           </li>
           <li>
@@ -87,7 +87,7 @@
         </ul>
       </ng-container>
       <a (click)="showProven()"
-        class="list-group-item list-group-item-action bg-info">
+        class="list-group-item list-group-item-action bg-info text-white">
         На исправление
         <i *ngIf="proven" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!proven" class="fas fa-chevron-down fa_icons mr-3"></i>
@@ -107,8 +107,8 @@
         </ul>
       </ng-container>
       <a (click)="showNew()"
-         class="list-group-item list-group-item-action bg-info">
-        Новые задачи
+         class="list-group-item list-group-item-action bg-info text-white">
+        Новые уроки
         <i *ngIf="newTask" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!newTask" class="fas fa-chevron-down fa_icons mr-3"></i>
       </a>
@@ -127,8 +127,8 @@
         </ul>
       </ng-container>
       <a (click)="showDoneTasks()"
-         class="list-group-item list-group-item-action bg-info">
-        Выполненные задачи
+         class="list-group-item list-group-item-action bg-info text-white">
+        Выполненные уроки
         <i *ngIf="flagDoneTasks" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!flagDoneTasks" class="fas fa-chevron-down fa_icons mr-3"></i>
       </a>

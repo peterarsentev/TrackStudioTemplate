@@ -1,7 +1,5 @@
-<div class="container-fluid pb-4">
-  <div class="row pb-2">
-    <span class="w-50">
-    </span>
+<div class="container-fluid">
+  <div class="row">
 <!--    <span class="w-50 pull-right">-->
 <!--      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"-->
 <!--              (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>-->
@@ -29,7 +27,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body">
+      <div class="card-body pre-scrollable">
         <p class="card-text" [innerHTML]="discuss.description | safeCode"></p>
       </div>
     </div>
