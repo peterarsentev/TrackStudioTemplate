@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -9,6 +9,8 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NavService } from '../../../shared/services/nav.service';
 import { NavNode } from '../../../shared/models/nav.node';
 import { InfoModels } from '../../../shared/models/info.models';
+import { DiscussService } from '../../discuss/discuss.service';
+import { DiscussSearch } from '../../../shared/models/discuss.search';
 
 
 @Component({
@@ -25,6 +27,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navShow = true;
   message: InfoModels;
   iconComment: boolean;
+  searchResult: DiscussSearch;
+  @ViewChild('text', {static: false}) searchText;
 
   constructor(
     private userService: UserService,
@@ -32,7 +36,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private navService: NavService
+    private navService: NavService,
+    private discussService: DiscussService,
   ) {}
 
   ngOnInit() {
@@ -124,6 +129,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   search(value: string) {
+    if (this.router.url.startsWith('/discuss')) {
+      if (value) {
+        this.discussService.search(value)
+          .subscribe(res => this.searchResult = res);
+      }
+      return;
+    }
     if (!value) {
       this.router.navigate(['exercise']);
     } else {
@@ -152,5 +164,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const el = document.querySelector('.comment');
       el.scrollIntoView({behavior: 'smooth', block: 'end'});
     }, 1);
+  }
+
+  clearSearch() {
+    this.searchResult = undefined;
+    this.searchText.nativeElement.value = '';
   }
 }

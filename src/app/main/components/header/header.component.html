@@ -1,6 +1,6 @@
 <div class="d-flex wrapper" id="wrapper" [ngClass]="{ toggled: toggled }">
   <aside id="resizable" class="sidebar-left movable-div bottom-0 left-0 animated">
-    <app-left-side-bar  *ngIf="navShow"></app-left-side-bar>
+    <app-left-side-bar *ngIf="navShow"></app-left-side-bar>
     <div class="draghandle"
          id="draghandle"
          (mousedown)="initResize()"
@@ -40,6 +40,28 @@
             placeholder="Поиск"
             aria-label="Поиск"
             aria-describedby="basic-addon2"/>
+           <div *ngIf="searchResult" (click)="clearSearch()" class="dropdown-menu2">
+             <div *ngIf="searchResult.tasks">
+             <p class="dropdown-header">Задачи</p>
+              <div role="separator" class="dropdown-divider"></div>
+                <a *ngFor="let t of searchResult.tasks" class="dropdown-item"
+                   routerLink="/discuss/{{t.id}}">{{t.name}}</a>
+             <div role="separator" class="dropdown-divider"></div>
+               </div>
+             <div *ngIf="searchResult.exercises">
+              <p class="dropdown-header">Упражнения</p>
+              <div role="separator" class="dropdown-divider"></div>
+                   <a *ngFor="let e of searchResult.exercises"
+                      class="dropdown-item" routerLink="/discuss/{{e.id}}">{{e.name}}</a>
+              <div role="separator" class="dropdown-divider"></div>
+               </div>
+             <div *ngIf="searchResult.discuss">
+                   <p class="dropdown-header">Обсуждения</p>
+                   <div role="separator" class="dropdown-divider"></div>
+                   <a *ngFor="let d of searchResult.discuss"
+                      class="dropdown-item" routerLink="/discuss/{{d.id}}">{{d.name}}</a>
+             </div>
+      </div>
           <span class="input-group-append">
             <button (click)="search(text.value)" class="btn btn-outline-secondary" type="button">
               <i class="fa fa-search" aria-hidden="true"></i>
@@ -51,23 +73,23 @@
           ><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
         </span>
         <span *ngIf="notifications && count > 0"
-          style="cursor: pointer;"
-          (click)="readMessages()"
-          class="ml-3 badge badge-primary badge-pill"
+              style="cursor: pointer;"
+              (click)="readMessages()"
+              class="ml-3 badge badge-primary badge-pill"
         >{{ count }}</span>
         <a class="nav-item nav-link float-right" [routerLink]="['/profile']">{{
           user?.name || "Гость"
           }}</a>
         <a class="nav-item nav-link float-right"
-          (click)="clearStorage()"
-          [routerLink]="['/login']"
+           (click)="clearStorage()"
+           [routerLink]="['/login']"
         >Выйти</a>
       </div>
     </nav>
     <app-admin-message *ngIf="message" [message]="message"></app-admin-message>
     <div class="container-fluid">
       <app-navigation (getMessage)="getMessage()"
-        *ngIf="navShow"
+                      *ngIf="navShow"
       ></app-navigation>
       <router-outlet></router-outlet>
     </div>
@@ -80,8 +102,8 @@
   <div class="mb-4" style="cursor: pointer;" onclick="window.scrollTo(0, 0);">
     <i class="fas fa-arrow-circle-up fa-lg"></i>
   </div>
-  <div *ngIf="iconComment" class="mb-2" style="cursor: pointer;" >
-    <i (click)="goToComments()" class="fas fa-comment fa-lg"  aria-hidden="true"></i>
+  <div *ngIf="iconComment" class="mb-2" style="cursor: pointer;">
+    <i (click)="goToComments()" class="fas fa-comment fa-lg" aria-hidden="true"></i>
   </div>
   <div
     style="cursor: pointer;"

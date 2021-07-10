@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { CustomEncoder } from '../../shared/custom-encoder';
 import { Observable } from 'rxjs';
 import { DiscussModel } from '../../shared/models/discuss.model';
+import { DiscussSearch } from '../../shared/models/discuss.search';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,13 @@ export class DiscussService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('id', String(id));
     return this.http.post<DiscussModel>(url, params);
+  }
+
+  search(search: string): Observable<DiscussSearch> {
+    const url = this.urlJedu + 'discuss/search';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('search', search);
+    return this.http.post<DiscussSearch>(url, params);
   }
 }
