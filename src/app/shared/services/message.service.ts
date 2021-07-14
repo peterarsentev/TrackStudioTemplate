@@ -78,7 +78,7 @@ export class MessageService {
 
   addDiscussion(taskId: number, text: string, exerciseId: number, discusId?: number): Observable<DiscussionModel> {
     const url = this.urlJedu + `comment/save`;
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = taskId ? params.append('taskId', String(taskId)) : params;
     params = discusId ? params.append('discussId', String(discusId)) : params;
     params = exerciseId ? params.append('exerciseId', String(exerciseId)) : params;
@@ -120,7 +120,7 @@ export class MessageService {
 
   create(name: any, description: any): Observable<DiscussModel> {
     const url = this.urlJedu + `comment/create`;
-    let params = new HttpParams();
+    let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('name', name);
     params = params.append('description', description);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
