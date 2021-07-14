@@ -31,6 +31,7 @@
                    type="password"
                    (ngModelChange)="resetError()"
                    class="form-control"
+                   (keydown.enter)="sendForm()"
                    placeholder="Введите пароль" id="pwd">
             <div *ngFor="let error of validationErrors.password">
                         <span *ngIf="form.get('password').hasError(error.type)

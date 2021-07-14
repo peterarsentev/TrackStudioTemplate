@@ -87,5 +87,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   registration() {
     this.route.navigate(['registration']);
   }
+
+  sendForm() {
+    if (this.form.valid) {
+      this.login();
+    }
+  }
 }
 
