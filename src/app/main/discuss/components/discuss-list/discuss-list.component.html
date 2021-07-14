@@ -6,6 +6,7 @@
            type="button">
           Создать Обсуждение
         </a>
+        <button (click)="addFilter()" class="btn btn-sm btn-info ml-5">{{showOnlySub ? 'Все обсуждения' : 'Мои подписки' }}</button>
       </div>
     </div>
   </div>
@@ -26,6 +27,7 @@
         <th scope="col">Тема обсуждения</th>
         <th scope="col">Дата создания</th>
         <th scope="col">Дата обновления</th>
+        <th scope="col">Подписка</th>
       </tr>
       </thead>
       <tbody infinite-scroll
@@ -34,9 +36,9 @@
              [infiniteScrollDistance]="scrollDistance"
              [infiniteScrollThrottle]="throttle"
              (scrolled)="onScrollDown()">
-      <ng-container *ngFor="let discuss of discussList">
-        <tr (click)="goTo(discuss)">
-          <td style="cursor: pointer;">
+      <ng-container *ngFor="let discuss of discussList; let idx=index">
+        <tr>
+          <td  (click)="goTo(discuss)" style="cursor: pointer;">
             <div>
               <i class="fas fa-tasks pr-3"></i>
               <span class="font-weight-bold">{{discuss.name}}</span>
@@ -47,11 +49,16 @@
             </span>
             </small>
           </td>
-          <td>
+          <td  (click)="goTo(discuss)">
             {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}
           </td>
-          <td>
+          <td  (click)="goTo(discuss)">
             {{ discuss.updated | date: 'dd.MM.yyyy HH:mm' }}
+          </td>
+          <td>
+            <button (click)="subscribe(discuss, idx)" class="btn"
+                    [ngClass]="{'btn-danger' : discuss.subscribed, 'btn-info' : !discuss.subscribed  }">
+              {{discuss.subscribed ? 'Отписаться' : 'Подписаться'}}</button>
           </td>
         </tr>
       </ng-container>

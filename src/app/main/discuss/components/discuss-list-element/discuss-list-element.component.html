@@ -21,6 +21,10 @@
                   <span  class="mr-3">Автор : {{discuss.submitter.name }}</span>
                   <span class="mr-3">Дата создания : {{ discuss.created | date: 'hh:mm dd.MM.yyyy' }}</span>
                   <span>Обновлена : {{  discuss.updated | date: 'hh:mm dd.MM.yyyy' }}</span>
+                  <span class="pull-right">
+                    <button (click)="subscribe()" class="btn"
+                            [ngClass]="{'btn-danger' : discuss.subscribed, 'btn-info' : !discuss.subscribed  }">
+                      {{discuss.subscribed ? 'Отписаться' : 'Подписаться'}}</button></span>
                 </small>
               </div>
             </div>

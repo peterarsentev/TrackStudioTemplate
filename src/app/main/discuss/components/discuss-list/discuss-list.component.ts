@@ -4,6 +4,7 @@ import { pluck, takeUntil } from 'rxjs/operators';
 import { DiscussModel } from '../../../../shared/models/discuss.model';
 import { Subject } from 'rxjs';
 import { DiscussService } from '../../discuss.service';
+import { MessageService } from '../../../../shared/services/message.service';
 
 @Component({
   selector: 'app-discuss-list',
@@ -15,12 +16,14 @@ export class DiscussListComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject();
   discussList: DiscussModel[];
   paginationAllowed = true;
-  scrollDistance = 10;
-  throttle: 300;
+  scrollDistance = 5;
+  throttle: 100;
   hasNext: boolean;
   page = 0;
+  showOnlySub;
   constructor(private router: Router,
               private discussService: DiscussService,
+              private messageService: MessageService,
               public route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -47,8 +50,8 @@ export class DiscussListComponent implements OnInit, OnDestroy {
     }
   }
 
-  getDiscuss() {
-    this.discussService.findAll(this.page)
+  getDiscuss(my?: boolean) {
+    this.discussService.findAll(this.page, my)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(res => {
         this.discussList = this.discussList.concat(res);
@@ -59,5 +62,18 @@ export class DiscussListComponent implements OnInit, OnDestroy {
 
   goTo(discuss: DiscussModel) {
     this.router.navigate([`${discuss.id}`], { relativeTo: this.route });
+  }
+
+  subscribe(discuss: DiscussModel, index) {
+    this.messageService.makeSubscribeOrRevert(discuss.id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => this.discussList[index].subscribed = res.subscribe);
+  }
+
+  addFilter() {
+    this.showOnlySub = !this.showOnlySub;
+    this.page = 0;
+    this.discussList = [];
+    this.getDiscuss(this.showOnlySub);
   }
 }

@@ -28,6 +28,7 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   newTasks: TaskTopicModel[] = [];
   doneTasks: TaskTopicModel[] = [];
   flagDoneTasks = true;
+  discussCount: { count: number };
 
 
   constructor(
@@ -47,6 +48,7 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
     this.getProvenTasks();
     this.getNewTasks();
     this.getSolvedTasks();
+    this.getCountOfDiscuss();
   }
 
   showNew() {
@@ -163,5 +165,15 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
 
   setNaw() {
     this.navService.setUpModel({});
+  }
+
+  private getCountOfDiscuss() {
+    this.messageService.getCountOfDiscuss()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.discussCount = res);
+  }
+
+  goToListOfDiscuss() {
+    this.router.navigate(['discuss', 'notifications']);
   }
 }

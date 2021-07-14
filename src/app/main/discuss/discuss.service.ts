@@ -5,6 +5,7 @@ import { CustomEncoder } from '../../shared/custom-encoder';
 import { Observable } from 'rxjs';
 import { DiscussModel } from '../../shared/models/discuss.model';
 import { DiscussSearch } from '../../shared/models/discuss.search';
+import { NotificationListModel } from '../../shared/models/notification.list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,11 @@ export class DiscussService {
 
   constructor(private http: HttpClient) { }
 
-  findAll(page: number): Observable<DiscussModel[]> {
+  findAll(page: number, my?: boolean): Observable<DiscussModel[]> {
     const url = this.urlJedu + 'discuss/findAll';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = my ? params.append('my', String(my)) : params;
     params = params.append('page', String(page));
     return this.http.post<DiscussModel[]>(url, params);
   }
@@ -36,5 +38,29 @@ export class DiscussService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('search', search);
     return this.http.post<DiscussSearch>(url, params);
+  }
+
+  getNotifications(): Observable<NotificationListModel[]> {
+    const url = this.urlJedu + 'discussNotify/getMyNotifications';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<NotificationListModel[]>(url, params);
+  }
+
+  deleteNotification(id: number) {
+    const url = this.urlJedu + 'discussNotify/delete';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('id', String(id));
+    return this.http.post(url, params);
+  }
+
+
+  deleteNotificationByUser(id: number) {
+    const url = this.urlJedu + 'discussNotify/deleteByUser';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('id', String(id));
+    return this.http.post(url, params);
   }
 }

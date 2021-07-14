@@ -4,7 +4,8 @@ export class DiscussionModel {
     public task: string,
     public text: string,
     public time: number,
-    public userId: string
+    public userId: string,
+    public subscribed?: boolean,
   ) {
   }
 }

@@ -10,7 +10,8 @@ export class DiscussModel {
     public submitterId?: number,
     public taskId?: number,
     public exerciseId?: number,
-    public submitter?: UserModels
+    public submitter?: UserModels,
+    public subscribed?: boolean
   ) {
   }
 }

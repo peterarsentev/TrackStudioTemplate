@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="row">
+    <h2>Список уведомлений</h2>
+  </div>
+  <table class="table">
+    <caption></caption>
+    <thead>
+    <tr>
+      <th scope="col">Увидомление </th>
+      <th scope="col">Удалить</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let not of notifications; let idx=index">
+      <tr>
+        <td style="cursor: pointer;">
+          <a routerLink="/discuss/{{not.discussId}}">
+          <div>
+            <i class="fas fa-tasks pr-3"></i>
+            <span class="font-weight-bold">{{not.body}}</span>
+          </div>
+          <small class="mb-2 text-muted">
+            <span>
+              <span class="mr-3">Сообщение от : {{ not.submitter.name }}</span>
+            </span>
+          </small>
+          </a>
+        </td>
+        <td>
+          <button (click)="delete(not, idx)" class="btn btn-outline-secondary">Удалить</button>
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</div>
+
+

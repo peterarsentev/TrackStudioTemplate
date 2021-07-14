@@ -31,13 +31,12 @@
               <span class="font-weight-bold">Упражнения</span>
             </a>
           </li>
-          <li (click)="scroll()">
-            <a [routerLink]="['/discuss']"
-               class="list-group-item list-group-item-action bg-light">
-              <i class="fas fa-info mr-2"></i>
-              <span class="font-weight-bold">Обсуждения</span>
-            </a>
+          <li (click)="scroll()" class="list-group-item d-flex justify-content-between align-items-center">
+            <a class="pos" [routerLink]="['/discuss']">
+              <i class="fas fa-info mr-2"></i><span class="font-weight-bold">Обсуждения</span></a>
+            <span (click)="goToListOfDiscuss()" class="badge badge-danger ">{{ discussCount?.count }}</span>
           </li>
+
           <li (click)="scroll()">
             <a [routerLink]="['/payment']"
                class="list-group-item list-group-item-action bg-light">

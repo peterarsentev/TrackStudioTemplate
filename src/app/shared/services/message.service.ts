@@ -76,7 +76,7 @@ export class MessageService {
     return this.http.post<DiscussionModel[]>(url, params);
   }
 
-  addDiscussion(taskId: number, text: string, exerciseId: number, discusId?: number) {
+  addDiscussion(taskId: number, text: string, exerciseId: number, discusId?: number): Observable<DiscussionModel> {
     const url = this.urlJedu + `comment/save`;
     let params = new HttpParams();
     params = taskId ? params.append('taskId', String(taskId)) : params;
@@ -84,7 +84,7 @@ export class MessageService {
     params = exerciseId ? params.append('exerciseId', String(exerciseId)) : params;
     params = params.append('text', text);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    return this.http.post(url, params);
+    return this.http.post<DiscussionModel>(url, params);
   }
 
 
@@ -125,5 +125,20 @@ export class MessageService {
     params = params.append('description', description);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<DiscussModel>(url, params);
+  }
+
+  makeSubscribeOrRevert(id: number): Observable<{ subscribe: boolean }> {
+    const url = this.urlJedu + `discuss/subscribe`;
+    let params = new HttpParams();
+    params = params.append('discussionId', String(id));
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<{subscribe: boolean}>(url, params);
+  }
+
+  getCountOfDiscuss(): Observable<{ count: number }> {
+    const url = this.urlJedu + `discussNotify/getCount`;
+    let params = new HttpParams();
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<{count: number}>(url, params);
   }
 }

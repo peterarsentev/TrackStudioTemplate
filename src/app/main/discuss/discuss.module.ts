@@ -7,6 +7,7 @@ import { DiscussListElementComponent } from './components/discuss-list-element/d
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CreateDiscussionComponent } from './components/create-discussion/create-discussion.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DiscussNotificationComponent } from './components/discuss-notification/discuss-notification.component';
 
 
 
@@ -14,7 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     DiscussListComponent,
     DiscussListElementComponent,
-    CreateDiscussionComponent
+    CreateDiscussionComponent,
+    DiscussNotificationComponent
   ],
   imports: [
     CommonModule,

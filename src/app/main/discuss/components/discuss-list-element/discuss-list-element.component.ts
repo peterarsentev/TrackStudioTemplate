@@ -43,6 +43,7 @@ export class DiscussListElementComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(res => this.user = res);
     this.getDiscussions();
+    this.deleteNotification();
   }
 
     ngOnDestroy(): void {
@@ -61,7 +62,22 @@ export class DiscussListElementComponent implements OnInit, OnDestroy {
     if (!!text) {
       this.messageService.addDiscussion(this.discuss.taskId, text, this.discuss.exerciseId, this.discuss.id)
         .pipe(takeUntil(this.unsubscribe$))
-        .subscribe(() => this.getDiscussions());
+        .subscribe((res) => {
+          this.discuss.subscribed = res.subscribed;
+          this.getDiscussions();
+        });
     }
+  }
+
+  subscribe() {
+    this.messageService.makeSubscribeOrRevert(this.discuss.id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => this.discuss.subscribed = res.subscribe);
+  }
+
+  private deleteNotification() {
+    this.discussService.deleteNotificationByUser(this.discuss.id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {});
   }
 }
