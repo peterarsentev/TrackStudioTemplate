@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, takeUntil } from 'rxjs/operators';
+import { debounceTime, filter, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
 import { TaskModel } from '../../../shared/models/task.model';
@@ -20,10 +20,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
   emergency: EmergencyModel[] = [];
   show = true;
   solution = false;
-  solutions: NavNode[] = [];
+  solutions: NavNode[] = [{...new NavNode(), name: 'Job4j', url: '/'}];
   private taskCodeId: string;
   private topicId: string;
-  private solutionId: string;
   @Output()getMessage = new EventEmitter();
 
   constructor(private route: ActivatedRoute,
@@ -33,7 +32,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.navService.getModel()
-      .pipe(takeUntil(this.ngUnsubscribe$))
+      .pipe(takeUntil(this.ngUnsubscribe$), debounceTime(10))
       .subscribe(res => {
         this.getMessage.emit();
         if (res) {
@@ -42,20 +41,29 @@ export class NavigationComponent implements OnInit, OnDestroy {
           if (this.router.url !== '/login') {
             if (res.exercise) {
               this.getNavsForTasks();
+              return;
             }
             if (res.task_code) {
               this.getNavsForSolutions();
+              return;
             }
             if (res.discuss) {
               this.getNavsForDiscuss();
+              return;
             }
-            if (!res.task_code && !res.exercise && ! res.discuss) {
-              this.solutions = [{...new NavNode(), name: 'Job4j', url: '/'}];
+            if (res.vacancy) {
+              this.getVacancy(res);
+              return;
             }
+            if (res.payment) {
+              this.solutions = [{ name: 'Job4j', url: '/'},
+                { name: 'Оплата', url: '/payment'}];
+              return;
+            }
+            this.solutions = [{...new NavNode(), name: 'Job4j', url: '/'}];
           }
         }
       });
-
   }
 
   getNavsForDiscuss() {
@@ -121,4 +129,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
     }
   }
 
+  private getVacancy(res: NavNode) {
+    const navs = [{name: 'Job4j', url: '/', vacancy: true},
+      { name: 'Вакансии', url: '/vacancies', vacancy: true}];
+    if (res.name) {
+      this.solutions = [...navs, res];
+    } else {
+      this.solutions = navs;
+    }
+  }
 }

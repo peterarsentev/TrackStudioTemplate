@@ -4,6 +4,8 @@ import { VacancyService } from '../../vacancy.service';
 import { VacancyModels } from '../../../shared/models/vacancy.models';
 import { UserService } from '../../../shared/services/user.service';
 import { UserModels } from '../../../shared/models/user.models';
+import { NavNode } from '../../../shared/models/nav.node';
+import { NavService } from '../../../shared/services/nav.service';
 
 @Component({
   selector: 'app-vacancies-list',
@@ -18,9 +20,11 @@ export class VacanciesListComponent implements OnInit {
   constructor(private router: Router,
               private userService: UserService,
               private route: ActivatedRoute,
+              private navService: NavService,
               private vacancyService: VacancyService) { }
 
   ngOnInit() {
+    this.navService.setUpModel({...new NavNode(), vacancy: true });
     this.userService.getModel()
       .subscribe(res => this.user = res);
     this.getVacancies();

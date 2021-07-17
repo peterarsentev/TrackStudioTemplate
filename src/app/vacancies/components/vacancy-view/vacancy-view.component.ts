@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VacancyService } from '../../vacancy.service';
 import { ActivatedRoute } from '@angular/router';
 import { VacancyModels } from '../../../shared/models/vacancy.models';
+import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-vacancy-view',
@@ -11,13 +12,12 @@ import { VacancyModels } from '../../../shared/models/vacancy.models';
 export class VacancyViewComponent implements OnInit {
   vacancy = new VacancyModels();
 
-  constructor(private route: ActivatedRoute, private vacancyService: VacancyService) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe(res => {
-      this.vacancyService.getById(res.id)
-        .subscribe(vac => this.vacancy = vac);
-    });
+    this.route.data
+      .pipe(pluck('data'))
+      .subscribe((res: VacancyModels) => this.vacancy = res);
   }
 
 }
