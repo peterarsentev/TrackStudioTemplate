@@ -1,4 +1,4 @@
-<div class="d-flex wrapper" id="wrapper" [ngClass]="{ toggled: toggled }">
+<div class="d-flex wrapper" id="wrapper">
   <aside id="resizable" class="sidebar-left movable-div bottom-0 left-0 animated">
     <app-left-side-bar *ngIf="navShow"></app-left-side-bar>
     <div class="draghandle"
@@ -11,13 +11,14 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
       <i
         *ngIf="navShow"
-        class="fa fa-angle-left mr-lg-3"
+        [ngClass]="{'fa-angle-left': !toggled, 'fa-angle-right': toggled}"
+        class="fa mr-lg-3"
         style="font-size: 23px; cursor: pointer"
         aria-hidden="true"
         id="menu-toggle"
         (click)="onToggle()"
       ></i>
-      <a class="navbar-brand mr-auto" (click)="goMain()">Job4j</a>
+      <a class="navbar-brand mr-auto" (click)="goMain(); onToggle()">Job4j</a>
 
       <button
         class="navbar-toggler"

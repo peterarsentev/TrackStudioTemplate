@@ -114,10 +114,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onToggle() {
+    this.toggled = !this.toggled;
     const elementById = document.getElementById('resizable');
     if (elementById.classList.contains('hide')) { elementById.classList.remove('hide'); } // delete class from clearStorage func
     elementById.classList.toggle('toggle');
-
   }
 
   private skipSideBar() {
