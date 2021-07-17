@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { BookmarksModel } from '../../../shared/models/bookmarks.model';
@@ -49,6 +49,13 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
     this.getNewTasks();
     this.getSolvedTasks();
     this.getCountOfDiscuss();
+    this.router.events
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+      if (res instanceof NavigationEnd) {
+        this.getCountOfDiscuss();
+      }
+    });
   }
 
   showNew() {
