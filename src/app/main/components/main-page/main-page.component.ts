@@ -142,5 +142,7 @@ export class MainPageComponent implements OnInit {
         this.levels = res;
       });
   }
+
+
 }
 

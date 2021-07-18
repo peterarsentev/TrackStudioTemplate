@@ -29,6 +29,8 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AdminMessageComponent } from './components/header/admin-message/admin-message.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { ChartModule } from 'angular2-chartjs';
+import { ChartUserComponent } from './components/chart/chart-user.component';
 
 
 @NgModule({
@@ -56,7 +58,8 @@ import { PaymentComponent } from './components/payment/payment.component';
         ErrorComponent,
         RegistrationComponent,
         AdminMessageComponent,
-        PaymentComponent
+        PaymentComponent,
+        ChartUserComponent
     ],
     imports: [
         CommonModule,
@@ -67,7 +70,8 @@ import { PaymentComponent } from './components/payment/payment.component';
         SharedModule,
         ChartsModule,
         TreeModule.forRoot(),
-        CodemirrorModule
+        CodemirrorModule,
+        ChartModule
     ],
     entryComponents: [],
     exports: [

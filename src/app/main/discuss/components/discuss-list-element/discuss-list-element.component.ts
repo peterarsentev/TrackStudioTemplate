@@ -61,7 +61,6 @@ export class DiscussListElementComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((res) => {
           this.discuss.updated = res.discuss.updated;
-          console.log(res.discuss)
           this.discuss.subscribed = res.subscribed;
           this.getDiscussions();
         });

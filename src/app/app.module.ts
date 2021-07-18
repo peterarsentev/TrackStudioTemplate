@@ -10,6 +10,7 @@ import { InterseptorService } from './shared/services/interseptor.service';
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { ChartModule } from 'angular2-chartjs';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -29,6 +30,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     FormsModule,
     CodemirrorModule,
     SharedModule,
+    ChartModule
   ],
   exports: [
   ],
