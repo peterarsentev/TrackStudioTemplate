@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
-import { DiscussionModel } from '../../models/discussionModel';
+import { DiscussionMessageModel } from '../../models/discussionMessageModel';
 import { UserModels } from '../../models/user.models';
 
 @Component({
@@ -9,7 +9,7 @@ import { UserModels } from '../../models/user.models';
 })
 export class DiscussionBlockComponent implements OnInit {
 
-  @Input() discussions: DiscussionModel[] = [];
+  @Input() discussions: DiscussionMessageModel[] = [];
   @Input() user: UserModels;
   @Output() closeEmitter: EventEmitter<any> = new EventEmitter<string>();
   showDiscussion: boolean;

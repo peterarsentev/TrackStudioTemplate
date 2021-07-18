@@ -12,7 +12,7 @@ import { NavNode } from '../../shared/models/nav.node';
 import { UserService } from '../../shared/services/user.service';
 import { UserModels } from '../../shared/models/user.models';
 import { MessageService } from '../../shared/services/message.service';
-import { DiscussionModel } from '../../shared/models/discussionModel';
+import { DiscussionMessageModel } from '../../shared/models/discussionMessageModel';
 
 @Component({
   selector: 'app-task-code-solution',
@@ -28,7 +28,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   solutionAndTaskCode: SolutionTaskCodeModels = {
     solution: {}, taskcode: {}
   };
-  discussions: DiscussionModel[] = [];
+  discussions: DiscussionMessageModel[] = [];
   output: string = undefined;
   disabled: boolean;
   private topicId: string;

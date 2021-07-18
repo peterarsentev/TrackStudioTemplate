@@ -13,7 +13,7 @@ import { NavNode } from '../../../shared/models/nav.node';
 import { UserService } from '../../../shared/services/user.service';
 import { UserModels } from '../../../shared/models/user.models';
 import { ModalService, TypeModals } from '../../../shared/modal.service';
-import { DiscussionModel } from '../../../shared/models/discussionModel';
+import { DiscussionMessageModel } from '../../../shared/models/discussionMessageModel';
 import { MessageService } from '../../../shared/services/message.service';
 
 declare var CodeMirror: any;
@@ -32,7 +32,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   task: TaskTopicModel = {};
   messages: MessagesModel[] = [];
   handlers: UserEduModels[] = [];
-  discussions: DiscussionModel[] = [];
+  discussions: DiscussionMessageModel[] = [];
   showDiscussion: boolean;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   operation: { name?: string, id?: number } = {};

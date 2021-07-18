@@ -19,8 +19,8 @@
               <div>
                 <small class="mb-2 text-muted">
                   <span  class="mr-3">Автор : {{discuss.submitter.name }}</span>
-                  <span class="mr-3">Дата создания : {{ discuss.created | date: 'hh:mm dd.MM.yyyy' }}</span>
-                  <span>Обновлена : {{  discuss.updated | date: 'hh:mm dd.MM.yyyy' }}</span>
+                  <span class="mr-3">Дата создания : {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}</span>
+                  <span>Обновлена : {{  discuss.updated | date: 'dd.MM.yyyy HH:mm' }}</span>
                   <span class="pull-right">
                     <button (click)="subscribe()" class="btn"
                             [ngClass]="{'btn-danger' : discuss.subscribed, 'btn-info' : !discuss.subscribed  }">
@@ -36,57 +36,6 @@
       </div>
     </div>
   </div>
-  <!--  <div class="row pb-2 pt-3">-->
-  <!--    <span class="w-50" *ngIf="!showCommentForm">-->
-  <!--      <ng-container *ngFor="let button of buttons">-->
-  <!--        <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>-->
-  <!--      </ng-container>-->
-  <!--    </span>-->
-  <!--  </div>-->
-  <div class="row mt-2" *ngIf="messages.length > 0" style="word-break: break-all;">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">Сообщения</div>
-      </div>
-      <div class="card-body">
-        <table class="table">
-          <tbody>
-          <tr *ngFor="let message of messages">
-            <td class="{{ message.submitter.mentor ? 'bg-warning' : '' }}">
-              <div class="pb-3 small">
-                <span>
-                  <span *ngIf="message.status.id != -1">
-                      <span *ngIf="message.status?.start"
-                            class="badge badge-danger mr-3">{{ message.status?.statusName }}</span>
-                  <span *ngIf="message.status?.finish"
-                        class="badge badge-success mr-3">{{ message.status?.statusName }}</span>
-                  <span *ngIf="!(message.status?.finish || message.status?.start)"
-                        class="badge badge-warning mr-3">{{ message.status?.statusName }}</span>
-                </span>
-                  Сообщение от <span class="font-weight-bold">{{ message.submitter.name }}
-                  [{{message.submitter.mentor ? 'Ментор' : 'Ученик'}}]
-                </span> к <span class="font-weight-bold">{{ message.handler.name }}
-                  [{{!message.submitter.mentor ? 'Ментор' : 'Ученик'}}]</span>
-                </span>
-                <span class="pull-right">{{ message.message.timeMils | date: 'HH:mm dd.MM.yyyy' }}</span>
-              </div>
-              <div [innerHTML]="message.message.text"></div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <!--  <div class="row pt-2" *ngIf="messages.length > 0 && !showCommentForm">-->
-  <!--   <span class="w-50">-->
-  <!--      <ng-container *ngFor="let button of buttons">-->
-  <!--        <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>-->
-  <!--      </ng-container>-->
-  <!--    </span>-->
-
-  <!--  </div>-->
-
   <app-discussion-block [discussions]="discussions"
                         [user]="user"
                         (closeEmitter)="closeDiscussion($event)"

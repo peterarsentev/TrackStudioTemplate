@@ -12,7 +12,7 @@ import { StatusModel } from '../../../shared/models/status.model';
 import { UserModels } from '../../../shared/models/user.models';
 import { MessageService } from '../../../shared/services/message.service';
 import { BookmarksService } from '../../../shared/services/bookmarks.service';
-import { DiscussionModel } from '../../../shared/models/discussionModel';
+import { DiscussionMessageModel } from '../../../shared/models/discussionMessageModel';
 import { UserService } from '../../../shared/services/user.service';
 import { RateModel } from '../../../shared/models/rate.model';
 import { CommentService } from '../../../shared/services/comment.service';
@@ -35,7 +35,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   messages: MessagesModel[] = [];
   buttons: ButtonCommentModel[] = [];
   mstatusId: string;
-  discussions: DiscussionModel[] = [];
+  discussions: DiscussionMessageModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   showCommentForm: boolean;
   disable = false;

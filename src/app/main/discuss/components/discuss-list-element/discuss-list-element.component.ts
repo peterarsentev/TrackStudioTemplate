@@ -4,8 +4,7 @@ import { DiscussModel } from '../../../../shared/models/discuss.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DiscussService } from '../../discuss.service';
 import { Subject } from 'rxjs';
-import { MessagesModel } from '../../../../shared/models/messages.model';
-import { DiscussionModel } from '../../../../shared/models/discussionModel';
+import { DiscussionMessageModel } from '../../../../shared/models/discussionMessageModel';
 import { UserService } from '../../../../shared/services/user.service';
 import { UserModels } from '../../../../shared/models/user.models';
 import { MessageService } from '../../../../shared/services/message.service';
@@ -20,8 +19,7 @@ export class DiscussListElementComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject();
   discuss: DiscussModel;
-  messages: MessagesModel[] = [];
-  discussions: DiscussionModel[] = [];
+  discussions: DiscussionMessageModel[] = [];
   user: UserModels;
   constructor(private router: Router,
               private discussService: DiscussService,
@@ -58,11 +56,12 @@ export class DiscussListElementComponent implements OnInit, OnDestroy {
   }
 
   closeDiscussion(text: any) {
-    console.log(text);
     if (!!text) {
       this.messageService.addDiscussion(this.discuss.taskId, text, this.discuss.exerciseId, this.discuss.id)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((res) => {
+          this.discuss.updated = res.discuss.updated;
+          console.log(res.discuss)
           this.discuss.subscribed = res.subscribed;
           this.getDiscussions();
         });

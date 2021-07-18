@@ -1,4 +1,6 @@
-export class DiscussionModel {
+import { DiscussModel } from './discuss.model';
+
+export class DiscussionMessageModel {
   constructor(
     public name: string,
     public task: string,
@@ -6,6 +8,7 @@ export class DiscussionModel {
     public time: number,
     public userId: string,
     public subscribed?: boolean,
+    public discuss?: DiscussModel
   ) {
   }
 }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { MessageModel } from '../models/message.model';
 import { BookmarksModel } from '../models/bookmarks.model';
-import { DiscussionModel } from '../models/discussionModel';
+import { DiscussionMessageModel } from '../models/discussionMessageModel';
 import {CustomEncoder} from '../custom-encoder';
 import { InfoModels } from '../models/info.models';
 import { DiscussModel } from '../models/discuss.model';
@@ -67,16 +67,16 @@ export class MessageService {
     return this.http.post(url, params);
   }
 
-  getDiscussions(taskId: number, exerciseId: number): Observable<DiscussionModel[]> {
+  getDiscussions(taskId: number, exerciseId: number): Observable<DiscussionMessageModel[]> {
     const url = this.urlJedu + `comment/get`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = taskId ? params.append('taskId', String(taskId)) : params;
     params = exerciseId ? params.append('exerciseId', String(exerciseId)) : params;
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    return this.http.post<DiscussionModel[]>(url, params);
+    return this.http.post<DiscussionMessageModel[]>(url, params);
   }
 
-  addDiscussion(taskId: number, text: string, exerciseId: number, discusId?: number): Observable<DiscussionModel> {
+  addDiscussion(taskId: number, text: string, exerciseId: number, discusId?: number): Observable<DiscussionMessageModel> {
     const url = this.urlJedu + `comment/save`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = taskId ? params.append('taskId', String(taskId)) : params;
@@ -84,7 +84,7 @@ export class MessageService {
     params = exerciseId ? params.append('exerciseId', String(exerciseId)) : params;
     params = params.append('text', text);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    return this.http.post<DiscussionModel>(url, params);
+    return this.http.post<DiscussionMessageModel>(url, params);
   }
 
 
@@ -110,12 +110,12 @@ export class MessageService {
     return this.http.post<InfoModels>(url, params);
   }
 
-  getDiscuss(id: number): Observable<DiscussionModel[]> {
+  getDiscuss(id: number): Observable<DiscussionMessageModel[]> {
     const url = this.urlJedu + `comment/discuss`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('discussId', String(id));
-    return this.http.post<DiscussionModel[]>(url, params);
+    return this.http.post<DiscussionMessageModel[]>(url, params);
   }
 
   create(name: any, description: any): Observable<DiscussModel> {
