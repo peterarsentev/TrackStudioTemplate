@@ -12,7 +12,8 @@
       <div class="card-header">
         <div class="font-weight-bold">{{ taskModel.name }}
         </div>
-        <div>
+        <div class="pull-right col-sm-2">
+          <app-book-mark-star [name]="taskModel.name"></app-book-mark-star>
         </div>
       </div>
       <div class="card-body">

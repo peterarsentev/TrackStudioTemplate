@@ -37,6 +37,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   operation: { name?: string, id?: number } = {};
   user: UserModels;
+  name: string;
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
@@ -70,6 +71,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.task = res;
+        this.name = this.task.task.name;
         if (this.task.status.start) {
           this.messages = [];
         }

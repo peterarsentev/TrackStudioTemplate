@@ -1,0 +1,12 @@
+<div >
+  <div class="form-group">
+    <label for="name">Название закладки</label>
+    <input [(ngModel)]="name" type="text" name="name" class="form-control" id="name"  placeholder="Ведите название">
+  </div>
+  <div class="form-group">
+    <label for="link">Ссылка</label>
+    <input [value]="url" [disabled]="true" type="text" class="form-control" id="link">
+  </div>
+  <button [disabled]="!name" (click)="save()" type="button" class="btn btn-primary mr-5">Сохранить</button>
+  <button (click)="cancel()" type="button" class="btn btn-secondary ml-5">Закрыть</button>
+</div>

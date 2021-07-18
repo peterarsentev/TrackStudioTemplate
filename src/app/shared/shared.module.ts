@@ -17,6 +17,9 @@ import { AreYouSureComponent } from './are-you-sure/are-you-sure.component';
 import { DiscussionComponent } from '../main/components/discussion/discussion.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { DiscussionBlockComponent } from './components/discussion-block/discussion-block.component';
+import { BookMarkStarComponent } from './components/book-mark-srar/book-mark-star.component';
+import { AddBookMarkComponent } from './add-book-mark/add-book-mark.component';
+
 
 @NgModule({
   imports: [
@@ -46,6 +49,7 @@ import { DiscussionBlockComponent } from './components/discussion-block/discussi
     AreYouSureComponent,
     DiscussionComponent,
     DiscussionBlockComponent,
+    BookMarkStarComponent,
   ],
   declarations: [
     AlertMessageComponent,
@@ -59,9 +63,11 @@ import { DiscussionBlockComponent } from './components/discussion-block/discussi
     AreYouSureComponent,
     DiscussionComponent,
     DiscussionBlockComponent,
+    BookMarkStarComponent,
+    AddBookMarkComponent,
   ],
   entryComponents: [
-    AreYouSureComponent
+    AreYouSureComponent, AddBookMarkComponent
   ]
 })
 export class SharedModule {

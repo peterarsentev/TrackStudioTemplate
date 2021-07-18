@@ -6,6 +6,7 @@ import { TaskTopicModel } from '../../../shared/models/task.topic.model';
 import { Subject } from 'rxjs';
 import { NavService } from '../../../shared/services/nav.service';
 import { NavNode } from '../../../shared/models/nav.node';
+import { TopicModels } from '../../../shared/models/topic.models';
 
 @Component({
   selector: 'app-tasks-list',
@@ -14,9 +15,11 @@ import { NavNode } from '../../../shared/models/nav.node';
 })
 export class TasksListComponent implements OnInit, OnDestroy {
 
+  name: string;
   topicId;
   tasks: TaskTopicModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  topic: TopicModels;
 
   constructor(private tasksService: TasksService,
               private router: Router,
@@ -30,14 +33,16 @@ export class TasksListComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.topicId = res.topicId;
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, exercise: true});
+        this.getTopic();
       });
     this.route.data
       .pipe(pluck('data'),
         takeUntil(this.ngUnsubscribe$)
-      ).subscribe(res => {
+      ).subscribe((res: TaskTopicModel[]) => {
         this.tasks = res;
         window.scrollTo(0, 0);
     });
+
   }
 
   showTask(taskTopic: TaskTopicModel) {
@@ -63,5 +68,15 @@ export class TasksListComponent implements OnInit, OnDestroy {
       return res;
     }
     return '';
+  }
+
+  private getTopic() {
+    this.tasksService.getTopicById(this.topicId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        console.log(res)
+        this.topic = res;
+        this.name = this.topic.name;
+      });
   }
 }

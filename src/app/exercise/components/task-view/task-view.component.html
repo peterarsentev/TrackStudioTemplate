@@ -42,6 +42,9 @@
                   <span class="mr-3">Начало решения : {{ task.solution?.createdTime | date: 'hh:mm dd.MM.yyyy' }}</span>
                   <span>Обновлена : {{  task.solution?.updatedTime | date: 'hh:mm dd.MM.yyyy' }}</span>
                 </small>
+                <div class="pull-right col-sm-2">
+                  <app-book-mark-star [name]="name"></app-book-mark-star>
+                </div>
               </div>
             </div>
           </div>

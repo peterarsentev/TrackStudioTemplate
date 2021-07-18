@@ -2,7 +2,7 @@
   <div *ngIf="navShow" class="bg-light border-right" id="sidebar-wrapper">
     <div class="list-group list-group-flush small">
       <a (click)="showItems()"
-        class="list-group-item list-group-item-action bg-info text-white">
+         class="list-group-item list-group-item-action bg-info text-white">
         Закладки
         <i *ngIf="items" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!items" class="fas fa-chevron-down fa_icons mr-3"></i>
@@ -26,7 +26,7 @@
           <li>
           <li (click)="scroll()">
             <a [routerLink]="['/topics']"
-              class="list-group-item list-group-item-action bg-light">
+               class="list-group-item list-group-item-action bg-light">
               <i class="fas fa-info mr-2"></i>
               <span class="font-weight-bold">Упражнения</span>
             </a>
@@ -34,7 +34,8 @@
           <li (click)="scroll()" class="list-group-item d-flex justify-content-between align-items-center">
             <a class="pos" [routerLink]="['/discuss']">
               <i class="fas fa-info mr-2"></i><span class="font-weight-bold">Обсуждения</span></a>
-            <span *ngIf="discussCount?.count > 0" (click)="goToListOfDiscuss()" class="badge badge-info badge-pill">{{ discussCount?.count }}</span>
+            <span *ngIf="discussCount?.count > 0" (click)="goToListOfDiscuss()"
+                  class="badge badge-info badge-pill">{{ discussCount?.count }}</span>
           </li>
 
           <li (click)="scroll()">
@@ -57,36 +58,43 @@
               <span class="font-weight-bold">Вакансии</span>
             </a>
           </li>
-<!--          <li (click)="scroll()">-->
-<!--            <a-->
-<!--              [routerLink]="['/exams']"-->
-<!--              class="list-group-item list-group-item-action bg-light"-->
-<!--            >-->
-<!--              <i class="fas fa-info mr-2"></i-->
-<!--              ><span class="font-weight-bold">Тесты</span>-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li *ngFor="let book of bookmarks">-->
-<!--            <a (click)="scroll()" class="list-group-item list-group-item-action bg-light">-->
-<!--                <span-->
-<!--                  (click)="goToBook(book)"-->
-<!--                  style="cursor: pointer;"-->
-<!--                  class="font-weight-bold"-->
-<!--                >{{ book.name }}</span-->
-<!--                >-->
-<!--              <span-->
-<!--                (click)="deleteBook(book)"-->
-<!--                class="pull-right font-weight-bold"-->
-<!--                style="cursor: pointer;"-->
-<!--              >-->
-<!--                  <i class="fas fa-remove" aria-hidden="true"></i>-->
-<!--                </span>-->
-<!--            </a>-->
-<!--          </li>-->
+          <!--          <li (click)="scroll()">-->
+          <!--            <a-->
+          <!--              [routerLink]="['/exams']"-->
+          <!--              class="list-group-item list-group-item-action bg-light"-->
+          <!--            >-->
+          <!--              <i class="fas fa-info mr-2"></i-->
+          <!--              ><span class="font-weight-bold">Тесты</span>-->
+          <!--            </a>-->
+          <!--          </li>-->
         </ul>
       </ng-container>
+
+      <a (click)="showBook()"
+         class="list-group-item list-group-item-action bg-info text-white">
+       Ссылки
+        <i *ngIf="showBookmarks" class="fas fa-chevron-up fa_icons mr-3"></i>
+        <i *ngIf="!showBookmarks" class="fas fa-chevron-down fa_icons mr-3"></i>
+      </a>
+      <ng-container *ngIf="!!showBookmarks && !!bookmarks?.length">
+        <ul class="list-unstyled">
+          <li *ngFor="let book of bookmarks">
+            <a (click)="scroll()" class="list-group-item list-group-item-action bg-light">
+                <span (click)="goToBook(book)"
+                  style="cursor: pointer;" class="font-weight-bold"
+                >{{ book.name }}</span
+                >
+              <span (click)="deleteBook(book)"
+                    class="pull-right font-weight-bold" style="cursor: pointer;">
+                  <i class="fas fa-remove" aria-hidden="true"></i>
+                </span>
+            </a>
+          </li>
+        </ul>
+      </ng-container>
+
       <a (click)="showProven()"
-        class="list-group-item list-group-item-action bg-info text-white">
+         class="list-group-item list-group-item-action bg-info text-white">
         На исправление
         <i *ngIf="proven" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!proven" class="fas fa-chevron-down fa_icons mr-3"></i>
@@ -95,8 +103,8 @@
         <ul class="list-unstyled">
           <li *ngFor="let task of provenTasks">
             <a (click)="scroll()"
-              [routerLink]="['/exercise', task.task.topicId, 'task-view', task.task.taskId, 'solutionId', task.solution.id]"
-              class="list-group-item list-group-item-action bg-light">
+               [routerLink]="['/exercise', task.task.topicId, 'task-view', task.task.taskId, 'solutionId', task.solution.id]"
+               class="list-group-item list-group-item-action bg-light">
                 <span class="font-weight-bold">
                   <i class="fas fa-tasks mr-2 bg-warning"></i>
                   {{ task.task.taskName }} {{getSolutionId(task)}}

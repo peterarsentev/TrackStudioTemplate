@@ -101,17 +101,17 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   addToFavorite() {
-    if (!this.disable) {
-      this.tasksService.getTask(this.taskId, 'task', '1')
-        .pipe(
-          switchMap( res => this.messageService.addToFavorite(res.task.string, res.task.id, true)),
-          takeUntil(this.ngUnsubscribe$)
-          )
-        .subscribe(() => {
-          this.disable = true;
-          this.bookmarksService.setUpModel(true);
-        });
-    }
+    // if (!this.disable) {
+    //   this.tasksService.getTask(this.taskId, 'task', '1')
+    //     .pipe(
+    //       switchMap( res => this.messageService.addToFavorite(res.task.string, res.task.id, true)),
+    //       takeUntil(this.ngUnsubscribe$)
+    //       )
+    //     .subscribe(() => {
+    //       this.disable = true;
+    //       this.bookmarksService.setUpModel(true);
+    //     });
+    // }
   }
 
   getSpentDays(submitdate: number, updatedate: number) {

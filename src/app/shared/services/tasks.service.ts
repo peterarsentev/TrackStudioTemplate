@@ -385,6 +385,13 @@ export class TasksService {
     return this.http.post<TaskTopicModel>(url, params);
   }
 
+  getTopicById(id: string): Observable<TopicModels> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('topicId', id);
+    const url = this.urlJedu + `topic/get`;
+    return this.http.post<TopicModels>(url, params);
+  }
 
   getHandlers(): Observable<UserEduModels[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});

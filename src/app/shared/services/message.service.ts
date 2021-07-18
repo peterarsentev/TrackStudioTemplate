@@ -33,27 +33,25 @@ export class MessageService {
     return this.http.post<MessageModel[]>(url, params);
   }
 
-  // getBookmarks(): Observable<{ bookmarks: BookmarksModel[] }> {
-  //   let params = new HttpParams({encoder: new CustomEncoder()});
-  //   params = params.append('sessionId', localStorage.getItem('sessionId'));
-  //   const url = `${environment.url}/rest/bookmark/read`;
-  //   return this.http.post<{ bookmarks: BookmarksModel[] }>(url, params);
-  // }
-
-  addToFavorite(name: string, taskId: string, list: boolean) {
-    const url = `${environment.urlJedu}/rest/bookmark/create`;
+  getBookmarks(): Observable< BookmarksModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
-    params = params.append('name', name);
-    params = params.append('taskId', taskId);
-    params = list ?  params.append('filterId', '1') : params;
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = this.urlJedu + 'bookmark/read';
+    return this.http.post<BookmarksModel[]>(url, params);
+  }
+
+  addToFavorite(model: BookmarksModel) {
+    const url = this.urlJedu + 'bookmark/create';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('name', model.name);
+    params = params.append('link', model.link);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);
   }
 
   deleteBook(bookmarkId: string) {
-    const url = `${environment.urlJedu}/rest/bookmark/delete`;
+    const url = this.urlJedu + 'bookmark/delete';
     let params = new HttpParams();
-    // params = params.append('action', 'delete');
     params = params.append('bookmarkId', bookmarkId);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);

@@ -21,9 +21,10 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   newTask = true;
   navShow = true;
   proven = true;
+  showBookmarks = true;
   items = true;
   tasks = true;
-  // bookmarks: BookmarksModel[] = [];
+  bookmarks: BookmarksModel[] = [];
   provenTasks: TaskTopicModel[] = [];
   newTasks: TaskTopicModel[] = [];
   doneTasks: TaskTopicModel[] = [];
@@ -56,6 +57,8 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
         this.getCountOfDiscuss();
       }
     });
+    this.getBookMarks();
+    this.subscribeBookMarks();
   }
 
   showNew() {
@@ -100,20 +103,6 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
       });
   }
 
-  // getBookmarks() {
-  //   this.messageService
-  //     .getBookmarks()
-  //     .pipe(takeUntil(this.ngUnsubscribe$))
-  //     .subscribe((res) => (this.bookmarks = res.bookmarks));
-  // }
-
-  // private getBookSubscribe() {
-  //   this.bookmarksService
-  //     .getModel()
-  //     .pipe(takeUntil(this.ngUnsubscribe$))
-  //     .subscribe(() => this.getBookmarks());
-  // }
-
   showProven() {
     this.proven = !this.proven;
   }
@@ -123,19 +112,7 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
   }
 
   goToBook(book: BookmarksModel) {
-    this.tasksService
-      .getTask(book.taskId, 'task', '1')
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((res) => {
-        const url = res.task.preferences.includes('V') ? 'task' : 'tasks';
-        this.router.navigate([url], {
-          queryParams: {
-            action: url,
-            taskId: res.task.id,
-            number: res.task.number,
-          },
-        });
-      });
+    window.open(book.link, '_blank');
   }
 
   deleteBook(book: BookmarksModel) {
@@ -182,5 +159,21 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
 
   goToListOfDiscuss() {
     this.router.navigate(['discuss', 'notifications']);
+  }
+
+  showBook() {
+    this.showBookmarks = !this.showBookmarks;
+  }
+
+  private getBookMarks() {
+    this.messageService.getBookmarks()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.bookmarks = res);
+  }
+
+  private subscribeBookMarks() {
+    this.bookmarksService.getModel()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => this.getBookMarks());
   }
 }

@@ -244,14 +244,14 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   addToFavorite() {
-    if (!this.disable) {
-      this.messageService.addToFavorite(this.task.string, this.task.id, false)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(() => {
-          this.disable = true;
-          this.bookmarksService.setUpModel(true);
-        });
-    }
+    // if (!this.disable) {
+    //   this.messageService.addToFavorite(this.task.string, this.task.id, false)
+    //     .pipe(takeUntil(this.ngUnsubscribe$))
+    //     .subscribe(() => {
+    //       this.disable = true;
+    //       this.bookmarksService.setUpModel(true);
+    //     });
+    // }
   }
 
   getDiscussions() {
