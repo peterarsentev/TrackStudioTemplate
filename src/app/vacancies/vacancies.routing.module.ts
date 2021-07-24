@@ -7,7 +7,7 @@ import { VacancyViewResolver } from './components/vacancy-view/vacancy.view.reso
 
 const routes: Routes = [
   { path: '', component: VacanciesListComponent },
-  { path: 'detail/:id', component: VacancyDetailsComponent },
+  { path: 'detail/:id', component: VacancyDetailsComponent, resolve: {data: VacancyViewResolver} },
   { path: 'view/:id', component: VacancyViewComponent, resolve: {data: VacancyViewResolver} }
 ];
 @NgModule({

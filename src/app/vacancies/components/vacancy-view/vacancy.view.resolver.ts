@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { VacancyModels } from '../../../shared/models/vacancy.models';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { NavService } from '../../../shared/services/nav.service';
 import { VacancyService } from '../../vacancy.service';
@@ -14,6 +14,21 @@ export class VacancyViewResolver implements Resolve<VacancyModels> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
     : Observable<VacancyModels> | Promise<VacancyModels> | VacancyModels {
     const id = route.params.id;
+    if (state.url.includes('detail')) {
+      if (id === 'create') {
+        return of(new VacancyModels()).pipe(
+          tap(v => {
+            this.navService.setUpModel({name: 'Новая', url: '/vacancies/detail/create', vacancy: true});
+          })
+        );
+      } else {
+        return this.vacancyService.getById(id).pipe(
+          tap(v => {
+            this.navService.setUpModel({name: v.name, url: '/vacancies/detail/' + v.id, vacancy: true});
+          })
+        );
+      }
+    }
     return this.vacancyService.getById(id)
       .pipe(
         tap(v => {
