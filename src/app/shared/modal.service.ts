@@ -3,10 +3,12 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { take } from 'rxjs/operators';
 import { AreYouSureComponent } from './are-you-sure/are-you-sure.component';
 import { AddBookMarkComponent } from './add-book-mark/add-book-mark.component';
+import { ShowLogComponent } from './show-log/show-log.component';
 
 export enum TypeModals {
   ARE_YOU_SURE,
-  ADD_BOOKMARK
+  ADD_BOOKMARK,
+  SHOW_LOG
 
 }
 
@@ -25,6 +27,9 @@ export class ModalService {
         break;
       case TypeModals.ADD_BOOKMARK:
         reference = this.dialog.open(AddBookMarkComponent, config);
+        break;
+      case TypeModals.SHOW_LOG:
+        reference = this.dialog.open(ShowLogComponent, config);
         break;
       default:
         break;

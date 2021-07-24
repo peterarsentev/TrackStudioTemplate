@@ -19,6 +19,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { DiscussionBlockComponent } from './components/discussion-block/discussion-block.component';
 import { BookMarkStarComponent } from './components/book-mark-srar/book-mark-star.component';
 import { AddBookMarkComponent } from './add-book-mark/add-book-mark.component';
+import { ShowLogComponent } from './show-log/show-log.component';
 
 
 @NgModule({
@@ -65,9 +66,10 @@ import { AddBookMarkComponent } from './add-book-mark/add-book-mark.component';
     DiscussionBlockComponent,
     BookMarkStarComponent,
     AddBookMarkComponent,
+    ShowLogComponent,
   ],
   entryComponents: [
-    AreYouSureComponent, AddBookMarkComponent
+    AreYouSureComponent, AddBookMarkComponent, ShowLogComponent
   ]
 })
 export class SharedModule {

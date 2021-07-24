@@ -1,0 +1,19 @@
+<th scope="row">{{ project.id }}</th>
+<td *ngIf="!editLine">{{ project.name }}</td>
+<td *ngIf="editLine"><input [(ngModel)]="project.name" class="form-control"></td>
+<td *ngIf="!editLine">{{ project.link }}</td>
+<td *ngIf="editLine"><input [(ngModel)]="project.link" class="form-control"></td>
+<td *ngIf="!editLine"><a class="btn btn-sm"
+       [ngClass]="{
+              'bg-success': project.status === 0,
+              'btn-danger': project.status === 1,
+              'btn-warning': project.status === 2}">
+  {{ project.status === 0 ? 'Собрался' : project.status === 1 ? 'Не собирался' : 'Собирается'}}</a></td>
+<tr *ngIf="editLine"></tr>
+<td>{{ !!project.log && project.log.length > 50 ? (project.log.substr(0, 50))
+  : project.log }}
+  <button *ngIf="project.log.length > 50" (click)="showMore()" class="btn btn-sm btn-outline-info">more...</button> </td>
+<td *ngIf="!editLine"><button (click)="edit()" class="btn btn-sm btn-primary mr-2">Редактировать</button>
+  <button (click)="delete()" class="btn btn-sm btn-secondary">Удалить</button>
+</td>
+<td *ngIf="editLine"><button [disabled]="!project.link || !project.name" (click)="update()" class="btn bg-success">Save</button> </td>
