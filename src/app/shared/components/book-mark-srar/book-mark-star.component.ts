@@ -12,29 +12,29 @@ import { BookmarksService } from '../../services/bookmarks.service';
 })
 export class BookMarkStarComponent implements OnInit, OnDestroy {
 
-  @Input()name: string;
+  @Input() name: string;
   url: string;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private modalService: ModalService,
               private bookmarksService: BookmarksService,
-              private messageService: MessageService) { }
+              private messageService: MessageService) {
+  }
 
   ngOnInit() {
-    this.url = window.location.href;
   }
 
   addInBookMarks() {
-  this.modalService.openDialog(TypeModals.ADD_BOOKMARK, {name: this.name, url: this.url})
-    .pipe(take(1))
-    .subscribe(res => {
-      if (res) {
-        console.log(res)
-        this.messageService.addToFavorite(res)
-          .pipe(takeUntil(this.ngUnsubscribe$))
-          .subscribe(() => this.bookmarksService.setUpModel(true));
-      }
-    });
+    this.url = window.location.href;
+    this.modalService.openDialog(TypeModals.ADD_BOOKMARK, {name: this.name, url: this.url})
+        .pipe(take(1))
+        .subscribe(res => {
+          if (res) {
+            this.messageService.addToFavorite(res)
+                .pipe(takeUntil(this.ngUnsubscribe$))
+                .subscribe(() => this.bookmarksService.setUpModel(true));
+          }
+        });
   }
 
   ngOnDestroy(): void {
