@@ -39,8 +39,8 @@
                   <span *ngIf="!(task.status?.finish || task.status?.start)"
                         class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
                   <span *ngIf="task.handler" class="mr-3">Ответственный : {{task.handler.name }}</span>
-                  <span class="mr-3">Начало решения : {{ task.solution?.createdTime | date: 'hh:mm dd.MM.yyyy' }}</span>
-                  <span>Обновлена : {{  task.solution?.updatedTime | date: 'hh:mm dd.MM.yyyy' }}</span>
+                  <span class="mr-3">Начало решения : {{ task.solution?.createdTime | date: 'dd.MM.yyyy HH:mm' }}</span>
+                  <span>Обновлена : {{  task.solution?.updatedTime | date: 'dd.MM.yyyy HH:mm' }}</span>
                 </small>
                 <div class="pull-right col-sm-2">
                   <app-book-mark-star [name]="name"></app-book-mark-star>
@@ -72,24 +72,9 @@
           <tbody>
           <tr *ngFor="let message of messages">
             <td class="{{ message.submitter.mentor ? 'bg-warning' : '' }}">
-              <div class="pb-3 small">
-                <span>
-                  <span *ngIf="message.status.id != -1">
-                      <span *ngIf="message.status?.start"
-                            class="badge badge-danger mr-3">{{ message.status?.statusName }}</span>
-                  <span *ngIf="message.status?.finish"
-                        class="badge badge-success mr-3">{{ message.status?.statusName }}</span>
-                  <span *ngIf="!(message.status?.finish || message.status?.start)"
-                        class="badge badge-warning mr-3">{{ message.status?.statusName }}</span>
-                </span>
-                  Сообщение от <span class="font-weight-bold">{{ message.submitter.name }}
-                  [{{message.submitter.mentor ? 'Ментор' : 'Ученик'}}]
-                </span> к <span class="font-weight-bold">{{ message.handler.name }}
-                  [{{!message.submitter.mentor ? 'Ментор' : 'Ученик'}}]</span>
-                </span>
-                <span class="pull-right">{{ message.message.timeMils | date: 'HH:mm dd.MM.yyyy' }}</span>
-              </div>
-              <div [innerHTML]="message.message.text"></div>
+            <app-message-element [message]="message"
+                                 [taskId]="task.task.id"
+                                 [user]="user"></app-message-element>
             </td>
           </tr>
           </tbody>

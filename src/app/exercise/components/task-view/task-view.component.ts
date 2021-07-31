@@ -283,4 +283,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         }
       });
   }
+
+  editMessage(message: MessagesModel) {
+  }
 }

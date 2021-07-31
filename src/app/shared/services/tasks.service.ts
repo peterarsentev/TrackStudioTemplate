@@ -27,6 +27,7 @@ import { LevelModels } from '../models/level.models';
 import { CategoryModels } from '../models/category.models';
 import { TopicFilterModels } from '../models/topicFilterModels';
 import { TopicFilter } from '../models/topickFilter';
+import { MessageModel } from '../models/message.model';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -518,5 +519,15 @@ export class TasksService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('id', String(id));
     return this.http.post(url, params);
+  }
+
+  updateOperation(message: MessagesModel, newText: string, taskId: number): Observable<MessageModel> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('messageId', String(message.message.id));
+    params = params.append('taskId', String(taskId));
+    params = params.append('text', newText);
+    const url = this.urlJedu + `task/updateOperation`;
+    return this.http.post<MessageModel>(url, params);
   }
 }

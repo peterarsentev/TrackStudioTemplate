@@ -5,6 +5,7 @@ import { ExerciseRoutingModule } from './exercise.routing.module';
 import { ExerciseListComponent } from './components/exercise-list/exerciseList.component';
 import { TasksListComponent } from './components/tasks-list/tasks-list.component';
 import { TaskViewComponent } from './components/task-view/task-view.component';
+import { MessageElementComponent } from './components/message-element/message-element.component';
 
 
 
@@ -12,7 +13,8 @@ import { TaskViewComponent } from './components/task-view/task-view.component';
   declarations: [
     ExerciseListComponent,
     TasksListComponent,
-    TaskViewComponent
+    TaskViewComponent,
+    MessageElementComponent
   ],
   imports: [
     CommonModule,

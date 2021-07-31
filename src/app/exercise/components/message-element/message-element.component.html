@@ -1,0 +1,31 @@
+<div *ngIf="!edit">
+  <div class="pb-3 small">
+                <span>
+                  <span *ngIf="message.status.id != -1">
+                      <span *ngIf="message.status?.start"
+                            class="badge badge-danger mr-3">{{ message.status?.statusName }}</span>
+                  <span *ngIf="message.status?.finish"
+                        class="badge badge-success mr-3">{{ message.status?.statusName }}</span>
+                  <span *ngIf="!(message.status?.finish || message.status?.start)"
+                        class="badge badge-warning mr-3">{{ message.status?.statusName }}</span>
+                </span>
+                  Сообщение от <span class="font-weight-bold">{{ message.submitter.name }}
+                  [{{message.submitter.mentor ? 'Ментор' : 'Ученик'}}]
+                </span> к <span class="font-weight-bold">{{ message.handler.name }}
+                  [{{!message.submitter.mentor ? 'Ментор' : 'Ученик'}}]</span>
+                </span>
+    <span class="pull-right">{{ message.message.timeMils | date: 'dd.MM.yyyy HH:mm' }}</span>
+  </div>
+  <div [innerHTML]="message.message.text"></div>
+  <button *ngIf="message.submitter.id === user.id"
+          (click)="editMessage()"
+          class="btn btn-sm btn-danger">Edit</button>
+</div>
+<div *ngIf="edit">
+  <app-redactor [text]="message.message.text" [titleLabel]="'Выполняется: Редактирование.' "
+                (outputEmitter)="updateComment($event)"
+  ></app-redactor>
+  <button [disabled]="!newText"
+          (click)="update()" class="btn btn-sm btn-success mr-2">Save</button>
+  <button (click)="cancel()" class="btn btn-sm btn-outline-secondary">Cancel</button>
+</div>
