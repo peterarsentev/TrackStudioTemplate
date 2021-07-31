@@ -3,6 +3,7 @@
     <form [formGroup]="form">
       <div class="pt-3">
         <app-redactor [titleLabel]="'Выполняется: ' + 'Обсуждение' + '.' "
+                      [text]="text"
                       (outputEmitter)="setDescription($event)"
         ></app-redactor>
       </div>

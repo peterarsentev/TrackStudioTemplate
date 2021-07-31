@@ -21,6 +21,8 @@
               <span class="pull-right">{{ discussion.time | date: 'dd.MM.yyyy HH:mm' }}</span>
             </div>
             <div [innerHTML]="discussion.text | safeCode"></div>
+
+            <button (click)="openAndReplay(discussion)" class="btn btn-sm btn-outline-info">Цитировать</button>
           </td>
         </tr>
         </tbody>
@@ -35,7 +37,7 @@
       </span>
 </div>
 <div class="row" *ngIf="showDiscussion">
-  <app-discussion
+  <app-discussion [text]="replay"
     (closeEmitter)="closeDiscussion($event)"
   ></app-discussion>
 </div>

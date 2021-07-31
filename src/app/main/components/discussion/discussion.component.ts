@@ -11,6 +11,7 @@ export class DiscussionComponent implements OnInit {
 
   submit: boolean;
   @Input()taskId: number;
+  @Input() text: string;
   form: FormGroup;
   @Output() closeEmitter: EventEmitter<any> = new EventEmitter<string>();
 
