@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {AfterViewChecked, Component, OnDestroy, OnInit} from '@angular/core';
 import { pluck, takeUntil } from 'rxjs/operators';
 import { DiscussModel } from '../../../../shared/models/discuss.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { NavService } from '../../../../shared/services/nav.service';
   templateUrl: './discuss-list-element.component.html',
   styleUrls: ['./discuss-list-element.component.scss']
 })
-export class DiscussListElementComponent implements OnInit, OnDestroy {
+export class DiscussListElementComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private unsubscribe$ = new Subject();
   discuss: DiscussModel;
@@ -44,10 +44,15 @@ export class DiscussListElementComponent implements OnInit, OnDestroy {
     this.deleteNotification();
   }
 
-    ngOnDestroy(): void {
-      this.unsubscribe$.next();
-      this.unsubscribe$.complete();
-    }
+  ngAfterViewChecked(): void {
+    this.updateImages();
+  }
+
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   getDiscussions() {
     this.messageService.getDiscuss(this.discuss.id)
@@ -77,5 +82,13 @@ export class DiscussListElementComponent implements OnInit, OnDestroy {
     this.discussService.deleteNotificationByUser(this.discuss.id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(() => {});
+  }
+
+  private updateImages() {
+    setTimeout(() => {
+      document.querySelectorAll('a img').forEach((block) => {
+        block.parentElement.setAttribute('data-lightbox', 'images');
+      });
+    }, 0);
   }
 }
