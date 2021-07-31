@@ -42,9 +42,22 @@
                   <span class="mr-3">Начало решения : {{ task.solution?.createdTime | date: 'dd.MM.yyyy HH:mm' }}</span>
                   <span>Обновлена : {{  task.solution?.updatedTime | date: 'dd.MM.yyyy HH:mm' }}</span>
                 </small>
-                <div class="pull-right col-sm-2">
-                  <app-book-mark-star [name]="name"></app-book-mark-star>
-                </div>
+<!--                <div class="pull-right col-sm-2">-->
+<!--                  <app-book-mark-star [name]="name"></app-book-mark-star>-->
+<!--                </div>-->
+              </div>
+              <div class="pull-right col-sm-2">
+               <span *ngIf="user?.name !== 'anonimus'" class="pull-right">
+                  <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-danger" style="cursor: pointer;"></i>
+                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
+                  <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-primary" style="cursor: pointer;"></i>
+                  <span class="ml-1">{{ rating?.up }}</span>
+              </span>
+                <span class="pull-right mr-3">
+                 <app-book-mark-star [name]="name"></app-book-mark-star>
+              </span>
               </div>
             </div>
           </div>
@@ -113,6 +126,26 @@
                   [taskId]="task.task.id + ''"
                   (save)="saveComment($event)"
     ></app-comments>
+  </div>
+  <div *ngIf="user?.name !== 'anonimus' && rating?.vote === 'NO'" class="row mt-lg-5">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">Понравилось задание?</div>
+        <div>
+          <small class="mb-2 text-muted">
+            Поставьте понравилось или нет. Эта оценка позволяет нам улучшать проект Job4j.
+          </small>
+          <span class="ml-3">
+                  <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-danger" style="cursor: pointer;"></i>
+                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
+                  <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-primary" style="cursor: pointer;"></i>
+                  <span class="ml-1">{{ rating?.up }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
   <app-discussion-block [discussions]="discussions"
                         [user]="user"

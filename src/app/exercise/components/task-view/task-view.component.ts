@@ -15,6 +15,7 @@ import { UserModels } from '../../../shared/models/user.models';
 import { ModalService, TypeModals } from '../../../shared/modal.service';
 import { DiscussionMessageModel } from '../../../shared/models/discussionMessageModel';
 import { MessageService } from '../../../shared/services/message.service';
+import { RateModel } from '../../../shared/models/rate.model';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -38,7 +39,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   operation: { name?: string, id?: number } = {};
   user: UserModels;
   name: string;
-
+  rating: RateModel;
   constructor(private tasksService: TasksService,
               private navService: NavService,
               private router: Router,
@@ -59,6 +60,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.getDiscussions();
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, taskId: this.taskId, exercise: true});
         this.getTaskById(res.id);
+        this.getRate();
       });
 
     this.userService.getModel()
@@ -285,5 +287,36 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   editMessage(message: MessagesModel) {
+  }
+
+  vote(accept: boolean) {
+    if (accept && this.rating.vote === 'NO') {
+      this.tasksService.voteUp(this.taskId)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
+    if (accept && this.rating.vote === 'DOWN' || !accept && this.rating.vote === 'UP') {
+      this.tasksService.voteClear(this.taskId)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
+    if (!accept && this.rating.vote === 'NO') {
+      this.tasksService.voteDown(this.taskId)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
+    if (accept && this.rating.vote === 'UP' || !accept && this.rating.vote === 'DOWN') {
+      this.tasksService.voteClear(this.taskId)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
+  }
+
+  private getRate() {
+    this.tasksService.getRate(this.taskId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        this.rating = res.rate;
+      });
   }
 }

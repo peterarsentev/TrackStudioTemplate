@@ -272,7 +272,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   private getRate() {
-    this.tasksService.getRate(this.task.shortname)
+    this.tasksService.getRate(+ this.task.shortname)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.rating = res.rate;
@@ -281,22 +281,22 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   vote(accept: boolean) {
     if (accept && this.rating.vote === 'NO') {
-      this.tasksService.voteUp(this.task.shortname)
+      this.tasksService.voteUp(+this.task.shortname)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => this.getRate());
     }
     if (accept && this.rating.vote === 'DOWN' || !accept && this.rating.vote === 'UP') {
-      this.tasksService.voteClear(this.task.shortname)
+      this.tasksService.voteClear(+this.task.shortname)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => this.getRate());
     }
     if (!accept && this.rating.vote === 'NO') {
-      this.tasksService.voteDown(this.task.shortname)
+      this.tasksService.voteDown(+this.task.shortname)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => this.getRate());
     }
     if (accept && this.rating.vote === 'UP' || !accept && this.rating.vote === 'DOWN') {
-      this.tasksService.voteClear(this.task.shortname)
+      this.tasksService.voteClear(+this.task.shortname)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => this.getRate());
     }

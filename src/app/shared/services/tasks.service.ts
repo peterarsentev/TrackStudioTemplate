@@ -276,33 +276,33 @@ export class TasksService {
     return this.http.post<PreviousNextNavModels>(this.url + 'iterator', params);
   }
 
-  getRate(shortname: string): Observable<ResponseRatingModel> {
+  getRate(taskId: number): Observable<ResponseRatingModel> {
     let params = new HttpParams({encoder: new CustomEncoder()});
-    params = params.append('number', shortname);
+    params = params.append('taskId', String(taskId));
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = this.urlJedu + `ratetask/get`;
     return this.http.post<ResponseRatingModel>(url, params);
   }
 
-  voteUp(shortname: string) {
+  voteUp(taskId: number) {
     let params = new HttpParams({encoder: new CustomEncoder()});
-    params = params.append('number', shortname);
+    params = params.append('taskId', String(taskId));
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = this.urlJedu + `ratetask/upOn`;
     return this.http.post<ResponseRatingModel>(url, params);
   }
 
-  voteClear(shortname: string) {
+  voteClear(taskId: number) {
     let params = new HttpParams({encoder: new CustomEncoder()});
-    params = params.append('number', shortname);
+    params = params.append('taskId', String(taskId));
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = this.urlJedu + `ratetask/off`;
     return this.http.post<ResponseRatingModel>(url, params);
   }
 
-  voteDown(shortname: string) {
+  voteDown(taskId: number) {
     let params = new HttpParams({encoder: new CustomEncoder()});
-    params = params.append('number', shortname);
+    params = params.append('taskId', String(taskId));
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     const url = this.urlJedu + `ratetask/downOn`;
     return this.http.post<ResponseRatingModel>(url, params);
