@@ -18,5 +18,12 @@ export class ChartService {
     params = params.append('sessionId', sessionId);
     return this.http.post<UserActivityModel[]>(this.urlJedu + 'activity/userActivity', params);
   }
+
+  getUserSolvedActivity(): Observable<UserActivityModel[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    const sessionId = localStorage.getItem('sessionId');
+    params = params.append('sessionId', sessionId);
+    return this.http.post<UserActivityModel[]>(this.urlJedu + 'activity/userSolvedActivity', params);
+  }
 }
 

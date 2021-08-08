@@ -1,5 +1,6 @@
 <div class="container-fluid">
-  <app-chart></app-chart>
+  <app-chart [activity]="ua"></app-chart>
+  <app-chart [activity]="uaSolved"></app-chart>
   <div class="row">
     <table class="table">
       <thead>
@@ -7,7 +8,7 @@
         <th scope="col">Прогресс обучения</th>
         <th scope="col"></th>
       </tr>
-      </thead>
+      </thead>discuss_operation
       <tbody>
       <tr>
         <td>Выполнено / всего:</td>

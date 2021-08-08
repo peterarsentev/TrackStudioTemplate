@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { TasksService } from '../../../shared/services/tasks.service';
-import { TaskModel } from '../../../shared/models/task.model';
 import { Router } from '@angular/router';
 import { ResponseModel } from '../../../shared/models/response.model';
 import { MStatusesModel } from '../../../shared/models/m.statuses.model';
-import { forkJoin, Subject } from 'rxjs';
-import { count, switchMap, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { DiagramaModel } from '../../../shared/models/diagrama.model';
-import { VerifiedTasksModel } from '../../../shared/models/verifiedTasksModel';
 import { TaskTopicModel } from '../../../shared/models/task.topic.model';
 import * as moment from 'moment';
 import { LevelModels } from '../../../shared/models/level.models';
+import { ChartService } from '../chart/chart.service';
+import { UserActivityModel } from '../../../shared/models/user.activity.model';
 
 @Component({
   selector: 'app-main',
@@ -40,9 +40,12 @@ export class MainPageComponent implements OnInit {
   tasksBarValue: number;
   solBarValue: number;
   levels: LevelModels[];
+  ua: UserActivityModel[];
+  uaSolved: UserActivityModel[];
 
   constructor(private tasksService: TasksService,
               private authService: AuthService,
+              private chartService: ChartService,
               private router: Router) { }
 
   ngOnInit() {
@@ -53,11 +56,21 @@ export class MainPageComponent implements OnInit {
     this.getSolvedAndAllExerciseCount();
     this.getLevels();
     this.getSolvedTasks();
+    this.getUserActivity();
+    this.getUserSolvedActivity();
   }
 
-  getSolutionId(task: TaskTopicModel) {
-    if (!task.solution) {return ''; }
-    return ' [#' + task.solution.id + ']';
+  getUserActivity() {
+    this.chartService.getUserActivity()
+      .subscribe(res => {
+        this.ua = res;
+      });
+  }
+  getUserSolvedActivity() {
+    this.chartService.getUserSolvedActivity()
+      .subscribe(res => {
+        this.uaSolved = res;
+      });
   }
 
   getSolvedTasks() {
