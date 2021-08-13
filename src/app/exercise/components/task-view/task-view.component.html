@@ -22,8 +22,21 @@
       <div class="card-header">
         <div class="grid">
           <div class="row">
-            <div class="col-sm-10">
-              <div class="font-weight-bold">{{ task?.task?.name }} {{ getSolutionId() }}</div>
+            <div class="col-sm-12">
+              <div>
+                <span class="font-weight-bold">{{ task?.task?.name }} {{ getSolutionId() }}</span>
+                <span *ngIf="user?.name !== 'anonimus'" class="pull-right">
+                  <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-danger" style="cursor: pointer;"></i>
+                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
+                  <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-primary" style="cursor: pointer;"></i>
+                  <span class="ml-1">{{ rating?.up }}</span>
+              </span>
+                <span class="pull-right mr-3">
+                 <app-book-mark-star [name]="name"></app-book-mark-star>
+              </span>
+              </div>
               <div>
                 <small class="mb-2 text-muted">
                   <span class="mr-3">Уровень : {{  task.task?.level.name }}</span>
@@ -42,22 +55,9 @@
                   <span class="mr-3">Начало решения : {{ task.solution?.createdTime | date: 'dd.MM.yyyy HH:mm' }}</span>
                   <span>Обновлена : {{  task.solution?.updatedTime | date: 'dd.MM.yyyy HH:mm' }}</span>
                 </small>
-<!--                <div class="pull-right col-sm-2">-->
-<!--                  <app-book-mark-star [name]="name"></app-book-mark-star>-->
-<!--                </div>-->
-              </div>
-              <div class="pull-right col-sm-2">
-               <span *ngIf="user?.name !== 'anonimus'" class="pull-right">
-                  <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted" style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-danger" style="cursor: pointer;"></i>
-                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
-                  <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-muted" style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-primary" style="cursor: pointer;"></i>
-                  <span class="ml-1">{{ rating?.up }}</span>
-              </span>
-                <span class="pull-right mr-3">
-                 <app-book-mark-star [name]="name"></app-book-mark-star>
-              </span>
+                <!--                <div class="pull-right col-sm-2">-->
+                <!--                  <app-book-mark-star [name]="name"></app-book-mark-star>-->
+                <!--                </div>-->
               </div>
             </div>
           </div>
@@ -85,9 +85,9 @@
           <tbody>
           <tr *ngFor="let message of messages">
             <td class="{{ message.submitter.mentor ? 'bg-warning' : '' }}">
-            <app-message-element [message]="message"
-                                 [taskId]="task.task.id"
-                                 [user]="user"></app-message-element>
+              <app-message-element [message]="message"
+                                   [taskId]="task.task.id"
+                                   [user]="user"></app-message-element>
             </td>
           </tr>
           </tbody>

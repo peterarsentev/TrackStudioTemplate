@@ -10,11 +10,12 @@
       <tbody>
       <tr *ngFor="let task of tasks; let idx = index">
         <td>
-          <a [routerLink]="task.solution ?  ['/exercise', topicId, 'task-view', task.task.id, 'solutionId', task.solution.id]
-          : ['/exercise', topicId, 'task-view', task.task.id]">
           <div>
             <i class="fas fa-tasks pr-3"></i>
-            <span class="font-weight-bold">{{task.task.name}} &nbsp;{{getSolutionId(task)}}</span>
+            <a [routerLink]="task.solution ?  ['/exercise', topicId, 'task-view', task.task.id, 'solutionId', task.solution.id]
+          : ['/exercise', topicId, 'task-view', task.task.id]">
+              <span class="font-weight-bold">{{task.task.name}} &nbsp;{{getSolutionId(task)}}</span>
+            </a>
           </div>
           <small class="mb-2 text-muted">
             <span>
@@ -26,7 +27,6 @@
             <span *ngIf="task.solution" class="mr-3">Создана : {{ task.solution.createdTime | date: 'HH:mm dd.MM.yyyy' }}</span>
             <span *ngIf="task.solution" class="mr-3">Обновлена : {{  task.solution.updatedTime | date: 'HH:mm dd.MM.yyyy' }}</span>
           </small>
-          </a>
         </td>
       </tr>
       </tbody>
