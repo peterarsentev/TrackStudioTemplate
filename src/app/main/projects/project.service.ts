@@ -19,6 +19,14 @@ export class ProjectService {
     return this.http.post<ProjectModel[]>(url, params);
   }
 
+  findById(id: number): Observable<ProjectModel> {
+    const url = this.eduUrl + 'project/get';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('id', String(id));
+    return this.http.post<ProjectModel>(url, params);
+  }
+
   addProject(name: string, link: string): Observable<ProjectModel> {
     const url = this.eduUrl + 'project/create';
     let params = new HttpParams({encoder: new CustomEncoder()});

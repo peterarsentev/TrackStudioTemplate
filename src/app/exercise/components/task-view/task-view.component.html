@@ -84,7 +84,12 @@
         <table class="table">
           <tbody>
           <tr *ngFor="let message of messages">
-            <td class="{{ message.submitter.mentor ? 'bg-warning' : '' }}">
+            <td *ngIf="message.submitter.mentor" style='border-left: 5px solid #ffc107;' >
+              <app-message-element [message]="message"
+                                   [taskId]="task.task.id"
+                                   [user]="user"></app-message-element>
+            </td>
+            <td *ngIf="!message.submitter.mentor">
               <app-message-element [message]="message"
                                    [taskId]="task.task.id"
                                    [user]="user"></app-message-element>

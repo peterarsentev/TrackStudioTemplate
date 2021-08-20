@@ -408,7 +408,7 @@ export class TasksService {
     params = params.append('operationId', String(operationId));
     params = params.append('handlerId', String(handlerId));
     params = params.append('description', description);
-    const url = this.urlJedu + `task/solution`;
+    const url = this.urlJedu + `solution/create`;
     return this.http.post(url, params);
   }
 
@@ -420,7 +420,7 @@ export class TasksService {
     params = params.append('operationId', String(operationId));
     params = params.append('handlerId', String(handlerId));
     params = params.append('description', description);
-    const url = this.urlJedu + `task/updateSolution`;
+    const url = this.urlJedu + `solution/update`;
     return this.http.post(url, params);
   }
 

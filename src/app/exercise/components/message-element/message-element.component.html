@@ -14,18 +14,18 @@
                 </span> к <span class="font-weight-bold">{{ message.handler.name }}
                   [{{!message.submitter.mentor ? 'Ментор' : 'Ученик'}}]</span>
                 </span>
+    <span class="pull-right" *ngIf="message.submitter.id === user.id" (click)="editMessage()">
+      <i class="fa fa-edit ml-3"></i>
+    </span>
     <span class="pull-right">{{ message.message.timeMils | date: 'dd.MM.yyyy HH:mm' }}</span>
   </div>
   <div [innerHTML]="message.message.text"></div>
-  <button *ngIf="message.submitter.id === user.id"
-          (click)="editMessage()"
-          class="btn btn-sm btn-danger">Edit</button>
 </div>
 <div *ngIf="edit">
   <app-redactor [text]="message.message.text" [titleLabel]="'Выполняется: Редактирование.' "
                 (outputEmitter)="updateComment($event)"
   ></app-redactor>
   <button [disabled]="!newText"
-          (click)="update()" class="btn btn-sm btn-success mr-2">Save</button>
-  <button (click)="cancel()" class="btn btn-sm btn-outline-secondary">Cancel</button>
+          (click)="update()" class="btn btn-sm btn-success mr-2">Сохранить</button>
+  <button (click)="cancel()" class="btn btn-sm btn-outline-secondary">Отменить</button>
 </div>

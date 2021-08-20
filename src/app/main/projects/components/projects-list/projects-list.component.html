@@ -1,35 +1,20 @@
 <ng-container >
-  <div >
-    <a class="navbar-brand" routerLink="/projects">Проекты</a>
-    <button class="btn badge-pill" type="button" (click)="addNewProject()">Добавить Проект</button>
-  </div>
   <div class="container-fluid">
     <div class="row">
       <table class="table">
         <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Название </th>
           <th scope="col">Ссылка на проект</th>
           <th scope="col">Статус</th>
-          <th scope="col">Лог</th>
-          <th scope="col">Редактировать</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngIf="newLine">
-          <th scope="row">New</th>
-          <td><input [(ngModel)]="name" class="form-control"></td>
-          <td><input [(ngModel)]="link" class="form-control"></td>
-          <td></td>
-          <td></td>
-          <td><button [disabled]="!link || !name" (click)="save()" class="btn-sm bg-success mr-2">Save</button>
-            <button  (click)="cancel()" class="btn-sm bg-secondary">Cancel</button></td>
+        <tr *ngFor="let pr of projects">
+          <td>{{pr.name}}</td>
+          <td><a target="_blank" href="{{pr.link}}">github</a></td>
+          <td><a [routerLink]="['project-view/', pr.id]">{{pr.status}}</a></td>
         </tr>
-        <tr *ngFor="let pr of projects; let idx=index"
-            app-project-element-list
-            [project]="pr"
-            (updateEmit)="update($event, idx)" (deleteEmit)="delete($event, idx)"></tr>
         </tbody>
       </table>
     </div>
