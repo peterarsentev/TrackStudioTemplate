@@ -5,7 +5,8 @@ export class ProjectModel {
     public userId?: number,
     public link?: string,
     public log?: string,
-    public status?: number
+    public status?: number,
+    public created?: number
   ) {
   }
 }

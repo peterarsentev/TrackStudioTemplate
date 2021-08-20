@@ -7,13 +7,27 @@
           <th scope="col">Название </th>
           <th scope="col">Ссылка на проект</th>
           <th scope="col">Статус</th>
+          <th scope="col">Дата создания</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let pr of projects">
           <td>{{pr.name}}</td>
           <td><a target="_blank" href="{{pr.link}}">github</a></td>
-          <td><a [routerLink]="['project-view/', pr.id]">{{pr.status}}</a></td>
+          <td><a [routerLink]="['project-view/', pr.id]">
+             <span *ngIf="pr.status == 0"
+                   class="badge badge-info mr-3">Ожидает сборки</span>
+            <span *ngIf="pr.status == 1"
+                  class="badge badge-warning mr-3">Идет сборка</span>
+            <span *ngIf="pr.status == 2"
+                  class="badge badge-success mr-3">Проект собран</span>
+            <span *ngIf="pr.status == 3"
+                  class="badge badge-danger mr-3">Проект содержит ошибки</span>
+            </a>
+          </td>
+          <td>
+            {{  pr.created | date: 'dd.MM.yyyy HH:mm' }}
+          </td>
         </tr>
         </tbody>
       </table>
