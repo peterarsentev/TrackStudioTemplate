@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, ActivatedRouteSnapshot, Route, Router} from '@angular/router';
-import {NavService} from '../../../../shared/services/nav.service';
-import {pluck} from 'rxjs/operators';
-import {VacancyModels} from '../../../../shared/models/vacancy.models';
-import {ProjectModel} from '../../project.model';
-import {ProjectService} from '../../project.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NavService } from '../../../../shared/services/nav.service';
+import { pluck } from 'rxjs/operators';
+import { ProjectModel } from '../../project.model';
+import { ProjectService } from '../../project.service';
 
 @Component({
   selector: 'app-project-view',
@@ -12,7 +11,7 @@ import {ProjectService} from '../../project.service';
   styleUrls: ['./project-view.component.scss']
 })
 export class ProjectViewComponent implements OnInit {
-  project = new ProjectModel();
+  project = {};
 
   constructor(private router: Router,
               private navService: NavService,
@@ -20,7 +19,8 @@ export class ProjectViewComponent implements OnInit {
               private projectService: ProjectService) { }
 
   ngOnInit() {
-    this.projectService.findById(this.router.projectId)
-      .subscribe(() => this.project);
+    this.route.data
+      .pipe(pluck('data'))
+      .subscribe((res: ProjectModel) => this.project = res);
   }
 }
