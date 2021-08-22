@@ -11,7 +11,7 @@ import { ProjectService } from '../../project.service';
   styleUrls: ['./project-view.component.scss']
 })
 export class ProjectViewComponent implements OnInit {
-  project = {};
+  project = new ProjectModel();
 
   constructor(private router: Router,
               private navService: NavService,
