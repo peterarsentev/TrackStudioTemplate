@@ -1,0 +1,41 @@
+<div class="container-fluid border rounded">
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <div class="container-fluid ml-5 mr-5">
+        <div class="form-group row">
+          <b>Рейтинг участников</b>
+        </div>
+        <table class="table">
+          <caption></caption>
+          <thead>
+          <tr>
+            <th scope="col">Имя</th>
+            <th scope="col">Рейтинг</th>
+          </tr>
+          </thead>
+          <tbody infinite-scroll
+                 class="noscroll"
+                 [infiniteScrollDisabled]="!paginationAllowed"
+                 [infiniteScrollDistance]="scrollDistance"
+                 [infiniteScrollThrottle]="throttle"
+                 (scrolled)="onScrollDown()">
+          <ng-container *ngFor="let r of ratings">
+            <tr>
+              <td style="cursor: pointer;">
+                <div>
+                  <i class="fas fa-tasks pr-3"></i>
+                  <span class="font-weight-bold">{{r.name}}</span>
+                </div>
+              </td>
+              <td>
+                {{ r.score }}
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

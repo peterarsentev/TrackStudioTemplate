@@ -64,6 +64,11 @@ const routes: Routes = [
           .then(mod => mod.ProjectsModule)
       },
       {path: 'payment', component: PaymentComponent},
+      {
+        path: 'rating',
+        loadChildren: () => import('../main/rating/rating.module')
+          .then(mod => mod.RatingModule)
+      },
     ]
   },
   {path: 'login', component: LoginComponent},
