@@ -20,7 +20,7 @@
                  [infiniteScrollThrottle]="throttle"
                  (scrolled)="onScrollDown()">
           <ng-container *ngFor="let r of ratings">
-            <tr  [ngStyle]="{backgroundColor: user.id == r.userId ? ' #57CFBA' : 'white'}">
+            <tr  [ngStyle]="{backgroundColor: user?.id == r.userId ? ' #57CFBA' : 'white'}">
               <td style="cursor: pointer;">
                 <div>
                   <i class="fas fa-tasks pr-3"></i>
