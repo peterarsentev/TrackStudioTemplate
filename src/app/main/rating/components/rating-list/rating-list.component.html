@@ -1,43 +1,32 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">Рейтинги пользователей.</div>
-        <div>
-          <small class="mb-2 text-muted">
-          </small>
-        </div>
-      </div>
-      <div class="card-body">
-        <table class="table">
-          <caption></caption>
-          <thead>
-          <tr>
-            <th scope="col">№</th>
-            <th scope="col">Имя</th>
-            <th scope="col">Рейтинг</th>
-          </tr>
-          </thead>
-          <tbody infinite-scroll
-                 class="noscroll"
-                 [infiniteScrollDisabled]="!paginationAllowed"
-                 [infiniteScrollDistance]="scrollDistance"
-                 [infiniteScrollThrottle]="throttle"
-                 (scrolled)="onScrollDown()">
-          <ng-container *ngFor="let r of ratings; let idx=index">
-            <tr  [ngStyle]="{backgroundColor: user?.id == r.userId ? ' #57CFBA' : 'white'}">
-              <td>{{idx + 1}}</td>
-              <td style="cursor: pointer;">
-                <span class="font-weight-bold">{{r.name}}</span>
-              </td>
-              <td>
-                {{ r.score }}
-              </td>
-            </tr>
-          </ng-container>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <table class="table">
+      <caption></caption>
+      <thead>
+      <tr>
+        <th scope="col">№</th>
+        <th scope="col">Имя</th>
+        <th scope="col">Рейтинг</th>
+      </tr>
+      </thead>
+      <tbody infinite-scroll
+             class="noscroll"
+             [infiniteScrollDisabled]="!paginationAllowed"
+             [infiniteScrollDistance]="scrollDistance"
+             [infiniteScrollThrottle]="throttle"
+             (scrolled)="onScrollDown()">
+      <ng-container *ngFor="let r of ratings; let idx=index">
+        <tr  [ngStyle]="{backgroundColor: user?.id == r.userId ? ' #57CFBA' : 'white'}">
+          <td>{{idx + 1}}</td>
+          <td style="cursor: pointer;">
+            <span class="font-weight-bold">{{r.name}}</span>
+          </td>
+          <td>
+            {{ r.score }}
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
   </div>
 </div>
