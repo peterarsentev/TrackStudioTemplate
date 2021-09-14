@@ -82,6 +82,12 @@
           user?.name || "Гость"
           }}</a>
         <a class="nav-item nav-link float-right"
+           [routerLink]="['/rating']"
+        >Рейтинг
+          <span style="cursor: pointer;"
+                class="ml-0"
+          >{{ position }}</span></a>
+        <a class="nav-item nav-link float-right"
            (click)="clearStorage()"
            [routerLink]="['/login']"
         >Выйти</a>

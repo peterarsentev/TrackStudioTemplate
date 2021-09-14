@@ -18,4 +18,10 @@ export class RatingService {
     params = params.append('page', String(page));
     return this.http.post<RatingResponse>(this.urlJedu + 'activity/rating', params);
   }
+
+  getRowPosition(): Observable<{ 'row': number }> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<{'row': number}>(this.urlJedu + 'activity/rowRating', params);
+  }
 }

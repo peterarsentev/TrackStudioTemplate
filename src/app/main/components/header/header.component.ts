@@ -11,6 +11,8 @@ import { NavNode } from '../../../shared/models/nav.node';
 import { InfoModels } from '../../../shared/models/info.models';
 import { DiscussService } from '../../discuss/discuss.service';
 import { DiscussSearch } from '../../../shared/models/discuss.search';
+import { RatingService } from '../../rating/components/rating.service';
+import { log } from 'util';
 
 
 @Component({
@@ -29,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   iconComment: boolean;
   searchResult: DiscussSearch;
   @ViewChild('text', {static: false}) searchText;
+  position = 0;
 
   constructor(
     private userService: UserService,
@@ -38,6 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private navService: NavService,
     private discussService: DiscussService,
+    private ratingService: RatingService,
   ) {}
 
   ngOnInit() {
@@ -63,6 +67,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.checkSession()
       .subscribe(res => this.userService.setUpModel(res.user));
     this.showIconComment();
+    this.getRowPosition();
   }
 
   initResize() {
@@ -169,5 +174,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   clearSearch() {
     this.searchResult = undefined;
     this.searchText.nativeElement.value = '';
+  }
+
+  private getRowPosition() {
+    this.ratingService.getRowPosition()
+      .subscribe(res => this.position = res.row);
+
   }
 }
