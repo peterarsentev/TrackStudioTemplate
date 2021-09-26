@@ -7,6 +7,7 @@ import { TaskModel } from '../../../shared/models/task.model';
 import { EmergencyModel } from '../../../shared/models/emergency.model';
 import { NavNode } from '../../../shared/models/nav.node';
 import { NavService } from '../../../shared/services/nav.service';
+import {SqlSolutionService} from '../../../shared/services/sql-solution.service';
 
 @Component({
   selector: 'app-navigation',
@@ -28,7 +29,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private navService: NavService,
               private router: Router,
-              private tasksService: TasksService) { }
+              private tasksService: TasksService, private sqlExerciseService: SqlSolutionService) { }
 
   ngOnInit() {
     this.navService.getModel()
@@ -61,6 +62,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
               return;
             }
             this.solutions = [{...new NavNode(), name: 'Job4j', url: '/'}];
+            if (res.sqlExercise) {
+              this.getNavsForSqlExercise();
+            }
+            if (!res.task_code && !res.exercise  && !res.sqlExercise) {
+              this.solutions = [{...new NavNode(), name: 'Job4j', url: '/'}];
+            }
           }
         }
       });
@@ -82,6 +89,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.tasksService.getNavsForTasks(this.topicId, this.taskCodeId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.solutions = res);
+  }
+
+  private getNavsForSqlExercise() {
+    this.sqlExerciseService.getNavsForExercises(this.topicId, this.taskCodeId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        this.solutions = res;
+      });
   }
 
   ngOnDestroy(): void {

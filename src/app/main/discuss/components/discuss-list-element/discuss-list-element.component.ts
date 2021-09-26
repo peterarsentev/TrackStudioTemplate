@@ -62,7 +62,7 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
 
   closeDiscussion(text: any) {
     if (!!text) {
-      this.messageService.addDiscussion(this.discuss.taskId, text, this.discuss.exerciseId, this.discuss.id)
+      this.messageService.addDiscussion(this.discuss.taskId, text, this.discuss.exerciseId, this.discuss.id, this.discuss.sqlExerciseId)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((res) => {
           this.discuss.updated = res.discuss.updated;

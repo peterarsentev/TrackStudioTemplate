@@ -54,6 +54,11 @@ const routes: Routes = [
           .then(mod => mod.TaskCodeModule)
       },
       {
+        path: 'sqlExercise',
+        loadChildren: () => import('../sql-exercise/sql-exercise.module')
+          .then(mod => mod.SqlExerciseModule)
+      },
+      {
         path: 'discuss',
         loadChildren: () => import('../main/discuss/discuss.module')
           .then(mod => mod.DiscussModule)

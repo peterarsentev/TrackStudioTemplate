@@ -11,7 +11,8 @@ export class DiscussModel {
     public taskId?: number,
     public exerciseId?: number,
     public submitter?: UserModels,
-    public subscribed?: boolean
-  ) {
+    public subscribed?: boolean,
+    public sqlExerciseId?: number
+) {
   }
 }

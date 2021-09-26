@@ -65,26 +65,30 @@ export class MessageService {
     return this.http.post(url, params);
   }
 
-  getDiscussions(taskId: number, exerciseId: number): Observable<DiscussionMessageModel[]> {
+  // getDiscussions(taskId: number, exerciseId: number): Observable<DiscussionMessageModel[]> {
+  getDiscussions(taskId: number, exerciseId: number, sqlExerciseId?: number): Observable<DiscussionMessageModel[]> {
     const url = this.urlJedu + `comment/get`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = taskId ? params.append('taskId', String(taskId)) : params;
     params = exerciseId ? params.append('exerciseId', String(exerciseId)) : params;
+    params = sqlExerciseId ? params.append('sqlExerciseId', String(sqlExerciseId)) : params;
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<DiscussionMessageModel[]>(url, params);
   }
 
-  addDiscussion(taskId: number, text: string, exerciseId: number, discusId?: number): Observable<DiscussionMessageModel> {
+  // addDiscussion(taskId: number, text: string, exerciseId: number, discusId?: number): Observable<DiscussionMessageModel> {
+  addDiscussion(taskId: number, text: string, exerciseId: number, discusId?: number, sqlExerciseId?: number)
+    : Observable<DiscussionMessageModel> {
     const url = this.urlJedu + `comment/save`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = taskId ? params.append('taskId', String(taskId)) : params;
     params = discusId ? params.append('discussId', String(discusId)) : params;
     params = exerciseId ? params.append('exerciseId', String(exerciseId)) : params;
+    params = sqlExerciseId ? params.append('sqlExerciseId', String(sqlExerciseId)) : params;
     params = params.append('text', text);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<DiscussionMessageModel>(url, params);
   }
-
 
   getNotificationState(): Observable<{ notification: boolean }> {
     const url = this.urlJedu + `notification/check `;
