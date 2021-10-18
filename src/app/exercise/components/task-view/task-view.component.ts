@@ -167,7 +167,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.messages = res;
-        this.messages.forEach(message => message.submitter.mentor = !!this.handlers.find(h => h.name === message.submitter.name));
+        this.messages.forEach(message =>
+          message.submitter.mentor = (!!this.handlers.find(h => h.name === message.submitter.name)
+          || message.submitter.email === 'ci_bot@gmail.com'));
         this.updateImages();
       });
   }
