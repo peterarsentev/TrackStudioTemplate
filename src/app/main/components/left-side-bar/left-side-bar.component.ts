@@ -55,6 +55,8 @@ export class LeftSideBarComponent implements OnInit, OnDestroy {
       .subscribe(res => {
       if (res instanceof NavigationEnd) {
         this.getCountOfDiscuss();
+        this.getProvenTasks();
+        this.getSolvedTasks();
       }
     });
     this.getBookMarks();
