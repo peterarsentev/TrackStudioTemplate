@@ -19,6 +19,7 @@ import { RateModel } from '../../../shared/models/rate.model';
 
 declare var CodeMirror: any;
 declare var hljs: any;
+declare const window: any;
 
 @Component({
   selector: 'app-task-view',
@@ -239,6 +240,13 @@ export class TaskViewComponent implements OnInit, OnDestroy {
           hljs.highlightBlock(block);
         }
       });
+      var options = {
+        templateSelector: "#CodeBadgeTemplate",
+        contentSelector: "body",
+        copyIconClass: "fa fa-copy",
+        checkIconClass: "fa fa-check text-success",
+      };
+      window.highlightJsBadge(options);
     }, 0);
   }
 
