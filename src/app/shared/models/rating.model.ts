@@ -3,6 +3,7 @@ export class RatingModel {
     public name: string,
     public score: string,
     public userId: number,
+    public register: number,
   ) {
   }
 }

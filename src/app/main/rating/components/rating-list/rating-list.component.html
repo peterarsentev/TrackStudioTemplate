@@ -7,6 +7,7 @@
         <th scope="col">№</th>
         <th scope="col">Имя</th>
         <th scope="col">Рейтинг</th>
+        <th scope="col">Дата регистрации</th>
       </tr>
       </thead>
       <tbody infinite-scroll
@@ -24,6 +25,7 @@
           <td>
             {{ r.score }}
           </td>
+          <td>{{ r.register | date: 'dd MMM yyyy' }}</td>
         </tr>
       </ng-container>
       </tbody>
