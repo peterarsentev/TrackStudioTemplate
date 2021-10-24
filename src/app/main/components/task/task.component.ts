@@ -19,6 +19,7 @@ import { CommentService } from '../../../shared/services/comment.service';
 
 declare var CodeMirror: any;
 declare var hljs: any;
+declare const window: any;
 
 @Component({
   selector: 'app-task',
@@ -146,6 +147,14 @@ export class TaskComponent implements OnInit, OnDestroy {
               hljs.highlightBlock(block);
             }
           });
+
+          var options = {
+            templateSelector: "#CodeBadgeTemplate",
+            contentSelector: "body",
+            copyIconClass: "fa fa-copy",
+            checkIconClass: "fa fa-check text-success",
+          };
+          window.highlightJsBadge(options);
 
           document.querySelectorAll('a img').forEach((block) => {
             block.parentElement.setAttribute('data-lightbox', 'images');
