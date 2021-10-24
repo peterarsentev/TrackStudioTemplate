@@ -45,14 +45,6 @@ export class TasksListComponent implements OnInit, OnDestroy {
 
   }
 
-  showTask(taskTopic: TaskTopicModel) {
-    if (taskTopic.solution) {
-      this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${taskTopic.task.id}`, 'solutionId', `${taskTopic.solution.id}`]);
-    } else {
-      this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${taskTopic.task.id}`]);
-    }
-  }
-
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
@@ -71,12 +63,13 @@ export class TasksListComponent implements OnInit, OnDestroy {
   }
 
   private getTopic() {
-    this.tasksService.getTopicById(this.topicId)
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => {
-        console.log(res)
-        this.topic = res;
-        this.name = this.topic.name;
-      });
+    if (this.topicId) {
+      this.tasksService.getTopicById(this.topicId)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(res => {
+          this.topic = res;
+          this.name = this.topic.name;
+        });
+    }
   }
 }
