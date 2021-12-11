@@ -10,7 +10,9 @@ import { MessageService } from '../../../shared/services/message.service';
 export class DiscussionComponent implements OnInit {
 
   submit: boolean;
-  @Input()taskId: number;
+  @Input() title: string;
+  @Input() text: string;
+  @Input() taskId: number;
   form: FormGroup;
   @Output() closeEmitter: EventEmitter<any> = new EventEmitter<string>();
 

@@ -2,16 +2,19 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Завершить</h5>
+        <h5 *ngIf="!data" class="modal-title">Завершить</h5>
+        <h5 *ngIf="data" class="modal-title">{{ data.title }}</h5>
         <button  (click)="close()"  type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Вы уверены что хотите завершить задачу?</p>
+        <p *ngIf="!data">Вы уверены что хотите завершить задачу?</p>
+        <p *ngIf="data">{{ data.text }}</p>
       </div>
       <div class="modal-footer">
-        <button (click)="delete()" type="button" class="btn btn-danger">Завершть</button>
+        <button *ngIf="!data" (click)="delete()" type="button" class="btn btn-danger">Завершить</button>
+        <button *ngIf="data" (click)="delete()" type="button" class="btn btn-danger">{{ data.button }}</button>
         <button (click)="close()" type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
       </div>
     </div>

@@ -154,6 +154,8 @@
   </div>
   <app-discussion-block [discussions]="discussions"
                         [user]="user"
+                        (deleteEmitter)="deleteDiscussion($event)"
                         (closeEmitter)="closeDiscussion($event)"
+                        (updateEmitter)="updateDiscussion($event)"
   ></app-discussion-block>
 </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DiscussionMessageModel } from '../../models/discussionMessageModel';
 import { UserModels } from '../../models/user.models';
 
@@ -12,6 +12,8 @@ export class DiscussionBlockComponent implements OnInit {
   @Input() discussions: DiscussionMessageModel[] = [];
   @Input() user: UserModels;
   @Output() closeEmitter: EventEmitter<any> = new EventEmitter<string>();
+  @Output() deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() updateEmitter: EventEmitter<any> = new EventEmitter<any>();
   showDiscussion: boolean;
   constructor() { }
 
@@ -25,5 +27,13 @@ export class DiscussionBlockComponent implements OnInit {
   closeDiscussion(event: any) {
     this.showDiscussion = false;
     this.closeEmitter.emit(event);
+  }
+
+  deleteDiscussion(discussion: DiscussionMessageModel) {
+     this.deleteEmitter.emit(discussion);
+  }
+
+  update(event: any) {
+    this.updateEmitter.emit(event);
   }
 }

@@ -12,16 +12,12 @@
     <div class="card-body">
       <table class="table" *ngIf="discussions">
         <tbody>
-        <tr *ngFor="let discussion of discussions">
-          <td>
-            <div class="pb-3 small">
-                  <span>Oт
-                    <span class="font-weight-bold">{{ discussion.name }}</span>
-                  </span>
-              <span class="pull-right">{{ discussion.time | date: 'dd.MM.yyyy HH:mm' }}</span>
-            </div>
-            <div [innerHTML]="discussion.text | safeCode"></div>
-          </td>
+        <tr app-discussion-element
+            [user]="user"
+            [discussion]="discussion"
+            (deleteEmitter)="deleteDiscussion($event)"
+            (updateEmitter)="update($event)"
+            *ngFor="let discussion of discussions">
         </tr>
         </tbody>
       </table>

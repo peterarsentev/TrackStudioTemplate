@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskTopicModel } from '../../../shared/models/task.topic.model';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UserEduModels } from '../../../shared/models/userEduModels';
 import { CommentAndButtonsModel } from '../../../shared/models/commentAndButtonsModel';
@@ -242,11 +242,11 @@ export class TaskViewComponent implements OnInit, OnDestroy {
           hljs.highlightBlock(block);
         }
       });
-      var options = {
-        templateSelector: "#CodeBadgeTemplate",
-        contentSelector: "body",
-        copyIconClass: "fa fa-copy",
-        checkIconClass: "fa fa-check text-success",
+      const options = {
+        templateSelector: '#CodeBadgeTemplate',
+        contentSelector: 'body',
+        copyIconClass: 'fa fa-copy',
+        checkIconClass: 'fa fa-check text-success',
       };
       window.highlightJsBadge(options);
     }, 0);
@@ -287,6 +287,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   submitComment(text: string) {
     this.messageService.addDiscussion(this.taskId, text, undefined)
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.getDiscussions();
       }, error => {
@@ -296,7 +297,10 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       });
   }
 
-  editMessage(message: MessagesModel) {
+  updateDiscussion(discussion: DiscussionMessageModel) {
+    this.messageService.updateDiscussion(discussion)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => {});
   }
 
   vote(accept: boolean) {
@@ -328,5 +332,12 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.rating = res.rate;
       });
+  }
+
+  deleteDiscussion(discussion: DiscussionMessageModel) {
+    this.messageService.deleteDiscussion(discussion.id)
+      .pipe(switchMap(() => this.messageService.getDiscussions(this.taskId, undefined)),
+        takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.discussions = res);
   }
 }

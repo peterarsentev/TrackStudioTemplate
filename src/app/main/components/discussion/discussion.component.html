@@ -2,7 +2,8 @@
   <div class="row pt-3">
     <form [formGroup]="form">
       <div class="pt-3">
-        <app-redactor [titleLabel]="'Выполняется: ' + 'Обсуждение' + '.' "
+        <app-redactor [titleLabel]="title ? title : 'Выполняется: Обсуждение.' "
+                      [text]="text"
                       (outputEmitter)="setDescription($event)"
         ></app-redactor>
       </div>

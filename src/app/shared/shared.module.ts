@@ -20,6 +20,7 @@ import { DiscussionBlockComponent } from './components/discussion-block/discussi
 import { BookMarkStarComponent } from './components/book-mark-srar/book-mark-star.component';
 import { AddBookMarkComponent } from './add-book-mark/add-book-mark.component';
 import { ShowLogComponent } from './show-log/show-log.component';
+import { DiscussionElementComponent } from './components/discussion-block/discussion-element/discussion-element.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { ShowLogComponent } from './show-log/show-log.component';
     DiscussionComponent,
     DiscussionBlockComponent,
     BookMarkStarComponent,
+    DiscussionElementComponent
   ],
   declarations: [
     AlertMessageComponent,
@@ -67,6 +69,7 @@ import { ShowLogComponent } from './show-log/show-log.component';
     BookMarkStarComponent,
     AddBookMarkComponent,
     ShowLogComponent,
+    DiscussionElementComponent
   ],
   entryComponents: [
     AreYouSureComponent, AddBookMarkComponent, ShowLogComponent

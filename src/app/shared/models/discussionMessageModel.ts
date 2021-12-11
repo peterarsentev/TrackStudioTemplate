@@ -8,7 +8,8 @@ export class DiscussionMessageModel {
     public time: number,
     public userId: string,
     public subscribed?: boolean,
-    public discuss?: DiscussModel
+    public discuss?: DiscussModel,
+    public id?: number,
   ) {
   }
 }

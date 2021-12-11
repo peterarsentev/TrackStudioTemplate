@@ -143,4 +143,21 @@ export class MessageService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<{count: number}>(url, params);
   }
+
+  deleteDiscussion(id: number) {
+    const url = this.urlJedu + `comment/delete`;
+    let params = new HttpParams();
+    params = params.append('id', String(id));
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<any>(url, params);
+  }
+
+  updateDiscussion(discussion: DiscussionMessageModel) {
+    const url = this.urlJedu + `comment/update`;
+    let params = new HttpParams();
+    params = params.append('id', String(discussion.id));
+    params = params.append('text', discussion.text);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<any>(url, params);
+  }
 }
