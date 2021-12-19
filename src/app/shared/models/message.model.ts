@@ -18,7 +18,8 @@ export class MessageModel {
 
     public handlerId?: number,
     public solutionId?: number,
-    public timeMils?: number
+    public timeMils?: number,
+    public msg?: string
   ) {
   }
 }
