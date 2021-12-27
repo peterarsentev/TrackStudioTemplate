@@ -1,21 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../../shared/services/auth.service';
-import {UserModels} from '../../../shared/models/user.models';
-import {UserService} from '../../../shared/services/user.service';
-import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
-import {ExamModels} from '../../../shared/models/exam.models';
-import {ExamsService} from '../../../shared/services/exams.service';
-import {Question} from '../../../shared/models/question.model';
-import {QuestionsService} from '../../../shared/services/questions.service';
-import {QoptsService} from "../../../shared/services/qopts.service";
-import {Qopt} from "../../../shared/models/qopt.model";
-import {AoptsService} from "../../../shared/services/aopts.service";
-import {Answer} from "../../../shared/models/answer.model";
-import {Aopt} from "../../../shared/models/aopt.model";
-import {AnswersService} from "../../../shared/services/answers.service";
-import {ExamUser} from "../../../shared/models/examuser.model";
-import {ExamuserService} from "../../../shared/services/examuser.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../shared/services/auth.service';
+import { UserModels } from '../../../shared/models/user.models';
+import { UserService } from '../../../shared/services/user.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { ExamModels } from '../../../shared/models/exam.models';
+import { ExamsService } from '../../../shared/services/exams.service';
+import { Question } from '../../../shared/models/question.model';
+import { QuestionsService } from '../../../shared/services/questions.service';
+import { QoptsService } from '../../../shared/services/qopts.service';
+import { Qopt } from '../../../shared/models/qopt.model';
+import { AoptsService } from '../../../shared/services/aopts.service';
+import { Answer } from '../../../shared/models/answer.model';
+import { Aopt } from '../../../shared/models/aopt.model';
+import { AnswersService } from '../../../shared/services/answers.service';
+import { ExamUser } from '../../../shared/models/examuser.model';
+import { ExamuserService } from '../../../shared/services/examuser.service';
 
 @Component({
   selector: 'app-exam',
@@ -38,8 +38,8 @@ export class ExamComponent implements OnInit {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   user: UserModels = {};
 
-  startTest: boolean = false;
-  showResult: boolean = false;
+  startTest = false;
+  showResult = false;
   exams: ExamModels[] = [];
   examUsers: ExamUser[] = [];
 
@@ -56,7 +56,7 @@ export class ExamComponent implements OnInit {
   answers: Answer[] = [];
   aopts: Aopt[] = [];
 
-  pos: number = 0;
+  pos = 0;
 
   ngOnInit() {
     this.loadInfo();
@@ -212,8 +212,8 @@ export class ExamComponent implements OnInit {
   }
 
   result(): number {
-    let rightAnswers: number = this.aopts.filter((x) => x.opt.correct).length;
-    let incorrectAnswers: number = this.aopts.length - rightAnswers;
+    const rightAnswers: number = this.aopts.filter((x) => x.opt.correct).length;
+    const incorrectAnswers: number = this.aopts.length - rightAnswers;
     return rightAnswers - incorrectAnswers;
   }
 
@@ -257,8 +257,9 @@ export class ExamComponent implements OnInit {
   incorrect(check: boolean): string {
     if (!check) {
       return 'col-2 incorrect';
-    } else
+    } else {
       return 'col-2';
+    }
   }
 
 }

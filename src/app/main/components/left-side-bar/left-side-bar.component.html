@@ -44,13 +44,13 @@
               <span class="font-weight-bold">Упражнения SQL</span>
             </a>
           </li>
-<!--          <li (click)="scroll()">-->
-<!--            <a [routerLink]="['/discuss']"-->
-<!--               class="list-group-item list-group-item-action bg-light">-->
-<!--              <i class="fas fa-info mr-2"></i>-->
-<!--              <span class="font-weight-bold">Обсуждения</span>-->
-<!--            </a>-->
-<!--          </li>-->
+          <!--          <li (click)="scroll()">-->
+          <!--            <a [routerLink]="['/discuss']"-->
+          <!--               class="list-group-item list-group-item-action bg-light">-->
+          <!--              <i class="fas fa-info mr-2"></i>-->
+          <!--              <span class="font-weight-bold">Обсуждения</span>-->
+          <!--            </a>-->
+          <!--          </li>-->
 
           <li (click)="scroll()">
             <a [routerLink]="['/payment']"
@@ -72,22 +72,21 @@
               <span class="font-weight-bold">Вакансии</span>
             </a>
           </li>
-
-          <!--          <li (click)="scroll()">-->
-          <!--            <a-->
-          <!--              [routerLink]="['/exams']"-->
-          <!--              class="list-group-item list-group-item-action bg-light"-->
-          <!--            >-->
-          <!--              <i class="fas fa-info mr-2"></i-->
-          <!--              ><span class="font-weight-bold">Тесты</span>-->
-          <!--            </a>-->
-          <!--          </li>-->
+          <li (click)="scroll()">
+            <a
+              [routerLink]="['/exams']"
+              class="list-group-item list-group-item-action bg-light"
+            >
+              <i class="fas fa-info mr-2"></i
+              ><span class="font-weight-bold">Тесты</span>
+            </a>
+          </li>
         </ul>
       </ng-container>
 
       <a (click)="showBook()"
          class="list-group-item list-group-item-action bg-info text-white">
-       Ссылки
+        Ссылки
         <i *ngIf="showBookmarks" class="fas fa-chevron-up fa_icons mr-3"></i>
         <i *ngIf="!showBookmarks" class="fas fa-chevron-down fa_icons mr-3"></i>
       </a>
@@ -96,7 +95,7 @@
           <li *ngFor="let book of bookmarks">
             <a (click)="scroll()" class="list-group-item list-group-item-action bg-light">
                 <span (click)="goToBook(book)"
-                  style="cursor: pointer;" class="font-weight-bold"
+                      style="cursor: pointer;" class="font-weight-bold"
                 >{{ book.name }}</span
                 >
               <span (click)="deleteBook(book)"

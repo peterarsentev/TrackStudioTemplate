@@ -3,13 +3,14 @@ import { DBConstat } from '../components/constants/dbconstat';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Question } from '../models/question.model';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionsService {
 
-  private url = DBConstat.dbURL;
+  private url = `${environment.urlJedu}/`;
 
   constructor(private http: HttpClient) {
   }
@@ -23,7 +24,7 @@ export class QuestionsService {
 
   get(): Observable<Question[]> {
     const url = this.url + 'question/get';
-    let params = new HttpParams();
+    const params = new HttpParams();
     return this.http.post<Question[]>(url, params);
   }
 

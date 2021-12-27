@@ -5,26 +5,27 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { ICodeExample } from 'tslint';
 import { ExamUser } from '../models/examuser.model';
 import { DBConstat } from '../components/constants/dbconstat';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExamsService {
 
-  private url = DBConstat.dbURL;
+  private url = `${environment.urlJedu}/`;
 
   constructor(private http: HttpClient) {
   }
 
   get(): Observable<ExamModels[]> {
     const url = this.url + 'exam/get';
-    let params = new HttpParams();
+    const params = new HttpParams();
     return this.http.post<ExamModels[]>(url, params);
   }
 
   getActiveExams(): Observable<ExamModels[]> {
     const url = this.url + 'exam/getActive';
-    let params = new HttpParams();
+    const params = new HttpParams();
     return this.http.post<ExamModels[]>(url, params);
   }
 

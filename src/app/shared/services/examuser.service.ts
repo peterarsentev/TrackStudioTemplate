@@ -3,13 +3,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ExamUser } from '../models/examuser.model';
 import { DBConstat } from '../components/constants/dbconstat';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExamuserService {
 
-  private url = DBConstat.dbURL;
+  private url = `${environment.urlJedu}/`;
 
   constructor(private http: HttpClient) {
   }

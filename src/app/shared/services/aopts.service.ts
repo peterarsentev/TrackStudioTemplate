@@ -4,13 +4,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Answer } from '../models/answer.model';
 import { Aopt } from '../models/aopt.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AoptsService {
 
-  private url = DBConstat.dbURL;
+  private url =  `${environment.urlJedu}/`;
 
   constructor(private http: HttpClient) {
   }

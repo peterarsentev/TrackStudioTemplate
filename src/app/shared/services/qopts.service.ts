@@ -3,13 +3,14 @@ import { DBConstat } from '../components/constants/dbconstat';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Qopt } from '../models/qopt.model';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QoptsService {
 
-  private url = DBConstat.dbURL;
+  private url = `${environment.urlJedu}/`;
 
   constructor(private http: HttpClient) {
   }
@@ -30,7 +31,7 @@ export class QoptsService {
 
   get(): Observable<Qopt[]> {
     const url = this.url + 'qoopt/get';
-    let params = new HttpParams();
+    const params = new HttpParams();
     return this.http.post<Qopt[]>(url, params);
   }
 

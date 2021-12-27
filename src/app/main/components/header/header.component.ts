@@ -12,7 +12,6 @@ import { InfoModels } from '../../../shared/models/info.models';
 import { DiscussService } from '../../discuss/discuss.service';
 import { DiscussSearch } from '../../../shared/models/discuss.search';
 import { RatingService } from '../../rating/components/rating.service';
-import { log } from 'util';
 
 
 @Component({

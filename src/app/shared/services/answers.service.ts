@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { DBConstat } from '../components/constants/dbconstat';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Answer } from '../models/answer.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnswersService {
 
-  private url = DBConstat.dbURL;
+  private url = `${environment.urlJedu}/`;
 
   constructor(private http: HttpClient) {
   }
@@ -30,12 +30,12 @@ export class AnswersService {
 
   get(): Observable<Answer[]> {
     const url = this.url + 'answer/get';
-    let params = new HttpParams();
+    const params = new HttpParams();
     return this.http.post<Answer[]>(url, params);
   }
 
   saveOrUpdateQuestion(answer: Answer): Observable<Answer> {
-    const url = answer.id == 0 ? this.url + 'answer/add' : this.url + 'answer/update';
+    const url = answer.id ? this.url + 'answer/add' : this.url + 'answer/update';
     let params = new HttpParams();
     params = params.append('id', String(answer.id));
     params = params.append('question', String(answer.question.id));
