@@ -1,7 +1,9 @@
 <div class="row mt-lg-5" style="word-break: break-all;">
   <div class="w-100 card">
     <div class="card-header">
-      <div class="font-weight-bold">Обсуждения. Комментариев : {{discussions.length}}</div>
+      <div class="font-weight-bold">Обсуждения: {{discussions.length}}
+        <button (click)="show()" class="ml-2">Просмотр</button>
+      </div>
       <div>
         <small class="mb-2 text-muted">
           Эти комментарии доступны всем ученикам. Поделитесь своим мнением о задаче,
@@ -9,7 +11,7 @@
         </small>
       </div>
     </div>
-    <div class="card-body">
+    <div *ngIf="needToShow" class="card-body">
       <table class="table" *ngIf="discussions">
         <tbody>
         <tr app-discussion-element
@@ -21,17 +23,18 @@
         </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-</div>
-<div *ngIf="!!user && user?.login !== 'anonymous'" class="row pt-2">
+      <div *ngIf="!!user && user?.login !== 'anonymous'" class="row pt-2">
      <span class="mt-3 w-50">
           <button class="m btn btn-info btn-sm"
                   (click)="showDiscussionForm()">{{'Обсудить'}}</button>
       </span>
+      </div>
+      <div class="row" *ngIf="showDiscussion">
+        <app-discussion
+          (closeEmitter)="closeDiscussion($event)"
+        ></app-discussion>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="row" *ngIf="showDiscussion">
-  <app-discussion
-    (closeEmitter)="closeDiscussion($event)"
-  ></app-discussion>
-</div>
+
