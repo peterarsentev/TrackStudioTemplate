@@ -21,6 +21,7 @@ import { BookMarkStarComponent } from './components/book-mark-srar/book-mark-sta
 import { AddBookMarkComponent } from './add-book-mark/add-book-mark.component';
 import { ShowLogComponent } from './show-log/show-log.component';
 import { DiscussionElementComponent } from './components/discussion-block/discussion-element/discussion-element.component';
+import { CreateFormComponent } from './create-form/create-form.component';
 
 
 @NgModule({
@@ -52,9 +53,11 @@ import { DiscussionElementComponent } from './components/discussion-block/discus
     DiscussionComponent,
     DiscussionBlockComponent,
     BookMarkStarComponent,
-    DiscussionElementComponent
+    DiscussionElementComponent,
+    CreateFormComponent
   ],
   declarations: [
+    CreateFormComponent,
     AlertMessageComponent,
     ProgressBarSolutionsComponent,
     HendlersComponent,

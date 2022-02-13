@@ -11,6 +11,7 @@ export class DiscussionBlockComponent implements OnInit {
 
   @Input() discussions: DiscussionMessageModel[] = [];
   @Input() user: UserModels;
+  @Input() company: boolean;
   @Output() closeEmitter: EventEmitter<any> = new EventEmitter<string>();
   @Output() deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateEmitter: EventEmitter<any> = new EventEmitter<any>();

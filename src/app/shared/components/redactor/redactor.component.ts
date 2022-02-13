@@ -83,7 +83,8 @@ export class RedactorComponent implements OnInit, OnDestroy {
   }
 
   change() {
-    this.inputText$.next(this.replaceURLWithHTMLLinks(this.text));
+    this.outputEmitter.emit(this.replaceURLWithHTMLLinks(this.text));
+    // this.inputText$.next(this.replaceURLWithHTMLLinks(this.text));
   }
 
   ngOnDestroy(): void {

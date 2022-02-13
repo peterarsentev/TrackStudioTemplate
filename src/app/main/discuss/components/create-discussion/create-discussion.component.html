@@ -1,18 +1,5 @@
-<div>
-  <form [formGroup]="form">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Название обсуждения</label>
-      <input formControlName="name"
-             type="email" class="form-control" id="exampleInputEmail1"
-             aria-describedby="emailHelp" placeholder="Введите название">
-    </div>
-    <div class="form-group">
-      <app-redactor [text]="form?.get('description').value"
-                    [titleLabel]="'Описание обсуждения'"
-                    (outputEmitter)="setDescription($event)">
-      </app-redactor>
-    </div>
-    <button (click)="save()" type="button" class="btn btn-primary">Сохранить</button>
-  </form>
-</div>
+<app-create-form [title]="'Название обсуждения'"
+                 [titleDesc]="'Описание обсуждения'"
+                 (elementEmitter)="save($event)"
+></app-create-form>
 

@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="form-row">
+      <div class="form-group">
+        <a routerLink="/company/create" class="btn btn-sm btn-info"
+           type="button">
+          Добавить Компанию
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table">
+      <caption></caption>
+      <thead>
+      <tr>
+        <th scope="col">Название Компании</th>
+
+      </tr>
+      </thead>
+      <tbody infinite-scroll
+             class="noscroll"
+             [infiniteScrollDisabled]="!paginationAllowed"
+             [infiniteScrollDistance]="scrollDistance"
+             [infiniteScrollThrottle]="throttle"
+             (scrolled)="onScrollDown()">
+      <ng-container *ngFor="let company of companies; let idx=index">
+        <tr>
+          <td (click)="goTo(company)" style="cursor: pointer;">
+            <div>
+              <i class="fas fa-tasks pr-3"></i>
+              <span class="font-weight-bold">{{company.name}}</span>
+            </div>
+            <small class="mb-2 text-muted">
+<!--            <span>-->
+<!--              <span class="mr-3">Автор : {{ company.submitter.name }}</span>-->
+<!--            </span>-->
+            </small>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+

@@ -74,6 +74,15 @@
           </li>
           <li (click)="scroll()">
             <a
+              [routerLink]="['/company']"
+              class="list-group-item list-group-item-action bg-light"
+            >
+              <i class="fas fa-info mr-2"></i
+              ><span class="font-weight-bold">Компании</span>
+            </a>
+          </li>
+          <li (click)="scroll()">
+            <a
               [routerLink]="['/exams']"
               class="list-group-item list-group-item-action bg-light"
             >

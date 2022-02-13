@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { MessageService } from '../../../../shared/services/message.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,32 +14,15 @@ export class CreateDiscussionComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   private unsubscribe$ = new Subject();
-  constructor(private fb: FormBuilder,
-              private router: Router,
+  constructor(private router: Router,
               private messageService: MessageService) { }
 
-  ngOnInit() {
-    this.buildForm();
-  }
+  ngOnInit() {}
 
-
-  private buildForm() {
-    this.form = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-    });
-  }
-
-  setDescription(text: string) {
-    this.form.get('description').setValue(text);
-  }
-
-  save() {
-    const name = this.form.get('name').value;
-    const description = this.form.get('description').value;
-    this.messageService.create(name, description)
+  save(data: { name: string, description: string}) {
+    this.messageService.create(data.name, data.description)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(res => this.router.navigate(['discuss', `${res.id}`]))
+      .subscribe(res => this.router.navigate(['discuss', `${res.id}`]));
   }
 
   ngOnDestroy(): void {

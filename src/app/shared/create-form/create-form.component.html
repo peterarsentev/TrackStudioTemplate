@@ -1,0 +1,19 @@
+<div>
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="exampleInputEmail1">{{ title }}</label>
+      <input formControlName="name"
+             type="email" class="form-control" id="exampleInputEmail1"
+             aria-describedby="emailHelp" placeholder="Введите название">
+    </div>
+    <div class="form-group">
+      <app-redactor [text]="form?.get('description').value"
+                    [titleLabel]=titleDesc
+                    (outputEmitter)="setDescription($event)">
+      </app-redactor>
+    </div>
+    <button (click)="save()" type="button" class="btn btn-primary">Сохранить</button>
+  </form>
+</div>
+
+
