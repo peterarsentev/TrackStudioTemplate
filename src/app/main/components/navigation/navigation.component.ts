@@ -56,6 +56,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
               this.getVacancy(res);
               return;
             }
+            if (res.company) {
+              this.getCompany(res);
+              return;
+            }
             if (res.payment) {
               this.solutions = [{ name: 'Job4j', url: '/'},
                 { name: 'Оплата', url: '/payment'}];
@@ -147,6 +151,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private getVacancy(res: NavNode) {
     const navs = [{name: 'Job4j', url: '/', vacancy: true},
       { name: 'Вакансии', url: '/vacancies', vacancy: true}];
+    if (res.name) {
+      this.solutions = [...navs, res];
+    } else {
+      this.solutions = navs;
+    }
+  }
+
+  private getCompany(res: NavNode) {
+    const navs = [{name: 'Job4j', url: '/', company: true},
+      { name: 'Компании', url: '/company', company: true}];
     if (res.name) {
       this.solutions = [...navs, res];
     } else {

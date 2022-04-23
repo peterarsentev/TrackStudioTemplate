@@ -1,25 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CompanyService } from '../companyService';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyModel } from '../companyModel';
+import { pluck, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { NavNode } from '../../shared/models/nav.node';
+import { NavService } from '../../shared/services/nav.service';
 
 @Component({
   selector: 'app-company-list',
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']
 })
-export class CompanyListComponent implements OnInit {
+export class CompanyListComponent implements OnInit, OnDestroy {
 
   paginationAllowed = true;
-  scrollDistance = 5;
-  throttle: 100;
+  scrollDistance = 1;
+  throttle: 500;
   hasNext: boolean;
   page = 0;
   companies: CompanyModel[] = [];
-  constructor(private companyService: CompanyService, private router: Router) { }
+  private unsubscribe$ = new Subject();
+
+  constructor(private companyService: CompanyService,
+              private navService: NavService,
+              private router: Router,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-    this.getList();
+    this.navService.setUpModel({...new NavNode(), company: true });
+    this.route.data
+      .pipe(pluck('data'),
+        takeUntil(this.unsubscribe$)
+      ).subscribe((res: CompanyModel[]) => {
+      window.scrollTo(0, 0);
+      this.companies = res;
+      this.hasNext = res.length === 20;
+      this.paginationAllowed = res.length === 20;
+    });
   }
 
   onScrollDown() {
@@ -36,10 +55,14 @@ export class CompanyListComponent implements OnInit {
   getList() {
     this.companyService.getList(this.page)
       .subscribe(res => {
-        this.companies = res;
-        console.log(res);
-        this.hasNext = this.companies.length === 20;
-        this.paginationAllowed = this.companies.length === 20;
+        this.companies = this.companies.concat(res);
+        this.hasNext = res.length === 20;
+        this.paginationAllowed = res.length === 20;
       });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

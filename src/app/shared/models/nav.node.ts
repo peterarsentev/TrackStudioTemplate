@@ -9,6 +9,7 @@ export class NavNode {
     public discuss?: boolean,
     public payment?: boolean,
     public vacancy?: boolean,
+    public company?: boolean,
     public task_code?: boolean,
     public sqlExercise?: boolean,
     public solutionId?: string,

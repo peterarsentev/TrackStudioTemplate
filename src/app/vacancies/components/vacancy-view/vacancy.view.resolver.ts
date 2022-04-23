@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { NavService } from '../../../shared/services/nav.service';
 import { VacancyService } from '../../vacancy.service';
 import { tap } from 'rxjs/operators';
-import { NavNode } from '../../../shared/models/nav.node';
 
 @Injectable({providedIn: 'root'})
 export class VacancyViewResolver implements Resolve<VacancyModels> {

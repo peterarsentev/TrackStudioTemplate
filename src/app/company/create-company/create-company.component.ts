@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../companyService';
 import { Router } from '@angular/router';
+import { NavService } from '../../shared/services/nav.service';
 
 @Component({
   selector: 'app-create-company',
@@ -9,9 +10,12 @@ import { Router } from '@angular/router';
 })
 export class CreateCompanyComponent implements OnInit {
 
-  constructor(private router: Router, private companyService: CompanyService) { }
+  constructor(private router: Router, private navService: NavService,
+              private companyService: CompanyService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.navService.setUpModel({name: 'Новая', url: '/company/create', company: true});
+  }
 
   save(company: {name: string, description: string}) {
     this.companyService.save(company)
