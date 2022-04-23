@@ -11,11 +11,10 @@ export class CreateCompanyComponent implements OnInit {
 
   constructor(private router: Router, private companyService: CompanyService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   save(company: {name: string, description: string}) {
     this.companyService.save(company)
-      .subscribe(res => console.log(res))
+      .subscribe(res => this.router.navigate(['company', `${res.id}`]));
   }
 }

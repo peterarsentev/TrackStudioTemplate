@@ -21,21 +21,21 @@ export class CompanyService {
     return this.http.post<CompanyModel[]>(url, params);
   }
 
-  save(company: { name: string; description: string }) {
+  save(company: { name: string; description: string }): Observable<CompanyModel> {
     const url = this.url + 'companies/addCompany';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('name', company.name);
     params = params.append('description', company.description);
-    return this.http.post(url, params);
+    return this.http.post<CompanyModel>(url, params);
   }
 
-  getById(id: number) {
+  getById(id: number): Observable<CompanyModel> {
     const url = this.url + 'companies/getById';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('id', String(id));
-    return this.http.post(url, params);
+    return this.http.post<CompanyModel>(url, params);
   }
 
   addComment(text: any, id: number) {
