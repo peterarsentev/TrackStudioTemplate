@@ -1,14 +1,18 @@
 <div class="row mt-lg-5" style="word-break: break-all;">
   <div class="w-100 card">
     <div class="card-header">
-      <div class="font-weight-bold">Обсуждения: {{discussions.length}}
-        <button (click)="show()" class="ml-2">Просмотр</button>
-      </div>
+      <div class="font-weight-bold">Обсуждения</div>
       <div>
         <small class="mb-2 text-muted">{{ company ? 'Эти комментарии доступны всем. Поделитесь своим мнением о компании'
           : 'Эти комментарии доступны всем ученикам. Поделитесь своим мнением о задаче,\n' +
           '          полезными ссылками, рекомендациями по решению. Не скидывайте решения целиком!'}}
         </small>
+      </div>
+      <div class="text-center">
+        <button (click)="show()" class="mt-2 m btn btn-info btn-sm">
+          <i class="fa fa-download mr-2" aria-hidden="true"></i>
+          Загрузить обсуждения: {{discussions.length}}
+        </button>
       </div>
     </div>
     <div *ngIf="needToShow" class="card-body">

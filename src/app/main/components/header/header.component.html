@@ -78,19 +78,27 @@
               (click)="readMessages()"
               class="ml-3 badge badge-primary badge-pill"
         >{{ count }}</span>
-        <a class="nav-item nav-link float-right" [routerLink]="['/profile']">{{
-          user?.name || "Гость"
-          }}</a>
-        <a class="nav-item nav-link float-right"
-           [routerLink]="['/rating']"
-        >Рейтинг
-          <span style="cursor: pointer;"
-                class="ml-0"
-          >{{ position }}</span></a>
-        <a class="nav-item nav-link float-right"
-           (click)="clearStorage()"
-           [routerLink]="['/login']"
-        >Выйти</a>
+        <div class="dropdown" *ngIf="user">
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ user.name }}
+          </button>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" [routerLink]="['/profile']">Настройки</a>
+            <a class="dropdown-item" [routerLink]="['/payment']">Оплата</a>
+            <a class="dropdown-item" [routerLink]="['/vacancies']">Вакансии</a>
+            <a class="dropdown-item" [routerLink]="['/company']">Компании</a>
+            <a href="https://github.com/peterarsentev/job4j_features_bugs/issues" target="_blank"
+               class="dropdown-item">
+              Критика и предложения
+            </a>
+            <a class="dropdown-item" [routerLink]="['/rating']">Рейтинг
+              <span style="cursor: pointer;"
+                    class="ml-0"
+              >{{ position }}</span></a>
+            <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
+          </div>
+        </div>
       </div>
     </nav>
     <app-admin-message *ngIf="message" [message]="message"></app-admin-message>

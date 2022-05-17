@@ -28,57 +28,14 @@
             <a [routerLink]="['/topics']"
                class="list-group-item list-group-item-action bg-light">
               <i class="fas fa-info mr-2"></i>
-              <span class="font-weight-bold">Упражнения</span>
+              <span class="font-weight-bold">Упражнения Java Core</span>
             </a>
           </li>
-          <li (click)="scroll()" [ngStyle]="{cursor: 'pointer'}"
-              class=" d-flex justify-content-between  align-items-center">
-            <a class="list-group-item list-group-item-action bg-light" [routerLink]="['/discuss']">
-              <i class="fas fa-info mr-2"></i><span class="font-weight-bold">Обсуждения</span></a>
-            <span *ngIf="discussCount?.count > 0" (click)="goToListOfDiscuss()"
-                  class="badge badge-info badge-pill pos">{{ discussCount?.count }}</span>
           <li (click)="scroll()">
             <a [routerLink]="['/sqlExercise']"
                class="list-group-item list-group-item-action bg-light">
               <i class="fas fa-info mr-2"></i>
               <span class="font-weight-bold">Упражнения SQL</span>
-            </a>
-          </li>
-          <!--          <li (click)="scroll()">-->
-          <!--            <a [routerLink]="['/discuss']"-->
-          <!--               class="list-group-item list-group-item-action bg-light">-->
-          <!--              <i class="fas fa-info mr-2"></i>-->
-          <!--              <span class="font-weight-bold">Обсуждения</span>-->
-          <!--            </a>-->
-          <!--          </li>-->
-
-          <li (click)="scroll()">
-            <a [routerLink]="['/payment']"
-               class="list-group-item list-group-item-action bg-light">
-              <i class="fas fa-info mr-2"></i>
-              <span class="font-weight-bold">Оплата</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/peterarsentev/job4j_features_bugs/issues" target="_blank"
-               class="list-group-item list-group-item-action bg-light">
-              <i class="fas fa-info mr-2"></i
-              ><span class="font-weight-bold">Критика и предложения</span>
-            </a>
-          </li>
-          <li (click)="scroll()">
-            <a [routerLink]="['/vacancies']" class="list-group-item list-group-item-action bg-light">
-              <i class="fas fa-info mr-2"></i>
-              <span class="font-weight-bold">Вакансии</span>
-            </a>
-          </li>
-          <li (click)="scroll()">
-            <a
-              [routerLink]="['/company']"
-              class="list-group-item list-group-item-action bg-light"
-            >
-              <i class="fas fa-info mr-2"></i
-              ><span class="font-weight-bold">Компании</span>
             </a>
           </li>
           <li (click)="scroll()">
@@ -90,6 +47,12 @@
               ><span class="font-weight-bold">Тесты</span>
             </a>
           </li>
+          <li (click)="scroll()" [ngStyle]="{cursor: 'pointer'}"
+              class=" d-flex justify-content-between  align-items-center">
+            <a class="list-group-item list-group-item-action bg-light" [routerLink]="['/discuss']">
+              <i class="fas fa-info mr-2"></i><span class="font-weight-bold">Обсуждения</span></a>
+            <span *ngIf="discussCount?.count > 0" (click)="goToListOfDiscuss()"
+                  class="badge badge-info badge-pill pos">{{ discussCount?.count }}</span>
         </ul>
       </ng-container>
 
