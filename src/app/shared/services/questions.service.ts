@@ -4,6 +4,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Question } from '../models/question.model';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import {Qopt} from '../models/qopt.model';
+import {NavQuestionModel} from '../models/nav.question.models';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,15 @@ export class QuestionsService {
     let params = new HttpParams();
     params = params.append('id', id);
     return this.http.post<Question[]>(url, params);
+  }
+
+  next(examId, questionId): Observable<NavQuestionModel> {
+    const url = this.url + 'question/next';
+    let params = new HttpParams();
+    params = params.append('examId', examId);
+    params = params.append('questionId', questionId);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<NavQuestionModel>(url, params);
   }
 
   get(): Observable<Question[]> {

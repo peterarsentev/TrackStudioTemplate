@@ -1,99 +1,42 @@
 <div class="container-fluid">
-  <!--Main page with test tables-->
-  <div class="row" *ngIf="!startTest">
-    <table class="table">
-      <colgroup>
-        <col style="width: 10%">
-        <col style="width: 20%">
-        <col style="width: 30%">
-        <col style="width: 15%">
-        <col style="width: 20%">
-        <col style="width: 15%">
-      </colgroup>
-      <thead>
-      <tr style="text-align: center">
-        <th>Позиция:</th>
-        <th>Название:</th>
-        <th>Описание:</th>
-        <th>Попыток:</th>
-        <th>Время последней попытки:</th>
-        <th>Макс. результат:</th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr class="mycenter" *ngFor="let exam of exams" title="Start exam" (click)="startExam(exam)">
-          <ng-container *ngIf="exam.active">
-            <td>{{ exam.position }}</td>
-            <td>{{ exam.name }}</td>
-            <td [innerHTML]="exam.description"></td>
-            <td [innerHTML]="getTimes(exam.id)"></td>
-            <td [innerHTML]="getLastTime(exam.id)"></td>
-            <td [innerHTML]="getResult(exam.id)"></td>
-          </ng-container>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <!--Test table-->
-  <div class="container-fluid" *ngIf="startTest && !showResult">
-    <div class="row" *ngIf="currentQuestion" title="{{currentQuestion.hint}}">
-      <div class="col-3" [innerHTML]="'Вопрос: <p>' + currentQuestion.name +'</p>'"></div>
-      <div class="col-4" [innerHTML]="'Опиcание: ' + currentQuestion.description"></div>
-    </div>
-    <hr class="mt-2 mb-3"/>
-    <div class="row" *ngFor="let qp of currentQopts">
-      <div class="w-100"></div>
-      <div class="col-2">Ответ:</div>
-      <div class="col-4" [innerHTML]="qp.description"></div>
-      <div class="col-4"><input type="checkbox" [checked]="checked(qp)" (change)="choose(qp, $event.target)"></div>
-    </div>
-    <div class="row">
-      <div class="col-8">
-        <button type="button" class="btn btn-info float-left" (click)="back()" *ngIf="hasBack()">Back</button>
-        <button type="button" class="btn btn-info float-right" (click)="next()" *ngIf="hasNext()">Next</button>
-        <button type="button" class="btn btn-info float-right" (click)="finish()" *ngIf="!hasNext()">Finish</button>
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">В этом разделе вы можете проверить теорию по Java, SQL.</div>
       </div>
-    </div>
-  </div>
-  <!--  Show user results table-->
-  <div class="container-fluid" *ngIf="showResult">
-    <div class="row">
-      <h4>Правила подсчёта баллов:</h4>
-    </div>
-    <div class="row">
-      <ul>
-        <li>за каждый правильный ответ Вам начисляется один балл</li>
-        <li>за каждый неправильный ответ у Вас отнимается один балл</li>
-      </ul>
-    </div>
-    <ng-container *ngFor="let resultQuest of questions">
-      <div class="row">
-        <div class="col-3" [innerHTML]="'Вопрос: <p>' + resultQuest.name +'</p>'"></div>
-        <div class="col-4" [innerHTML]="'Опиcание: ' + resultQuest.description"></div>
-        <div class="w-100"></div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Название:</th>
+            <th>Результат</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let exam of exams" title="Start exam" (click)="examIntro(exam.exam)">
+            <ng-container *ngIf="exam.exam.active">
+              <td>
+                <span class="font-weight-bold">
+                  {{ exam.exam.position }}. {{ exam.exam.name }}. Вопросов : {{  exam.questions }}</span><br/>
+                <small class="mb-2 text-muted">
+                  <span>{{ exam.intro }}</span>
+                  <span class="mr-3">
+                    Создана : {{ exam.examuser?.start | date: 'hh:mm dd.MM.yyyy' }}
+                  </span>
+                  <span class="mr-3">
+                    Завершена : {{ exam.examuser?.finish | date: 'hh:mm dd.MM.yyyy' }}
+                  </span>
+                  <span class="mr-3">
+                    Попыток : {{  exam.examuser?.total }}
+                  </span>
+                </small>
+              </td>
+              <td>{{ exam.examuser?.result }}%</td>
+            </ng-container>
+          </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="row" *ngFor="let qp of filterQopts(resultQuest.id)">
-        <ng-container *ngIf="qp.correct">
-          <div class="w-100"></div>
-          <div class="col-3">Правильный ответ:</div>
-          <div class="col-4" [innerHTML]="qp.description"></div>
-        </ng-container>
-      </div>
-      <div class="row">
-        <div class="col-3" [innerHTML]="findAopts(resultQuest.id).length > 1 ?
-        'Ваши ответы:' : 'Ваш ответ:'"></div>
-        <ng-container *ngFor="let aop of findAopts(resultQuest.id)">
-          <div class="col-2" [innerHTML]="aop.opt.description" [className]="incorrect(aop.opt.correct)"></div>
-        </ng-container>
-      </div>
-      <hr class="mt-2 mb-3"/>
-    </ng-container>
-    <div class="row">
-      <div class="col-3" [innerHTML]="'<strong>Ваш результат:</strong>'"></div>
-      <div class="col-4" [innerHTML]="result()"></div>
-      <button type="button" class="btn btn-info float-right" (click)="toExamList()">Назад к списку экзаменов</button>
     </div>
   </div>
 </div>
-
-

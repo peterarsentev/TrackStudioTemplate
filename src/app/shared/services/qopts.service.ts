@@ -19,6 +19,7 @@ export class QoptsService {
     const url = this.url + 'qoopt/getByQuestId';
     let params = new HttpParams();
     params = params.append('id', id);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<Qopt[]>(url, params);
   }
 

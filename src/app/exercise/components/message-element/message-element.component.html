@@ -1,14 +1,14 @@
 <div *ngIf="!edit">
   <div class="pb-3 small">
                 <span>
-                  <span *ngIf="message.status.id != -1">
-                      <span *ngIf="message.status?.start"
-                            class="badge badge-danger mr-3">{{ message.status?.statusName }}</span>
-                  <span *ngIf="message.status?.finish"
+                 <span *ngIf="message.status?.id == 1"
+                       class="badge badge-danger mr-3">{{ message.status?.statusName }}</span>
+                  <span *ngIf="message.status?.id == 3"
                         class="badge badge-success mr-3">{{ message.status?.statusName }}</span>
-                  <span *ngIf="!(message.status?.finish || message.status?.start)"
+                  <span *ngIf="message.status?.id == 2"
+                        class="badge badge-dark mr-3">{{ message.status?.statusName }}</span>
+                  <span *ngIf="message.status?.id == 4"
                         class="badge badge-warning mr-3">{{ message.status?.statusName }}</span>
-                </span>
                   Сообщение от <span class="font-weight-bold">{{ message.submitter.name }}
                   [{{message.submitter.mentor ? 'Ментор' : 'Ученик'}}]
                 </span> к <span class="font-weight-bold">{{ message.handler.name }}

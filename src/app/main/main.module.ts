@@ -31,6 +31,9 @@ import { AdminMessageComponent } from './components/header/admin-message/admin-m
 import { PaymentComponent } from './components/payment/payment.component';
 import { ChartModule } from 'angular2-chartjs';
 import { ChartUserComponent } from './components/chart/chart-user.component';
+import { ExamIntroComponent } from './components/exam/exam_intro/exam.intro.component';
+import { ExamQuestionComponent } from './components/exam/exam_question/exam.question.component';
+import { ExamResultComponent } from './components/exam/exam_result/exam.result.component';
 
 
 @NgModule({
@@ -59,7 +62,10 @@ import { ChartUserComponent } from './components/chart/chart-user.component';
         RegistrationComponent,
         AdminMessageComponent,
         PaymentComponent,
-        ChartUserComponent
+        ChartUserComponent,
+        ExamIntroComponent,
+        ExamQuestionComponent,
+        ExamResultComponent
     ],
     imports: [
         CommonModule,

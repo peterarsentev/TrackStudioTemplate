@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ExamModels } from '../models/exam.models';
+import { Question } from '../models/question.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ICodeExample } from 'tslint';
 import { ExamUser } from '../models/examuser.model';
 import { DBConstat } from '../components/constants/dbconstat';
 import { environment } from '../../../environments/environment';
+import {ExamDetailsModel} from '../models/exam.details.model';
+import {NavQuestionModel} from '../models/nav.question.models';
+import {ProgressModel} from '../models/progress.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +27,11 @@ export class ExamsService {
     return this.http.post<ExamModels[]>(url, params);
   }
 
-  getActiveExams(): Observable<ExamModels[]> {
+  getActiveExams(): Observable<ExamDetailsModel[]> {
     const url = this.url + 'exam/getActive';
-    const params = new HttpParams();
-    return this.http.post<ExamModels[]>(url, params);
+    let params = new HttpParams();
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<ExamDetailsModel[]>(url, params);
   }
 
   getExamById(id): Observable<ExamModels> {
@@ -34,6 +39,23 @@ export class ExamsService {
     let params = new HttpParams();
     params = params.append('id', id);
     return this.http.post<ExamModels>(url, params);
+  }
+
+
+  progress(examId): Observable<ProgressModel> {
+    const url = this.url + 'examuser/progress';
+    let params = new HttpParams();
+    params = params.append('examId', examId);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<ProgressModel>(url, params);
+  }
+
+  startExam(examId): Observable<NavQuestionModel> {
+    const url = this.url + 'examuser/startExam';
+    let params = new HttpParams();
+    params = params.append('examId', examId);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<NavQuestionModel>(url, params);
   }
 
   saveOrUpdateExam(save: boolean, examen: ExamModels) {

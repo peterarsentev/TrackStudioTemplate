@@ -16,6 +16,8 @@ import { Aopt } from '../../../shared/models/aopt.model';
 import { AnswersService } from '../../../shared/services/answers.service';
 import { ExamUser } from '../../../shared/models/examuser.model';
 import { ExamuserService } from '../../../shared/services/examuser.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ExamDetailsModel} from '../../../shared/models/exam.details.model';
 
 @Component({
   selector: 'app-exam',
@@ -25,241 +27,24 @@ import { ExamuserService } from '../../../shared/services/examuser.service';
 export class ExamComponent implements OnInit {
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private userService: UserService,
     private authService: AuthService,
-    private examsService: ExamsService,
-    private examuserService: ExamuserService,
-    private questionsService: QuestionsService,
-    private answersService: AnswersService,
-    private qoptsService: QoptsService,
-    private aoptsService: AoptsService) {
+    private examsService: ExamsService) {
   }
 
-  private ngUnsubscribe$: Subject<void> = new Subject<void>();
   user: UserModels = {};
 
-  startTest = false;
-  showResult = false;
-  exams: ExamModels[] = [];
-  examUsers: ExamUser[] = [];
-
-  currentExamUser: ExamUser = new ExamUser();
-  currentExam: ExamModels = {};
-  currentQuestion: Question = {};
-  currentQopts: Qopt[] = [];
-  currentAnswer: Answer = {};
-
-
-  questions: Question[] = [];
-  qopts: Qopt[] = [];
-
-  answers: Answer[] = [];
-  aopts: Aopt[] = [];
-
-  pos = 0;
+  exams: ExamDetailsModel[] = [];
 
   ngOnInit() {
-    this.loadInfo();
-  }
-
-  loadInfo() {
-    this.userService.getModel()
-      .pipe(
-        takeUntil(this.ngUnsubscribe$)
-      ).subscribe(res => {
-      this.user = res;
-      this.examuserService.getByUserId(this.user.id)
-        .subscribe((data) => this.examUsers = data);
-    });
     this.examsService
       .getActiveExams()
       .subscribe(exm => this.exams = exm);
   }
 
-  getTimes(id): string {
-    if (this.examUsers && this.examUsers.length > 0) {
-      return String(this.examUsers.filter((x) => x.exam.id === id).length);
-    }
-    return '';
+  examIntro(exam: ExamModels) {
+    this.router.navigate(['detail', exam.id], { relativeTo: this.route });
   }
-
-  getResult(id): string {
-    if (this.examUsers && this.examUsers.length > 0) {
-      return String(this.examUsers
-        .filter((x) => x.exam.id === id)
-        .sort((x, y) =>
-          y.result - x.result
-        ).shift().result);
-    }
-    return '';
-  }
-
-  getLastTime(id): string {
-    if (this.examUsers && this.examUsers.length > 0) {
-      const date = new Date(this.examUsers
-        .filter((x) => x.exam.id === id)
-        .sort((x, y) =>
-          new Date(x.finish).getUTCMilliseconds() - new Date(y.finish).getUTCMilliseconds()
-        ).shift().finish);
-      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-    }
-    return '';
-  }
-
-  startExam(exam: ExamModels) {
-    if (this.user != undefined && this.user.login != 'anonymous') {
-      this.currentExam = exam;
-      this.currentExamUser.userid = this.user.id;
-      this.currentExamUser.exam = this.currentExam;
-      this.currentExamUser.start = Date.now();
-      this.loadQuestion();
-      this.startTest = true;
-    }
-  }
-
-  loadQuestion() {
-    this.questionsService
-      .getByExamId(this.currentExam.id)
-      .subscribe((data) => {
-          this.questions = data;
-          this.currentQuestion = this.questions[this.pos];
-        },
-        () => {
-        },
-        () => {
-          this.loadQopts();
-          this.prepareAnswers();
-        });
-  }
-
-  loadQopts() {
-    if (this.qopts.filter((x) => {
-      return x.question.id == this.currentQuestion.id
-        && x.question.name == this.currentQuestion.name;
-    }).length == 0) {
-      this.qoptsService
-        .getByQuestId(String(this.currentQuestion.id))
-        .subscribe((data) => {
-          this.currentQopts = data.sort((x, y) => {
-            return x.pos - y.pos;
-          });
-          data.forEach((x) => this.qopts.push(x));
-        });
-    } else {
-      this.currentQopts = this.filterQopts(this.currentQuestion.id);
-    }
-  }
-
-  filterQopts(id): Qopt[] {
-    return this.qopts.filter(x => x.question.id == id)
-      .sort((x, y) => x.pos - y.pos);
-  }
-
-  findAopts(id): Aopt[] {
-    const answer = this.aopts.filter(x => x.answer.question.id == id)
-      .sort((x, y) => x.id - y.id);
-    return answer;
-  }
-
-  prepareAnswers() {
-    this.questions.forEach((x) => {
-      this.answers.push(new Answer(0, x, this.currentExamUser));
-    });
-    this.chooseCurrentAnswer();
-  }
-
-  chooseCurrentAnswer() {
-    this.currentAnswer = this.answers
-      .filter((x) => x.question.id == this.currentQuestion.id).shift();
-  }
-
-  choose(qp: Qopt, targer) {
-    if (targer.checked) {
-      this.aopts.push(new Aopt(0, this.currentAnswer, qp));
-    } else {
-      this.aopts = this.aopts.filter((x) => x.opt.id != qp.id);
-    }
-  }
-
-  checked(qp: Qopt): boolean {
-    return this.aopts.filter((x) => x.opt.id == qp.id).length > 0;
-  }
-
-  hasNext(): boolean {
-    return this.pos < (this.questions.length - 1);
-  }
-
-  hasBack(): boolean {
-    return this.pos > 0;
-  }
-
-  next() {
-    if (this.hasNext()) {
-      this.pos++;
-      this.currentQuestion = this.questions[this.pos];
-      this.loadQopts();
-      this.chooseCurrentAnswer();
-    }
-  }
-
-  back() {
-    if (this.hasBack()) {
-      this.pos--;
-      this.currentQuestion = this.questions[this.pos];
-      this.loadQopts();
-      this.chooseCurrentAnswer();
-    }
-  }
-
-  result(): number {
-    const rightAnswers: number = this.aopts.filter((x) => x.opt.correct).length;
-    const incorrectAnswers: number = this.aopts.length - rightAnswers;
-    return rightAnswers - incorrectAnswers;
-  }
-
-  total(): number {
-    return this.qopts.filter((x) => x.correct).length;
-  }
-
-  finish() {
-    this.currentExamUser.id = 0;
-    this.currentExamUser.finish = Date.now();
-    this.currentExamUser.result = this.result();
-    this.currentExamUser.total = this.total();
-    this.examuserService.saveOrUpdateQuestion(this.currentExamUser).subscribe((data) => {
-      this.currentExamUser = data;
-    }, () => {
-    }, () => {
-      this.answers.forEach((answ) => {
-        answ.examuser = this.currentExamUser;
-        this.answersService.saveOrUpdateQuestion(answ).subscribe((saved) => {
-          answ.id = saved.id;
-        }, () => {
-        }, () => {
-          let aopt: Aopt[] = [];
-          aopt = this.aopts.filter((x) => x.answer.question.id == answ.question.id);
-          aopt.map((x) => x.answer = answ);
-          aopt.forEach((ap) => this.aoptsService.saveOrUpdateQuestion(ap).subscribe());
-        });
-      });
-    });
-    this.loadInfo();
-    this.showResult = true;
-  }
-
-  toExamList() {
-    this.showResult = false;
-    this.startTest = false;
-    this.currentExam = {};
-    this.loadInfo();
-  }
-
-  incorrect(check: boolean): string {
-    if (!check) {
-      return 'col-2 incorrect';
-    } else {
-      return 'col-2';
-    }
-  }
-
 }

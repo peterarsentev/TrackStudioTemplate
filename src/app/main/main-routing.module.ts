@@ -14,7 +14,14 @@ import { TaskNotFoundComponent } from './components/task-not-found/task-not-foun
 import { TaskAccessComponent } from './components/task-access/task-access.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import {PaymentComponent} from './components/payment/payment.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import {VacanciesListComponent} from '../vacancies/components/vacancies-list/vacancies-list.component';
+import {VacancyDetailsComponent} from '../vacancies/components/vacancy-details/vacancy-details.component';
+import {VacancyViewResolver} from '../vacancies/components/vacancy-view/vacancy.view.resolver';
+import {VacancyViewComponent} from '../vacancies/components/vacancy-view/vacancy-view.component';
+import {ExamResultComponent} from './components/exam/exam_result/exam.result.component';
+import {ExamIntroComponent} from './components/exam/exam_intro/exam.intro.component';
+import {ExamQuestionComponent} from './components/exam/exam_question/exam.question.component';
 
 const routes: Routes = [
   {
@@ -33,6 +40,11 @@ const routes: Routes = [
       {path: 'messages', component: MessagesComponent},
       {path: 'sandbox', component: SandboxComponent},
       {path: 'exams', component: ExamComponent},
+      {path: 'exams/result/:examId', component: ExamResultComponent },
+      {path: 'exams/detail/:examId', component: ExamIntroComponent },
+      {path: 'exams/detail/:examId/question', component: ExamQuestionComponent },
+      {path: 'exams/detail/:examId/question/:questionId', component: ExamQuestionComponent },
+      {path: 'exams/result/:examId', component: ExamResultComponent },
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module')

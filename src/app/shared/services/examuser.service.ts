@@ -15,6 +15,14 @@ export class ExamuserService {
   constructor(private http: HttpClient) {
   }
 
+  getByExamId(examId): Observable<ExamUser> {
+    const url = this.url + 'examuser/getByExamId';
+    let params = new HttpParams();
+    params = params.append('examId', examId);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<ExamUser>(url, params);
+  }
+
   getByUserId(userId): Observable<ExamUser[]> {
     const url = this.url + 'examuser/getByUserId';
     let params = new HttpParams();

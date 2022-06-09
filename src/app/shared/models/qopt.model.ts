@@ -7,7 +7,8 @@ export class Qopt {
     public description?: string,
     public question?: Question,
     public correct?: boolean,
-    public pos?: number
+    public pos?: number,
+    public checked?: boolean
   ) {
   }
 }

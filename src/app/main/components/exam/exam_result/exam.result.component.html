@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">{{ exam?.name }}. Ваш результат : {{ examUser?.result }}%</div>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Вопросы с не правильными ответами:</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let question of questions">
+              <td>
+                <div class="font-weight-bold">{{ question.name }}</div>
+                <div [innerHTML]="question.description | safeCode"></div>
+                <div [innerHTML]="question.hint | safeCode"></div>
+              </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

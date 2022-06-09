@@ -12,17 +12,3 @@ export class ExamUser {
     public total?: number
   ) {}
 }
-
-// private int id;
-//
-// private Exam exam;
-//
-// private int result;
-//
-// private Calendar start;
-//
-// private Calendar finish;
-//
-// private int userId;
-//
-// private int total;

@@ -1,11 +1,10 @@
 import { Answer } from './answer.model';
 import { Qopt } from './qopt.model';
 
-export class Aopt {
+export class ProgressModel {
 
   constructor(
-    public id?: number,
-    public qoptId?: number,
+    public progress?: number,
   ) {
   }
 }
