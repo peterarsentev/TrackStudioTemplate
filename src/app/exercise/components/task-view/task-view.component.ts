@@ -91,8 +91,10 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   goBackToList(taskId?: number) {
     if (!taskId || taskId === -1) {
+      this.showCommentForm = false;
       this.router.navigate(['exercise', `${this.topicId}`]).then(() => window.scrollTo(0, 0));
     } else {
+      this.showCommentForm = false;
       this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${taskId}`])
         .then(() => window.scrollTo(0, 0));
     }
