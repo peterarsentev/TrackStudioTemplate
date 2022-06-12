@@ -19,7 +19,7 @@
     </span>
     <span class="pull-right">{{ message.message.timeMils | date: 'dd.MM.yyyy HH:mm' }}</span>
   </div>
-  <div [innerHTML]="message.message.text"></div>
+  <div class="text-wrap" [innerHTML]="message.message.text"></div>
 </div>
 <div *ngIf="edit">
   <app-redactor [text]="message.message.text" [titleLabel]="'Выполняется: Редактирование.' "

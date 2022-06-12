@@ -12,6 +12,7 @@ export class RedactorComponent implements OnInit, OnDestroy {
   @Input()titleLabel: string;
   @Output() outputEmitter: EventEmitter<string> = new EventEmitter<string>();
   config: any = {
+    tooltip: false,
     airMode: false,
     tabDisable: true,
     popover: {
@@ -44,24 +45,9 @@ export class RedactorComponent implements OnInit, OnDestroy {
     },
     height: '150px',
     toolbar: [
-      ['misc', ['codeview', 'undo', 'redo', 'codeBlock']],
-      [
-        'font',
-        [
-          'bold',
-          'italic',
-          'underline',
-          'strikethrough',
-          'superscript',
-          'subscript',
-          'clear'
-        ]
-      ],
-      ['fontsize', ['fontname', 'fontsize', 'color']],
-      ['para', ['style0', 'ul', 'ol', 'paragraph', 'height']],
-      ['insert', ['table', 'picture', 'link', 'video', 'hr']],
-      ['customButtons', ['testBtn']],
-      ['view', ['fullscreen', 'codeview', 'help']],
+      ['misc', ['codeview', 'undo', 'redo']],
+      ['insert', ['link', 'hr']],
+      ['view', ['fullscreen']],
     ],
     codeviewFilter: true,
     codeviewFilterRegex: /<\/*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|ilayer|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|t(?:itle|extarea)|xml|.*onmouseover)[^>]*?>/gi,
