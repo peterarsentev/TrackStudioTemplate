@@ -127,7 +127,7 @@ export class MainPageComponent implements OnInit {
         .subscribe((res) => {
           this.solvedExerciseCount = res.solved;
           this.totalExerciseCount = res.all;
-          this.solBarValue = Math.round((this.solvedExerciseCount / this.totalExerciseCount) * 100);
+          this.solBarValue = +((this.solvedExerciseCount / this.totalExerciseCount) * 100).toFixed(2);
         });
   }
 
@@ -150,7 +150,7 @@ export class MainPageComponent implements OnInit {
         res.forEach(level => this.tasksService.getCountTasksByLevel(level.id).subscribe(counts => {
           level.all = counts.all;
           level.solved = counts.solved;
-          level.progress = Math.round((level.solved / level.all) * 100);
+          level.progress = +((level.solved / level.all) * 100).toFixed(2);
         }));
         this.levels = res;
       });
