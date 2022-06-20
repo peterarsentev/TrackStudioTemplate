@@ -19,7 +19,6 @@
       </div>
       <div class="card-body">
         <div class="card-text" [innerHTML]="exercise.description "></div>
-        <app-alert-message></app-alert-message>
 
         <div class="font-weight-bold">Схема базы данных:</div>
         <div *ngIf="load">
@@ -29,11 +28,33 @@
           ></ngx-codemirror>
         </div>
 
+        <div class="font-weight-bold">Данные:</div>
+        <div *ngIf="load">
+          <ngx-codemirror
+            [(ngModel)]="exercise.initScript"
+            [options]="optionsOutput"
+          ></ngx-codemirror>
+        </div>
+
         <div class="font-weight-bold">Ваш запрос:</div>
         <div *ngIf="load">
           <ngx-codemirror
             [(ngModel)]="solutionSql"
             [options]="solutionOptions"
+          ></ngx-codemirror>
+        </div>
+
+        <div class="font-weight-bold">Результат:</div>
+        <div *ngIf="solutionResult.message !== '' && solutionResult.equal" class="alert alert-success" role="alert">
+          Поздравляем! Задача решена верно.
+        </div>
+        <div *ngIf="solutionResult.message !== '' && !solutionResult.equal" class="alert alert-danger" role="alert">
+          Решение не верное.
+        </div>
+        <div *ngIf="load">
+          <ngx-codemirror
+            [(ngModel)]="solutionResult.message"
+            [options]="optionsOutput"
           ></ngx-codemirror>
         </div>
 
