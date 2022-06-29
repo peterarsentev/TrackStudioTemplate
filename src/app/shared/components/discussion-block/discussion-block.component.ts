@@ -16,7 +16,6 @@ export class DiscussionBlockComponent implements OnInit {
   @Output() deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateEmitter: EventEmitter<any> = new EventEmitter<any>();
   showDiscussion: boolean;
-  needToShow: boolean;
   constructor() { }
 
   ngOnInit() {}
@@ -38,7 +37,4 @@ export class DiscussionBlockComponent implements OnInit {
     this.updateEmitter.emit(event);
   }
 
-  show() {
-    this.needToShow = !this.needToShow;
-  }
 }

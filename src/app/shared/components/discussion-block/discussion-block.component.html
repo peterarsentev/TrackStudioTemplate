@@ -8,14 +8,8 @@
           '          полезными ссылками, рекомендациями по решению. Не скидывайте решения целиком!'}}
         </small>
       </div>
-      <div class="text-center">
-        <button (click)="show()" class="mt-2 m btn btn-info btn-sm">
-          <i class="fa fa-download mr-2" aria-hidden="true"></i>
-          Загрузить обсуждения: {{discussions.length}}
-        </button>
-      </div>
     </div>
-    <div *ngIf="needToShow" class="card-body">
+    <div class="card-body">
       <table class="table" *ngIf="discussions">
         <tbody>
         <tr app-discussion-element
