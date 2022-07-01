@@ -342,4 +342,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.discussions = res);
   }
+
+  goToSolutions() {
+    this.router.navigate(['solutions', this.taskId]);
+  }
 }

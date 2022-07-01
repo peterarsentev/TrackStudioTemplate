@@ -6,6 +6,8 @@
                 (click)="goToComments({name: 'Отправить на проверку', id: 2})">Отправить на проверку</button>
         <button *ngIf="task.status?.id !== 3" class="btn btn-info btn-sm ml-1"
                 (click)="goToComments({name: 'Отправить на проверку', id: 2})">Отправить на проверку</button>
+              <button *ngIf="task.status?.id == 3" class="btn btn-info btn-sm ml-1"
+                      (click)="goToSolutions()">Решения</button>
     </span>
     </span>
     <span class="w-50 pull-right">

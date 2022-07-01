@@ -1,0 +1,31 @@
+<div class="container-fluid top">
+  <div class="row">
+    Ученик {{ links.author }}
+  </div>
+  <div class="row">
+    <table class="table">
+      <caption></caption>
+      <thead>
+      <tr>
+        <th scope="col">Дата </th>
+        <th scope="col">Решение</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let solution of links.solutions; let idx=index">
+        <tr>
+          <td>{{solution.time | date: 'dd.MM.yyyy HH:mm'}}</td>
+          <td  style="cursor: pointer;">
+            <div>
+              <a *ngFor="let link of solution.links" class="font-weight-bold">{{link.originUrl}}</a>
+            </div>
+          </td>
+
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

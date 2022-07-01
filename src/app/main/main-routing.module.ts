@@ -15,13 +15,9 @@ import { TaskAccessComponent } from './components/task-access/task-access.compon
 import { ErrorComponent } from './components/error/error.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { PaymentComponent } from './components/payment/payment.component';
-import {VacanciesListComponent} from '../vacancies/components/vacancies-list/vacancies-list.component';
-import {VacancyDetailsComponent} from '../vacancies/components/vacancy-details/vacancy-details.component';
-import {VacancyViewResolver} from '../vacancies/components/vacancy-view/vacancy.view.resolver';
-import {VacancyViewComponent} from '../vacancies/components/vacancy-view/vacancy-view.component';
-import {ExamResultComponent} from './components/exam/exam_result/exam.result.component';
-import {ExamIntroComponent} from './components/exam/exam_intro/exam.intro.component';
-import {ExamQuestionComponent} from './components/exam/exam_question/exam.question.component';
+import { ExamResultComponent } from './components/exam/exam_result/exam.result.component';
+import { ExamIntroComponent } from './components/exam/exam_intro/exam.intro.component';
+import { ExamQuestionComponent } from './components/exam/exam_question/exam.question.component';
 
 const routes: Routes = [
   {
@@ -90,6 +86,11 @@ const routes: Routes = [
         path: 'company',
         loadChildren: () => import('../company/company.module')
           .then(mod => mod.CompanyModule)
+      },
+      {
+        path: 'solutions',
+        loadChildren: () => import('../main/solutions/solutions.module')
+          .then(mod => mod.SolutionsModule)
       },
     ]
   },
