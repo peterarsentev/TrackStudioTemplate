@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DiscussionMessageModel } from '../../models/discussionMessageModel';
 import { UserModels } from '../../models/user.models';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-discussion-block',
@@ -16,9 +17,16 @@ export class DiscussionBlockComponent implements OnInit {
   @Output() deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateEmitter: EventEmitter<any> = new EventEmitter<any>();
   showDiscussion: boolean;
-  constructor() { }
+  needToShow: boolean;
+  inTask = true;
+  constructor(private route: ActivatedRoute, private rout: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.rout.url.includes('discuss')) {
+      this.inTask = false;
+      this.needToShow = true;
+    }
+  }
 
   showDiscussionForm() {
     this.showDiscussion = !this.showDiscussion;
@@ -37,4 +45,7 @@ export class DiscussionBlockComponent implements OnInit {
     this.updateEmitter.emit(event);
   }
 
+  show() {
+    this.needToShow = !this.needToShow;
+  }
 }
