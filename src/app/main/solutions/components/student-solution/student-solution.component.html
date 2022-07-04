@@ -17,7 +17,10 @@
           <td>{{solution.time | date: 'dd.MM.yyyy HH:mm'}}</td>
           <td  style="cursor: pointer;">
             <div>
-              <a *ngFor="let link of solution.links" class="font-weight-bold">{{link.originUrl}}</a>
+              <a *ngFor="let link of solution.links"
+                 href="{{link.originUrl}}"
+                 target="_blank"
+                 class="font-weight-bold">{{link.rev}}</a>
             </div>
           </td>
 
