@@ -344,6 +344,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   goToSolutions() {
-    this.router.navigate(['solutions', this.taskId]);
+    this.router.navigate(['/exercise', this.task.task.topicId, 'task-view', this.task.task.id, 'solutions']);
   }
 }

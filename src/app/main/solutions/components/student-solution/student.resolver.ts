@@ -9,11 +9,8 @@ export class StudentResolver implements Resolve<Links> {
   constructor(private solutionService: SolutionsService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Links> | Promise<Links> | Links {
-    const taskId = route.params.taskId;
-    const authorId = route.params.authorId;
     const solutionId = route.params.solutionId;
-    console.log(taskId, authorId);
-    return this.solutionService.getSolutionsLinks(taskId, authorId, solutionId);
+    return this.solutionService.getSolutionsLinks(solutionId);
   }
 
 }

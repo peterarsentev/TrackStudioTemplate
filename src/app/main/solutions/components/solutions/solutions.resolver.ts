@@ -11,7 +11,7 @@ export class SolutionsResolver implements Resolve<SolutionsModel[]> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
     : Observable<SolutionsModel[]> | Promise<SolutionsModel[]> | SolutionsModel[] {
-    const taskId = route.params.taskId;
+    const taskId = route.params.id;
     return this.solutionService.getSolutionsByTaskId(0, taskId);
   }
 }

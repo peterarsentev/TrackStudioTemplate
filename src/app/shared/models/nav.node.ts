@@ -13,6 +13,7 @@ export class NavNode {
     public task_code?: boolean,
     public sqlExercise?: boolean,
     public solutionId?: string,
+    public authorName?: string
   ) {
   }
 }

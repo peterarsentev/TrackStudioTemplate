@@ -41,7 +41,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
           this.taskCodeId = res.taskId ? '' + res.taskId : undefined;
           if (this.router.url !== '/login') {
             if (res.exercise) {
-              this.getNavsForTasks();
+              this.getNavsForTasks(res);
               return;
             }
             if (res.task_code) {
@@ -89,10 +89,20 @@ export class NavigationComponent implements OnInit, OnDestroy {
       .subscribe(res => this.solutions = res);
   }
 
-  getNavsForTasks() {
+  getNavsForTasks(navs: NavNode) {
     this.tasksService.getNavsForTasks(this.topicId, this.taskCodeId)
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => this.solutions = res);
+      .subscribe(res => {
+        if (!!navs.authorName) {
+          res = [...res, {...new NavNode(), name: 'Решения', url: 'solutions', taskId: navs.taskId, topicId: navs.topicId},
+            {...new NavNode(),  taskId: navs.taskId, topicId: navs.topicId, name: navs.authorName}];
+        }
+        if (this.router.url.endsWith('solutions')) {
+          res = [...res, {...new NavNode(), name: 'Решения', url: 'solutions'}];
+        }
+        console.log(res);
+        this.solutions = res;
+      });
   }
 
   private getNavsForSqlExercise() {
@@ -138,6 +148,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
     if (idx < this.solutions.length - 1) {
       if (nav.url === '/') {
         this.navService.setUpModel({...new NavNode()});
+      }
+      if (nav.url === 'solutions') {
+        this.router.navigate(['exercise', `${nav.topicId}`, 'task-view', `${nav.taskId}`, 'solutions']);
+        return;
+      }
+      if (nav.url === 'task-view') {
+        this.router.navigate(['exercise', `${nav.topicId}`, `${nav.url}`, `${nav.taskId}`]);
+        return;
       }
       if (!!nav.topicId) {
         this.router.navigate([`${nav.url}`, `${nav.topicId}`]);

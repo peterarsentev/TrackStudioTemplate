@@ -3,8 +3,9 @@ import { Subject } from 'rxjs';
 import { SolutionsModel } from '../../../../shared/models/solutions.model';
 import { NavService } from '../../../../shared/services/nav.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { pluck, takeUntil } from 'rxjs/operators';
+import { debounceTime, pluck, takeUntil } from 'rxjs/operators';
 import { SolutionsService } from '../../solutions.service';
+import { NavNode } from '../../../../shared/models/nav.node';
 
 @Component({
   selector: 'app-solutions',
@@ -21,6 +22,7 @@ export class SolutionsComponent implements OnInit, OnDestroy {
   solutions: SolutionsModel[] = [];
   private unsubscribe$ = new Subject();
   private taskId: string;
+  private topicId: string;
 
   constructor(private solutionService: SolutionsService,
               private navService: NavService,
@@ -28,7 +30,6 @@ export class SolutionsComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.taskId = this.route.snapshot.paramMap.get('taskId');
     this.route.data
       .pipe(pluck('data'),
         takeUntil(this.unsubscribe$)
@@ -38,6 +39,13 @@ export class SolutionsComponent implements OnInit, OnDestroy {
       this.hasNext = res.length === 20;
       this.paginationAllowed = res.length === 20;
     });
+    this.route.params
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => {
+        this.taskId = res.id;
+        this.topicId = res.topicId;
+        this.navService.setUpModel({...new NavNode(), topicId: +this.topicId, taskId: +this.taskId, exercise: true});
+      });
   }
 
   onScrollDown() {
@@ -62,6 +70,6 @@ export class SolutionsComponent implements OnInit, OnDestroy {
   }
 
   goTo(solution: SolutionsModel) {
-    this.router.navigate(['solutions', this.taskId, solution.studentId, solution.solutionId]);
+    this.router.navigate(['exercise', this.topicId, 'task-view',  this.taskId, 'solutions',  solution.solutionId]);
   }
 }
