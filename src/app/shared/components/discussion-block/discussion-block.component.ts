@@ -1,14 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { DiscussionMessageModel } from '../../models/discussionMessageModel';
 import { UserModels } from '../../models/user.models';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-discussion-block',
   templateUrl: './discussion-block.component.html',
   styleUrls: ['./discussion-block.component.scss']
 })
-export class DiscussionBlockComponent implements OnInit {
+export class DiscussionBlockComponent implements OnInit, OnDestroy {
 
   @Input() discussions: DiscussionMessageModel[] = [];
   @Input() user: UserModels;
@@ -16,16 +18,30 @@ export class DiscussionBlockComponent implements OnInit {
   @Output() closeEmitter: EventEmitter<any> = new EventEmitter<string>();
   @Output() deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateEmitter: EventEmitter<any> = new EventEmitter<any>();
-  showDiscussion: boolean;
-  needToShow: boolean;
+  private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  needToShow = false;
+  showDiscussion = false;
   inTask = true;
-  constructor(private route: ActivatedRoute, private rout: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    if (this.rout.url.includes('discuss')) {
+    if (this.router.url.includes('discuss')) {
       this.inTask = false;
       this.needToShow = true;
     }
+    this.router.events
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        if (res instanceof NavigationEnd) {
+          if (res.url.includes('discus')) {
+            this.inTask = false;
+            this.needToShow = true;
+          } else {
+            this.needToShow = false;
+            this.inTask = true;
+          }
+        }
+      });
   }
 
   showDiscussionForm() {
@@ -47,5 +63,10 @@ export class DiscussionBlockComponent implements OnInit {
 
   show() {
     this.needToShow = !this.needToShow;
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 }
