@@ -1,39 +1,9 @@
-<div class="d-flex wrapper" id="wrapper">
-  <aside id="resizable" class="sidebar-left movable-div bottom-0 left-0 animated">
-    <app-left-side-bar *ngIf="navShow"></app-left-side-bar>
-    <div class="draghandle"
-         id="draghandle"
-         (mousedown)="initResize()"
-         (mouseup)="stopResize($event)"
-         style="width: 10px; height: 100vh;"></div>
-  </aside>
-  <div id="page-content-wrapper">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-      <i
-        *ngIf="navShow"
-        [ngClass]="{'fa-angle-left': !toggled, 'fa-angle-right': toggled}"
-        class="fa mr-lg-3"
-        style="font-size: 23px; cursor: pointer"
-        aria-hidden="true"
-        id="menu-toggle"
-        (click)="onToggle()"
-      ></i>
-      <a class="navbar-brand mr-auto" (click)="goMain(); onToggle()">Job4j</a>
-
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarText"
-        aria-controls="navbarText"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div *ngIf="navShow" class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto"></ul>
-        <span class="input-group mr-3 w-50">
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <span class="navbar-text mr-3">
+          <a [routerLink]="['/']"
+          ><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
+        </span>
+  <span class="input-group mr-3 w-25">
           <input
             type="text"
             #text
@@ -69,62 +39,96 @@
             </button>
           </span>
         </span>
-        <span class="navbar-text mr-3">
-          <a [routerLink]="['/']"
-          ><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
+  <span class="navbar-text  mr-3 font-weight-bold">
+          <a [routerLink]="['/exercise']" style="text-decoration: none"
+          >Уроки</a>
         </span>
-        <span *ngIf="notifications && count > 0"
-              style="cursor: pointer;"
-              (click)="readMessages()"
-              class="ml-3 badge badge-primary badge-pill"
-        >{{ count }}</span>
-        <div class="dropdown" *ngIf="user">
-          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ user.name }}
-          </button>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" [routerLink]="['/profile']">Настройки</a>
-            <a class="dropdown-item" [routerLink]="['/payment']">Оплата</a>
-            <a class="dropdown-item" [routerLink]="['/vacancies']">Вакансии</a>
-            <a class="dropdown-item" [routerLink]="['/company']">Компании</a>
-            <a href="https://github.com/peterarsentev/job4j_features_bugs/issues" target="_blank"
-               class="dropdown-item">
-              Критика и предложения
-            </a>
-            <a class="dropdown-item" [routerLink]="['/rating']">Рейтинг
-              <span style="cursor: pointer;"
-                    class="ml-0"
-              >{{ position }}</span></a>
-            <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <app-admin-message *ngIf="message" [message]="message"></app-admin-message>
-    <div class="container-fluid">
-      <app-navigation (getMessage)="getMessage()"
-                      *ngIf="navShow"
-      ></app-navigation>
-      <router-outlet></router-outlet>
+
+  <div class="dropdown mr-3">
+    <button class="btn dropdown-toggle font-weight-bold" type="button" id="solutionDd"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Решения
+    </button>
+    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="solutionDd">
+      <a class="dropdown-item" [routerLink]="['/exercise']">Отклоненные уроки</a>
+      <a class="dropdown-item" [routerLink]="['/exercise']">Выполненные уроки</a>
+      <a class="dropdown-item" [routerLink]="['/exercise']">Уроки на проверке</a>
     </div>
   </div>
+
+  <span class="navbar-text mr-3 font-weight-bold">
+          <a [routerLink]="['/discuss']" style="text-decoration: none"
+          >Обсуждения</a>
+        </span>
+
+  <div class="dropdown mr-3">
+    <button class="btn dropdown-toggle font-weight-bold" type="button" id="exercisesDd"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Упражнения
+    </button>
+    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="exercisesDd">
+      <a class="dropdown-item" [routerLink]="['/topics']">Упражнения Java Core</a>
+      <a class="dropdown-item" [routerLink]="['/sqlExercise']">Упражнения SQL</a>
+    </div>
+  </div>
+
+  <span class="navbar-text mr-3 font-weight-bold">
+          <a [routerLink]="['/exams']" style="text-decoration: none;"
+          >Тесты</a>
+        </span>
+
+  <div *ngIf="navShow" class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto"></ul>
+    <span *ngIf="notifications && count > 0"
+          style="cursor: pointer;"
+          (click)="readMessages()"
+          class="ml-3 badge badge-primary badge-pill"
+    >{{ count }}</span>
+    <div class="dropdown" *ngIf="user">
+      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ user.name }}
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" [routerLink]="['/profile']">Настройки</a>
+        <a class="dropdown-item" [routerLink]="['/payment']">Оплата</a>
+        <a class="dropdown-item" [routerLink]="['/vacancies']">Вакансии</a>
+        <a class="dropdown-item" [routerLink]="['/company']">Компании</a>
+        <a href="https://github.com/peterarsentev/job4j_features_bugs/issues" target="_blank"
+           class="dropdown-item">
+          Критика и предложения
+        </a>
+        <a class="dropdown-item" [routerLink]="['/rating']">Рейтинг
+          <span style="cursor: pointer;"
+                class="ml-0"
+          >{{ position }}</span></a>
+        <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<app-admin-message *ngIf="message" [message]="message"></app-admin-message>
+<div class="container">
+  <app-navigation (getMessage)="getMessage()"
+                  *ngIf="navShow"
+  ></app-navigation>
+  <router-outlet></router-outlet>
 </div>
 <div
   class="pr-lg-5 pb-lg-5"
   style="position: fixed; bottom: 0; right: 0; z-index: 1;"
 >
-  <div class="mb-4" style="cursor: pointer;" onclick="window.scrollTo(0, 0);">
-    <i class="fas fa-arrow-circle-up fa-lg"></i>
+  <div class="mb-1" style="cursor: pointer;" onclick="window.scrollTo(0, 0);">
+    <i class="fa fa-arrow-circle-up fa-lg"></i>
   </div>
   <div *ngIf="iconComment" class="mb-2" style="cursor: pointer;">
-    <i (click)="goToComments()" class="fas fa-comment fa-lg" aria-hidden="true"></i>
+    <i (click)="goToComments()" class="fa fa-comment fa-lg" aria-hidden="true"></i>
   </div>
   <div
     style="cursor: pointer;"
     onclick="window.scrollTo(0, document.body.scrollHeight);"
   >
-    <i class="fas fa-arrow-circle-down fa-lg"></i>
+    <i class="fa fa-arrow-circle-down fa-lg"></i>
   </div>
 </div>
 <app-footer></app-footer>
