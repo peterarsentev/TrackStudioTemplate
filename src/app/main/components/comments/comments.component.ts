@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { UserModels } from '../../../shared/models/user.models';
 import { Subject } from 'rxjs';
-import { CommentService } from '../../../shared/services/comment.service';
 import { CommentAndButtonsModel } from '../../../shared/models/commentAndButtonsModel';
 
 declare var hljs: any;
