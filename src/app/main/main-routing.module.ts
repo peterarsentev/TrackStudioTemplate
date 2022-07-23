@@ -87,6 +87,11 @@ const routes: Routes = [
         loadChildren: () => import('../company/company.module')
           .then(mod => mod.CompanyModule)
       },
+      {
+        path: 'tasksByStatus',
+        loadChildren: () => import('../main/byStatus/tasks-by-status.module')
+          .then(mod => mod.TasksByStatusModule)
+      },
     ]
   },
   {path: 'login', component: LoginComponent},

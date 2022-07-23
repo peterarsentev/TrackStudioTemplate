@@ -28,14 +28,11 @@ import { CategoryModels } from '../models/category.models';
 import { TopicFilterModels } from '../models/topicFilterModels';
 import { TopicFilter } from '../models/topickFilter';
 import { MessageModel } from '../models/message.model';
-import { SolutionsModel } from '../models/solutions.model';
+
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
 
-  private allTasksGeneral = '4028808a1953022d0119537e664c0335';
-  private allTasks = '0873958f665da72301665dcdf8c4032a';
-  private solvedTasks = '0873958f665da72301665dce8608034b';
   private url = `${environment.urlJedu}/rest/task/`;
   urlJedu = `${environment.urlJedu}/`;
 
@@ -432,6 +429,16 @@ export class TasksService {
     const url = this.urlJedu + `solution/operations`;
     return this.http.post<MessagesModel[]>(url, params);
   }
+
+  getTasksByStatus(page: number, status: string): Observable<TaskTopicModel[]> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = this.urlJedu + `task/byStatus`;
+    params = params.append('page', String(page));
+    params = params.append('status', status);
+    return this.http.post<TaskTopicModel[]>(url, params);
+  }
+
 
   getVerifiedTasks(): Observable<TaskTopicModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});

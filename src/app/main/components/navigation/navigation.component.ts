@@ -26,6 +26,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private topicId: string;
   @Output()getMessage = new EventEmitter();
 
+  status = {
+    review: 'На проверке',
+    revert: 'Отклоненные',
+    finished: 'Выполненные'
+  };
+
   constructor(private route: ActivatedRoute,
               private navService: NavService,
               private router: Router,
@@ -35,6 +41,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.navService.getModel()
       .pipe(takeUntil(this.ngUnsubscribe$), debounceTime(10))
       .subscribe(res => {
+        console.log(res);
         this.getMessage.emit();
         if (res) {
           this.topicId = res.topicId ? '' + res.topicId : undefined;
@@ -58,6 +65,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
             }
             if (res.company) {
               this.getCompany(res);
+              return;
+            }
+            if (res.solutions) {
+              this.getSolutions(res);
               return;
             }
             if (res.payment) {
@@ -184,5 +195,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
     } else {
       this.solutions = navs;
     }
+  }
+
+  private getSolutions(res: NavNode) {
+    const navs = [{name: 'Job4j', url: '/', solutions: true},
+      { name: 'Решения', url: '/taskByStatus', solutions: true},
+      {name: this.status[res.status], url: res.status, solutions: true}];
+    this.solutions = navs;
+    console.log(this.solutions);
   }
 }

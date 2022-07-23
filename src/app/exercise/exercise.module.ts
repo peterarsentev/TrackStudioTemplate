@@ -10,8 +10,6 @@ import { SolutionsComponent } from '../main/solutions/components/solutions/solut
 import { StudentSolutionComponent } from '../main/solutions/components/student-solution/student-solution.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-
-
 @NgModule({
   declarations: [
     ExerciseListComponent,
