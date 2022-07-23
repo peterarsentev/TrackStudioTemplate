@@ -100,7 +100,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         if (this.router.url.endsWith('solutions')) {
           res = [...res, {...new NavNode(), name: 'Решения', url: 'solutions'}];
         }
-        console.log(res);
+        // console.log(res);
         this.solutions = res;
       });
   }

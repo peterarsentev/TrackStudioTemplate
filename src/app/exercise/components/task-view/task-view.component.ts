@@ -35,12 +35,13 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   messages: MessagesModel[] = [];
   handlers: UserEduModels[] = [];
   discussions: DiscussionMessageModel[] = [];
-  showDiscussion: boolean;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   operation: { name?: string, id?: number } = {};
   user: UserModels;
   name: string;
   rating: RateModel;
+  totalSolutions = 0;
+
   constructor(private tasksService: TasksService,
               private navService: NavService,
               private router: Router,
@@ -58,6 +59,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .subscribe(res =>  {
         this.taskId = res.id;
         this.topicId = res.topicId;
+        this.getTotalSolutions();
         this.getDiscussions();
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, taskId: this.taskId, exercise: true});
         this.getTaskById(res.id);
@@ -345,5 +347,14 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   goToSolutions() {
     this.router.navigate(['/exercise', this.task.task.topicId, 'task-view', this.task.task.id, 'solutions']);
+  }
+
+  getTotalSolutions() {
+    console.log(this.taskId);
+    this.tasksService.getSolutionsCount(this.taskId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        this.totalSolutions = res.totalCount;
+      });
   }
 }

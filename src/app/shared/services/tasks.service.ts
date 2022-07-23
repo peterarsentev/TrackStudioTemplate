@@ -28,6 +28,7 @@ import { CategoryModels } from '../models/category.models';
 import { TopicFilterModels } from '../models/topicFilterModels';
 import { TopicFilter } from '../models/topickFilter';
 import { MessageModel } from '../models/message.model';
+import { SolutionsModel } from '../models/solutions.model';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -529,5 +530,13 @@ export class TasksService {
     params = params.append('text', newText);
     const url = this.urlJedu + `task/updateOperation`;
     return this.http.post<MessageModel>(url, params);
+  }
+
+  getSolutionsCount(id: number) {
+    const url = this.urlJedu + 'solution/getSolutionsCount';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', String(id));
+    return this.http.post<{totalCount: number}>(url, params);
   }
 }
