@@ -1,18 +1,18 @@
-<h5>Ответственный ментор: {{ userName }}</h5>
-<div class="border rounded p-2 scr">
-  <div class="form-group">
-    <input
-      placeholder="Поиск"
-      (input)="search($event)"
-      class="form-control"
-    >
+<div class="w-100 card">
+  <div class="card-header">
+    <div class="font-weight-bold">Ответственный ментор: <i class="fas fa-user"></i> {{ userName }}</div>
   </div>
-  <div class="custom-control custom-radio" *ngFor="let handler of searchHandlers; let idx = index;">
-    <input type="radio"
-           class="custom-control-input"
-           id="{{idx}}" name="groupOfDefaultRadios"
-           [checked]="handler.name === 'Петр Арсентьев'"
-           (change)="select(handler)">
-    <label class="custom-control-label" for="{{idx}}">{{ handler.name }}</label>
+  <div class="card-body">
+    <div class="custom-control custom-radio" *ngFor="let handler of searchHandlers; let idx = index;">
+      <input type="radio"
+             class="custom-control-input"
+             id="{{idx}}" name="groupOfDefaultRadios"
+             [checked]="handler.name === 'Петр Арсентьев'"
+             (change)="select(handler)">
+      <label class="custom-control-label" for="{{idx}}">
+        <i class="fas fa-user pr-1"></i>
+        {{ handler.name }}
+      </label>
+    </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 <div class="form-group editor">
-  <label><h5>{{ titleLabel }}</h5></label>
+  <label class="font-weight-bold">{{ titleLabel }}</label>
   <div [ngxSummernote]="config"
        [(ngModel)]="text"
        (ngModelChange)="change()"></div>

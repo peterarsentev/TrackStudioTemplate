@@ -4,13 +4,15 @@
                   <span>Oт
                     <span class="font-weight-bold">{{ discussion.name }}</span>
                   </span>
+      <span class="pull-right" *ngIf="discussion.userId === user.id" (click)="openConfirmModal()">
+        <i class="fa fa-remove ml-3"></i>
+       </span>
+      <span class="pull-right" *ngIf="discussion.userId === user.id" (click)="change()">
+         <i class="fa fa-edit ml-3"></i>
+      </span>
       <span class="pull-right">{{ discussion.time | date: 'dd.MM.yyyy HH:mm' }}</span>
     </div>
     <div [innerHTML]="discussion.text | safeCode"></div>
-    <div *ngIf="discussion.userId === user.id">
-      <button (click)="change()" type="button" class="btn btn-outline-success btn-sm mr-1">Редактировать</button>
-      <button (click)="openConfirmModal()" type="button" class="btn btn-outline-danger btn-sm">Удалить</button>
-    </div>
   </div>
   <div class="row" *ngIf="showDiscussion">
     <app-discussion

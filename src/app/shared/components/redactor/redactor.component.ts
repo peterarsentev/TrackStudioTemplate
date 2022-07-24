@@ -25,9 +25,6 @@ export class RedactorComponent implements OnInit, OnDestroy {
         ['float', ['floatLeft', 'floatRight', 'floatNone']],
         ['remove', ['removeMedia']]
       ],
-      link: [
-        ['link', ['linkDialogShow', 'unlink']]
-      ],
       air: [
         [
           'font',
@@ -46,7 +43,6 @@ export class RedactorComponent implements OnInit, OnDestroy {
     height: '150px',
     toolbar: [
       ['misc', ['codeview', 'undo', 'redo']],
-      ['insert', ['link', 'hr']],
       ['view', ['fullscreen']],
     ],
     codeviewFilter: true,

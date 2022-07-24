@@ -52,7 +52,7 @@
       <tbody>
       <tr *ngFor="let task of tasks">
         <td>
-          <a [routerLink]="['/exercise', task?.id]">
+          <a style="text-decoration: none;" [routerLink]="['/exercise', task?.id]">
             <div>
               <i class="fas fa-folder pr-3"></i>
               <span class="font-weight-bold">{{task.name}}</span>

@@ -22,7 +22,7 @@
   <div class="text-wrap" [innerHTML]="message.message.text"></div>
 </div>
 <div *ngIf="edit">
-  <app-redactor [text]="message.message.text" [titleLabel]="'Выполняется: Редактирование.' "
+  <app-redactor [text]="message.message.text" [titleLabel]="'Выполняется: Редактирование' "
                 (outputEmitter)="updateComment($event)"
   ></app-redactor>
   <button [disabled]="!newText"

@@ -1,0 +1,18 @@
+.editor {
+  height: 150px;
+}
+
+button{
+  margin-bottom: 15px;
+}
+
+::ng-deep {
+  app-discussion {
+    display: block;
+    width: 100%;
+    form {
+      display: block;
+      width: 100%;
+    }
+  }
+}
