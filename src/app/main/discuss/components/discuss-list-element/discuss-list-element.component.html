@@ -1,35 +1,39 @@
 <div class="container-fluid">
   <div class="row">
-<!--    <span class="w-50 pull-right">-->
-<!--      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"-->
-<!--              (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>-->
-<!--      <button *ngIf="task.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"-->
-<!--              (click)="goBackToList(task.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>-->
-<!--      <button *ngIf="task.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"-->
-<!--              (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>-->
-<!--    </span>-->
+    <!--    <span class="w-50 pull-right">-->
+    <!--      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"-->
+    <!--              (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>-->
+    <!--      <button *ngIf="task.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"-->
+    <!--              (click)="goBackToList(task.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>-->
+    <!--      <button *ngIf="task.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"-->
+    <!--              (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>-->
+    <!--    </span>-->
   </div>
   <div class="row">
     <div class="w-100 card">
       <div class="card-header">
         <div class="grid">
           <div class="row">
-            <div class="col-sm-10">
-              <div class="font-weight-bold">{{ discuss.name }}</div>
+            <div class="col-sm-12">
+              <div>
+                <span class="font-weight-bold w-50">{{ discuss.name }}</span>
+                <span class="w-50">
+                  <app-book-mark-star [name]="discuss.name"></app-book-mark-star>
+                  <i *ngIf="!discuss.subscribed" style="cursor: pointer;"
+                  (click)="subscribe()" title="Подписаться"
+                  class="fa fa-bell-o mr-2 pull-right" aria-hidden="true"></i>
+                  <i *ngIf="discuss.subscribed"  style="cursor: pointer;"
+                  (click)="subscribe()" title="Отписаться"
+                  class="fa fa-bell-slash-o mr-2 pull-right" aria-hidden="true"></i>
+                </span>
+              </div>
               <div>
                 <small class="mb-2 text-muted">
                   <span  class="mr-3">Автор : {{discuss.submitter.name }}</span>
                   <span class="mr-3">Дата создания : {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}</span>
                   <span>Обновлена : {{  discuss.updated | date: 'dd.MM.yyyy HH:mm' }}</span>
-                  <span class="pull-right">
-                    <button (click)="subscribe()" class="btn"
-                            [ngClass]="{'btn-danger' : discuss.subscribed, 'btn-info' : !discuss.subscribed  }">
-                      {{discuss.subscribed ? 'Отписаться' : 'Подписаться'}}</button></span>
                 </small>
               </div>
-            </div>
-            <div class="pull-right col-sm-2">
-              <app-book-mark-star [name]="discuss.name"></app-book-mark-star>
             </div>
           </div>
         </div>

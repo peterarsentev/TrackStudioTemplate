@@ -1,14 +1,17 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="form-row">
-      <div class="form-group">
+  <div class="row pb-lg-3">
+      <span class="w-50">
         <a routerLink="/discuss/create" class="btn btn-sm btn-info"
            type="button">
-          Создать Обсуждение
+          Создать обсуждение
         </a>
-        <button (click)="addFilter()" class="btn btn-sm btn-info ml-5">{{showOnlySub ? 'Все обсуждения' : 'Мои подписки' }}</button>
-      </div>
-    </div>
+      </span>
+      <span class="w-50">
+        <button (click)="addFilter()" class="btn btn-sm btn-light pull-right">
+           <i class="fa fa-filter mr-2" aria-hidden="true"></i>
+          {{showOnlySub ? 'Все обсуждения' : 'Мои подписки' }}
+        </button>
+      </span>
   </div>
   <div class="row">
     <!--        <div class="form-group row">-->
@@ -25,8 +28,6 @@
       <thead>
       <tr>
         <th scope="col">Тема обсуждения</th>
-        <th scope="col">Дата создания</th>
-        <th scope="col">Дата обновления</th>
         <th scope="col">Подписка</th>
       </tr>
       </thead>
@@ -46,19 +47,19 @@
             <small class="mb-2 text-muted">
             <span>
               <span class="mr-3">Автор : {{ discuss.submitter.name }}</span>
+              <span class="mr-3">Создано : {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}</span>
+              <span class="mr-3">Обновлено : {{ discuss.updated | date: 'dd.MM.yyyy HH:mm' }}</span>
             </span>
             </small>
           </td>
-          <td  (click)="goTo(discuss)">
-            {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}
-          </td>
-          <td  (click)="goTo(discuss)">
-            {{ discuss.updated | date: 'dd.MM.yyyy HH:mm' }}
-          </td>
           <td>
-            <button (click)="subscribe(discuss, idx)" class="btn"
-                    [ngClass]="{'btn-danger' : discuss.subscribed, 'btn-info' : !discuss.subscribed  }">
-              {{discuss.subscribed ? 'Отписаться' : 'Подписаться'}}</button>
+            <i *ngIf="!discuss.subscribed"
+               style="cursor: pointer;"
+               (click)="subscribe(discuss, idx)" title="Подписаться"
+               class="fa fa-bell-o mr-2" aria-hidden="true"></i>
+            <i *ngIf="discuss.subscribed"  style="cursor: pointer;"
+            (click)="subscribe(discuss, idx)" title="Отписаться"
+               class="fa fa-bell-slash-o mr-2" aria-hidden="true"></i>
           </td>
         </tr>
       </ng-container>

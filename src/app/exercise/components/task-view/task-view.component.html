@@ -18,7 +18,7 @@
               (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
       <button [disabled]="task.status?.id != 3" class="btn btn-success btn-sm ml-1 pull-right"
               (click)="goToSolutions()"
-              title="Решения других учениоков станут доступны после выполнения урока">Решено: {{totalSolutions}} раз</button>
+              title="Решения других учениоков станут доступны после выполнения урока">Было решено: {{totalSolutions}}</button>
     </span>
   </div>
   <div class="row">
