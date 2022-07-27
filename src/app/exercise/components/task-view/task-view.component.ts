@@ -252,7 +252,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         copyIconClass: 'fa fa-copy',
         checkIconClass: 'fa fa-check text-success',
       };
-     // window.highlightJsBadge(options);
+      window.highlightJsBadge(options);
     }, 0);
   }
 

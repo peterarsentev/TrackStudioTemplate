@@ -1,12 +1,11 @@
 <ng-container *ngIf="user?.login !== 'anonymous'; else auth">
-<nav class="navbar sticky-top navbar-light bg-light">
-  <a class="navbar-brand" routerLink="/vacancies">Вакансии</a>
-  <button class="btn badge-pill" type="button" (click)="gotoDetail()">Добавить Вакансию</button>
-  <button (click)="getVac(false, true)" class="btn badge-pill">Мои Вакансии</button>
-  <button (click)="getVac(true, false)"  class="btn badge-pill">Открытые Вакансии</button>
-  <button (click)="getVac(false, false)"  class="btn badge-pill">Показать Все Вакансии</button>
-</nav>
 <div class="container-fluid">
+  <div class="row pb-lg-3">
+    <button type="button" (click)="gotoDetail()" class="btn btn-sm btn-info mr-2">Добавить вакансию</button>
+    <button (click)="getVac(false, true)" class="btn btn-sm btn-info mr-2">Мои вакансии</button>
+    <button (click)="getVac(true, false)"  class="btn btn-sm btn-info mr-2">Открытые вакансии</button>
+    <button (click)="getVac(false, false)"  class="btn btn-sm btn-info">Все вакансии</button>
+  </div>
   <div class="row">
     <table class="table">
       <thead>
