@@ -5,7 +5,6 @@
     <button type="button" class="m btn btn-light pull-right btn-sm mr-2"  *ngIf="!!previousAndNext.previous"
             (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
     <button [disabled]="true" class="btn btn-success btn-sm mr-2 pull-right"
-            (click)="goToSolutions()"
             title="Решения других учениоков станут доступны после выполнения упражнения">Было решено: ?</button>
   </div>
 </div>
