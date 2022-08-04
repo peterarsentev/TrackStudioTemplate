@@ -77,6 +77,15 @@
           >Тесты</a>
         </span>
 
+  <div class="dropdown mr-3">
+    <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercisesDd"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Закладки
+    </button>
+    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercisesDd">
+      <li><a class="dropdown-item">Пока не сделали ... </a></li>
+    </ul>
+  </div>
   <div *ngIf="navShow" class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto"></ul>
     <span *ngIf="notifications && count > 0"

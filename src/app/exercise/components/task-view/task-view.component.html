@@ -21,7 +21,7 @@
               title="Решения других учениоков станут доступны после выполнения урока">Было решено: {{totalSolutions}}</button>
     </span>
   </div>
-  <div class="row">
+  <div class="row pb-3">
     <div class="w-100 card">
       <div class="card-header">
         <div class="grid">
@@ -85,6 +85,9 @@
       </div>
       <div class="card-body">
         <p class="card-text" [innerHTML]="task?.task?.description | safeCode"></p>
+      </div>
+      <div class="card-footer text-muted">
+        {{ task?.task?.name }} {{ getSolutionId() }}
       </div>
     </div>
   </div>
