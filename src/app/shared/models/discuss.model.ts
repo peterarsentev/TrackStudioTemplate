@@ -12,7 +12,9 @@ export class DiscussModel {
     public exerciseId?: number,
     public submitter?: UserModels,
     public subscribed?: boolean,
-    public sqlExerciseId?: number
+    public sqlExerciseId?: number,
+    public nextId?: number,
+    public previousId?: number,
 ) {
   }
 }

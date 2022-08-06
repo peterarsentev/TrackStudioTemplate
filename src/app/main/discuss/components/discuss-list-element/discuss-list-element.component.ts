@@ -91,4 +91,12 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
       });
     }, 0);
   }
+
+  goBackToList(id?: number) {
+    if (!id) {
+      this.router.navigate(['discuss']);
+    } else {
+      this.router.navigate(['discuss', id]);
+    }
+  }
 }
