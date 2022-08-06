@@ -12,6 +12,7 @@ import { InfoModels } from '../../../shared/models/info.models';
 import { DiscussService } from '../../discuss/discuss.service';
 import { DiscussSearch } from '../../../shared/models/discuss.search';
 import { RatingService } from '../../rating/components/rating.service';
+import { BookmarksModel } from '../../../shared/models/bookmarks.model';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('text', {static: false}) searchText;
   position = 0;
   discussCount: { count: number };
+  bookmarks: BookmarksModel[] = [];
 
   constructor(
     private userService: UserService,
@@ -69,6 +71,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.showIconComment();
     this.getRowPosition();
     this.getCountOfDiscuss();
+    this.getBookMarks();
+  }
+
+  private getBookMarks() {
+    this.messageService.getBookmarks()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        this.bookmarks = res;
+        console.log(this.bookmarks);
+      });
   }
 
   initResize() {
@@ -191,5 +203,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.messageService.getCountOfDiscuss()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.discussCount = res);
+  }
+
+  goToBook(book: BookmarksModel) {
+    window.open(book.link, '_blank');
   }
 }

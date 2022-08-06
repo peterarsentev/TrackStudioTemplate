@@ -63,11 +63,11 @@
         </span>
 
   <div class="dropdown mr-3">
-    <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercisesDd"
+    <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercises"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Упражнения
     </button>
-    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercisesDd">
+    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
       <li><a class="dropdown-item" [routerLink]="['/topics']">Java Core</a></li>
       <li><a class="dropdown-item" [routerLink]="['/sqlExercise']">SQL</a></li>
     </ul>
@@ -84,7 +84,7 @@
       Закладки
     </button>
     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercisesDd">
-      <li><a class="dropdown-item">Пока не сделали ... </a></li>
+      <li *ngFor="let book of bookmarks"><a (click)="goToBook(book)" class="dropdown-item point">{{ book.name }}</a></li>
     </ul>
   </div>
   <div *ngIf="navShow" class="collapse navbar-collapse" id="navbarText">
