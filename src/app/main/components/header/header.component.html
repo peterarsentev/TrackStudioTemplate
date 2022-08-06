@@ -57,8 +57,9 @@
   </div>
 
   <span class="navbar-text mr-3 font-weight-bold">
-          <a [routerLink]="['/discuss']" style="text-decoration: none"
-          >Обсуждения</a>
+          <a [routerLink]="['/discuss']" style="text-decoration: none">Обсуждения</a>
+                <span *ngIf="discussCount?.count > 0" (click)="goToListOfDiscuss()"
+                      class="badge badge-info badge-pill pos">{{ discussCount?.count }}</span>
         </span>
 
   <div class="dropdown mr-3">

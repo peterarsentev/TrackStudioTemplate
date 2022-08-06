@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchResult: DiscussSearch;
   @ViewChild('text', {static: false}) searchText;
   position = 0;
+  discussCount: { count: number };
 
   constructor(
     private userService: UserService,
@@ -67,6 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(res => this.userService.setUpModel(res.user));
     this.showIconComment();
     this.getRowPosition();
+    this.getCountOfDiscuss();
   }
 
   initResize() {
@@ -179,5 +181,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.ratingService.getRowPosition()
       .subscribe(res => this.position = res.row);
 
+  }
+
+  goToListOfDiscuss() {
+    this.router.navigate(['discuss', 'notifications']);
+  }
+
+  private getCountOfDiscuss() {
+    this.messageService.getCountOfDiscuss()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.discussCount = res);
   }
 }
