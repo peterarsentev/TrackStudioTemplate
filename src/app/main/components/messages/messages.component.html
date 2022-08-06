@@ -14,7 +14,7 @@
           <span>
             <span><em class="fas fa-tasks pr-3"></em>{{ message.time | getDate }}
               <a
-                [routerLink]="['/exercise', message.topicId, 'task-view', message.taskId, 'solutionId', message.solutionId]">{{ message.text }}
+                [routerLink]="['/exercise', message.topicId, 'task-view', message.taskId]">{{ message.text }}
               </a>
               <span class="pull-right mr-5"><em (click)="deleteMessage(message.id)" class="fas fa-remove"></em></span>
               <div class="small" [innerHTML]="message.msg"></div>
