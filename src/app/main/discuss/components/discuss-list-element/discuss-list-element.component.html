@@ -18,7 +18,7 @@
               <div>
                 <span class="font-weight-bold w-50">
                   <a *ngIf="discuss.taskId"> {{ 'Урок / ' + discuss.topic.level.name + ' / ' +  discuss.topic.category.name + ' / '}}</a>
-                  <a *ngIf="discuss.exerciseId"> {{ 'Упражнение / ' + discuss.topic.category.name + ' / ' + discuss.topic.level.name + ' / ' }}</a>
+                  <a *ngIf="discuss.exerciseId"> {{ 'Упражнение / ' + discuss.topic.level.name  + ' / ' + discuss.topic.category.name + ' / ' }}</a>
                   <a *ngIf="discuss.sqlExerciseId"> {{  'Упражнение SQL / ' }}</a>
                   <a *ngIf="discuss.taskId" [routerLink]="'/exercise/' + discuss.topic.id  + '/' + 'task-view/' + discuss.taskId" >{{discuss.name}}</a>
                   <a *ngIf="discuss.exerciseId" [routerLink]="'/topics/' +  discuss.topic.id + '/' + 'task_code/' + discuss.exerciseId + '/solution/new_task'" >{{discuss.name}}</a>
