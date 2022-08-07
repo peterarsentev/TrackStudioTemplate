@@ -16,7 +16,15 @@
           <div class="row">
             <div class="col-sm-12">
               <div>
-                <span class="font-weight-bold w-50">{{ discuss.name }}</span>
+                <span class="font-weight-bold w-50">
+                  <a *ngIf="discuss.taskId"> {{ 'Урок / ' + discuss.topic.level.name + ' / ' +  discuss.topic.category.name + ' / '}}</a>
+                  <a *ngIf="discuss.exerciseId"> {{ 'Упражнение / ' + discuss.topic.category.name + ' / ' + discuss.topic.level.name + ' / ' }}</a>
+                  <a *ngIf="discuss.sqlExerciseId"> {{  'Упражнение SQL / ' }}</a>
+                  <a *ngIf="discuss.taskId" [routerLink]="'/exercise/' + discuss.topic.id  + '/' + 'task-view/' + discuss.taskId" >{{discuss.name}}</a>
+                  <a *ngIf="discuss.exerciseId" [routerLink]="'/topics/' +  discuss.topic.id + '/' + 'task_code/' + discuss.exerciseId + '/solution/new_task'" >{{discuss.name}}</a>
+                  <a *ngIf="discuss.sqlExerciseId" [routerLink]="'/sqlExercise/' + discuss.topic.id + '/show/' + discuss.sqlExerciseId" >{{discuss.name}}</a>
+                  <a *ngIf="!discuss.taskId && !discuss.exerciseId && !discuss.sqlExerciseId">{{ discuss.name }}</a>
+                </span>
                 <span class="w-50">
                   <app-book-mark-star [name]="discuss.name"></app-book-mark-star>
                   <i *ngIf="!discuss.subscribed" style="cursor: pointer;"
@@ -40,6 +48,12 @@
       </div>
       <div class="card-body pre-scrollable">
         <p class="card-text" [innerHTML]="discuss.description | safeCode"></p>
+        <p *ngIf="discuss.taskCode">
+          <ngx-codemirror
+            [(ngModel)]="discuss.taskCode"
+            [options]="options"
+          ></ngx-codemirror>
+        </p>
       </div>
     </div>
   </div>

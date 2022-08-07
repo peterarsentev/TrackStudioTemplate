@@ -1,4 +1,5 @@
 import { UserModels } from './user.models';
+import { TopicModels } from './topic.models';
 
 export class DiscussModel {
   constructor(
@@ -15,6 +16,8 @@ export class DiscussModel {
     public sqlExerciseId?: number,
     public nextId?: number,
     public previousId?: number,
+    public topic?: TopicModels,
+    public taskCode?: string
 ) {
   }
 }

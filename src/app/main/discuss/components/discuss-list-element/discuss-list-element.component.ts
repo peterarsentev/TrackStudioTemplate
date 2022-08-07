@@ -21,6 +21,11 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
   discuss: DiscussModel;
   discussions: DiscussionMessageModel[] = [];
   user: UserModels;
+  options = {
+    lineNumbers: true,
+    readOnly: false,
+    mode: 'text/x-java',
+  };
   constructor(private router: Router,
               private discussService: DiscussService,
               private userService: UserService,

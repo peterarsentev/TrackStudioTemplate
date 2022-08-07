@@ -41,7 +41,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.navService.getModel()
       .pipe(takeUntil(this.ngUnsubscribe$), debounceTime(10))
       .subscribe(res => {
-        console.log(res);
         this.getMessage.emit();
         if (res) {
           this.topicId = res.topicId ? '' + res.topicId : undefined;
