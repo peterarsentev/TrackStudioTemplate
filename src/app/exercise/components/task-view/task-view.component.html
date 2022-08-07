@@ -58,7 +58,7 @@
                 <small class="mb-2 text-muted">
                   <span class="mr-3">Уровень : {{  task.task?.level.name }}</span>
                   <span class="mr-3">Категория : {{  task.task?.category.name }}</span>
-                  <span class="mr-3">Топик : {{  task.task?.topic.name }}</span>
+                  <span class="mr-3">Тема : {{  task.task?.topic.name }}</span>
                 </small>
               </div>
               <div>
@@ -71,7 +71,7 @@
                         class="badge badge-dark mr-3">{{ task.status?.statusName }}</span>
                   <span *ngIf="task.status?.id == 4"
                         class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
-                  <span *ngIf="task.handler" class="mr-3">Ответственный : {{task.handler.name }}</span>
+                  <span *ngIf="task.handler" class="mr-3 font-weight-bolder">Ответственный : {{task.handler.name }}</span>
                   <span class="mr-3">Начало решения : {{ task.solution?.createdTime | date: 'dd.MM.yyyy HH:mm' }}</span>
                   <span>Обновлена : {{  task.solution?.updatedTime | date: 'dd.MM.yyyy HH:mm' }}</span>
                 </small>
