@@ -41,6 +41,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   name: string;
   rating: RateModel;
   totalSolutions = 0;
+  private solutionId: number;
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
@@ -59,6 +60,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .subscribe(res =>  {
         this.taskId = res.id;
         this.topicId = res.topicId;
+        this.solutionId = res.solutionId;
         this.getTotalSolutions();
         this.getDiscussions();
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, taskId: this.taskId, exercise: true});
@@ -80,8 +82,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         if (this.task.status.start) {
           this.messages = [];
         }
-        if (!!this.task.solution && !!this.task.solution.id) {
-          this.getMessages(this.task.solution.id);
+        if (!!this.task.solution && !!this.task.solution.id || !!this.solutionId) {
+          this.getMessages(!!this.solutionId ? this.solutionId : this.task.solution.id);
         } else {
           this.messages = [];
         }
@@ -133,7 +135,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.showCommentForm = false;
     if (this.task.status.id === 1) {
       this.tasksService.createSolutionAndAddComment(this.task.task.id, this.operation.id, button.handlerId, button.description)
-        .subscribe(() => {
+        .subscribe((res) => {
+          this.solutionId = res.solutionId;
           this.getTaskById(this.taskId);
           this.commentService.setUpModel(true);
         }, error => {

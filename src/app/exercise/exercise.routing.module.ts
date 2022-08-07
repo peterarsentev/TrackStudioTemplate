@@ -18,6 +18,7 @@ const routes: Routes = [
       { path: ':topicId', component: TasksListComponent, resolve: { data: TasksListResolve } },
       { path: 'search/:search', component: TasksListComponent, resolve: { data: TasksListResolve } },
       { path: ':topicId/task-view/:id', component: TaskViewComponent },
+      { path: ':topicId/task/:id/:solutionId', component: TaskViewComponent },
       { path: ':topicId/task-view/:id/solutions', component: SolutionsComponent, resolve: {data: SolutionsResolver}},
       { path: ':topicId/task-view/:id/solutions/:solutionId', component: StudentSolutionComponent, resolve: {data: StudentResolver}},
     ]

@@ -13,8 +13,10 @@
         <td style="cursor: pointer;">
           <span>
             <span><em class="fas fa-tasks pr-3"></em>{{ message.time | getDate }}
-              <a
-                [routerLink]="['/exercise', message.topicId, 'task-view', message.taskId]">{{ message.text }}
+              <a [routerLink]="message.solutionId
+            ? ['/exercise', message.topicId, 'task', message.taskId, message.solutionId]
+             : ['/exercise', message.topicId, 'task-view', message.taskId]">
+                {{ message.text }}
               </a>
               <span class="pull-right mr-5"><em (click)="deleteMessage(message.id)" class="fas fa-remove"></em></span>
               <div class="small" [innerHTML]="message.msg"></div>

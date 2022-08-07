@@ -16,7 +16,9 @@
         <td>
           <div>
             <i class="fas fa-tasks pr-3"></i>
-            <a [routerLink]="['/exercise', task.task.topicId, 'task-view', task.task.taskId]">
+            <a [routerLink]="task.solution
+            ? ['/exercise', task.task.topicId, 'task', task.task.taskId, task.solution.id]
+             : ['/exercise', task.task.topicId, 'task-view', task.task.id]">
               <span class="font-weight-bold">{{task.task.taskName}} &nbsp;{{getSolutionId(task)}}</span>
             </a>
           </div>

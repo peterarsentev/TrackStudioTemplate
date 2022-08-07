@@ -399,7 +399,8 @@ export class TasksService {
     return this.http.post<UserEduModels[]>(url, params);
   }
 
-  createSolutionAndAddComment(taskId: number, operationId: number, handlerId: string, description: string) {
+  createSolutionAndAddComment(taskId: number, operationId: number, handlerId: string, description: string)
+    : Observable<{ solutionId: number }> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', String(taskId));
@@ -407,7 +408,7 @@ export class TasksService {
     params = params.append('handlerId', String(handlerId));
     params = params.append('description', description);
     const url = this.urlJedu + `solution/create`;
-    return this.http.post(url, params);
+    return this.http.post<{ solutionId: number }>(url, params);
   }
 
   updateSolutionAndAddComment(taskId: number, solutionId: number, operationId: number, handlerId: string, description: string) {

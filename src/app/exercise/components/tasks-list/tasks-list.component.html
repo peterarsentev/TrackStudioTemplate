@@ -12,7 +12,9 @@
         <td>
           <div>
             <i class="fas fa-tasks pr-3"></i>
-            <a style="text-decoration: none;" [routerLink]="['/exercise', task.task.topicId, 'task-view', task.task.id]">
+            <a style="text-decoration: none;" [routerLink]="task.solution
+            ? ['/exercise', task.task.topicId, 'task', task.task.id, task.solution.id]
+             : ['/exercise', task.task.topicId, 'task-view', task.task.id]">
               <span class="font-weight-bold" style="text-decoration: none;">{{task.task.name}} &nbsp;{{getSolutionId(task)}}</span>
             </a>
           </div>
