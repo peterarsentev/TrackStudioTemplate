@@ -27,6 +27,11 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
     readOnly: false,
     mode: 'text/x-java',
   };
+  optionsOutput = {
+    lineNumbers: true,
+    readOnly: true,
+    mode: 'text/x-pgsql'
+  };
   constructor(private router: Router,
               private discussService: DiscussService,
               private userService: UserService,

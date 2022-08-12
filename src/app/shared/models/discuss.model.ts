@@ -17,7 +17,9 @@ export class DiscussModel {
     public nextId?: number,
     public previousId?: number,
     public topic?: TopicModels,
-    public taskCode?: string
+    public taskCode?: string,
+    public initScript?: string,
+    public scheme?: string,
 ) {
   }
 }
