@@ -19,6 +19,7 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
 
   private unsubscribe$ = new Subject();
   discuss: DiscussModel;
+  id;
   discussions: DiscussionMessageModel[] = [];
   user: UserModels;
   options = {
@@ -35,7 +36,11 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
 
   ngOnInit() {
     this.route.params.pipe(takeUntil(this.unsubscribe$))
-      .subscribe(res => this.navService.setUpModel({discuss: true, taskId: res.id}));
+      .subscribe(res => {
+        this.navService.setUpModel({discuss: true, taskId: res.id});
+        this.id = res.id;
+        this.getDiscussions();
+      });
     this.route.data
       .pipe(pluck('data'),
         takeUntil(this.unsubscribe$)
@@ -45,7 +50,6 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
     this.userService.getModel()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(res => this.user = res);
-    this.getDiscussions();
     this.deleteNotification();
   }
 
@@ -60,7 +64,7 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
   }
 
   getDiscussions() {
-    this.messageService.getDiscuss(this.discuss.id)
+    this.messageService.getDiscuss(this.id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(res => this.discussions = res);
   }
