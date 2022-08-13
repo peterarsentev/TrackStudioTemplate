@@ -15,7 +15,8 @@ export class NavNode {
     public solutionId?: string,
     public authorName?: string,
     public solutions?: boolean,
-    public status?: string
+    public status?: string,
+    public userId?: string
   ) {
   }
 }

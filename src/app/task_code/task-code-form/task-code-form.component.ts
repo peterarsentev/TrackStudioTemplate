@@ -19,9 +19,11 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
   dis = false;
   @Input()taskModel: TaskCodeModel = {};
   @Input() taskClass: string;
+  @Input() count: number;
   @Input() taskTest: string;
   @Input() status: number;
   private taskId: string;
+  @Output() goToSolutions = new EventEmitter<boolean>();
   @Input() set output(output: string) {
     if (!!output) {
       this.textArea = true;
@@ -90,7 +92,7 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
     const solutionId = !!nav.solutionId ? nav.solutionId : 'new_task';
     this.alertService.setUpMessage(undefined);
     this.text = '';
-    this.router.navigate(['topics', `${nav.topicId}`, 'task_code', `${nav.id}`, 'solution', `${solutionId}`]);
+    this.router.navigate(['topics', `${nav.topicId}`, 'task_code', `${nav.id}`, `${solutionId}`]);
   }
 
   ngOnDestroy(): void {
@@ -99,7 +101,10 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
   }
 
   reset() {
-    console.log(this.taskModel)
     this.resetEmitter.emit(true);
+  }
+
+  goToUserList() {
+    this.goToSolutions.emit(true);
   }
 }

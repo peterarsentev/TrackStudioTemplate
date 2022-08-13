@@ -79,7 +79,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.bookmarks = res;
-        console.log(this.bookmarks);
       });
   }
 

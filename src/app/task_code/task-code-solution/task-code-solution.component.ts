@@ -33,6 +33,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   disabled: boolean;
   private topicId: string;
   user: UserModels;
+  countSolvedTasks: number;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -50,6 +51,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.user = res);
     this.getDiscussions();
+    this.getAllSolved();
   }
 
   private getParamsAndSolution() {
@@ -104,7 +106,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
               [
                 'topics', `${this.topicId}`,
                 'task_code', `${this.taskId}`,
-                'solution', `${solutionId}`
+                 `${solutionId}`
               ]
             );
             return result;
@@ -148,7 +150,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
         .subscribe(res => this.router.navigate([
           'topics', `${this.topicId}`,
           'task_code', `${this.taskId}`,
-          'solution', 'new_task'
+           'new_task'
         ]));
     }
   }
@@ -174,5 +176,18 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
     this.messageService.getDiscussions(undefined, +this.taskId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.discussions = res);
+  }
+
+  private getAllSolved() {
+    this.taskCodeService.countSolutions(this.taskId)
+      .subscribe(res => this.countSolvedTasks = res.count);
+  }
+
+  goToSolutions() {
+    this.router.navigate([
+      'topics', `${this.topicId}`,
+      'task_code', `${this.taskId}`,
+      this.solutionId, 'solutions'
+    ]);
   }
 }

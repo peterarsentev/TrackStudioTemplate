@@ -5,7 +5,9 @@
                       [status]="solutionAndTaskCode.solution?.statusId"
                       [output]="output"
                       [disabled]="disabled"
+                      [count]="countSolvedTasks"
                       (submitTaskEmitter)="submitTask($event)"
+                      (goToSolutions)="goToSolutions()"
                       (resetEmitter)="resetSolution($event)"
   ></app-task-code-form>
   <app-discussion-block [discussions]="discussions"

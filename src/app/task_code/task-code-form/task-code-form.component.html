@@ -4,8 +4,8 @@
             (click)="goTo(previousAndNext.next)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
     <button type="button" class="m btn btn-light pull-right btn-sm mr-2"  *ngIf="!!previousAndNext.previous"
             (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
-    <button [disabled]="true" class="btn btn-success btn-sm mr-2 pull-right"
-            title="Решения других учениоков станут доступны после выполнения упражнения">Было решено: ?</button>
+    <button [disabled]="status !== 4" (click)="goToUserList()" class="btn btn-success btn-sm mr-2 pull-right"
+            title="Решения других учениоков станут доступны после выполнения упражнения">Было решено: {{ count }}</button>
   </div>
 </div>
 <div class="row">

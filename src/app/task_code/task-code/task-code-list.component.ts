@@ -51,7 +51,7 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
 
   goToTasks(topicId: string, taskId: string, status: number, solutionId: number) {
     const id = status === 1 ? 'new_task' : solutionId;
-    this.router.navigate(['task_code', `${taskId}`, 'solution', `${id}`], {relativeTo: this.route});
+    this.router.navigate(['task_code', `${taskId}`, `${id}`], {relativeTo: this.route});
   }
 
   private getTopic() {

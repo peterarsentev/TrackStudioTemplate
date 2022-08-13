@@ -1,0 +1,33 @@
+<div class="container-fluid top">
+  <div class="row">
+    <table class="table">
+      <caption></caption>
+      <thead>
+      <tr>
+        <th scope="col">Ученик</th>
+        <th scope="col">Дата решения</th>
+      </tr>
+      </thead>
+      <tbody infinite-scroll
+             class="noscroll"
+             [infiniteScrollDisabled]="!paginationAllowed"
+             [infiniteScrollDistance]="scrollDistance"
+             [infiniteScrollThrottle]="throttle"
+             (scrolled)="onScrollDown()">
+      <ng-container *ngFor="let solution of solutions; let idx=index">
+        <tr>
+          <td (click)="goTo(solution)" style="cursor: pointer;">
+            <div>
+              <i class="fas fa-tasks pr-3"></i>
+              <span class="font-weight-bold">{{solution.studentName}}</span>
+            </div>
+          </td>
+          <td>{{solution.date | date: 'dd.MM.yyyy'}}</td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

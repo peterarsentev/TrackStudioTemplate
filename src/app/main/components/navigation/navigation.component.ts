@@ -51,7 +51,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
               return;
             }
             if (res.task_code) {
-              this.getNavsForSolutions();
+              this.getNavsForSolutions(res);
               return;
             }
             if (res.discuss) {
@@ -93,10 +93,24 @@ export class NavigationComponent implements OnInit, OnDestroy {
       .subscribe(res => this.solutions = res);
 
   }
-  getNavsForSolutions() {
+
+  getNavsForSolutions(nav: NavNode) {
     this.tasksService.getNavsForSolutions(this.topicId, this.taskCodeId)
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => this.solutions = res);
+      .subscribe(res => {
+        if (this.router.url.endsWith('solutions')) {
+          res = [...res, {...new NavNode(), name: 'Решения', url: 'task_code_solutions'}];
+        }
+        if (!!nav.solutionId) {
+           res.find(r => r.url === 'task_code').solutionId = nav.solutionId;
+        }
+        if (!!nav.userId) {
+          res = [...res, {...new NavNode(), name: 'Решения', topicId: nav.topicId, taskCodeId: nav.taskCodeId, solutionId: nav.solutionId,
+            url: 'task_code_solutions'}];
+          res = [...res, {...new NavNode(), name: nav.name, url: nav.userId}];
+        }
+        this.solutions = res;
+      });
   }
 
   getNavsForTasks(navs: NavNode) {
@@ -110,7 +124,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
         if (this.router.url.endsWith('solutions')) {
           res = [...res, {...new NavNode(), name: 'Решения', url: 'solutions'}];
         }
-        // console.log(res);
         this.solutions = res;
       });
   }
@@ -165,6 +178,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
       }
       if (nav.url === 'task-view') {
         this.router.navigate(['exercise', `${nav.topicId}`, `${nav.url}`, `${nav.taskId}`]);
+        return;
+      }
+      if (nav.url === 'task_code') {
+        this.router.navigate(['topics', `${nav.topicId}`, 'task_code', `${nav.taskCodeId}`, `${nav.solutionId}`]);
+        return;
+      }
+      if (nav.url === 'task_code_solutions') {
+        this.router.navigate(['topics', `${nav.topicId}`, 'task_code', `${nav.taskCodeId}`, `${nav.solutionId}`, 'solutions']);
         return;
       }
       if (!!nav.topicId) {
