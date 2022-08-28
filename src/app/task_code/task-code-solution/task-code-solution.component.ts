@@ -50,7 +50,6 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
     this.userService.getModel()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.user = res);
-    this.getDiscussions();
     this.getAllSolved();
   }
 
@@ -81,6 +80,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
         takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => {
       this.solutionAndTaskCode = res;
+      this.getDiscussions();
     });
   }
 

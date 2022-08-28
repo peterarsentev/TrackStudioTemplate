@@ -25,7 +25,7 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    if (this.router.url.includes('discuss')) {
+    if (this.router.url.includes('discuss') || this.router.url.includes('task_code')) {
       this.inTask = false;
       this.needToShow = true;
     }
@@ -33,7 +33,8 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         if (res instanceof NavigationEnd) {
-          if (res.url.includes('discus')) {
+          console.log(res);
+          if (res.url.includes('discus') || this.router.url.includes('task_code')) {
             this.inTask = false;
             this.needToShow = true;
           } else {
