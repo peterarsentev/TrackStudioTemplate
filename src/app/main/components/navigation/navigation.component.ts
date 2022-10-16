@@ -50,6 +50,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
               this.getNavsForTasks(res);
               return;
             }
+            if (res.exams) {
+              this.getNavsForExams(res);
+              return;
+            }
             if (res.task_code) {
               this.getNavsForSolutions(res);
               return;
@@ -102,7 +106,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
           res = [...res, {...new NavNode(), name: 'Решения', url: 'task_code_solutions'}];
         }
         if (!!nav.solutionId) {
-           res.find(r => r.url === 'task_code').solutionId = nav.solutionId;
+          res.find(r => r.url === 'task_code').solutionId = nav.solutionId;
         }
         if (!!nav.userId) {
           res = [...res, {...new NavNode(), name: 'Решения', topicId: nav.topicId, taskCodeId: nav.taskCodeId, solutionId: nav.solutionId,
@@ -222,6 +226,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
       { name: 'Решения', url: '/taskByStatus', solutions: true},
       {name: this.status[res.status], url: res.status, solutions: true}];
     this.solutions = navs;
-    console.log(this.solutions);
+  }
+
+  private getNavsForExams(res: NavNode) {
+    const navs = [{name: 'Job4j', url: '/', exams: true},
+      { name: 'Экзамены', url: '/exams', exams: true}];
+    if (res.name) {
+      this.solutions = [...navs, res];
+    } else {
+      this.solutions = navs;
+    }
   }
 }

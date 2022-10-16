@@ -18,6 +18,7 @@ import { ExamUser } from '../../../shared/models/examuser.model';
 import { ExamuserService } from '../../../shared/services/examuser.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ExamDetailsModel} from '../../../shared/models/exam.details.model';
+import { NavService } from '../../../shared/services/nav.service';
 
 @Component({
   selector: 'app-exam',
@@ -31,6 +32,7 @@ export class ExamComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private authService: AuthService,
+    public navService: NavService,
     private examsService: ExamsService) {
   }
 
@@ -42,6 +44,7 @@ export class ExamComponent implements OnInit {
     this.examsService
       .getActiveExams()
       .subscribe(exm => this.exams = exm);
+    this.navService.setUpModel({exams: true});
   }
 
   examIntro(exam: ExamModels) {

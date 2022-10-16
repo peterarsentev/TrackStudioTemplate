@@ -16,7 +16,8 @@ export class NavNode {
     public authorName?: string,
     public solutions?: boolean,
     public status?: string,
-    public userId?: string
+    public userId?: string,
+    public exams?: boolean,
   ) {
   }
 }
