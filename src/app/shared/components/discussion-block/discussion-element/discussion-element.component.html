@@ -13,12 +13,49 @@
       <span class="pull-right">{{ discussion.time | date: 'dd.MM.yyyy HH:mm' }}</span>
     </div>
     <div [innerHTML]="discussion.text | safeCode"></div>
+    <div *ngIf="!!discussion.responses.length">
+      <button (click)="showAnswers()" type="button" class="btn btn-light btn-sm">Посмотреть ответы</button>
+      <div *ngIf="answers">
+        <ng-container  *ngFor="let d of discussion.responses">
+          <div class="card mt-1 mb-1">
+            <div class="card-body small">
+          <div class="pb-3 small">
+                  <span>Oт
+                    <span class="font-weight-bold">{{ d.name }}</span>
+                  </span>
+            <!--            <span class="pull-right" *ngIf="discussion.userId === user.id" (click)="openConfirmModal()">-->
+            <!--        <i class="fa fa-remove ml-3"></i>-->
+            <!--       </span>-->
+            <!--            <span class="pull-right" *ngIf="discussion.userId === user.id" (click)="change()">-->
+            <!--         <i class="fa fa-edit ml-3"></i>-->
+            <!--      </span>-->
+            <span class="pull-right">{{ d.time | date: 'dd.MM.yyyy HH:mm' }}</span>
+          </div>
+          <div [innerHTML]="d.text | safeCode"></div>
+          </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+
+    <div *ngIf="!discussion.parentId">
+      <button *ngIf="discussion.userId !== user.id" type="button" (click)="showAddResponseForm()"
+              class="pull-right btn btn-primary btn-sm">Ответить</button>
+    </div>
   </div>
   <div class="row" *ngIf="showDiscussion">
     <app-discussion
       [title]="'Выполняется: Редактирование комментария'"
       [text]="discussion.text"
       (closeEmitter)="update($event)"
+    ></app-discussion>
+  </div>
+  <div class="row" *ngIf="addResponse">
+    <app-discussion
+      [title]="'Выполняется: Ответ на комментарий'"
+      [text]=""
+      (closeEmitter)="addNewResponse($event)"
     ></app-discussion>
   </div>
 </td>

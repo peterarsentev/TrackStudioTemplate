@@ -74,6 +74,12 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
       .subscribe(res => this.discussions = res);
   }
 
+  updateDiscussion(discussion: DiscussionMessageModel) {
+    this.messageService.updateDiscussion(discussion)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => this.getDiscussions());
+  }
+
   closeDiscussion(text: any) {
     if (!!text) {
       this.messageService.addDiscussion(this.discuss.taskId, text, this.discuss.exerciseId, this.discuss.id, this.discuss.sqlExerciseId)
@@ -81,6 +87,17 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
         .subscribe((res) => {
           this.discuss.updated = res.discuss.updated;
           this.discuss.subscribed = res.subscribed;
+          this.getDiscussions();
+        });
+    }
+  }
+
+  addNewResponse(data: DiscussionMessageModel) {
+    console.log(data);
+    if (!!data.text) {
+      this.messageService.addDiscussion(data.taskId, data.text, data.exerciseId, this.discuss.id, data.sqlExerciseId, data.parentId)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res) => {
           this.getDiscussions();
         });
     }

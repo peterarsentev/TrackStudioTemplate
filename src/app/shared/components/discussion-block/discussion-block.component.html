@@ -21,6 +21,7 @@
         <tr app-discussion-element
             [user]="user"
             [discussion]="discussion"
+            (response)="addNewResponse($event)"
             (deleteEmitter)="deleteDiscussion($event)"
             (updateEmitter)="update($event)"
             *ngFor="let discussion of discussions">

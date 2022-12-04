@@ -73,6 +73,8 @@
   </div>
   <app-discussion-block [discussions]="discussions"
                         [user]="user"
+                        (addResponse)="addNewResponse($event)"
+                        (updateEmitter)="updateDiscussion($event)"
                         (closeEmitter)="closeDiscussion($event)"
   ></app-discussion-block>
 </div>

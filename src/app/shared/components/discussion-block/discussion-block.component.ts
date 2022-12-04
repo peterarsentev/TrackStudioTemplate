@@ -16,6 +16,7 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
   @Input() user: UserModels;
   @Input() company: boolean;
   @Output() closeEmitter: EventEmitter<any> = new EventEmitter<string>();
+  @Output() addResponse: EventEmitter<DiscussionMessageModel> = new EventEmitter<DiscussionMessageModel>();
   @Output() deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateEmitter: EventEmitter<any> = new EventEmitter<any>();
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
@@ -69,5 +70,9 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  addNewResponse(data: DiscussionMessageModel) {
+    this.addResponse.emit(data);
   }
 }

@@ -92,6 +92,7 @@
   </div>
   <app-discussion-block [discussions]="discussions"
                         [user]="user"
+                        (updateEmitter)="updateDiscussion($event)"
                         (closeEmitter)="closeDiscussion($event)"
   ></app-discussion-block>
 </div>

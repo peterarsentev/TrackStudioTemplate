@@ -14,10 +14,13 @@ import { take } from 'rxjs/operators';
 export class DiscussionElementComponent implements OnInit, OnDestroy {
   @Input() discussion: DiscussionMessageModel;
   @Input() user: UserModels;
+  @Output() response: EventEmitter<DiscussionMessageModel> = new EventEmitter<DiscussionMessageModel>();
   @Output() deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateEmitter: EventEmitter<any> = new EventEmitter<any>();
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   showDiscussion = false;
+  addResponse = false;
+  answers: boolean;
   constructor(private modalService: ModalService) { }
 
   ngOnInit() {
@@ -49,5 +52,19 @@ export class DiscussionElementComponent implements OnInit, OnDestroy {
 
   change() {
     this.showDiscussion = true;
+  }
+
+  showAddResponseForm() {
+    this.addResponse = true;
+  }
+
+  addNewResponse(data: string) {
+    this.addResponse = false;
+    const newResp = {...this.discussion, id: undefined, parentId: this.discussion.id, text: data};
+    this.response.emit(newResp);
+  }
+
+  showAnswers() {
+    this.answers = !this.answers;
   }
 }
