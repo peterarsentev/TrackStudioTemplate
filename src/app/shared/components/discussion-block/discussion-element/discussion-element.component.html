@@ -13,7 +13,7 @@
       <span class="pull-right">{{ discussion.time | date: 'dd.MM.yyyy HH:mm' }}</span>
     </div>
     <div [innerHTML]="discussion.text | safeCode"></div>
-    <div *ngIf="!!discussion.responses.length">
+    <div *ngIf="!!discussion?.responses?.length">
         <div class="card mt-1 mb-1">
           <div class="card-header">
             <div class="font-weight-bold">Ответы:</div>
@@ -38,8 +38,7 @@
         </div>
     </div>
 
-
-    <div *ngIf="!discussion.parentId">
+    <div *ngIf="!discussion.parentId || discussion.parentId === -1">
       <button *ngIf="discussion.userId !== user.id" type="button" (click)="showAddResponseForm()"
               class="pull-left btn btn-light btn-sm">
         <i class="fa fa-reply mr-1"></i>

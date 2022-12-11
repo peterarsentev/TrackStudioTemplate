@@ -18,7 +18,7 @@ export class TaskCodeService {
   constructor(private http: HttpClient) { }
 
   exercises(): Observable<TopicModels[]> {
-    const url = this.urlJedu + 'topic/exercises';
+    const url = this.urlJedu + 'taskcode/exercises';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<TopicModels[]>(url, params);
@@ -114,5 +114,13 @@ export class TaskCodeService {
     params = params.append('taskId', taskCodeId);
     params = params.append('userId', userId);
     return this.http.post<SolutionTaskCodeModels>(url, params);
+  }
+
+  getTopicById(id: string): Observable<TopicModels> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('topicId', id);
+    const url = this.urlJedu + `taskcode/getTopic`;
+    return this.http.post<TopicModels>(url, params);
   }
 }

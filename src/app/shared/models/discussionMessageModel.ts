@@ -14,6 +14,7 @@ export class DiscussionMessageModel {
     public parentId?: number,
     public exerciseId?: number,
     public sqlExerciseId?: number,
+    public discussId?: number,
     public responses?: DiscussionMessageModel[]
   ) {
   }

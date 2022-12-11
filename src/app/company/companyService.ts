@@ -38,12 +38,13 @@ export class CompanyService {
     return this.http.post<CompanyModel>(url, params);
   }
 
-  addComment(text: any, id: number) {
+  addComment(text: any, id: number, parentId?: number) {
     const url = this.url + 'companies/addComment';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('id', String(id));
     params = params.append('text', text);
+    params = parentId ? params.append('parentId', String(parentId)) : params;
     return this.http.post(url, params);
   }
 

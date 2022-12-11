@@ -69,4 +69,16 @@ export class CompanyComponent implements OnInit, OnDestroy {
         this.getComments();
       });
   }
+
+  addResponse(data: DiscussionMessageModel) {
+    console.log(data);
+    if (!!data.text) {
+      this.companyService.addComment(data.text, this.company.id, data.parentId)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(res => {
+          console.log(res);
+          this.getComments();
+        });
+     }
+  }
 }

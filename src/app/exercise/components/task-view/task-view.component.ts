@@ -360,4 +360,14 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.totalSolutions = res.totalCount;
       });
   }
+
+  addResponse(data: DiscussionMessageModel) {
+    if (!!data.text) {
+      this.messageService.addDiscussion(data.taskId, data.text, data.exerciseId, data.discussId, data.sqlExerciseId, data.parentId)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe((res) => {
+          this.getDiscussions();
+        });
+    }
+  }
 }

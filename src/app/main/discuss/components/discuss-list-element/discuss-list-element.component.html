@@ -20,7 +20,7 @@
                   <a
                     *ngIf="discuss.taskId"> {{ 'Урок / ' + discuss.topic.level.name + ' / ' + discuss.topic.category.name + ' / '}}</a>
                   <a
-                    *ngIf="discuss.exerciseId"> {{ 'Упражнение / ' + discuss.topic.level.name + ' / ' + discuss.topic.category.name + ' / ' }}</a>
+                    *ngIf="discuss.exerciseId"> {{ 'Упражнение / '  }}</a>
                   <a *ngIf="discuss.sqlExerciseId"> {{  'Упражнение SQL / ' }}</a>
                   <a *ngIf="discuss.taskId"
                      [routerLink]="'/exercise/' + discuss.topic.id  + '/' + 'task-view/' + discuss.taskId">{{discuss.name}}</a>

@@ -55,7 +55,7 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
   }
 
   private getTopic() {
-    this.tasksService.getTopicById(this.topicId)
+    this.taskCodeService.getTopicById(this.topicId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.name = res.name;

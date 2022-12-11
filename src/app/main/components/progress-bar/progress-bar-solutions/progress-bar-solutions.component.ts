@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class ProgressBarSolutionsComponent implements OnInit, OnDestroy {
 
   solvedAndAll: SolvedAllCountModels = {};
-  barValue: number = 0;
+  barValue = 0;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   @Input()set topicId(topicId: string) {
     this.getSolvedAndAllProgress(topicId);

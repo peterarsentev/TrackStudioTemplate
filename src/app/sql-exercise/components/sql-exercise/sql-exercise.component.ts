@@ -169,4 +169,14 @@ export class SqlExerciseComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => this.getDiscussions());
   }
+
+  addResponse(data: DiscussionMessageModel) {
+    if (!!data.text) {
+      this.messageService.addDiscussion(undefined, data.text, -1, undefined, this.exercise.id, data.parentId)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe((res) => {
+          this.getDiscussions();
+        });
+    }
+  }
 }

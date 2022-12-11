@@ -12,6 +12,7 @@
   ></app-task-code-form>
   <app-discussion-block [discussions]="discussions"
                         [user]="user"
+                        (addResponse)="addResponse($event)"
                         (closeEmitter)="closeDiscussion($event)"
   ></app-discussion-block>
 </div>

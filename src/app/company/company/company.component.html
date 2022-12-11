@@ -22,6 +22,7 @@
   <app-discussion-block [discussions]="discussions"
                         [user]="user"
                         [company]="true"
+                        (addResponse)="addResponse($event)"
                         (closeEmitter)="closeDiscussion($event)"
                         (updateEmitter)="update($event)"
                         (deleteEmitter)="deleteComment($event)"

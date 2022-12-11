@@ -190,4 +190,15 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
       this.solutionId, 'solutions'
     ]);
   }
+
+  addResponse(data: DiscussionMessageModel) {
+    this.messageService.addDiscussion(undefined, data.text, +this.taskId, data.discussId, undefined,  data.parentId)
+      .subscribe(res => {
+        this.getDiscussions();
+      }, error => {
+        if (error.status === 403) {
+          alert('У вас нет прав на эту операцию!');
+        }
+      });
+  }
 }
