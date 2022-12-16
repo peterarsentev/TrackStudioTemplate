@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, throwError } from 'rxjs';
+import { Observable, of, Subject, throwError } from 'rxjs';
 import { catchError, map, switchMap, takeUntil } from 'rxjs/operators';
 import { TaskCodeService } from '../../shared/services/task-code.service';
 import { SolutionTaskCodeModels } from '../../shared/models/solution.task.code.models';
@@ -78,9 +78,13 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
           return this.taskCodeService.getSolution(this.taskId, this.solutionId);
         }),
         takeUntil(this.ngUnsubscribe$)
-      ).subscribe(res => {
+      ).subscribe((res: SolutionTaskCodeModels) => {
+      if (!!this.solutionId && !res.solution) {
+        this.router.navigate(['/topics', this.topicId, 'task_code', res.taskcode.id, 'new_task']);
+      } else {
       this.solutionAndTaskCode = res;
       this.getDiscussions();
+    }
     });
   }
 
