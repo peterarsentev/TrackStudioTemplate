@@ -108,10 +108,11 @@
            class="dropdown-item">
           Критика и предложения
         </a>
-        <a class="dropdown-item" [routerLink]="['/rating']">Рейтинг
+        <a class="dropdown-item" [routerLink]="['/rating']">Скорость прохождения
           <span style="cursor: pointer;"
                 class="ml-0"
           >{{ position }}</span></a>
+        <a class="dropdown-item" [routerLink]="['/rating/likes']">Рейтинг</a>
         <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
       </div>
     </div>

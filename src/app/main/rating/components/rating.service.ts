@@ -24,4 +24,11 @@ export class RatingService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<{'row': number}>(this.urlJedu + 'activity/rowRating', params);
   }
+
+  geUsersByLikes(page: number): Observable<RatingResponse> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('page', String(page));
+    return this.http.post<RatingResponse>(this.urlJedu + 'activity/ratingLikes', params);
+  }
 }

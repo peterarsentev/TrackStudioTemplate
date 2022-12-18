@@ -1,5 +1,6 @@
 <td>
   <div *ngIf="!showDiscussion">
+
     <div class="pb-3 small">
                   <span>Oт
                     <span class="font-weight-bold">{{ discussion.name }}</span>
@@ -11,6 +12,17 @@
          <i class="fa fa-edit ml-3"></i>
       </span>
       <span class="pull-right">{{ discussion.time | date: 'dd.MM.yyyy HH:mm' }}</span>
+    </div>
+    <div class="col-sm-2 pull-right">
+               <span *ngIf="user?.name !== 'anonimus' && !!discussion?.id" class="pull-right">
+                  <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-danger" style="cursor: pointer;"></i>
+                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
+                  <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-muted" style="cursor: pointer;"></i>
+                  <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-primary" style="cursor: pointer;"></i>
+                  <span class="ml-1">{{ rating?.up }}</span>
+              </span>
+
     </div>
     <div [innerHTML]="discussion.text | safeCode"></div>
     <div *ngIf="!!discussion?.responses?.length">

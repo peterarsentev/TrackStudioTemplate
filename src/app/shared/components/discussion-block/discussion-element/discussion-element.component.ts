@@ -3,7 +3,9 @@ import { DiscussionMessageModel } from '../../../models/discussionMessageModel';
 import { UserModels } from '../../../models/user.models';
 import { ModalService, TypeModals } from '../../../modal.service';
 import { Subject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
+import { DiscussRatingService } from '../../../services/discussRatingService';
+import { RateModel } from '../../../models/rate.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,12 +20,15 @@ export class DiscussionElementComponent implements OnInit, OnDestroy {
   @Output() deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateEmitter: EventEmitter<any> = new EventEmitter<any>();
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
+
+  rating: RateModel = {};
   showDiscussion = false;
   addResponse = false;
   answers: boolean;
-  constructor(private modalService: ModalService) { }
+  constructor(private modalService: ModalService, private discussRateService: DiscussRatingService) { }
 
   ngOnInit() {
+    this.getRate();
   }
 
   openConfirmModal() {
@@ -66,5 +71,36 @@ export class DiscussionElementComponent implements OnInit, OnDestroy {
 
   showAnswers() {
     this.answers = !this.answers;
+  }
+
+  vote(accept: boolean) {
+    if (accept && this.rating.vote === 'NO') {
+      this.discussRateService.voteUp(+this.discussion.id)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
+    if (accept && this.rating.vote === 'DOWN' || !accept && this.rating.vote === 'UP') {
+      this.discussRateService.voteClear(this.discussion.id)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
+    if (!accept && this.rating.vote === 'NO') {
+      this.discussRateService.voteDown(this.discussion.id)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
+    if (accept && this.rating.vote === 'UP' || !accept && this.rating.vote === 'DOWN') {
+      this.discussRateService.voteClear(this.discussion.id)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.getRate());
+    }
+  }
+
+  private getRate() {
+    this.discussRateService.getRate(+ this.discussion.id)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        this.rating = res.rate;
+      });
   }
 }
