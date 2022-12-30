@@ -43,7 +43,7 @@ export class DiagramComponent implements OnInit {
   ngOnInit() {
     this.lineChartData = [
       { data: [this.diagram.solved, this.diagram.total], label: this.diagram.label },
-    ]
+    ];
   }
 
 }

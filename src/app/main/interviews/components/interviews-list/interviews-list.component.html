@@ -1,0 +1,47 @@
+<div class="container-fluid top">
+  <div class="row">
+    <div class="form-row">
+      <div class="form-group">
+        <a routerLink="/interviews/new" class="btn btn-sm btn-info"
+           type="button">
+          Добавить Собеседование
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table">
+      <caption></caption>
+      <thead>
+      <tr>
+        <th scope="col">Собеседования</th>
+        <th scope="col">Дата</th>
+      </tr>
+      </thead>
+      <tbody infinite-scroll
+             class="noscroll"
+             [infiniteScrollDisabled]="!paginationAllowed"
+             [infiniteScrollDistance]="scrollDistance"
+             [infiniteScrollThrottle]="throttle"
+             (scrolled)="onScrollDown()">
+      <ng-container *ngFor="let interv of interviews; let idx=index">
+        <tr>
+          <td (click)="goTo(interv)" style="cursor: pointer;">
+            <div>
+              <i class="fas fa-tasks pr-3"></i>
+              <span class="font-weight-bold">{{interv.title}}</span>
+            </div>
+            <small class="mb-2 text-muted">
+                          <span>
+                            <span class="mr-3">Автор : {{ interv.submitterName}}</span>
+                          </span>
+            </small>
+          </td>
+          <td>{{ interv.approximateDate }}</td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+

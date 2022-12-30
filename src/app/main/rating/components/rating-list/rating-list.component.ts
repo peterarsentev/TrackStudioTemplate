@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { pluck, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -13,7 +13,8 @@ import { UserModels } from '../../../../shared/models/user.models';
   templateUrl: './rating-list.component.html',
   styleUrls: ['./rating-list.component.scss']
 })
-export class RatingListComponent implements OnInit {
+export class RatingListComponent implements OnInit, OnDestroy{
+
   page = 0;
   paginationAllowed = true;
   scrollDistance = 2;
@@ -55,4 +56,8 @@ export class RatingListComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 }

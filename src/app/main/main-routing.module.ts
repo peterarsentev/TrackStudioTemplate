@@ -36,11 +36,11 @@ const routes: Routes = [
       {path: 'messages', component: MessagesComponent},
       {path: 'sandbox', component: SandboxComponent},
       {path: 'exams', component: ExamComponent},
-      {path: 'exams/result/:examId', component: ExamResultComponent },
-      {path: 'exams/detail/:examId', component: ExamIntroComponent },
-      {path: 'exams/detail/:examId/question', component: ExamQuestionComponent },
-      {path: 'exams/detail/:examId/question/:questionId', component: ExamQuestionComponent },
-      {path: 'exams/result/:examId', component: ExamResultComponent },
+      {path: 'exams/result/:examId', component: ExamResultComponent},
+      {path: 'exams/detail/:examId', component: ExamIntroComponent},
+      {path: 'exams/detail/:examId/question', component: ExamQuestionComponent},
+      {path: 'exams/detail/:examId/question/:questionId', component: ExamQuestionComponent},
+      {path: 'exams/result/:examId', component: ExamResultComponent},
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module')
@@ -91,6 +91,11 @@ const routes: Routes = [
         path: 'tasksByStatus',
         loadChildren: () => import('../main/byStatus/tasks-by-status.module')
           .then(mod => mod.TasksByStatusModule)
+      },
+      {
+        path: 'interviews',
+        loadChildren: () => import('../main/interviews/interviews.module')
+          .then(mod => mod.InterviewsModule)
       },
     ]
   },
