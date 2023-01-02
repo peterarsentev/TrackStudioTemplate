@@ -1,5 +1,5 @@
 import {AfterViewChecked, Component, OnDestroy, OnInit} from '@angular/core';
-import { pluck, takeUntil } from 'rxjs/operators';
+import { pluck, switchMap, takeUntil } from 'rxjs/operators';
 import { DiscussModel } from '../../../../shared/models/discuss.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DiscussService } from '../../discuss.service';
@@ -129,5 +129,13 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
     } else {
       this.router.navigate(['discuss', id]);
     }
+  }
+
+  deleteDiscussion(d: any) {
+    console.log(d);
+    this.messageService.deleteDiscussion(d.id)
+      .pipe(switchMap(() =>     this.messageService.getDiscuss(this.id)),
+        takeUntil(this.unsubscribe$))
+      .subscribe(res => this.discussions = res);
   }
 }

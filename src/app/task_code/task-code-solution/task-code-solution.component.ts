@@ -208,4 +208,18 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
         }
       });
   }
+
+  updateDiscussion(discussion: DiscussionMessageModel) {
+    console.log(discussion);
+    this.messageService.updateDiscussion(discussion)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => this.getDiscussions());
+  }
+
+  deleteDiscussion(d: any) {
+    this.messageService.deleteDiscussion(d.id)
+      .pipe(switchMap(() =>     this.messageService.getDiscussions(undefined, +this.taskId)),
+        takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.discussions = res);
+  }
 }

@@ -22,6 +22,7 @@ import { AddBookMarkComponent } from './add-book-mark/add-book-mark.component';
 import { ShowLogComponent } from './show-log/show-log.component';
 import { DiscussionElementComponent } from './components/discussion-block/discussion-element/discussion-element.component';
 import { CreateFormComponent } from './create-form/create-form.component';
+import { RatingComponent } from './components/discussion-block/rating/rating.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { CreateFormComponent } from './create-form/create-form.component';
     BookMarkStarComponent,
     AddBookMarkComponent,
     ShowLogComponent,
-    DiscussionElementComponent
+    DiscussionElementComponent,
+    RatingComponent
   ],
   entryComponents: [
     AreYouSureComponent, AddBookMarkComponent, ShowLogComponent

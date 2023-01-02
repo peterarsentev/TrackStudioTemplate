@@ -3,7 +3,7 @@ import { DiscussionMessageModel } from '../../../models/discussionMessageModel';
 import { UserModels } from '../../../models/user.models';
 import { ModalService, TypeModals } from '../../../modal.service';
 import { Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { DiscussRatingService } from '../../../services/discussRatingService';
 import { RateModel } from '../../../models/rate.model';
 
@@ -28,16 +28,19 @@ export class DiscussionElementComponent implements OnInit, OnDestroy {
   constructor(private modalService: ModalService, private discussRateService: DiscussRatingService) { }
 
   ngOnInit() {
-    this.getRate();
   }
 
-  openConfirmModal() {
+  openConfirmModal(d?: DiscussionMessageModel) {
     this.modalService.openDialog(TypeModals.ARE_YOU_SURE, {title: 'Удалить сообщение',
       text: 'Вы уверены что хотите удалить сообщение?', button: 'Удалить' })
       .pipe(take(1))
       .subscribe(res => {
         if (res) {
-          this.deleteEmitter.emit(this.discussion);
+          if (!!d) {
+            this.deleteEmitter.emit(d);
+          } else {
+            this.deleteEmitter.emit(this.discussion);
+          }
         }
       });
   }
@@ -47,7 +50,18 @@ export class DiscussionElementComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
-  update(newText: any) {
+  update(newText: any, d?: DiscussionMessageModel) {
+    console.log(d, newText);
+    if (!!d && !newText) {
+      d.editResponse = false;
+      return;
+    }
+    if (!!d && !!newText) {
+      d.text = newText;
+      d.editResponse = false;
+      this.updateEmitter.emit(d);
+      return;
+    }
     if (newText) {
       this.discussion.text = newText;
       this.updateEmitter.emit(this.discussion);
@@ -73,34 +87,7 @@ export class DiscussionElementComponent implements OnInit, OnDestroy {
     this.answers = !this.answers;
   }
 
-  vote(accept: boolean) {
-    if (accept && this.rating.vote === 'NO') {
-      this.discussRateService.voteUp(+this.discussion.id)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(() => this.getRate());
-    }
-    if (accept && this.rating.vote === 'DOWN' || !accept && this.rating.vote === 'UP') {
-      this.discussRateService.voteClear(this.discussion.id)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(() => this.getRate());
-    }
-    if (!accept && this.rating.vote === 'NO') {
-      this.discussRateService.voteDown(this.discussion.id)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(() => this.getRate());
-    }
-    if (accept && this.rating.vote === 'UP' || !accept && this.rating.vote === 'DOWN') {
-      this.discussRateService.voteClear(this.discussion.id)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(() => this.getRate());
-    }
-  }
-
-  private getRate() {
-    this.discussRateService.getRate(+ this.discussion.id)
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => {
-        this.rating = res.rate;
-      });
+  changeResponse(d: DiscussionMessageModel) {
+    d.editResponse = true;
   }
 }

@@ -50,7 +50,7 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
     this.showDiscussion = !this.showDiscussion;
   }
 
-  closeDiscussion(event: any) {
+  closeDiscussionForm(event: any) {
     this.showDiscussion = false;
     this.closeEmitter.emit(event);
   }
@@ -60,6 +60,7 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
   }
 
   update(event: any) {
+    console.log('update');
     this.updateEmitter.emit(event);
   }
 

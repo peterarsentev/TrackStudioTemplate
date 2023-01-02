@@ -13,6 +13,8 @@
   <app-discussion-block [discussions]="discussions"
                         [user]="user"
                         (addResponse)="addResponse($event)"
+                        (updateEmitter)="updateDiscussion($event)"
                         (closeEmitter)="closeDiscussion($event)"
+                        (deleteEmitter)="deleteDiscussion($event)"
   ></app-discussion-block>
 </div>

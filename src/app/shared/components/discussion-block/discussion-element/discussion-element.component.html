@@ -1,6 +1,5 @@
 <td>
   <div *ngIf="!showDiscussion">
-
     <div class="pb-3 small">
                   <span>Oт
                     <span class="font-weight-bold">{{ discussion.name }}</span>
@@ -13,41 +12,43 @@
       </span>
       <span class="pull-right">{{ discussion.time | date: 'dd.MM.yyyy HH:mm' }}</span>
     </div>
-    <div class="col-sm-2 pull-right">
-               <span *ngIf="user?.name !== 'anonimus' && !!discussion?.id" class="pull-right">
-                  <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted" style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-danger" style="cursor: pointer;"></i>
-                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
-                  <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-muted" style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fas fa-thumbs-up text-primary" style="cursor: pointer;"></i>
-                  <span class="ml-1">{{ rating?.up }}</span>
-              </span>
-
-    </div>
+    <app-rating [user]="user"
+                [discussion]="discussion"></app-rating>
     <div [innerHTML]="discussion.text | safeCode"></div>
     <div *ngIf="!!discussion?.responses?.length">
-        <div class="card mt-1 mb-1">
-          <div class="card-header">
-            <div class="font-weight-bold">Ответы:</div>
-          </div>
-          <div class="card-body">
-        <ng-container  *ngFor="let d of discussion.responses">
-          <div class="pb-3">
+      <div class="card mt-1 mb-1">
+        <div class="card-header">
+          <div class="font-weight-bold">Ответы:</div>
+        </div>
+        <div class="card-body">
+          <ng-container *ngFor="let d of discussion.responses">
+            <div *ngIf="!d.editResponse">
+              <div class="pb-3">
                   <span class="small">Oт
                     <span class="font-weight-bold">{{ d.name }}</span>
                   </span>
-            <!--            <span class="pull-right" *ngIf="discussion.userId === user.id" (click)="openConfirmModal()">-->
-            <!--        <i class="fa fa-remove ml-3"></i>-->
-            <!--       </span>-->
-            <!--            <span class="pull-right" *ngIf="discussion.userId === user.id" (click)="change()">-->
-            <!--         <i class="fa fa-edit ml-3"></i>-->
-            <!--      </span>-->
-            <span class="pull-right">{{ d.time | date: 'dd.MM.yyyy HH:mm' }}</span>
-          </div>
-          <div class="border-bottom" [innerHTML]="d.text | safeCode"></div>
-        </ng-container>
-          </div>
+                <span class="pull-right" *ngIf="d.userId === user.id" (click)="openConfirmModal(d)">
+                    <i class="fa fa-remove ml-3"></i>
+                   </span>
+                <span class="pull-right" *ngIf="d.userId === user.id" (click)="changeResponse(d)">
+                     <i class="fa fa-edit ml-3"></i>
+                  </span>
+                <span class="pull-right">{{ d.time | date: 'dd.MM.yyyy HH:mm' }}</span>
+              </div>
+              <app-rating [user]="user"
+                          [discussion]="d"></app-rating>
+              <div class="border-bottom" [innerHTML]="d.text | safeCode"></div>
+            </div>
+            <div class="row" *ngIf="d.editResponse">
+              <app-discussion
+                [title]="'Выполняется: Редактирование комментария'"
+                [text]="d.text"
+                (closeEmitter)="update($event, d)"
+              ></app-discussion>
+            </div>
+          </ng-container>
         </div>
+      </div>
     </div>
 
     <div *ngIf="!discussion.parentId || discussion.parentId === -1">
