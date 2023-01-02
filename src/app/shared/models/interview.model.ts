@@ -1,4 +1,7 @@
+import { WisherModel } from './wisher.model';
+
 export class InterviewModel {
+
   constructor(
     public id?: number,
     public typeInterview?: string,
@@ -7,7 +10,11 @@ export class InterviewModel {
     public title?: string,
     public description?: string,
     public contactBy?: string,
-    public approximateDate?: string
-  ) {
-  }
+    public approximateDate?: string,
+    public type?: string,
+    public wishers?: WisherModel[],
+    public addRequest?: boolean
+
+) {
+}
 }

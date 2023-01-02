@@ -1,1 +1,58 @@
-<p>interview works!</p>
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">{{ interview.title }}</h3>
+    <h6 class="card-title">{{'Дата проведения :' +  interview.approximateDate }}</h6>
+    <h6 class="card-title">{{ 'Связаться со мной :' + interview.contactBy }}</h6>
+    <b>{{ 'Я буду: ' + ( interview.type === 'CONDUCT' ? 'Задавать вопросы.' : 'Отвечать на вопросы.')}}</b>
+    <p class="card-text" [innerHTML]="interview.description"></p>
+    <div *ngIf="!showInput && (user?.id != interview?.submitterId && !requestWasSend)">
+      <button (click)="joinToInterview()" class="btn btn-primary"> Принять участие </button>
+    </div>
+    <div *ngIf="showInput" class="form-group">
+      <label for="contact">{{ 'Связаться со мной phone / email / telegram' }}</label>
+      <input [(ngModel)]="contact"
+             type="text" class="form-control" id="contact"
+             aria-describedby="emailHelp" placeholder="Способ связи">
+      <button [disabled]="!contact"
+              (click)="sendRequest()"
+              class=" mt-2 btn btn-primary">Отправить заявку</button>
+    </div>
+  </div>
+  <div *ngIf="interview.wishers && interview.wishers.length > 0">
+    <div class="container-fluid">
+      <div class="row">
+        <table class="table">
+          <caption></caption>
+          <thead>
+          <tr>
+            <th scope="col">Участник</th>
+            <th scope="col">Состояние заявки</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let wisher of interview.wishers; let idx=index">
+            <tr>
+              <td>
+                <div>
+                  <i class="fas fa-tasks pr-3"></i>
+                  <span class="font-weight-bold">{{ wisher.name }}</span>
+                </div>
+                <small class="mb-2 text-muted">
+                          <span>
+                            <span class="mr-3">Контактные данные : {{ wisher.contactBy}}</span>
+                          </span>
+                </small>
+              </td>
+              <td *ngIf="user?.id != interview?.submitterId">{{ wisher.approve ? 'Согласовано' : 'Рассматривается'}}</td>
+              <td *ngIf="user?.id == interview?.submitterId">
+                <button (click)="sendApprove(wisher)" [disabled]="wisher.approve" class="btn btn-primary">
+                  {{ wisher.approve ? 'Согласовано' : 'Подтвердить участие'}}</button>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

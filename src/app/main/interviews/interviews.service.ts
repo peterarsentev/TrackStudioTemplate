@@ -34,7 +34,24 @@ export class InterviewsService {
     const url = this.url + 'interviews/byId';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    params = params.append('title', String(id));
+    params = params.append('id', String(id));
+    return this.http.post(url, params);
+  }
+
+  addNewWisher(contact: string, id: number) {
+    const url = this.url + 'interviews/addWisher';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('interviewId', String(id));
+    params = params.append('contact', contact);
+    return this.http.post(url, params);
+  }
+
+  approveWisher(id: number) {
+    const url = this.url + 'interviews/approve';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('wisherId', String(id));
     return this.http.post(url, params);
   }
 }

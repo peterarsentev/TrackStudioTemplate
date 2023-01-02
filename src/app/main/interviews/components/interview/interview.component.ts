@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
 import { UserModels } from '../../../../shared/models/user.models';
 import { ActivatedRoute } from '@angular/router';
 import { InterviewModel } from '../../../../shared/models/interview.model';
+import { InterviewsService } from '../../interviews.service';
+import { WisherModel } from '../../../../shared/models/wisher.model';
 
 @Component({
   selector: 'app-interview',
@@ -15,8 +17,13 @@ export class InterviewComponent implements OnInit, OnDestroy {
 
   unsubscribe$: Subject<void> = new Subject();
   user: UserModels;
-  private interview: InterviewModel;
-  constructor(private userService: UserService, private route: ActivatedRoute) { }
+  interview: InterviewModel;
+  showInput: boolean;
+  contact: string;
+  requestWasSend: boolean;
+  constructor(private userService: UserService,
+              private interviewsService: InterviewsService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data
@@ -30,6 +37,7 @@ export class InterviewComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((user) => {
         this.user = user;
+        this.requestWasSend = !!this.interview.wishers.find(w => w.userId === +user.id);
       });
   }
 
@@ -39,4 +47,29 @@ export class InterviewComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  joinToInterview() {
+    this.showInput = true;
+  }
+
+  sendRequest() {
+    this.showInput = false;
+    this.interviewsService.addNewWisher(this.contact, this.interview.id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.requestWasSend = true;
+        this.getById();
+      });
+  }
+
+  getById() {
+    this.interviewsService.getById(this.interview.id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(interview => this.interview = interview);
+  }
+
+  sendApprove(wisher: WisherModel) {
+    this.interviewsService.approveWisher(wisher.id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => this.getById());
+  }
 }

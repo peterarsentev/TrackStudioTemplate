@@ -32,9 +32,12 @@
               <span class="font-weight-bold">{{interv.title}}</span>
             </div>
             <small class="mb-2 text-muted">
-                          <span>
-                            <span class="mr-3">Автор : {{ interv.submitterName}}</span>
-                          </span>
+              <span>
+                <span class="mr-3">Автор : {{ interv.submitterName }}</span>
+              </span>
+              <span>
+                <span class="mr-3"> {{ interv.addRequest ? 'Согласовано' : '' }}</span>
+              </span>
             </small>
           </td>
           <td>{{ interv.approximateDate }}</td>
