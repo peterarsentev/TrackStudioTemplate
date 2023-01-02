@@ -25,7 +25,7 @@
                   <a *ngIf="discuss.taskId"
                      [routerLink]="'/exercise/' + discuss.topic.id  + '/' + 'task-view/' + discuss.taskId">{{discuss.name}}</a>
                   <a *ngIf="discuss.exerciseId"
-                     [routerLink]="'/topics/' +  discuss.topic.id + '/' + 'task_code/' + discuss.exerciseId + '/solution/new_task'">{{discuss.name}}</a>
+                     [routerLink]="'/topics/' +  discuss.topic.id + '/' + 'task_code/' + discuss.exerciseId + '/new_task'">{{discuss.name}}</a>
                   <a *ngIf="discuss.sqlExerciseId"
                      [routerLink]="'/sqlExercise/' + discuss.topic.id + '/show/' + discuss.sqlExerciseId">{{discuss.name}}</a>
                   <a *ngIf="!discuss.taskId && !discuss.exerciseId && !discuss.sqlExerciseId">{{ discuss.name }}</a>

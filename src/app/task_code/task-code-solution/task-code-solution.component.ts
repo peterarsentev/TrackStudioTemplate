@@ -81,10 +81,12 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
       ).subscribe((res: SolutionTaskCodeModels) => {
       if (!!this.solutionId && !res.solution) {
         this.router.navigate(['/topics', this.topicId, 'task_code', res.taskcode.id, 'new_task']);
+      } else if (!!this.solutionId && this.solutionId === 'new_task' && !!res.taskcode.solutionId) {
+        this.router.navigate(['/topics', this.topicId, 'task_code', res.taskcode.id, res.taskcode.solutionId]);
       } else {
-      this.solutionAndTaskCode = res;
-      this.getDiscussions();
-    }
+        this.solutionAndTaskCode = res;
+        this.getDiscussions();
+      }
     });
   }
 
@@ -110,7 +112,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
               [
                 'topics', `${this.topicId}`,
                 'task_code', `${this.taskId}`,
-                 `${solutionId}`
+                `${solutionId}`
               ]
             );
             return result;
@@ -155,7 +157,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
         .subscribe(res => this.router.navigate([
           'topics', `${this.topicId}`,
           'task_code', `${this.taskId}`,
-           'new_task'
+          'new_task'
         ]));
     }
   }
