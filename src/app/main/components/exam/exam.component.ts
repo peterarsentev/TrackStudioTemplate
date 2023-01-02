@@ -50,4 +50,10 @@ export class ExamComponent implements OnInit {
   examIntro(exam: ExamModels) {
     this.router.navigate(['detail', exam.id], { relativeTo: this.route });
   }
+
+  goTo(exam: ExamDetailsModel) {
+    if (!!exam.examuser.finish) {
+      this.router.navigate(['exams', 'result', exam.exam.id]);
+    }
+  }
 }
