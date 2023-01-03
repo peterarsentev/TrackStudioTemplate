@@ -52,7 +52,7 @@
     </div>
 
     <div *ngIf="!discussion.parentId || discussion.parentId === -1">
-      <button *ngIf="discussion.userId !== user.id" type="button" (click)="showAddResponseForm()"
+      <button *ngIf="discussion.userId !== user.id && canResponse" type="button" (click)="showAddResponseForm()"
               class="pull-left btn btn-light btn-sm">
         <i class="fa fa-reply mr-1"></i>
         Ответить

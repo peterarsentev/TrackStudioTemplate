@@ -26,6 +26,7 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: '/', pathMatch: 'full'},
       {path: '', component: MainPageComponent},
+      {path: 'user/:id', component: MainPageComponent},
       {path: 'taskNotFound', component: TaskNotFoundComponent},
       {path: 'taskAccess', component: TaskAccessComponent},
       {path: 'error', component: ErrorComponent},

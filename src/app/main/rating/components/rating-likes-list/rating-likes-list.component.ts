@@ -5,7 +5,7 @@ import { UserModels } from '../../../../shared/models/user.models';
 import { RatingService } from '../rating.service';
 import { pluck, takeUntil } from 'rxjs/operators';
 import { RatingResponse } from '../../../../shared/models/rating.response';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../../shared/services/user.service';
 
 @Component({
@@ -23,7 +23,9 @@ export class RatingLikesListComponent implements OnInit {
   private hasNext: boolean;
   user: UserModels;
 
-  constructor(private ratingService: RatingService, private route: ActivatedRoute, private userStore: UserService) { }
+  constructor(private ratingService: RatingService,
+              private router: Router,
+              private route: ActivatedRoute, private userStore: UserService) { }
 
   ngOnInit() {
     this.route.data
@@ -53,4 +55,7 @@ export class RatingLikesListComponent implements OnInit {
     }
   }
 
+  goTo(r: RatingModel) {
+    this.router.navigate(['user', r.userId], { state: { login: r.name } });
+  }
 }

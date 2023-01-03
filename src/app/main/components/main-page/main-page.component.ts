@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { TasksService } from '../../../shared/services/tasks.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ResponseModel } from '../../../shared/models/response.model';
 import { MStatusesModel } from '../../../shared/models/m.statuses.model';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { DiagramaModel } from '../../../shared/models/diagrama.model';
 import { TaskTopicModel } from '../../../shared/models/task.topic.model';
 import * as moment from 'moment';
 import { LevelModels } from '../../../shared/models/level.models';
 import { ChartService } from '../chart/chart.service';
 import { UserActivityModel } from '../../../shared/models/user.activity.model';
+import { ifError } from 'assert';
+import { UserService } from '../../../shared/services/user.service';
+import { UserModels } from '../../../shared/models/user.models';
+import { CommentService } from '../../../shared/services/comment.service';
+import { DiscussService } from '../../discuss/discuss.service';
+import { DiscussionMessageModel } from '../../../shared/models/discussionMessageModel';
+import { MessageService } from '../../../shared/services/message.service';
 
 @Component({
   selector: 'app-main',
@@ -21,7 +28,7 @@ import { UserActivityModel } from '../../../shared/models/user.activity.model';
 export class MainPageComponent implements OnInit {
   diagrams: DiagramaModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
-  allTasksCount  = 1;
+  allTasksCount = 1;
   solvedTasksCount = 0;
   solvedExerciseCount = 0;
   totalExerciseCount = 0;
@@ -32,6 +39,7 @@ export class MainPageComponent implements OnInit {
   provenTasks: TaskTopicModel[] = [];
   newTasks: TaskTopicModel[] = [];
   doneTasks: TaskTopicModel[] = [];
+  login = '';
 
   updateDate: number;
   submitDate: number;
@@ -42,40 +50,67 @@ export class MainPageComponent implements OnInit {
   levels: LevelModels[];
   ua: UserActivityModel[];
   uaSolved: UserActivityModel[];
+  discussions: DiscussionMessageModel[] = [];
+  user: UserModels;
+  private userId: number;
 
   constructor(private tasksService: TasksService,
               private authService: AuthService,
               private chartService: ChartService,
-              private router: Router) { }
-
-  ngOnInit() {
-    this.getCountAllAndSolvedTasks();
-    // this.getTotalAndSolvedTasks();
-    this.getProvenTasks();
-    this.getNewTasks();
-    this.getSolvedAndAllExerciseCount();
-    this.getLevels();
-    this.getSolvedTasks();
-    this.getUserActivity();
-    this.getUserSolvedActivity();
+              private route: ActivatedRoute,
+              private userService: UserService,
+              private messageService: MessageService,
+              private discussService: DiscussService,
+              private router: Router) {
   }
 
-  getUserActivity() {
-    this.chartService.getUserActivity()
+  ngOnInit() {
+
+    if (this.router.url.includes('user')) {
+      const routeParams = this.route.snapshot.paramMap;
+      this.userId = Number(routeParams.get('id'));
+      this.userService.getById(this.userId)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe((res: any) => this.login = res.user.name);
+      this.getCommentsByUserId(this.userId);
+    }
+    this.getCountAllAndSolvedTasks(this.userId);
+    // this.getTotalAndSolvedTasks();
+    this.getProvenTasks(this.userId);
+    // this.getNewTasks(userId);
+    this.getSolvedAndAllExerciseCount(this.userId);
+    this.getLevels(this.userId);
+    this.getSolvedTasks(this.userId);
+    this.getUserActivity(this.userId);
+    this.getUserSolvedActivity(this.userId);
+    this.userService.getModel()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.user = res);
+  }
+
+  getCommentsByUserId(userid: number) {
+    this.discussService.getCommentsByUserId(userid)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.discussions = res);
+  }
+
+
+  getUserActivity(userid?: number) {
+    this.chartService.getUserActivity(userid)
       .subscribe(res => {
         this.ua = res;
       });
   }
-  getUserSolvedActivity() {
-    this.chartService.getUserSolvedActivity()
+
+  getUserSolvedActivity(userid?: number) {
+    this.chartService.getUserSolvedActivity(userid)
       .subscribe(res => {
         this.uaSolved = res;
       });
   }
 
-  getSolvedTasks() {
-    this.tasksService
-      .getSolvedTasks()
+  getSolvedTasks(userid?: number) {
+    this.tasksService.getSolvedTasks(userid)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
         this.doneTasks = res;
@@ -87,8 +122,8 @@ export class MainPageComponent implements OnInit {
     this.router.navigate(['/new-task']);
   }
 
-  getCountAllAndSolvedTasks() {
-    this.tasksService.getCountTasks()
+  getCountAllAndSolvedTasks(id?: number) {
+    this.tasksService.getCountTasks(id)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.allTasksCount = res.all;
@@ -103,32 +138,31 @@ export class MainPageComponent implements OnInit {
       });
   }
 
-  getProvenTasks() {
+  getProvenTasks(userId?: number) {
     this.tasksService
-      .getVerifiedTasks()
+      .getVerifiedTasks(userId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
         this.provenTasks = res;
       });
   }
 
-  getNewTasks() {
-    this.tasksService
-      .getNewTasks()
+  getNewTasks(userId?: number) {
+    this.tasksService.getNewTasks(userId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
         this.newTasks = res;
       });
   }
 
-  private getSolvedAndAllExerciseCount() {
-    this.tasksService.getSolvedAndAllExerciseCount()
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe((res) => {
-          this.solvedExerciseCount = res.solved;
-          this.totalExerciseCount = res.all;
-          this.solBarValue = +((this.solvedExerciseCount / this.totalExerciseCount) * 100).toFixed(2);
-        });
+  private getSolvedAndAllExerciseCount(userId?: number) {
+    this.tasksService.getSolvedAndAllExerciseCount(userId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((res) => {
+        this.solvedExerciseCount = res.solved;
+        this.totalExerciseCount = res.all;
+        this.solBarValue = +((this.solvedExerciseCount / this.totalExerciseCount) * 100).toFixed(2);
+      });
   }
 
   getSpentDays(submitdate: number, updatedate: number) {
@@ -143,8 +177,8 @@ export class MainPageComponent implements OnInit {
     return 'дни - ' + days + '.';
   }
 
-  private getLevels() {
-    this.tasksService.getLevels()
+  private getLevels(userId?: number) {
+    this.tasksService.getLevels(userId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         res.forEach(level => this.tasksService.getCountTasksByLevel(level.id).subscribe(counts => {
@@ -155,7 +189,11 @@ export class MainPageComponent implements OnInit {
         this.levels = res;
       });
   }
-
+  updateDiscussion(discussion: DiscussionMessageModel) {
+    this.messageService.updateDiscussion(discussion)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => {});
+  }
 
 }
 

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { DiscussModel } from '../../shared/models/discuss.model';
 import { DiscussSearch } from '../../shared/models/discuss.search';
 import { NotificationListModel } from '../../shared/models/notification.list.model';
+import { DiscussionMessageModel } from '../../shared/models/discussionMessageModel';
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +63,13 @@ export class DiscussService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('id', String(id));
     return this.http.post(url, params);
+  }
+
+  getCommentsByUserId(userId: number): Observable<DiscussionMessageModel[]> {
+    const url = this.urlJedu + 'comment/getComments';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('userId', String(userId));
+    return this.http.post< DiscussionMessageModel[]>(url, params);
   }
 }

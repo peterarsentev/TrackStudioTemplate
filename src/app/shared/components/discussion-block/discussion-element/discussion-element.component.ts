@@ -15,6 +15,7 @@ import { RateModel } from '../../../models/rate.model';
 })
 export class DiscussionElementComponent implements OnInit, OnDestroy {
   @Input() discussion: DiscussionMessageModel;
+  @Input() canResponse = true;
   @Input() user: UserModels;
   @Output() response: EventEmitter<DiscussionMessageModel> = new EventEmitter<DiscussionMessageModel>();
   @Output() deleteEmitter: EventEmitter<any> = new EventEmitter<any>();

@@ -14,15 +14,17 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
 
   @Input() discussions: DiscussionMessageModel[] = [];
   @Input() user: UserModels;
+  @Input() canResponse = true;
+  @Input() title = '';
   @Input() company: boolean;
   @Output() closeEmitter: EventEmitter<any> = new EventEmitter<string>();
   @Output() addResponse: EventEmitter<DiscussionMessageModel> = new EventEmitter<DiscussionMessageModel>();
   @Output() deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateEmitter: EventEmitter<any> = new EventEmitter<any>();
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
-  needToShow = false;
+  @Input() needToShow = false;
   showDiscussion = false;
-  inTask = true;
+  @Input() inTask = true;
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -75,5 +77,11 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
 
   addNewResponse(data: DiscussionMessageModel) {
     this.addResponse.emit(data);
+  }
+
+  goTo(discussion: DiscussionMessageModel) {
+    if (this.router.url.includes('user')) {
+      this.router.navigate(['discuss', discussion.discussId]);
+    }
   }
 }

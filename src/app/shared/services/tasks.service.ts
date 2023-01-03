@@ -173,10 +173,11 @@ export class TasksService {
     // }
   }
 
-  getCountTasks(): Observable<CountModels> {
+  getCountTasks(id?: number): Observable<CountModels> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     const sessionId = localStorage.getItem('sessionId');
     params = params.append('sessionId', sessionId);
+    params = id ?  params.append('userId', String(id)) : params;
     return this.http.post<CountModels>(this.urlJedu + 'task/countTasks', params);
   }
 
@@ -348,9 +349,10 @@ export class TasksService {
     return this.http.post<NextPreviousSolutions>(url, params);
   }
 
-  getSolvedAndAllExerciseCount(): Observable<CountModels> {
+  getSolvedAndAllExerciseCount(userId?: number): Observable<CountModels> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = userId ? params.append('userId', String(userId)) : params;
     const url = this.urlJedu + `taskcode/countTasks`;
     return this.http.post<CountModels>(url, params);
   }
@@ -441,23 +443,26 @@ export class TasksService {
   }
 
 
-  getVerifiedTasks(): Observable<TaskTopicModel[]> {
+  getVerifiedTasks(userId?: number): Observable<TaskTopicModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = userId ? params.append('userId', String(userId)) : params;
     const url = this.urlJedu + `task/verified`;
     return this.http.post<TaskTopicModel[]>(url, params);
   }
 
-  getSolvedTasks(): Observable<TaskTopicModel[]> {
+  getSolvedTasks(userid?: number): Observable<TaskTopicModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = userid ? params.append('userid', String(userid)) : params;
     const url = this.urlJedu + `task/solved`;
     return this.http.post<TaskTopicModel[]>(url, params);
   }
 
-  getNewTasks(): Observable<TaskTopicModel[]> {
+  getNewTasks(userId?: number): Observable<TaskTopicModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = userId ? params.append('userId', String(userId)) : params;
     const url = this.urlJedu + `task/newTasks`;
     return this.http.post<TaskTopicModel[]>(url, params);
   }
@@ -484,10 +489,11 @@ export class TasksService {
       );
   }
 
-  getLevels(): Observable<LevelModels[]> {
+  getLevels(userId?: number): Observable<LevelModels[]> {
     const url = this.urlJedu + 'level/getByPermission';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = userId ? params.append('userId', String(userId)) : params;
     return this.http.post<LevelModels[]>(url, params);
   }
 
