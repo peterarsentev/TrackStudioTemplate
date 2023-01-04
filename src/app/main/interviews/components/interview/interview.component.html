@@ -37,11 +37,11 @@
                   <i class="fas fa-tasks pr-3"></i>
                   <span class="font-weight-bold">{{ wisher.name }}</span>
                 </div>
-                <small class="mb-2 text-muted">
-                          <span>
-                            <span class="mr-3">Контактные данные : {{ wisher.contactBy}}</span>
-                          </span>
-                </small>
+                <p *ngIf="!!wisher.contactBy" class="mb-2 text-muted">
+                  <span>
+                    <span class="mr-3">Контактные данные : {{ wisher.contactBy}}</span>
+                  </span>
+                </p>
               </td>
               <td *ngIf="user?.id != interview?.submitterId">{{ wisher.approve ? 'Согласовано' : 'Рассматривается'}}</td>
               <td *ngIf="user?.id == interview?.submitterId">
