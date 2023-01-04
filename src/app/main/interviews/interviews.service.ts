@@ -47,11 +47,12 @@ export class InterviewsService {
     return this.http.post(url, params);
   }
 
-  approveWisher(id: number) {
+  approveWisher(id: number, interviewId: number) {
     const url = this.url + 'interviews/approve';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('wisherId', String(id));
+    params = params.append('interviewId', String(interviewId));
     return this.http.post(url, params);
   }
 }

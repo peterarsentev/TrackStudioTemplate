@@ -45,8 +45,8 @@
               </td>
               <td *ngIf="user?.id != interview?.submitterId">{{ wisher.approve ? 'Согласовано' : 'Рассматривается'}}</td>
               <td *ngIf="user?.id == interview?.submitterId">
-                <button (click)="sendApprove(wisher)" [disabled]="wisher.approve" class="btn btn-primary">
-                  {{ wisher.approve ? 'Согласовано' : 'Подтвердить участие'}}</button>
+                <button (click)="sendApprove(wisher)" [disabled]="wisher.approve || hasApproved" class="btn btn-primary">
+                  {{ wisher.approve ? 'Согласовано' : hasApproved ? 'Отклонено' :  'Подтвердить участие'}}</button>
               </td>
             </tr>
           </ng-container>

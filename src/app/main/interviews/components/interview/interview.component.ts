@@ -21,6 +21,7 @@ export class InterviewComponent implements OnInit, OnDestroy {
   showInput: boolean;
   contact: string;
   requestWasSend: boolean;
+  hasApproved: boolean;
   constructor(private userService: UserService,
               private interviewsService: InterviewsService,
               private route: ActivatedRoute) { }
@@ -38,6 +39,8 @@ export class InterviewComponent implements OnInit, OnDestroy {
       .subscribe((user) => {
         this.user = user;
         this.requestWasSend = !!this.interview.wishers.find(w => w.userId === +user.id);
+        this.hasApproved = !!this.interview.wishers.find(w => w.approve);
+        console.log(this.hasApproved);
       });
   }
 
@@ -68,8 +71,11 @@ export class InterviewComponent implements OnInit, OnDestroy {
   }
 
   sendApprove(wisher: WisherModel) {
-    this.interviewsService.approveWisher(wisher.id)
+    this.interviewsService.approveWisher(wisher.id, this.interview.id)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(() => this.getById());
+      .subscribe(() => {
+        this.getById();
+        this.hasApproved = true;
+      });
   }
 }
