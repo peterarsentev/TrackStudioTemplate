@@ -74,8 +74,8 @@
   </div>
 
   <span class="navbar-text mr-3 font-weight-bold">
-          <a [routerLink]="['/exams']" style="text-decoration: none;"
-          >Экзамены</a>
+          <a [routerLink]="['/interviews']" style="text-decoration: none;"
+          >Собеседования</a>
         </span>
 
   <div class="dropdown mr-3">
@@ -113,7 +113,7 @@
                 class="ml-0"
           >{{ position }}</span></a>
         <a class="dropdown-item" [routerLink]="['/rating/likes']">Рейтинг</a>
-        <a class="dropdown-item" [routerLink]="['/interviews']">Собеседования</a>
+        <a class="dropdown-item" [routerLink]="['/exams']">Экзамены</a>
         <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
       </div>
     </div>
