@@ -26,7 +26,7 @@ export class InterviewComponent implements OnInit, OnDestroy {
   showAlert = false;
   existingId: number;
   form: FormGroup;
-  interviewer = false;
+  author = false;
   wisher: WisherModel;
   constructor(private userService: UserService,
               private interviewsService: InterviewsService,
@@ -56,7 +56,7 @@ export class InterviewComponent implements OnInit, OnDestroy {
         this.requestWasSend = !!this.interview.wishers.find(w => w.userId === +user.id);
         this.hasApproved = !!this.interview.wishers.find(w => w.approve);
         this.wisher = this.interview.wishers.find(w => w.approve);
-        this.interviewer = this.interview.submitterId === +this.user.id;
+        this.author = this.interview.submitterId === +this.user.id;
       });
     this.route.params
       .pipe(takeUntil(this.unsubscribe$))
@@ -123,7 +123,7 @@ export class InterviewComponent implements OnInit, OnDestroy {
 
   sendReview() {
     if (this.form.valid) {
-      this.interviewsService.sendReview(this.interviewer, this.interview.id, this.form.get('score').value, this.form.get('comment').value)
+      this.interviewsService.sendReview(this.interview.id, this.form.get('score').value, this.form.get('comment').value)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(() => this.getById());
     }

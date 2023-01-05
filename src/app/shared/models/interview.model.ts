@@ -1,4 +1,5 @@
 import { WisherModel } from './wisher.model';
+import { UserScoreModel } from './user.score.model';
 
 export class InterviewModel {
 
@@ -18,6 +19,7 @@ export class InterviewModel {
     public wisherScore?: number,
     public feedbackToSubmitter?: string,
     public feedbackToWisher?: string,
+    public userScore?: UserScoreModel
 
   ) {
   }

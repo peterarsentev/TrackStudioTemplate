@@ -1,3 +1,5 @@
+import { UserScoreModel } from './user.score.model';
+
 export class WisherModel {
   constructor(
     public id?: number ,
@@ -5,7 +7,8 @@ export class WisherModel {
     public userId?: number,
     public contactBy?: string,
     public approve?: boolean,
-    public name?: string
+    public name?: string,
+    public userScore?: UserScoreModel
   ) {
   }
 }

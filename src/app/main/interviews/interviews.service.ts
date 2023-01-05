@@ -63,11 +63,10 @@ export class InterviewsService {
     return this.http.post<{ canCreate: boolean, id: number }>(url, params);
   }
 
-  sendReview(interviewer: boolean, id: number, score: string, comment: string) {
+  sendReview(id: number, score: string, comment: string) {
     const url = this.url + 'interviews/review';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    params = params.append('interviewer', String(interviewer));
     params = params.append('id', String(id));
     params = params.append('score', String(score));
     params = params.append('comment', String(comment));

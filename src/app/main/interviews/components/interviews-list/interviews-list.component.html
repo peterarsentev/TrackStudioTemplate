@@ -41,6 +41,10 @@
               <span>
                 <span class="mr-3"> {{ interv.status == 'AWAITING' ? 'Согласовано' : '' }}</span>
               </span>
+              <span *ngIf="!!interv.userScore">
+                <span class="mr-3"> Принято:{{interv.userScore.countConduct}}, Средний балл: {{interv.userScore.conductScore}}</span>
+                <span class="mr-3"> Сдано:{{interv.userScore.countPass}}, Средний балл: {{interv.userScore.passScore}}</span>
+              </span>
             </small>
           </td>
           <td>{{ interv.approximateDate }}</td>
