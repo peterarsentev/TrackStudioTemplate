@@ -2,11 +2,14 @@
   <div class="card-body">
     <h3 class="card-title">{{ interview.title }}</h3>
     <h6 class="card-title">{{'Дата проведения :' +  interview.approximateDate }}</h6>
-    <h6 class="card-title">{{ 'Связаться со мной :' + interview.contactBy }}</h6>
+    <h4 *ngIf="hasApproved" class="card-title">{{ 'Связаться со мной :' + interview.contactBy }}</h4>
     <b>{{ 'Я буду: ' + ( interview.type === 'CONDUCT' ? 'Задавать вопросы.' : 'Отвечать на вопросы.')}}</b>
     <p class="card-text" [innerHTML]="interview.description"></p>
     <div *ngIf="!showInput && (user?.id != interview?.submitterId && !requestWasSend)">
       <button (click)="joinToInterview()" class="btn btn-primary"> Принять участие </button>
+    </div>
+    <div *ngIf="showAlert" class="alert alert-danger mt-1" role="alert">
+      {{'Вы уже участвуете в '}}<a [routerLink]="'/interviews/view/' + existingId">Собеседовании</a>
     </div>
     <div *ngIf="showInput" class="form-group">
       <label for="contact">{{ 'Связаться со мной phone / email / telegram' }}</label>
@@ -54,5 +57,46 @@
         </table>
       </div>
     </div>
+  </div>
+  <div class="container" *ngIf="interview.status === 'AWAITING' || interview.status === 'CLOSED'">
+    <div *ngIf="(interviewer && !interview.wisherScore || !interviewer && !interview.submitterScore) else review">
+      <form [formGroup]="form">
+        <div class="form-group">
+          <label for="exampleInputEmail1">{{ 'Оцените опонента от 1 до 5' }}</label>
+          <input formControlName="score"
+                 type="number" class="form-control" id="exampleInputEmail1"
+                 aria-describedby="emailHelp" placeholder="Введите оценку опоненту">
+        </div>
+        <div class="form-group">
+          <app-redactor [text]="form?.get('comment').value"
+                        [titleLabel]="'Комметарий'"
+                        (outputEmitter)="setDescription($event)">
+          </app-redactor>
+        </div>
+        <button (click)="sendReview()" [disabled]="form.invalid" type="button" class="btn btn-primary">Сохранить</button>
+      </form>
+    </div>
+    <ng-template #review>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Участник: {{ interview.submitterName }} </h5>
+              <h5 class="card-title">Оценка:  {{ interview.submitterScore }} </h5>
+              <p class="card-text">Комментарий: {{interview.feedbackToSubmitter }}</p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!!wisher" class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Участник: {{ wisher.name }} </h5>
+              <h5 class="card-title">Оценка:  {{ interview.wisherScore }}</h5>
+              <p class="card-text">Комментарий:  {{ interview.feedbackToWisher }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>

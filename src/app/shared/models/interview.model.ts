@@ -13,8 +13,12 @@ export class InterviewModel {
     public approximateDate?: string,
     public type?: string,
     public wishers?: WisherModel[],
-    public addRequest?: boolean
+    public status?: string,
+    public submitterScore?: number,
+    public wisherScore?: number,
+    public feedbackToSubmitter?: string,
+    public feedbackToWisher?: string,
 
-) {
-}
+  ) {
+  }
 }

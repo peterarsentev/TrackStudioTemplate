@@ -19,6 +19,8 @@ export class InterviewsListComponent implements OnInit, OnDestroy {
   hasNext: boolean;
   page = 0;
   interviews: InterviewModel[] = [ { title: 'Синтаксис ', submitterName:  'Ivan' }];
+  showAlert = false;
+  existingId: number;
   constructor(private interviewsService: InterviewsService, private router: Router) { }
 
   ngOnInit() {
@@ -42,5 +44,20 @@ export class InterviewsListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  checkAndGo() {
+    this.interviewsService.check()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => {
+        if (!res.canCreate) {
+          this.showAlert = true;
+          this.existingId = res.id;
+        } else {
+          this.showAlert = false;
+          this.existingId = undefined;
+          this.router.navigate(['interviews', 'new']);
+        }
+      });
   }
 }

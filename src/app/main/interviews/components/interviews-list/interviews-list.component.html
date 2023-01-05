@@ -1,13 +1,16 @@
 <div class="container-fluid top">
   <div class="row">
-    <div class="form-row">
+    <div *ngIf="!showAlert" class="form-row">
       <div class="form-group">
-        <a routerLink="/interviews/new" class="btn btn-sm btn-info"
+        <button (click)="checkAndGo()" class="btn btn-sm btn-info"
            type="button">
           Добавить Собеседование
-        </a>
+        </button>
       </div>
     </div>
+  </div>
+  <div *ngIf="showAlert" class="alert alert-danger" role="alert">
+    {{'Вы уже участвуете в '}}<a [routerLink]="'/interviews/view/' + existingId">Собеседовании</a>
   </div>
   <div class="row">
     <table class="table">
@@ -36,7 +39,7 @@
                 <span class="mr-3">Автор : {{ interv.submitterName }}</span>
               </span>
               <span>
-                <span class="mr-3"> {{ interv.addRequest ? 'Согласовано' : '' }}</span>
+                <span class="mr-3"> {{ interv.status == 'AWAITING' ? 'Согласовано' : '' }}</span>
               </span>
             </small>
           </td>
