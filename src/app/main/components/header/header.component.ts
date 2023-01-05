@@ -13,6 +13,7 @@ import { DiscussService } from '../../discuss/discuss.service';
 import { DiscussSearch } from '../../../shared/models/discuss.search';
 import { RatingService } from '../../rating/components/rating.service';
 import { BookmarksModel } from '../../../shared/models/bookmarks.model';
+import { InterviewNotificationService } from '../../../shared/services/interview.notification.service';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   position = 0;
   discussCount: { count: number };
   bookmarks: BookmarksModel[] = [];
+  interviewNotifications: { count: number };
 
   constructor(
     private userService: UserService,
@@ -44,6 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private navService: NavService,
     private discussService: DiscussService,
     private ratingService: RatingService,
+    private interviewNotificationService: InterviewNotificationService
   ) {}
 
   ngOnInit() {
@@ -72,6 +75,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getRowPosition();
     this.getCountOfDiscuss();
     this.getBookMarks();
+    this.getCountOfInterviewNotifications();
   }
 
   private getBookMarks() {
@@ -206,5 +210,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   goToBook(book: BookmarksModel) {
     window.open(book.link, '_blank');
+  }
+
+  getCountOfInterviewNotifications() {
+    this.interviewNotificationService.getCount()
+      .subscribe(res => this.interviewNotifications = res);
+  }
+
+  goToListOfNotifications() {
+    this.router.navigate(['interviews', 'notifications']);
   }
 }

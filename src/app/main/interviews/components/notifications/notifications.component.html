@@ -1,0 +1,22 @@
+<div class="container-fluid pb-4">
+  <div class="row pb-2 w-100">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Уведомления
+          <button class="btn btn-info pull-right" (click)="deleteMessage()">Удалить все</button>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let message of messages">
+        <td style="cursor: pointer;">
+          <span>
+              <p>{{ message.body }}</p>
+          </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

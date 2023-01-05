@@ -76,6 +76,8 @@
   <span class="navbar-text mr-3 font-weight-bold">
           <a [routerLink]="['/interviews']" style="text-decoration: none;"
           >Собеседования</a>
+          <span *ngIf="interviewNotifications?.count > 0" (click)="goToListOfNotifications()"
+          class="badge badge-primary badge-pill pos ml-1">{{ interviewNotifications?.count }}</span>
         </span>
 
   <div class="dropdown mr-3">
