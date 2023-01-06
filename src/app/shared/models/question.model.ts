@@ -1,4 +1,5 @@
 import { ExamModels } from './exam.models';
+import { Qopt } from './qopt.model';
 
 
 export class Question {
@@ -9,7 +10,9 @@ export class Question {
     public description?: string,
     public pos?: number,
     public hint?: string,
-    public id?: number
+    public id?: number,
+    public options?: Qopt[],
+    public aopt?: number[]
   ) {
   }
 

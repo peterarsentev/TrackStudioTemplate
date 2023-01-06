@@ -40,7 +40,18 @@ export class ExamResultComponent implements OnInit {
     this.examuserService.getByExamId(this.examId)
       .subscribe(res => this.examUser = res);
     this.answersService.getWrongAnswer(this.examId)
-      .subscribe(qs => this.questions = qs);
+      .subscribe(qs => {
+        this.questions = qs;
+        this.questions.forEach(q => {
+          q.options.forEach(op => {
+           q.aopt.forEach(answ => {
+             if (answ === op.id) {
+               op.answer = true;
+             }
+           });
+          });
+        });
+      });
   }
 
 }
