@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SolvedAllCountModels } from '../../../../shared/models/solved.all.count.models';
 import { Router } from '@angular/router';
+import { ProgressModel } from '../../../../shared/models/progress.model';
 
 @Component({
   selector: 'app-progress-bar-solutions',
@@ -18,21 +19,26 @@ export class ProgressBarSolutionsComponent implements OnInit, OnDestroy {
   @Input()set topicId(topicId: string) {
     this.getSolvedAndAllProgress(topicId);
   }
+  @Input()set progress(p: ProgressModel) {
+    this.setResult({solved: p.solved, all: p.count});
+  }
 
   constructor(private taskService: TasksService, private router: Router) { }
 
   ngOnInit() {}
 
   private getSolvedAndAllProgress(id: string) {
-    if (this.router.url.includes('topics')) {
-      this.taskService.getSolvedAndAllProgress(id)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(res => this.setResult(res));
-    }
-    if (this.router.url.includes('exercise')) {
-      this.taskService.getSolvedAndAllProgressTasks(id)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(res => this.setResult(res));
+    if (!!id) {
+      if (this.router.url.includes('topics')) {
+        this.taskService.getSolvedAndAllProgress(id)
+          .pipe(takeUntil(this.ngUnsubscribe$))
+          .subscribe(res => this.setResult(res));
+      }
+      if (this.router.url.includes('exercise')) {
+        this.taskService.getSolvedAndAllProgressTasks(id)
+          .pipe(takeUntil(this.ngUnsubscribe$))
+          .subscribe(res => this.setResult(res));
+      }
     }
   }
 
