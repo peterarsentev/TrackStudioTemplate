@@ -28,6 +28,7 @@ export class InterviewComponent implements OnInit, OnDestroy {
   form: FormGroup;
   author = false;
   wisher: WisherModel;
+  show = false;
   constructor(private userService: UserService,
               private interviewsService: InterviewsService,
               private route: ActivatedRoute,
@@ -134,5 +135,9 @@ export class InterviewComponent implements OnInit, OnDestroy {
       score: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
       comment: ['', Validators.required]
     });
+  }
+
+  showForm() {
+    this.show = !this.show;
   }
 }

@@ -80,21 +80,24 @@
   </div>
   <div class="container" *ngIf="interview.status === 'AWAITING' || interview.status === 'CLOSED'">
     <div *ngIf="(author && !interview.wisherScore || !author && !interview.submitterScore) else review">
-      <form [formGroup]="form">
-        <div class="form-group">
-          <label for="exampleInputEmail1">{{ 'Оцените опонента от 1 до 5' }}</label>
-          <input formControlName="score"
-                 type="number" class="form-control" id="exampleInputEmail1"
-                 aria-describedby="emailHelp" placeholder="Введите оценку опоненту">
-        </div>
-        <div class="form-group">
-          <app-redactor [text]="form?.get('comment').value"
-                        [titleLabel]="'Комметарий'"
-                        (outputEmitter)="setDescription($event)">
-          </app-redactor>
-        </div>
-        <button (click)="sendReview()" [disabled]="form.invalid" type="button" class="btn btn-primary">Сохранить</button>
-      </form>
+      <div>
+        <button *ngIf="!show" (click)="showForm()" class="btn-primary btn mb-2">Оставить отзыв</button>
+        <form *ngIf="show" [formGroup]="form">
+          <div class="form-group">
+            <label for="exampleInputEmail1">{{ 'Оцените опонента от 1 до 5' }}</label>
+            <input formControlName="score"
+                   type="number" class="form-control" id="exampleInputEmail1"
+                   aria-describedby="emailHelp" placeholder="Введите оценку опоненту">
+          </div>
+          <div class="form-group">
+            <app-redactor [text]="form?.get('comment').value"
+                          [titleLabel]="'Комметарий'"
+                          (outputEmitter)="setDescription($event)">
+            </app-redactor>
+          </div>
+          <button (click)="sendReview()" [disabled]="form.invalid" type="button" class="btn btn-primary">Сохранить</button>
+        </form>
+      </div>
     </div>
     <ng-template #review>
       <div class="row">
