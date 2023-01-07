@@ -126,7 +126,10 @@ export class InterviewComponent implements OnInit, OnDestroy {
     if (this.form.valid) {
       this.interviewsService.sendReview(this.interview.id, this.form.get('score').value, this.form.get('comment').value)
         .pipe(takeUntil(this.unsubscribe$))
-        .subscribe(() => this.getById());
+        .subscribe(() => {
+          this.getById();
+          this.show = false;
+        });
     }
   }
 

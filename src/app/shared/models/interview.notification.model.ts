@@ -3,7 +3,8 @@ export class InterviewNotificationModel {
     public id: number,
     public userId: number,
     public body: string,
-    public wasRead: boolean
+    public wasRead: boolean,
+    public interviewId?: number
   ) {
   }
 }

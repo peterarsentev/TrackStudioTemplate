@@ -10,12 +10,16 @@
       </thead>
       <tbody>
       <tr *ngFor="let message of messages">
-        <td style="cursor: pointer;">
+        <td style="cursor: pointer;" (click)="goTo(message)">
           <span>
               <p>{{ message.body }}</p>
           </span>
         </td>
+      <td>
+        <button (click)="delete(message)" class="btn-info pull-right">Удалить</button>
+      </td>
       </tr>
+
       </tbody>
     </table>
   </div>

@@ -39,4 +39,12 @@ export class InterviewNotificationService {
     const url = this.urlJedu + `interviewsNotification/deleteAll`;
     return this.http.post(url, params);
   }
+
+  delete(id: number) {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('id', String(id));
+    const url = this.urlJedu + `interviewsNotification/delete`;
+    return this.http.post(url, params);
+  }
 }

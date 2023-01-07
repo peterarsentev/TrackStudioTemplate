@@ -3,6 +3,7 @@ import { InterviewNotificationService } from '../../../../shared/services/interv
 import { InterviewNotificationModel } from '../../../../shared/models/interview.notification.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -13,7 +14,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   messages: InterviewNotificationModel[];
   unsubscribe$: Subject<void> = new Subject();
 
-  constructor(private interviewNotificationService: InterviewNotificationService) { }
+  constructor(private interviewNotificationService: InterviewNotificationService, public router: Router) { }
 
   ngOnInit() {
     this.getAll();
@@ -44,5 +45,15 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  delete(message: InterviewNotificationModel) {
+    this.interviewNotificationService.delete(message.id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => this.getAll());
+  }
+
+  goTo(message: InterviewNotificationModel) {
+    this.router.navigate(['interviews', 'view',  message.interviewId]);
   }
 }
