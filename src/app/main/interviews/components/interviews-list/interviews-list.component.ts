@@ -20,7 +20,7 @@ export class InterviewsListComponent implements OnInit, OnDestroy {
   throttle: 500;
   hasNext: boolean;
   page = 0;
-  interviews: InterviewModel[] = [ { title: 'Синтаксис ', submitterName:  'Ivan' }];
+  interviews: InterviewModel[] = [];
   showAlert = false;
   existingId: number;
   constructor(private interviewsService: InterviewsService, private navService: NavService, private router: Router) { }

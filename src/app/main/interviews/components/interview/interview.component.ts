@@ -3,7 +3,7 @@ import { pluck, takeUntil } from 'rxjs/operators';
 import { UserService } from '../../../../shared/services/user.service';
 import { Subject } from 'rxjs';
 import { UserModels } from '../../../../shared/models/user.models';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InterviewModel } from '../../../../shared/models/interview.model';
 import { InterviewsService } from '../../interviews.service';
 import { WisherModel } from '../../../../shared/models/wisher.model';
@@ -32,6 +32,7 @@ export class InterviewComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
               private interviewsService: InterviewsService,
               private route: ActivatedRoute,
+              private router: Router,
               private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -142,5 +143,16 @@ export class InterviewComponent implements OnInit, OnDestroy {
 
   showForm() {
     this.show = !this.show;
+  }
+
+  cansel() {
+    this.interviewsService.cansel(this.interview.id)
+      .subscribe(() => {
+        this.getById();
+      });
+  }
+
+  update() {
+    this.router.navigate(['interviews', 'edit', this.interview.id]);
   }
 }

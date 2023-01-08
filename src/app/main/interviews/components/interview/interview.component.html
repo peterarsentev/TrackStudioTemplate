@@ -12,6 +12,10 @@
         <span class="mr-3">{{'Дата проведения: ' +  interview.approximateDate }}</span>
         <span> {{ 'Я буду: ' + ( interview.type === 'CONDUCT' ? 'задавать вопросы.' : 'отвечать на вопросы.')}}</span>
       </small>
+      <div *ngIf="interview.submitterId === +user?.id" class="pull-right">
+      <button (click)="cansel()" class="btn btn-outline-warning btn-sm">Отменить</button>
+      <button (click)="update()" class="btn btn-outline-success btn-sm m-1">Редактировать</button>
+      </div>
     </div>
   </div>
   <div class="card-body">

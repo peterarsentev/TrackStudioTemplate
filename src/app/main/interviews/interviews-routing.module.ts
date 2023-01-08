@@ -5,6 +5,7 @@ import { InterviewsCreateFormComponent } from './components/interviews-create-fo
 import { InterviewComponent } from './components/interview/interview.component';
 import { InterviewResolver } from './components/interview/interview.resolver';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { InterviewForUpdateResolver } from './components/interviews-create-form/interview.update.resolver';
 
 const routes: Routes = [
    { path: '', component: InterviewsListComponent,
@@ -12,6 +13,7 @@ const routes: Routes = [
    },
    { path: 'new', component: InterviewsCreateFormComponent},
    { path: 'view/:id', component: InterviewComponent, resolve: {data: InterviewResolver}},
+   { path: 'edit/:id', component: InterviewsCreateFormComponent, resolve: {data: InterviewForUpdateResolver}},
    { path: 'notifications', component: NotificationsComponent}
 ];
 @NgModule({

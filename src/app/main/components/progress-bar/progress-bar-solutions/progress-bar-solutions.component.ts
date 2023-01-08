@@ -20,7 +20,10 @@ export class ProgressBarSolutionsComponent implements OnInit, OnDestroy {
     this.getSolvedAndAllProgress(topicId);
   }
   @Input()set progress(p: ProgressModel) {
-    this.setResult({solved: p.solved, all: p.count});
+    if (!!p) {
+      p.solved = !!p.solved ? p.solved : 0;
+      this.setResult({solved: p.solved, all: p.count});
+    }
   }
 
   constructor(private taskService: TasksService, private router: Router) { }

@@ -38,6 +38,14 @@ export class InterviewsService {
     return this.http.post<InterviewModel>(url, params);
   }
 
+  getByIdForUpdate(id: number): Observable<InterviewModel> {
+    const url = this.url + 'interviews/byIdForUpdate';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('id', String(id));
+    return this.http.post<InterviewModel>(url, params);
+  }
+
   addNewWisher(contact: string, id: number) {
     const url = this.url + 'interviews/addWisher';
     let params = new HttpParams({encoder: new CustomEncoder()});
@@ -70,6 +78,27 @@ export class InterviewsService {
     params = params.append('id', String(id));
     params = params.append('score', String(score));
     params = params.append('comment', String(comment));
+    return this.http.post(url, params);
+  }
+
+  cansel(id: number) {
+    const url = this.url + 'interviews/cansel';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('id', String(id));
+    return this.http.post(url, params);
+  }
+
+  public update(interview: InterviewModel) {
+    const url = this.url + 'interviews/update';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('title', interview.title);
+    params = params.append('approximateDate', interview.approximateDate);
+    params = params.append('contactBy', interview.contactBy);
+    params = params.append('description', interview.description);
+    params = params.append('typeInterview', interview.typeInterview);
+    params = params.append('id', String(interview.id));
     return this.http.post(url, params);
   }
 }
