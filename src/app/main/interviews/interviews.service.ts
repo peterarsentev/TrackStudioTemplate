@@ -30,12 +30,12 @@ export class InterviewsService {
     return this.http.post<InterviewModel[]>(url, params);
   }
 
-  getById(id: number) {
+  getById(id: number): Observable<InterviewModel> {
     const url = this.url + 'interviews/byId';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('id', String(id));
-    return this.http.post(url, params);
+    return this.http.post<InterviewModel>(url, params);
   }
 
   addNewWisher(contact: string, id: number) {

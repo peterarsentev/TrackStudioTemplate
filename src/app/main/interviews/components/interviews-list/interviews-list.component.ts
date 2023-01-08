@@ -4,6 +4,8 @@ import { InterviewsService } from '../../interviews.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { NavNode } from '../../../../shared/models/nav.node';
+import { NavService } from '../../../../shared/services/nav.service';
 
 @Component({
   selector: 'app-interviews-list',
@@ -21,10 +23,11 @@ export class InterviewsListComponent implements OnInit, OnDestroy {
   interviews: InterviewModel[] = [ { title: 'Синтаксис ', submitterName:  'Ivan' }];
   showAlert = false;
   existingId: number;
-  constructor(private interviewsService: InterviewsService, private router: Router) { }
+  constructor(private interviewsService: InterviewsService, private navService: NavService, private router: Router) { }
 
   ngOnInit() {
     this.getInterview();
+    this.navService.setUpModel({...new NavNode(), interview: true });
   }
 
   onScrollDown() {

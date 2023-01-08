@@ -18,6 +18,7 @@ export class NavNode {
     public status?: string,
     public userId?: string,
     public exams?: boolean,
+    public interview?: boolean,
   ) {
   }
 }

@@ -5,6 +5,7 @@ import { InterviewsService } from '../../interviews.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { NavService } from '../../../../shared/services/nav.service';
 
 @Component({
   selector: 'app-interviews-create-form',
@@ -15,10 +16,13 @@ export class InterviewsCreateFormComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   unsubscribe$: Subject<void> = new Subject();
-  constructor(private fb: FormBuilder, private interviewsService: InterviewsService, private router: Router) { }
+  constructor(private fb: FormBuilder,
+              private interviewsService: InterviewsService,
+              private router: Router, private navService: NavService) { }
 
   ngOnInit() {
     this.buildForm();
+    this.navService.setUpModel({name: 'Новое собеседование', url: '/interviews/new', interview: true});
   }
 
   private buildForm() {
