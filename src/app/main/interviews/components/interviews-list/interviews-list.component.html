@@ -10,7 +10,7 @@
     </div>
   </div>
   <div *ngIf="showAlert" class="alert alert-danger" role="alert">
-    {{'Вы уже участвуете в '}}<a [routerLink]="'/interviews/view/' + existingId">собеседовании</a>
+    {{'Необходимо оставить отзыв о проведенном '}}<a [routerLink]="'/interviews/view/' + existingId">собеседовании</a>
   </div>
   <div class="row">
     <table class="table">

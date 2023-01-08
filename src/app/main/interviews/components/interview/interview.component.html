@@ -20,7 +20,7 @@
       <button (click)="joinToInterview()" class="btn btn-primary"> Принять участие </button>
     </div>
     <div *ngIf="showAlert" class="alert alert-danger mt-1" role="alert">
-      {{'Вы уже участвуете в '}}<a [routerLink]="'/interviews/view/' + existingId">Собеседовании</a>
+      {{'Необходимо оставить отзыв о проведенном '}}<a [routerLink]="'/interviews/view/' + existingId">Собеседовании</a>
     </div>
     <div *ngIf="showInput" class="form-group">
       <label for="contact">{{ 'Связаться со мной phone / email / telegram' }}</label>
@@ -89,7 +89,7 @@
         <button *ngIf="!show" (click)="showForm()" class="btn-primary btn mb-2">Оставить отзыв</button>
         <form *ngIf="show" [formGroup]="form">
           <div class="form-group">
-            <label for="exampleInputEmail1">{{ 'Оцените опонента от 1 до 5' }}</label>
+            <label for="exampleInputEmail1">{{ 'Оцените участника (' + wisher.name + ') от 1 до 5' }}</label>
             <input formControlName="score"
                    type="number" class="form-control" id="exampleInputEmail1"
                    aria-describedby="emailHelp" placeholder="Введите оценку опоненту">
