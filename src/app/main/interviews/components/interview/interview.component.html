@@ -1,15 +1,20 @@
 <div class="card">
+  <div class="card-header">
+    <div>
+                  <span class="font-weight-bold w-50">
+                    {{ interview.title }}
+                  </span>
+    </div>
+    <div>
+      <small class="mb-2 text-muted">
+        <span class="mr-3">{{'Автор: ' + interview.submitterName }}</span>
+        <span class="mr-3" *ngIf="hasApproved">{{ 'Связаться со мной: ' + interview.contactBy }}</span>
+        <span class="mr-3">{{'Дата проведения: ' +  interview.approximateDate }}</span>
+        <span> {{ 'Я буду: ' + ( interview.type === 'CONDUCT' ? 'задавать вопросы.' : 'отвечать на вопросы.')}}</span>
+      </small>
+    </div>
+  </div>
   <div class="card-body">
-    <h3 class="card-title">{{ interview.title }}</h3>
-    <h6 class="card-title">{{'Дата проведения :' +  interview.approximateDate }}</h6>
-    <h4 *ngIf="hasApproved" class="card-title">{{ 'Связаться со мной :' + interview.contactBy }}</h4>
-    <b>{{ 'Я буду: ' + ( interview.type === 'CONDUCT' ? 'Задавать вопросы.' : 'Отвечать на вопросы.')}}</b>
-    <small class="mb-2 text-muted">
-                  <span *ngIf="!!interview.userScore">
-                  <span class="mr-3"> Принято:{{interview.userScore.countConduct}}, Средний балл: {{interview.userScore.conductScore}}</span>
-                  <span class="mr-3"> Сдано:{{interview.userScore.countPass}}, Средний балл: {{interview.userScore.passScore}}</span>
-                </span>
-    </small>
     <p class="card-text" [innerHTML]="interview.description"></p>
     <div *ngIf="!showInput && (user?.id != interview?.submitterId && !requestWasSend)">
       <button (click)="joinToInterview()" class="btn btn-primary"> Принять участие </button>

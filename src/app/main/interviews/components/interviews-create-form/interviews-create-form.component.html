@@ -1,20 +1,22 @@
 <div>
   <form [formGroup]="form">
     <div class="form-group">
-      <label for="exampleInputEmail1">{{ 'Создание собеседования' }}</label>
+      <label for="exampleInputEmail1">{{ 'Тема собеседования' }}</label>
       <input formControlName="title"
              type="email" class="form-control" id="exampleInputEmail1"
-             aria-describedby="emailHelp" placeholder="Введите название">
+             aria-describedby="emailHelp" placeholder="Введите тему собеседования">
+      <small id="emailHelp" class="form-text text-muted">Например, отвечу на вопросы по базовому синтаксису.</small>
     </div>
     <div class="form-group">
-      <label for="date">{{ 'Дата и время собеседования' }}</label>
+      <label for="date">{{ 'Удобное время для собеседования' }}</label>
       <input formControlName="date"
              type="email" class="form-control" id="date"
-             aria-describedby="emailHelp" placeholder="Введите дату и время">
+             aria-describedby="emailHelp" placeholder="Введите удобное время для собеседования">
+      <small id="emailHelp" class="form-text text-muted"> Например, Могу в любой день после 18:00 по Москве.</small>
     </div>
 
     <div class="form-group">
-      <label for="contact">{{ 'Связаться со мной phone / email / telegram' }}</label>
+      <label for="contact">{{ 'Связаться со мной по telegram' }}</label>
       <input formControlName="contactBy"
              type="email" class="form-control" id="contact"
              aria-describedby="emailHelp" placeholder="Способ связи">
@@ -22,16 +24,16 @@
 
     <div class="form-check">
       <input type="radio" formControlName="type" value="CONDUCT" class="form-check-input"
-             name="type">
-      <label class="form-check-label" >
-        Буду проводить интерьвью (задавать вопросы)
+             name="type" id="takeInterview">
+      <label class="form-check-label" for="takeInterview">
+        Буду проводить собеседование (задавать вопросы)
       </label>
     </div>
-    <div class="form-check">
+    <div class="form-check mb-3">
       <input type="radio" class="form-check-input" formControlName="type" value="PASS"
-             name="type" >
-      <label class="form-check-label">
-        Буду отвечать на вопросы
+             name="type" id="passInterview">
+      <label class="form-check-label" for="passInterview">
+        Буду походить собеседование (отвечать на вопросы)
       </label>
     </div>
     <div class="form-group">

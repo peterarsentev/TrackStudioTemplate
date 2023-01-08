@@ -4,13 +4,13 @@
       <div class="form-group">
         <button (click)="checkAndGo()" class="btn btn-sm btn-info"
            type="button">
-          Добавить Собеседование
+          Создать собеседование
         </button>
       </div>
     </div>
   </div>
   <div *ngIf="showAlert" class="alert alert-danger" role="alert">
-    {{'Вы уже участвуете в '}}<a [routerLink]="'/interviews/view/' + existingId">Собеседовании</a>
+    {{'Вы уже участвуете в '}}<a [routerLink]="'/interviews/view/' + existingId">собеседовании</a>
   </div>
   <div class="row">
     <table class="table">
