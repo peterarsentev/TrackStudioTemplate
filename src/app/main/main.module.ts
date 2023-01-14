@@ -34,6 +34,8 @@ import { ChartUserComponent } from './components/chart/chart-user.component';
 import { ExamIntroComponent } from './components/exam/exam_intro/exam.intro.component';
 import { ExamQuestionComponent } from './components/exam/exam_question/exam.question.component';
 import { ExamResultComponent } from './components/exam/exam_result/exam.result.component';
+import { InfoComponent } from './components/info/info.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -52,7 +54,7 @@ import { ExamResultComponent } from './components/exam/exam_result/exam.result.c
         NewTaskComponent,
         DiagramComponent,
         MessagesComponent,
-
+        InfoComponent,
         SandboxComponent,
         ExamComponent,
         LeftSideBarComponent,
@@ -67,18 +69,19 @@ import { ExamResultComponent } from './components/exam/exam_result/exam.result.c
         ExamQuestionComponent,
         ExamResultComponent
     ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatDialogModule,
-        MainRoutingModule,
-        SharedModule,
-        ChartsModule,
-        TreeModule.forRoot(),
-        CodemirrorModule,
-        ChartModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MainRoutingModule,
+    SharedModule,
+    ChartsModule,
+    TreeModule.forRoot(),
+    CodemirrorModule,
+    ChartModule,
+    InfiniteScrollModule
+  ],
     entryComponents: [],
     exports: [
     ],

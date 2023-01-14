@@ -84,7 +84,8 @@
       </table>
     </div>
   </div>
-  <app-discussion-block [discussions]="discussions"
+  <app-info></app-info>
+  <app-discussion-block *ngIf="discussions.length > 0" [discussions]="discussions"
                         [user]="user"
                         [inTask]="false"
                         [needToShow]="true"
