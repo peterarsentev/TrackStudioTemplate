@@ -36,14 +36,24 @@
             </div>
             <small class="mb-2 text-muted">
               <span>
-                <span class="mr-3">Автор : {{ interv.submitterName }}</span>
+                <span class="mr-3">
+                   <span *ngIf="interv.status == 'CLOSED'" class="badge badge-secondary">Завершено</span>
+                  <span *ngIf="interv.status == 'ACTIVE'" class="badge badge-danger">Завершено</span>
+                  <span *ngIf="interv.status == 'AWAITING'" class="badge badge-warning">Ожидает отзыв</span>
+                </span>
               </span>
               <span>
-                <span class="mr-3"> {{ interv.status == 'AWAITING' ? 'Согласовано' : '' }}</span>
+                <span class="mr-3">
+                  <span *ngIf="interv.type == 'PASS'" >Пройти</span>
+                  <span *ngIf="interv.type == 'CONDUCT'">Провести</span>
+                </span>
+              </span>
+              <span>
+                <span class="mr-3">Автор: {{ interv.submitterName }}</span>
               </span>
               <span *ngIf="!!interv.userScore">
-                <span class="mr-3"> Принято:{{interv.userScore.countConduct}}, Средний балл: {{interv.userScore.conductScore}}</span>
-                <span class="mr-3"> Сдано:{{interv.userScore.countPass}}, Средний балл: {{interv.userScore.passScore}}</span>
+                <span class="mr-3">Принято: {{interv.userScore.countConduct}}, Средний балл: {{interv.userScore.conductScore}}</span>
+                <span class="mr-3">Сдано: {{interv.userScore.countPass}}, Средний балл: {{interv.userScore.passScore}}</span>
               </span>
             </small>
           </td>

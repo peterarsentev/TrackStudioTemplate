@@ -93,7 +93,7 @@
         <button *ngIf="!show" (click)="showForm()" class="btn-primary btn mb-2">Оставить отзыв</button>
         <form *ngIf="show" [formGroup]="form">
           <div class="form-group">
-            <label for="exampleInputEmail1">{{ 'Оцените участника (' + (interview.submitterId == user.id ? wisher.name : interview.submitterName) + ') от 1 до 5' }}</label>
+            <label for="exampleInputEmail1">{{ 'Оцените участника (' + (interview.submitterId.toString() === user.id ? wisher.name : interview.submitterName) + ') от 1 до 5' }}</label>
             <input formControlName="score"
                    type="number" class="form-control" id="exampleInputEmail1"
                    aria-describedby="emailHelp" placeholder="Введите оценку опоненту">
