@@ -165,7 +165,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
         ).subscribe(() => {
         this.getUserFilters();
         this.getTasksTopicsList();
-        this.getCategoriesByLevel(level.id);
+        // this.getCategoriesByLevel(level.id);
       });
     } else {
       if (this.level) {
@@ -175,7 +175,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
           ).subscribe(() => {
           this.getUserFilters();
           this.getTasksTopicsList();
-          this.getCategoriesByLevel(level.id);
+          // this.getCategoriesByLevel(level.id);
         });
       } else {
         this.saveFilter(FilterTopicEnum.LEVEL, level.id);
