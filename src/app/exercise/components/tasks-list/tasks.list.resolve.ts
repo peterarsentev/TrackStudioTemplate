@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { TaskTopicModel } from '../../../shared/models/task.topic.model';
-import { EMPTY, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TasksService } from '../../../shared/services/tasks.service';
 
 @Injectable({providedIn: 'root'})

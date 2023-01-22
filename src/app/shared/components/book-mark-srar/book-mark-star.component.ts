@@ -14,6 +14,7 @@ export class BookMarkStarComponent implements OnInit, OnDestroy {
 
   @Input() name: string;
   url: string;
+  isAdded = false;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private modalService: ModalService,
@@ -22,23 +23,50 @@ export class BookMarkStarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.url = window.location.href;
+    this.checkIfAdded();
   }
 
   addInBookMarks() {
-    this.url = window.location.href;
-    this.modalService.openDialog(TypeModals.ADD_BOOKMARK, {name: this.name, url: this.url})
+    if (this.isAdded) {
+      this.modalService.openDialog(TypeModals.ARE_YOU_SURE, {title: 'Удалить закладку',
+        text: 'Вы уверены что хотите удалить закладку ?', button: 'Удалить' })
+        .pipe(take(1))
+        .subscribe(res => {
+          if (res) {
+            this.deleteBook(this.url);
+          }
+        });
+    } else {
+      this.modalService.openDialog(TypeModals.ADD_BOOKMARK, {name: this.name, url: this.url})
         .pipe(take(1))
         .subscribe(res => {
           if (res) {
             this.messageService.addToFavorite(res)
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(() => this.bookmarksService.setUpModel(true));
+              .pipe(takeUntil(this.ngUnsubscribe$))
+              .subscribe(() => this.bookmarksService.setUpModel(true));
           }
         });
+    }
   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  deleteBook(url: string) {
+    this.messageService
+      .deleteByLink(url)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => {});
+  }
+
+  private checkIfAdded() {
+    this.messageService.checkIfAdded(this.url)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        this.isAdded = res.exists;
+      });
   }
 }

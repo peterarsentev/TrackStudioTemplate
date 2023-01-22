@@ -56,6 +56,13 @@ export class MessageService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post(url, params);
   }
+  deleteByLink(link: string) {
+    const url = this.urlJedu + 'bookmark/deleteByLink';
+    let params = new HttpParams();
+    params = params.append('link', link);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post(url, params);
+  }
 
   deleteMessage(id?: string) {
     const url = this.urlJedu + `notification/delete `;
@@ -160,5 +167,13 @@ export class MessageService {
     params = params.append('text', discussion.text);
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<any>(url, params);
+  }
+
+  checkIfAdded(link: string): Observable<{ exists: boolean }> {
+    const url = this.urlJedu + 'bookmark/check';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('link', link);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<{ exists: boolean }>(url, params);
   }
 }

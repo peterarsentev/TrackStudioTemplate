@@ -15,7 +15,6 @@ export class AddBookMarkComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.url = data.url;
     this.name = data.name;
-    console.log(this.data)
   }
 
   ngOnInit() {
