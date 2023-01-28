@@ -36,7 +36,6 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         if (res instanceof NavigationEnd) {
-          console.log(res);
           if (res.url.includes('discus') || this.router.url.includes('task_code')) {
             this.inTask = false;
             this.needToShow = true;

@@ -4,6 +4,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { MessageService } from '../../services/message.service';
 import { Subject } from 'rxjs';
 import { BookmarksService } from '../../services/bookmarks.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-mark-star',
@@ -19,11 +20,22 @@ export class BookMarkStarComponent implements OnInit, OnDestroy {
 
   constructor(private modalService: ModalService,
               private bookmarksService: BookmarksService,
+              private router: Router,
               private messageService: MessageService) {
   }
 
   ngOnInit() {
     this.url = window.location.href;
+    this.router.events.
+      pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+      if (res instanceof NavigationEnd) {
+        this.url = window.location.href;
+        this.checkIfAdded();
+        console.log('end', this.url);
+      }
+    });
+    console.log(this.url);
     this.checkIfAdded();
   }
 
@@ -44,7 +56,10 @@ export class BookMarkStarComponent implements OnInit, OnDestroy {
           if (res) {
             this.messageService.addToFavorite(res)
               .pipe(takeUntil(this.ngUnsubscribe$))
-              .subscribe(() => this.bookmarksService.setUpModel(true));
+              .subscribe(() => {
+                this.isAdded = true;
+                this.bookmarksService.setUpModel(true);
+              });
           }
         });
     }
@@ -59,7 +74,10 @@ export class BookMarkStarComponent implements OnInit, OnDestroy {
     this.messageService
       .deleteByLink(url)
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(() => {});
+      .subscribe(() => {
+        this.isAdded = false;
+        this.bookmarksService.setUpModel(true);
+      });
   }
 
   private checkIfAdded() {

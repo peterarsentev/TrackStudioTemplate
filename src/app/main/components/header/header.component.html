@@ -78,7 +78,13 @@
       Закладки
     </button>
     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercisesDd">
-      <li *ngFor="let book of bookmarks"><a (click)="goToBook(book)" class="dropdown-item point">{{ book.name }}</a>
+      <li *ngFor="let book of bookmarks">
+<!--        <div class="demo">-->
+        <a (click)="goToBook(book)" class="dropdown-item point demo">{{ book.name }}</a>
+        <button (click)="deleteBook($event, book)" type="button" class="close mr-2 mt-1" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+<!--        </div>-->
       </li>
     </ul>
   </div>

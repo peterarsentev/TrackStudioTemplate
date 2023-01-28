@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild, } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
 import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, take, takeUntil } from 'rxjs/operators';
 import { UserModels } from '../../../shared/models/user.models';
 import { AuthService } from '../../../shared/services/auth.service';
 import { MessageService } from '../../../shared/services/message.service';
@@ -14,6 +14,8 @@ import { DiscussSearch } from '../../../shared/models/discuss.search';
 import { RatingService } from '../../rating/components/rating.service';
 import { BookmarksModel } from '../../../shared/models/bookmarks.model';
 import { InterviewNotificationService } from '../../../shared/services/interview.notification.service';
+import { BookmarksService } from '../../../shared/services/bookmarks.service';
+import { ModalService, TypeModals } from '../../../shared/modal.service';
 
 
 @Component({
@@ -46,10 +48,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private navService: NavService,
     private discussService: DiscussService,
     private ratingService: RatingService,
-    private interviewNotificationService: InterviewNotificationService
+    private modalService: ModalService,
+    private interviewNotificationService: InterviewNotificationService,
+    private bookmarksService: BookmarksService,
   ) {}
 
   ngOnInit() {
+    this.bookmarksService.bookmarkModel$
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        console.log('this.bookmarksService.bookmarkModel$')
+        if (res) {
+          this.getBookMarks();
+        }
+      });
     this.iconComment = this.router.url.includes('task-view');
     if (this.router.url === '/') {
       this.navService.setUpModel({...new NavNode()});
@@ -219,5 +231,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   goToListOfNotifications() {
     this.router.navigate(['interviews', 'notifications']);
+  }
+
+  deleteBook(event: Event, book: BookmarksModel) {
+    this.modalService.openDialog(TypeModals.ARE_YOU_SURE, {title: 'Удалить закладку',
+      text: 'Вы уверены что хотите удалить закладку ?', button: 'Удалить' })
+      .pipe(take(1))
+      .subscribe(res => {
+        if (res) {
+          this.deleteBookById(book);
+        }
+      });
+  }
+
+  deleteBookById(book: BookmarksModel) {
+    this.messageService
+      .deleteBook(book.id)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => this.bookmarksService.setUpModel(true));
   }
 }

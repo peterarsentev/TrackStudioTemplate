@@ -1,13 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, takeUntil } from 'rxjs/operators';
 import { TaskModel } from '../../../shared/models/task.model';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
 import { ResponseModel } from '../../../shared/models/response.model';
 import { MStatusesModel } from '../../../shared/models/m.statuses.model';
 import { MessageService } from '../../../shared/services/message.service';
-import { BookmarksService } from '../../../shared/services/bookmarks.service';
 import * as moment from 'moment';
 
 @Component({
@@ -27,7 +25,6 @@ export class TasksComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private tasksService: TasksService,
               private messageService: MessageService,
-              private bookmarksService: BookmarksService,
               private router: Router) { }
 
   ngOnInit() {

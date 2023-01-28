@@ -50,7 +50,6 @@ export class TaskComponent implements OnInit, OnDestroy {
               private router: Router,
               private commentService: CommentService,
               private messageService: MessageService,
-              private bookmarksService: BookmarksService,
               private userService: UserService,
               private tasksService: TasksService) { }
 
@@ -148,11 +147,11 @@ export class TaskComponent implements OnInit, OnDestroy {
             }
           });
 
-          var options = {
-            templateSelector: "#CodeBadgeTemplate",
-            contentSelector: "body",
-            copyIconClass: "fa fa-copy",
-            checkIconClass: "fa fa-check text-success",
+          const options = {
+            templateSelector: '#CodeBadgeTemplate',
+            contentSelector: 'body',
+            copyIconClass: 'fa fa-copy',
+            checkIconClass: 'fa fa-check text-success',
           };
           window.highlightJsBadge(options);
 
