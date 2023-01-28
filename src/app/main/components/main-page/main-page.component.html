@@ -84,7 +84,7 @@
       </table>
     </div>
   </div>
-  <app-info></app-info>
+  <app-info *ngIf="showNews"></app-info>
   <app-discussion-block *ngIf="discussions.length > 0" [discussions]="discussions"
                         [user]="user"
                         [inTask]="false"

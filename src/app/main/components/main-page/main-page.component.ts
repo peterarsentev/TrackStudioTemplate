@@ -5,20 +5,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ResponseModel } from '../../../shared/models/response.model';
 import { MStatusesModel } from '../../../shared/models/m.statuses.model';
 import { Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { DiagramaModel } from '../../../shared/models/diagrama.model';
 import { TaskTopicModel } from '../../../shared/models/task.topic.model';
 import * as moment from 'moment';
 import { LevelModels } from '../../../shared/models/level.models';
 import { ChartService } from '../chart/chart.service';
 import { UserActivityModel } from '../../../shared/models/user.activity.model';
-import { ifError } from 'assert';
 import { UserService } from '../../../shared/services/user.service';
 import { UserModels } from '../../../shared/models/user.models';
-import { CommentService } from '../../../shared/services/comment.service';
 import { DiscussService } from '../../discuss/discuss.service';
 import { DiscussionMessageModel } from '../../../shared/models/discussionMessageModel';
 import { MessageService } from '../../../shared/services/message.service';
+import { NavService } from '../../../shared/services/nav.service';
 
 @Component({
   selector: 'app-main',
@@ -53,6 +52,7 @@ export class MainPageComponent implements OnInit {
   discussions: DiscussionMessageModel[] = [];
   user: UserModels;
   private userId: number;
+  showNews = true;
 
   constructor(private tasksService: TasksService,
               private authService: AuthService,
@@ -61,6 +61,7 @@ export class MainPageComponent implements OnInit {
               private userService: UserService,
               private messageService: MessageService,
               private discussService: DiscussService,
+              private navService: NavService,
               private router: Router) {
   }
 
@@ -71,7 +72,11 @@ export class MainPageComponent implements OnInit {
       this.userId = Number(routeParams.get('id'));
       this.userService.getById(this.userId)
         .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe((res: any) => this.login = res.user.name);
+        .subscribe((res: any) => {
+          this.login = res.user.name;
+          this.navService.setUpModel({name: this.login, url: '/user/' + this.userId, rating: true});
+          this.showNews = false;
+        });
       this.getCommentsByUserId(this.userId);
     }
     this.getCountAllAndSolvedTasks(this.userId);

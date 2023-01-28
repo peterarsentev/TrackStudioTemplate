@@ -78,6 +78,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
               this.interviews(res);
               return;
             }
+            if (res.rating) {
+              this.rating(res);
+              return;
+            }
             if (res.payment) {
               this.solutions = [{ name: 'Job4j', url: '/'},
                 { name: 'Оплата', url: '/payment'}];
@@ -245,6 +249,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private interviews(res: NavNode) {
     const navs = [{name: 'Job4j', url: '/', interview: true},
       { name: 'Собеседования', url: '/interviews', interview: true}];
+    if (res.name) {
+      this.solutions = [...navs, res];
+    } else {
+      this.solutions = navs;
+    }
+  }
+
+  private rating(res: NavNode) {
+    const navs = [{name: 'Job4j', url: '/', interview: true},
+      { name: 'Рейтинг', url: '/rating/likes', interview: true}];
     if (res.name) {
       this.solutions = [...navs, res];
     } else {
