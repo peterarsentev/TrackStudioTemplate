@@ -31,8 +31,10 @@ export class InterviewsCreateFormComponent implements OnInit, OnDestroy {
       .pipe(pluck('data'),
         takeUntil(this.unsubscribe$)
       ).subscribe((res: InterviewModel) => {
-      this.interview = res;
-      this.populateForm();
+      if (res) {
+        this.interview = res;
+        this.populateForm();
+      }
     });
   }
 
