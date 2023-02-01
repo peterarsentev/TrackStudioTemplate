@@ -1,25 +1,24 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ExamsService} from '../../../../shared/services/exams.service';
-import {ExamModels} from '../../../../shared/models/exam.models';
-import {NavQuestionModel} from '../../../../shared/models/nav.question.models';
-import {QoptsService} from '../../../../shared/services/qopts.service';
-import {Qopt} from '../../../../shared/models/qopt.model';
-import {QuestionsService} from '../../../../shared/services/questions.service';
-import {Aopt} from '../../../../shared/models/aopt.model';
-import {AnswersService} from '../../../../shared/services/answers.service';
-import {Answer} from '../../../../shared/models/answer.model';
-import {Question} from '../../../../shared/models/question.model';
-import {AoptsService} from '../../../../shared/services/aopts.service';
-import {subscribeTo} from 'rxjs/internal-compatibility';
-import {ProgressModel} from '../../../../shared/models/progress.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ExamsService } from '../../../../shared/services/exams.service';
+import { ExamModels } from '../../../../shared/models/exam.models';
+import { NavQuestionModel } from '../../../../shared/models/nav.question.models';
+import { QoptsService } from '../../../../shared/services/qopts.service';
+import { Qopt } from '../../../../shared/models/qopt.model';
+import { QuestionsService } from '../../../../shared/services/questions.service';
+import { Aopt } from '../../../../shared/models/aopt.model';
+import { AnswersService } from '../../../../shared/services/answers.service';
+import { AoptsService } from '../../../../shared/services/aopts.service';
+import { ProgressModel } from '../../../../shared/models/progress.model';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-exam.question',
   templateUrl: './exam.question.component.html',
   styleUrls: ['./exam.question.component.scss']
 })
-export class ExamQuestionComponent implements OnInit {
+export class ExamQuestionComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +38,7 @@ export class ExamQuestionComponent implements OnInit {
   nextBtn = false;
   aopts: Aopt[] = [];
   progress: ProgressModel;
+  unsubscribe$: Subject<void> = new Subject();
 
   ngOnInit() {
     this.examId = this.route.snapshot.params.examId;
@@ -49,8 +49,21 @@ export class ExamQuestionComponent implements OnInit {
       });
     this.examsService.getExamById(this.examId)
       .subscribe(res => this.exam = res);
+    this.getProgress();
+    this.router.events
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => {
+        if (res instanceof NavigationEnd) {
+          this.getProgress();
+        }
+      });
+  }
+
+  getProgress() {
     this.examsService.progress(this.examId)
-      .subscribe(res => this.progress = res);
+      .subscribe(res => {
+        this.progress = res;
+      });
   }
 
   loadQuestionWithAnswer(question) {
@@ -82,9 +95,8 @@ export class ExamQuestionComponent implements OnInit {
           this.nextBtn = this.navQuestion.next !== undefined;
         });
         this.loadQuestionWithAnswer(nextQuestion);
+        this.getProgress();
       });
-    this.examsService.progress(this.examId)
-      .subscribe(res => this.progress = res);
   }
 
   calcResult() {
@@ -109,5 +121,10 @@ export class ExamQuestionComponent implements OnInit {
     } else {
       this.aopts = this.aopts.filter((x) => x.qoptId !== qp.id);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
