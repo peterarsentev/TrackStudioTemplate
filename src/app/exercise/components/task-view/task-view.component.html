@@ -28,7 +28,8 @@
           <div class="row">
             <div class="col-sm-12">
               <div>
-                <span class="font-weight-bold">{{ task?.task?.name }} {{ getSolutionId() }}</span>
+                <span class="font-weight-bold">{{ task?.task?.name }} {{ getSolutionId() }}
+                <button (click)="copyTitle(task?.task?.name)" class="btn btn-outline-primary btn-sm">Копировать название</button></span>
                 <span *ngIf="user?.name !== 'anonimus'" class="pull-right">
                   <i class="fa fa-comments-o mr-2"
                      onclick="window.scrollTo(0, document.body.scrollHeight);"
