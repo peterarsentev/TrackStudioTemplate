@@ -21,9 +21,11 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
   @Input() taskClass: string;
   @Input() count: number;
   @Input() taskTest: string;
+  @Input() explanation: string;
   @Input() status: number;
   private taskId: string;
   @Output() goToSolutions = new EventEmitter<boolean>();
+  show = false;
   @Input() set output(output: string) {
     if (!!output) {
       this.textArea = true;
@@ -106,5 +108,9 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
 
   goToUserList() {
     this.goToSolutions.emit(true);
+  }
+
+  showExplanation() {
+    this.show = !this.show;
   }
 }

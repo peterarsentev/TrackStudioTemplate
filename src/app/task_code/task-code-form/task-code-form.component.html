@@ -69,9 +69,13 @@
 </div>
 <div class="row">
   <div class="w-100 pull-right mt-3">
+    <button *ngIf="explanation" (click)="showExplanation()" class="btn btn-outline-primary btn-sm">Объяснение</button>
     <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="!!previousAndNext.next"
             (click)="goTo(previousAndNext.next)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
     <button type="button" class="m btn btn-light btn-sm pull-right mr-2"  *ngIf="!!previousAndNext.previous"
             (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
+  </div>
+  <div class="card-body">
+    <div class="w-100 card-text" *ngIf="show" [innerHTML]="explanation">{{explanation}}</div>
   </div>
 </div>

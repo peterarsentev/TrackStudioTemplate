@@ -6,6 +6,7 @@
                       [output]="output"
                       [disabled]="disabled"
                       [count]="countSolvedTasks"
+                      [explanation]="solutionAndTaskCode.taskcode.explanation"
                       (submitTaskEmitter)="submitTask($event)"
                       (goToSolutions)="goToSolutions()"
                       (resetEmitter)="resetSolution($event)"

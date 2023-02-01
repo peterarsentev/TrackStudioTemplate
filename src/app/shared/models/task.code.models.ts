@@ -10,6 +10,7 @@ export class TaskCodeModel {
     public testCode?: string,
     public status?: number,
     public solutionId?: number,
+    public explanation?: string,
 
     //solution
     public  taskCodeId?: number,
