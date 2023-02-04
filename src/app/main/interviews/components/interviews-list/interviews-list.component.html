@@ -38,6 +38,7 @@
               <span>
                 <span class="mr-3">
                    <span *ngIf="interv.status == 'CLOSED'" class="badge badge-secondary">Завершено</span>
+                   <span *ngIf="interv.status == 'CANCELED'" class="badge badge-dark">Отменено</span>
                   <span *ngIf="interv.status == 'ACTIVE'" class="badge badge-danger">Новое</span>
                   <span *ngIf="interv.status == 'AWAITING'" class="badge badge-warning">Ожидает отзыв</span>
                 </span>
