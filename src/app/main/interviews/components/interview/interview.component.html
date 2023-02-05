@@ -9,28 +9,30 @@
       <small class="mb-2 text-muted">
         <span class="mr-3">{{'Автор: ' + interview.submitterName }}</span>
         <span class="mr-3" *ngIf="hasApproved">{{ 'Связаться со мной: ' + interview.contactBy }}</span>
-        <span class="mr-3">{{'Дата проведения: ' +  interview.approximateDate }}</span>
-        <span> {{ 'Я буду: ' + ( interview.type === 'CONDUCT' ? 'задавать вопросы.' : 'отвечать на вопросы.')}}</span>
+        <span class="mr-3">{{'Дата проведения: ' + interview.approximateDate }}</span>
+        <span> {{ 'Я буду: ' + (interview.type === 'CONDUCT' ? 'задавать вопросы.' : 'отвечать на вопросы.')}}</span>
         <div>
         <span class="mr-3">
-                   <span *ngIf="interview.status == 'CLOSED'" class="badge badge-secondary">Завершено</span>
-                   <span *ngIf="interview.status == 'CANCELED'" class="badge badge-dark">Отменено</span>
+                  <span *ngIf="interview.status == 'CLOSED'" class="badge badge-secondary">Завершено</span>
+                  <span *ngIf="interview.status == 'CANCELED'" class="badge badge-dark">Не проведено</span>
                   <span *ngIf="interview.status == 'ACTIVE'" class="badge badge-danger">Новое</span>
                   <span *ngIf="interview.status == 'AWAITING'" class="badge badge-warning">Ожидает отзыв</span>
-                </span>
+                        <span *ngIf="!!interview.availableUntil"
+                              class="mr-3"> Доступно до: {{interview.availableUntil}}</span>
+                  </span>
         </div>
       </small>
 
       <div *ngIf="interview.submitterId === +user?.id" class="pull-right">
-      <button (click)="cansel()" class="btn btn-outline-warning btn-sm">Отменить</button>
-      <button (click)="update()" class="btn btn-outline-success btn-sm m-1">Редактировать</button>
+        <button (click)="cansel()" class="btn btn-outline-warning btn-sm">Отменить</button>
+        <button (click)="update()" class="btn btn-outline-success btn-sm m-1">Редактировать</button>
       </div>
     </div>
   </div>
   <div class="card-body">
     <p class="card-text" [innerHTML]="interview.description"></p>
     <div *ngIf="!showInput && (user?.id != interview?.submitterId && !requestWasSend)">
-      <button (click)="joinToInterview()" class="btn btn-primary"> Принять участие </button>
+      <button (click)="joinToInterview()" class="btn btn-primary"> Принять участие</button>
     </div>
     <div *ngIf="showAlert" class="alert alert-danger mt-1" role="alert">
       {{'Необходимо оставить отзыв о проведенном '}}<a [routerLink]="'/interviews/view/' + existingId">Собеседовании</a>
@@ -42,7 +44,8 @@
              aria-describedby="emailHelp" placeholder="Способ связи">
       <button [disabled]="!contact"
               (click)="sendRequest()"
-              class=" mt-2 btn btn-primary">Отправить заявку</button>
+              class=" mt-2 btn btn-primary">Отправить заявку
+      </button>
     </div>
   </div>
   <div *ngIf="interview.wishers && interview.wishers.length > 0">
@@ -73,8 +76,10 @@
               <td *ngIf="user?.id != interview?.submitterId">
                 <small class="mb-2 text-muted">
                   <span *ngIf="!!wisher.userScore">
-                  <span class="mr-3"> Принято:{{wisher.userScore.countConduct}}, Средний балл: {{wisher.userScore.conductScore}}</span>
-                  <span class="mr-3"> Сдано:{{wisher.userScore.countPass}}, Средний балл: {{wisher.userScore.passScore}}</span>
+                  <span class="mr-3"> Принято:{{wisher.userScore.countConduct}}
+                    , Средний балл: {{wisher.userScore.conductScore}}</span>
+                  <span class="mr-3"> Сдано:{{wisher.userScore.countPass}}
+                    , Средний балл: {{wisher.userScore.passScore}}</span>
                 </span>
                 </small>
                 {{ wisher.approve ? 'Согласовано' : 'Рассматривается'}}
@@ -82,12 +87,15 @@
               <td *ngIf="user?.id == interview?.submitterId">
                 <small class="mb-2 text-muted">
                   <span *ngIf="!!wisher.userScore">
-                  <span class="mr-3"> Принято:{{wisher.userScore.countConduct}}, Средний балл: {{wisher.userScore.conductScore}}</span>
-                  <span class="mr-3"> Сдано:{{wisher.userScore.countPass}}, Средний балл: {{wisher.userScore.passScore}}</span>
+                  <span class="mr-3"> Принято:{{wisher.userScore.countConduct}}
+                    , Средний балл: {{wisher.userScore.conductScore}}</span>
+                  <span class="mr-3"> Сдано:{{wisher.userScore.countPass}}
+                    , Средний балл: {{wisher.userScore.passScore}}</span>
                 </span>
                 </small>
-                <button (click)="sendApprove(wisher)" [disabled]="wisher.approve || hasApproved" class="btn btn-primary">
-                  {{ wisher.approve ? 'Согласовано' : hasApproved ? 'Отклонено' :  'Подтвердить участие'}}</button>
+                <button (click)="sendApprove(wisher)" [disabled]="wisher.approve || hasApproved"
+                        class="btn btn-primary">
+                  {{ wisher.approve ? 'Согласовано' : hasApproved ? 'Отклонено' : 'Подтвердить участие'}}</button>
               </td>
             </tr>
           </ng-container>
@@ -102,7 +110,8 @@
         <button *ngIf="!show" (click)="showForm()" class="btn-primary btn mb-2">Оставить отзыв</button>
         <form *ngIf="show" [formGroup]="form">
           <div class="form-group">
-            <label for="exampleInputEmail1">{{ 'Оцените участника (' + (interview.submitterId.toString() === ('' + user.id) ? wisher.name : interview.submitterName) + ') от 1 до 5' }}</label>
+            <label
+              for="exampleInputEmail1">{{ 'Оцените участника (' + (interview.submitterId.toString() === ('' + user.id) ? wisher.name : interview.submitterName) + ') от 1 до 5' }}</label>
             <input formControlName="score"
                    type="number" class="form-control" id="exampleInputEmail1"
                    aria-describedby="emailHelp" placeholder="Введите оценку опоненту">
@@ -113,7 +122,8 @@
                           (outputEmitter)="setDescription($event)">
             </app-redactor>
           </div>
-          <button (click)="sendReview()" [disabled]="form.invalid" type="button" class="btn btn-primary">Сохранить</button>
+          <button (click)="sendReview()" [disabled]="form.invalid" type="button" class="btn btn-primary">Сохранить
+          </button>
         </form>
       </div>
     </div>
@@ -124,7 +134,8 @@
             <div class="card-body">
               <h5 class="card-title">Участник: {{ interview.submitterName }} </h5>
               <h5 *ngIf="interview.feedbackToSubmitter" class="card-title">Оценка:  {{ interview.submitterScore }} </h5>
-              <p *ngIf="interview.feedbackToSubmitter" class="card-text" [innerHTML]="'Комментарий: ' + interview.feedbackToSubmitter"></p>
+              <p *ngIf="interview.feedbackToSubmitter" class="card-text"
+                 [innerHTML]="'Комментарий: ' + interview.feedbackToSubmitter"></p>
               <p *ngIf="!interview.feedbackToSubmitter" class="card-text" [innerHTML]="'Ожидает отзыва.'"></p>
             </div>
           </div>
@@ -134,7 +145,8 @@
             <div class="card-body">
               <h5 class="card-title">Участник: {{ wisher.name }} </h5>
               <h5 *ngIf="interview.feedbackToWisher" class="card-title">Оценка:  {{ interview.wisherScore }}</h5>
-              <p *ngIf="interview.feedbackToWisher" class="card-text" [innerHTML]="'Комментарий: ' + interview.feedbackToWisher"></p>
+              <p *ngIf="interview.feedbackToWisher" class="card-text"
+                 [innerHTML]="'Комментарий: ' + interview.feedbackToWisher"></p>
               <p *ngIf="!interview.feedbackToWisher" class="card-text" [innerHTML]="'Ожидает отзыва.'"></p>
             </div>
           </div>

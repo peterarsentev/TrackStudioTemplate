@@ -3,23 +3,41 @@
     <div class="form-group">
       <label for="exampleInputEmail1">{{ 'Тема собеседования' }}</label>
       <input formControlName="title"
-             type="email" class="form-control" id="exampleInputEmail1"
+             type="text" class="form-control" id="exampleInputEmail1"
              aria-describedby="emailHelp" placeholder="Введите тему собеседования">
       <small id="emailHelp" class="form-text text-muted">Например, отвечу на вопросы по базовому синтаксису.</small>
+      <div *ngFor="let error of validationErrors.title">
+                            <span *ngIf="form.get('title').hasError(error.type)
+                                        && (form.get('title').dirty
+                                        || form.get('title').touched)"
+                                  class="error">{{ error.message }}</span>
+      </div>
     </div>
     <div class="form-group">
       <label for="date">{{ 'Удобное время для собеседования' }}</label>
       <input formControlName="date"
-             type="email" class="form-control" id="date"
+             type="text" class="form-control" id="date"
              aria-describedby="emailHelp" placeholder="Введите удобное время для собеседования">
       <small id="emailHelp1" class="form-text text-muted"> Например, Могу в любой день после 18:00 по Москве.</small>
+      <div *ngFor="let error of validationErrors.date">
+                            <span *ngIf="form.get('date').hasError(error.type)
+                                        && (form.get('date').dirty
+                                        || form.get('date').touched)"
+                                  class="error">{{ error.message }}</span>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="contact">{{ 'Связаться со мной по telegram' }}</label>
       <input formControlName="contactBy"
-             type="email" class="form-control" id="contact"
+             type="text" class="form-control" id="contact"
              aria-describedby="emailHelp" placeholder="Способ связи">
+      <div *ngFor="let error of validationErrors.contactBy">
+                            <span *ngIf="form.get('contactBy').hasError(error.type)
+                                        && (form.get('contactBy').dirty
+                                        || form.get('contactBy').touched)"
+                                  class="error">{{ error.message }}</span>
+      </div>
     </div>
 
     <div class="form-check">
@@ -36,13 +54,32 @@
         Буду походить собеседование (отвечать на вопросы)
       </label>
     </div>
+
+    <div class="form-group">
+      <label for="dateTo">{{ 'Дата до которой собеседование доступно' }}</label>
+      <input formControlName="availableUntil"
+             (blur)="checkDate()"
+             type="text" class="form-control" id="dateTo"
+             aria-describedby="emailHelp" placeholder="Доступно до: (в формате 31.12.2023)">
+      <div *ngIf="dateError" class="error">
+        <div>Не верная дата. Дата должна быть в формате: DD.MM.YYYY</div>
+      </div>
+      <div *ngFor="let error of validationErrors.availableUntil">
+                            <span *ngIf="form.get('availableUntil').hasError(error.type)
+                                        && (form.get('availableUntil').dirty
+                                        || form.get('availableUntil').touched) && !dateError"
+                                  class="error">{{ error.message }}</span>
+      </div>
+    </div>
+
+
     <div class="form-group">
       <app-redactor [text]="form?.get('description').value"
                     [titleLabel]="'Описание / Список вопросов'"
                     (outputEmitter)="setDescription($event)">
       </app-redactor>
     </div>
-    <button (click)="save()" [disabled]="form.invalid" type="button" class="btn btn-primary">Сохранить</button>
+    <button (click)="save()" [disabled]="form.invalid || dateError" type="button" class="btn btn-primary">Сохранить</button>
   </form>
 
 </div>

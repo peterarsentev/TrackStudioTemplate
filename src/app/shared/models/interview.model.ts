@@ -19,7 +19,8 @@ export class InterviewModel {
     public wisherScore?: number,
     public feedbackToSubmitter?: string,
     public feedbackToWisher?: string,
-    public userScore?: UserScoreModel
+    public userScore?: UserScoreModel,
+    public availableUntil?: string
 
   ) {
   }

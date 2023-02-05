@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { pluck, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavService } from '../../../../shared/services/nav.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-interviews-create-form',
@@ -17,6 +18,28 @@ export class InterviewsCreateFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   unsubscribe$: Subject<void> = new Subject();
   private interview: InterviewModel;
+  dateError = false;
+
+  validationErrors = {
+    title: [
+      { type: 'required', message: 'Введите тему собеседования'}
+    ],
+    date: [
+      { type: 'required', message: 'Введите дату собеседования'}
+    ],
+    contactBy: [
+      { type: 'required', message: 'Введите способ связи'}
+    ],
+    description: [
+      { type: 'required', message: 'Введите вопросы'}
+    ],
+    type: [
+      { type: 'required', message: 'Введите формат собеседования'}
+    ],
+    availableUntil: [
+      { type: 'required', message: 'Введите дату доступности собеседования'}
+    ],
+  };
   constructor(private fb: FormBuilder,
               private interviewsService: InterviewsService,
               private router: Router,
@@ -45,6 +68,7 @@ export class InterviewsCreateFormComponent implements OnInit, OnDestroy {
       contactBy: ['', Validators.required],
       description: ['', Validators.required],
       type: ['', Validators.required],
+      availableUntil: ['', Validators.required],
     });
   }
 
@@ -53,24 +77,24 @@ export class InterviewsCreateFormComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    if (this.form.valid) {
+    if (this.form.valid && !this.dateError) {
       const interview = { ... new InterviewModel(),
         title: this.form.get('title').value,
         approximateDate: this.form.get('date').value,
         contactBy: this.form.get('contactBy').value,
         description: this.form.get('description').value,
-        typeInterview: this.form.get('type').value
+        typeInterview: this.form.get('type').value,
+        availableUntil: this.form.get('availableUntil').value
       };
+      let ob;
       if (!!this.interview && !!this.interview.id) {
         interview.id = this.interview.id;
-        this.interviewsService.update(interview)
-          .pipe(takeUntil(this.unsubscribe$))
-          .subscribe(res => this.router.navigate(['interviews']));
+        ob = this.interviewsService.update(interview);
       } else {
-        this.interviewsService.create(interview)
-          .pipe(takeUntil(this.unsubscribe$))
-          .subscribe(res => this.router.navigate(['interviews']));
+        ob = this.interviewsService.create(interview);
       }
+      ob.pipe(takeUntil(this.unsubscribe$))
+        .subscribe(res => this.router.navigate(['interviews']));
     }
   }
 
@@ -85,5 +109,11 @@ export class InterviewsCreateFormComponent implements OnInit, OnDestroy {
     this.form.get('contactBy').setValue(this.interview.contactBy);
     this.form.get('description').setValue(this.interview.description);
     this.form.get('type').setValue(this.interview.type);
+    this.form.get('availableUntil').setValue(this.interview.availableUntil);
+  }
+
+  checkDate() {
+    const date = this.form.get('availableUntil').value;
+    this.dateError = !moment(date, 'DD.MM.YYYY').isValid();
   }
 }

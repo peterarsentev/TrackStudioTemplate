@@ -20,6 +20,7 @@ export class InterviewsService {
     params = params.append('contactBy', interview.contactBy);
     params = params.append('description', interview.description);
     params = params.append('typeInterview', interview.typeInterview);
+    params = params.append('availableUntil', interview.availableUntil);
     return this.http.post(url, params);
   }
 
@@ -98,6 +99,7 @@ export class InterviewsService {
     params = params.append('contactBy', interview.contactBy);
     params = params.append('description', interview.description);
     params = params.append('typeInterview', interview.typeInterview);
+    params = params.append('availableUntil', interview.availableUntil);
     params = params.append('id', String(interview.id));
     return this.http.post(url, params);
   }
