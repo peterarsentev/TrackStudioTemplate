@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of, Subject, throwError } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subject, throwError } from 'rxjs';
 import { catchError, map, switchMap, takeUntil } from 'rxjs/operators';
 import { TaskCodeService } from '../../shared/services/task-code.service';
 import { SolutionTaskCodeModels } from '../../shared/models/solution.task.code.models';
@@ -51,6 +51,14 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.user = res);
     this.getAllSolved();
+
+    this.router.events
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        if (res instanceof NavigationEnd) {
+          this.getAllSolved();
+        }
+      });
   }
 
   private getParamsAndSolution() {

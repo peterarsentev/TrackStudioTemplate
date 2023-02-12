@@ -32,10 +32,8 @@ export class BookMarkStarComponent implements OnInit, OnDestroy {
       if (res instanceof NavigationEnd) {
         this.url = window.location.href;
         this.checkIfAdded();
-        console.log('end', this.url);
       }
     });
-    console.log(this.url);
     this.checkIfAdded();
   }
 
