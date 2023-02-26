@@ -16,6 +16,7 @@ import { ModalService, TypeModals } from '../../../shared/modal.service';
 import { DiscussionMessageModel } from '../../../shared/models/discussionMessageModel';
 import { MessageService } from '../../../shared/services/message.service';
 import { RateModel } from '../../../shared/models/rate.model';
+import { log } from 'util';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -42,6 +43,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   rating: RateModel;
   totalSolutions = 0;
   private solutionId: number;
+  taskTime: string;
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
@@ -66,6 +68,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, taskId: this.taskId, exercise: true});
         this.getTaskById(res.id);
         this.getRate();
+        this.getTaskTime();
       });
 
     this.userService.getModel()
@@ -383,5 +386,26 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+  }
+
+  private getTaskTime() {
+      this.tasksService.getTaskTime(this.taskId)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(
+        res => {
+          if (!!res && res.second) {
+            let delta = res.second;
+            // calculate (and subtract) whole days
+            const days = Math.floor(delta / 86400);
+            delta -= days * 86400;
+            const hours = Math.floor(delta / 3600) % 24;
+            delta -= hours * 3600;
+            const minutes = Math.floor(delta / 60) % 60;
+            delta -= minutes * 60;
+            const seconds = Math.round(delta % 60);
+            this.taskTime = days + ' дней ' + hours + ' часов ' + seconds + ' сек.';
+          }
+        }
+      );
   }
 }

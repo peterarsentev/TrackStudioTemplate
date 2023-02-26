@@ -30,6 +30,7 @@
               <div>
                 <span class="font-weight-bold">{{ task?.task?.name }} {{ getSolutionId() }}
                 <button (click)="copyTitle(task?.task?.name)" class="btn btn-outline-primary btn-sm">Копировать название</button></span>
+                <button *ngIf="taskTime" class="btn btn-outline-info btn-sm ml-1 ">{{ 'Среднее время решения: ' + taskTime}}</button>
                 <span *ngIf="user?.name !== 'anonimus'" class="pull-right">
                   <i class="fa fa-comments-o mr-2"
                      onclick="window.scrollTo(0, document.body.scrollHeight);"

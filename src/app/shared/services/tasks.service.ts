@@ -553,4 +553,12 @@ export class TasksService {
     params = params.append('taskId', String(id));
     return this.http.post<{totalCount: number}>(url, params);
   }
+
+  getTaskTime(taskId) {
+    const url = this.urlJedu + 'time/task';
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', String(taskId));
+    return this.http.post<{second: number}>(url, params);
+  }
 }
