@@ -29,8 +29,11 @@
             <div class="col-sm-12">
               <div>
                 <span class="font-weight-bold">{{ task?.task?.name }} {{ getSolutionId() }}
-                <button (click)="copyTitle(task?.task?.name)" class="btn btn-outline-primary btn-sm">Копировать название</button></span>
-                <button *ngIf="taskTime" class="btn btn-outline-info btn-sm ml-1 ">{{ 'Среднее время решения: ' + taskTime}}</button>
+                  <i class="fa fa-copy ml-1"
+                     (click)="copyTitle(task?.task?.name + ' [#' + task?.task?.number + ']')"
+                     title="Копировать название"
+                     style="cursor: pointer;" aria-hidden="true"></i>
+                </span>
                 <span *ngIf="user?.name !== 'anonimus'" class="pull-right">
                   <i class="fa fa-comments-o mr-2"
                      onclick="window.scrollTo(0, document.body.scrollHeight);"
@@ -74,8 +77,9 @@
                   <span *ngIf="task.status?.id == 4"
                         class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
                   <span *ngIf="task.handler" class="mr-3 font-weight-bolder">Ответственный : {{task.handler.name }}</span>
-                  <span class="mr-3">Начало решения : {{ task.solution?.createdTime | date: 'dd.MM.yyyy HH:mm' }}</span>
-                  <span>Обновлена : {{  task.solution?.updatedTime | date: 'dd.MM.yyyy HH:mm' }}</span>
+                  <span *ngIf="task.solution" class="mr-3">Начало решения : {{ task.solution?.createdTime | date: 'dd.MM.yyyy HH:mm' }}</span>
+                  <span *ngIf="task.solution">Обновлена : {{  task.solution?.updatedTime | date: 'dd.MM.yyyy HH:mm' }}</span>
+                  <span *ngIf="taskTime">{{ 'Среднее время решения: ' + taskTime}}</span>
                 </small>
                 <!--                <div class="pull-right col-sm-2">-->
                 <!--                  <app-book-mark-star [name]="name"></app-book-mark-star>-->
@@ -90,6 +94,10 @@
       </div>
       <div class="card-footer text-muted">
         {{ task?.task?.name }} {{ getSolutionId() }}
+        <i class="fa fa-copy ml-1"
+           (click)="copyTitle(task?.task?.name + ' [#' + task?.task?.number + ']')"
+           title="Копировать название"
+           style="cursor: pointer;" aria-hidden="true"></i>
       </div>
     </div>
   </div>
