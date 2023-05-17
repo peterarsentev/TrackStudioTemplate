@@ -27,7 +27,7 @@
                 id="dropdownMenuButton2"
                 data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-          Категория
+          Блок
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
           <a *ngFor="let c of currentCategories" (click)="selectCat(c)" class="dropdown-item">{{ c.name }}</a>
