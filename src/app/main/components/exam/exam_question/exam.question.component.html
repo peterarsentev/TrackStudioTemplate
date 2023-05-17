@@ -7,14 +7,14 @@
       <div class="card-body">
         <p [innerHTML]="navQuestion?.current?.description | safeCode"></p>
         <div class="form-check" *ngFor="let qp of qopts">
-            <div class="alert border" role="alert"
-               onclick="choose(navQuestion?.current?.id, qp, $event.target)">
-              {{ qp.description }}
-            </div>
-          <!--<input class="form-check-input" type="checkbox"-->
-                 <!--[checked]="qp.checked"-->
-                 <!--(change)="choose(navQuestion?.current?.id, qp, $event.target)" [value]="qp" [id]="qp.id" />-->
-          <!--<label class="form-check-label" [for]="qp.id"  [innerHTML]="qp.description"></label>-->
+            <!--<div class="alert border" role="alert"-->
+               <!--onclick="choose(navQuestion?.current?.id, qp, $event.target)">-->
+              <!--{{ qp.description }}-->
+            <!--</div>-->
+          <input class="form-check-input" type="checkbox"
+                 [checked]="qp.checked"
+                 (change)="choose(navQuestion?.current?.id, qp, $event.target)" [value]="qp" [id]="qp.id" />
+          <label class="form-check-label" [for]="qp.id"  [innerHTML]="qp.description"></label>
         </div>
         <div>
           <div class="col text-center">
