@@ -20,7 +20,6 @@ export class InterviewsService {
     params = params.append('contactBy', interview.contactBy);
     params = params.append('description', interview.description);
     params = params.append('typeInterview', interview.typeInterview);
-    params = params.append('availableUntil', interview.availableUntil);
     return this.http.post(url, params);
   }
 
@@ -82,8 +81,8 @@ export class InterviewsService {
     return this.http.post(url, params);
   }
 
-  cansel(id: number) {
-    const url = this.url + 'interviews/cansel';
+  cancel(id: number) {
+    const url = this.url + 'interviews/cancel';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('id', String(id));
@@ -99,7 +98,6 @@ export class InterviewsService {
     params = params.append('contactBy', interview.contactBy);
     params = params.append('description', interview.description);
     params = params.append('typeInterview', interview.typeInterview);
-    params = params.append('availableUntil', interview.availableUntil);
     params = params.append('id', String(interview.id));
     return this.http.post(url, params);
   }

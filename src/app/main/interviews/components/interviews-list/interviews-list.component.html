@@ -37,8 +37,8 @@
             <small class="mb-2 text-muted">
               <span>
                 <span class="mr-3">
-                   <span *ngIf="interv.status == 'CLOSED'" class="badge badge-secondary">Завершено</span>
-                   <span *ngIf="interv.status == 'CANCELED'" class="badge badge-dark">Не проведено</span>
+                   <span *ngIf="interv.status == 'CLOSED'" class="badge badge-success">Завершено</span>
+                   <span *ngIf="interv.status == 'CANCELED'" class="badge badge-light">Не проведено</span>
                   <span *ngIf="interv.status == 'ACTIVE'" class="badge badge-danger">Новое</span>
                   <span *ngIf="interv.status == 'AWAITING'" class="badge badge-warning">Ожидает отзыв</span>
                 </span>
@@ -55,7 +55,6 @@
               <span *ngIf="!!interv.userScore">
                 <span class="mr-3">Принято: {{interv.userScore.countConduct}}, Средний балл: {{interv.userScore.conductScore}}</span>
                 <span class="mr-3">Сдано: {{interv.userScore.countPass}}, Средний балл: {{interv.userScore.passScore}}</span>
-                <span *ngIf="!!interv.availableUntil" class="mr-3">Доступно до: {{interv.availableUntil}}</span>
               </span>
             </small>
           </td>

@@ -145,8 +145,8 @@ export class InterviewComponent implements OnInit, OnDestroy {
     this.show = !this.show;
   }
 
-  cansel() {
-    this.interviewsService.cansel(this.interview.id)
+  cancel() {
+    this.interviewsService.cancel(this.interview.id)
       .subscribe(() => {
         this.getById();
       });

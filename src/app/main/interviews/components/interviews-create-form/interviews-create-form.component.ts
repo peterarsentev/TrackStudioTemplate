@@ -6,7 +6,6 @@ import { Subject } from 'rxjs';
 import { pluck, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavService } from '../../../../shared/services/nav.service';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-interviews-create-form',
@@ -35,9 +34,6 @@ export class InterviewsCreateFormComponent implements OnInit, OnDestroy {
     ],
     type: [
       { type: 'required', message: 'Введите формат собеседования'}
-    ],
-    availableUntil: [
-      { type: 'required', message: 'Введите дату доступности собеседования'}
     ],
   };
   constructor(private fb: FormBuilder,
@@ -68,7 +64,6 @@ export class InterviewsCreateFormComponent implements OnInit, OnDestroy {
       contactBy: ['', Validators.required],
       description: ['', Validators.required],
       type: ['', Validators.required],
-      availableUntil: ['', Validators.required],
     });
   }
 
@@ -84,7 +79,6 @@ export class InterviewsCreateFormComponent implements OnInit, OnDestroy {
         contactBy: this.form.get('contactBy').value,
         description: this.form.get('description').value,
         typeInterview: this.form.get('type').value,
-        availableUntil: this.form.get('availableUntil').value
       };
       let ob;
       if (!!this.interview && !!this.interview.id) {
@@ -109,11 +103,5 @@ export class InterviewsCreateFormComponent implements OnInit, OnDestroy {
     this.form.get('contactBy').setValue(this.interview.contactBy);
     this.form.get('description').setValue(this.interview.description);
     this.form.get('type').setValue(this.interview.type);
-    this.form.get('availableUntil').setValue(this.interview.availableUntil);
-  }
-
-  checkDate() {
-    const date = this.form.get('availableUntil').value;
-    this.dateError = !moment(date, 'DD.MM.YYYY').isValid();
   }
 }

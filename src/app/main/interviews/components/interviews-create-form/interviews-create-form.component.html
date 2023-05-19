@@ -56,24 +56,6 @@
     </div>
 
     <div class="form-group">
-      <label for="dateTo">{{ 'Дата до которой собеседование доступно' }}</label>
-      <input formControlName="availableUntil"
-             (blur)="checkDate()"
-             type="text" class="form-control" id="dateTo"
-             aria-describedby="emailHelp" placeholder="Доступно до: (в формате 31.12.2023)">
-      <div *ngIf="dateError" class="error">
-        <div>Не верная дата. Дата должна быть в формате: DD.MM.YYYY</div>
-      </div>
-      <div *ngFor="let error of validationErrors.availableUntil">
-                            <span *ngIf="form.get('availableUntil').hasError(error.type)
-                                        && (form.get('availableUntil').dirty
-                                        || form.get('availableUntil').touched) && !dateError"
-                                  class="error">{{ error.message }}</span>
-      </div>
-    </div>
-
-
-    <div class="form-group">
       <app-redactor [text]="form?.get('description').value"
                     [titleLabel]="'Описание / Список вопросов'"
                     (outputEmitter)="setDescription($event)">
