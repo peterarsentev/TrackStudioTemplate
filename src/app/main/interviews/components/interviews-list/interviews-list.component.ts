@@ -49,18 +49,7 @@ export class InterviewsListComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  checkAndGo() {
-    this.interviewsService.check()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(res => {
-        if (!res.canCreate) {
-          this.showAlert = true;
-          this.existingId = res.id;
-        } else {
-          this.showAlert = false;
-          this.existingId = undefined;
-          this.router.navigate(['interviews', 'new']);
-        }
-      });
+  newInterviewForm() {
+    this.router.navigate(['interviews', 'new']);
   }
 }

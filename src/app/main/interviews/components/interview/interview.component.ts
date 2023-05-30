@@ -72,16 +72,7 @@ export class InterviewComponent implements OnInit, OnDestroy {
   }
 
   joinToInterview() {
-    this.interviewsService.check()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(res => {
-        if (!res.canCreate) {
-          this.showAlert = true;
-          this.existingId = res.id;
-        } else {
-          this.showInput = true;
-        }
-      });
+    this.showInput = true;
   }
 
   sendRequest() {

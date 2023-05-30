@@ -54,7 +54,8 @@
           <thead>
           <tr>
             <th scope="col">Участник</th>
-            <th scope="col">Состояние заявки</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Действия</th>
           </tr>
           </thead>
           <tbody>
@@ -71,7 +72,8 @@
                   </span>
                 </p>
               </td>
-              <td *ngIf="user?.id != interview?.submitterId">
+              <td>
+                <div>{{ wisher.approve ? 'Согласовано' : 'Рассматривается'}}</div>
                 <small class="mb-2 text-muted">
                   <span *ngIf="!!wisher.userScore">
                   <span class="mr-3"> Принято:{{wisher.userScore.countConduct}}
@@ -80,18 +82,9 @@
                     , Средний балл: {{wisher.userScore.passScore}}</span>
                 </span>
                 </small>
-                {{ wisher.approve ? 'Согласовано' : 'Рассматривается'}}
               </td>
-              <td *ngIf="user?.id == interview?.submitterId">
-                <small class="mb-2 text-muted">
-                  <span *ngIf="!!wisher.userScore">
-                  <span class="mr-3"> Принято:{{wisher.userScore.countConduct}}
-                    , Средний балл: {{wisher.userScore.conductScore}}</span>
-                  <span class="mr-3"> Сдано:{{wisher.userScore.countPass}}
-                    , Средний балл: {{wisher.userScore.passScore}}</span>
-                </span>
-                </small>
-                <button (click)="sendApprove(wisher)" [disabled]="wisher.approve || hasApproved"
+              <td>
+                <button *ngIf="user?.id == interview?.submitterId" (click)="sendApprove(wisher)" [disabled]="wisher.approve || hasApproved"
                         class="btn btn-primary">
                   {{ wisher.approve ? 'Согласовано' : hasApproved ? 'Отклонено' : 'Подтвердить участие'}}</button>
               </td>
