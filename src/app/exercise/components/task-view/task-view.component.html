@@ -13,12 +13,12 @@
       <button type="button" class="m btn btn-light btn-sm pull-right"
               (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
       <button *ngIf="task.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-              (click)="goBackToList(task.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
+              (click)="goBackToList(task.nextId)">Следующий<i class="fas fa-angle-right pl-1"></i></button>
       <button *ngIf="task.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-              (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
+              (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущий</button>
       <button [disabled]="task.status?.id != 3" class="btn btn-success btn-sm ml-1 pull-right"
               (click)="goToSolutions()"
-              title="Решения других учениоков станут доступны после выполнения урока">Было решено: {{totalSolutions}}</button>
+              title="Решения других учеников станут доступны после выполнения урока">Было решено: {{totalSolutions}}</button>
     </span>
   </div>
   <div class="row pb-3">
@@ -30,7 +30,7 @@
               <div>
                 <span class="font-weight-bold">{{ task?.task?.name }} {{ getSolutionId() }}
                   <i class="fa fa-copy ml-1"
-                     (click)="copyTitle(task?.task?.name + ' [#' + task?.task?.number + ']')"
+                     (click)="copyTitle(task?.task?.name + ' [#' + task?.task?.number + ' ' + '#' + getSolutionId()+']')"
                      title="Копировать название"
                      style="cursor: pointer;" aria-hidden="true"></i>
                 </span>
@@ -73,7 +73,7 @@
                   <span *ngIf="task.status?.id == 3"
                         class="badge badge-success mr-3">{{ task.status?.statusName }}</span>
                   <span *ngIf="task.status?.id == 2"
-                        class="badge badge-dark mr-3">{{ task.status?.statusName }}</span>
+                        class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
                   <span *ngIf="task.status?.id == 4"
                         class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
                   <span *ngIf="task.handler" class="mr-3 font-weight-bolder">Ответственный : {{task.handler.name }}</span>
@@ -95,7 +95,7 @@
       <div class="card-footer text-muted">
         {{ task?.task?.name }} {{ getSolutionId() }}
         <i class="fa fa-copy ml-1"
-           (click)="copyTitle(task?.task?.name + ' [#' + task?.task?.number + ']')"
+           (click)="copyTitle(task?.task?.name + ' [#' + task?.task?.number + ' ' + getSolutionId() + ']')"
            title="Копировать название"
            style="cursor: pointer;" aria-hidden="true"></i>
       </div>
@@ -157,7 +157,7 @@
               (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
       <button [disabled]="task.status?.id != 3" class="btn btn-success btn-sm ml-1 pull-right"
               (click)="goToSolutions()"
-              title="Решения других учениоков станут доступны после выполнения урока">Решения</button>
+              title="Решения других учеников станут доступны после выполнения урока">Решения</button>
     </span>
   </div>
   <div  id="comment" class="row comment">

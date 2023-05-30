@@ -3,7 +3,7 @@
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">{{ 'Задания' }} : {{tasks.length}}</th>
+        <th scope="col">{{ 'Уроков' }} : {{tasks.length}}</th>
         <th scope="col"><app-book-mark-star [name]="name"></app-book-mark-star></th>
       </tr>
       </thead>
@@ -25,7 +25,7 @@
               <span *ngIf="task.status?.id == 3"
                     class="badge badge-success mr-3">{{ task.status?.statusName }}</span>
               <span *ngIf="task.status?.id == 2"
-                    class="badge badge-dark mr-3">{{ task.status?.statusName }}</span>
+                    class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
               <span *ngIf="task.status?.id == 4"
                     class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
               <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>
