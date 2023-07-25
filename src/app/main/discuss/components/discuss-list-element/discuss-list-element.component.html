@@ -71,6 +71,21 @@
       </div>
     </div>
   </div>
+  <div class="row mt-1" >
+     <span class="w-50 pull-left">
+         <!--<button class="m btn btn-info btn-sm">-->
+            <!--{{'Обсудить'}}-->
+          <!--</button>-->
+        </span>
+        <span class="w-50 pull-right">
+          <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+                  (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
+          <button *ngIf="discuss.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+                  (click)="goBackToList(discuss.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
+          <button *ngIf="discuss.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+                  (click)="goBackToList(discuss.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
+        </span>
+  </div>
   <app-discussion-block [discussions]="discussions"
                         [user]="user"
                         (addResponse)="addNewResponse($event)"
@@ -78,5 +93,15 @@
                         (deleteEmitter)="deleteDiscussion($event)"
                         (closeEmitter)="closeDiscussion($event)"
   ></app-discussion-block>
+  <div class="row">
+        <span class="w-100 pull-right mb-1">
+          <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+                  (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
+          <button *ngIf="discuss.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+                  (click)="goBackToList(discuss.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
+          <button *ngIf="discuss.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+                  (click)="goBackToList(discuss.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
+        </span>
+  </div>
 </div>
 
