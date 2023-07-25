@@ -49,6 +49,7 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
 
   showDiscussionForm() {
     this.showDiscussion = !this.showDiscussion;
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
   closeDiscussionForm(event: any) {
@@ -57,7 +58,7 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
   }
 
   deleteDiscussion(discussion: DiscussionMessageModel) {
-     this.deleteEmitter.emit(discussion);
+    this.deleteEmitter.emit(discussion);
   }
 
   update(event: any) {

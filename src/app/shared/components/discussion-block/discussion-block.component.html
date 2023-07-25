@@ -11,11 +11,16 @@
           '          полезными ссылками, рекомендациями по решению. Не скидывайте решения целиком!'}}
         </small>
       </div>
-      <div *ngIf="inTask" class="text-center">
+      <div *ngIf="inTask">
         <button (click)="show()" class="mt-2 m btn btn-info btn-sm">
           <i class="fa fa-download mr-2" aria-hidden="true"></i>
           Загрузить обсуждения: {{discussions.length}}
         </button>
+          <button class="mt-2 m btn btn-info btn-sm ml-2"
+                  *ngIf="needToShow && !!user && user?.login !== 'anonymous' && canResponse"
+                  (click)="showDiscussionForm()">
+            {{'Обсудить'}}
+          </button>
       </div>
     </div>
     <div *ngIf="needToShow" class="card-body">
