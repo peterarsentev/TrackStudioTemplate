@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
 import { catchError, map, switchMap, takeUntil } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { UserService } from '../../shared/services/user.service';
 import { UserModels } from '../../shared/models/user.models';
 import { MessageService } from '../../shared/services/message.service';
 import { DiscussionMessageModel } from '../../shared/models/discussionMessageModel';
+import { DiscussionBlockComponent } from '../../shared/components/discussion-block/discussion-block.component';
 
 @Component({
   selector: 'app-task-code-solution',
@@ -34,6 +35,8 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   private topicId: string;
   user: UserModels;
   countSolvedTasks: number;
+  @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
+  showButtonBottom = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -229,5 +232,13 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
       .pipe(switchMap(() =>     this.messageService.getDiscussions(undefined, +this.taskId)),
         takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.discussions = res);
+  }
+
+  showDiscussionForm() {
+    this.discussComponent.showDiscussionForm();
+  }
+
+  showButton() {
+    this.showButtonBottom = true;
   }
 }

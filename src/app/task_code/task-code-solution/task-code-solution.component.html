@@ -18,4 +18,10 @@
                         (closeEmitter)="closeDiscussion($event)"
                         (deleteEmitter)="deleteDiscussion($event)"
   ></app-discussion-block>
+  <div class="row mt-2">
+        <span  class="w-100 pull-right mb-1">
+                    <button *ngIf="!!user && user?.login !== 'anonymous'" class="m btn btn-info btn-sm"
+                            (click)="showDiscussionForm()">{{'Обсудить'}}</button>
+        </span>
+  </div>
 </div>

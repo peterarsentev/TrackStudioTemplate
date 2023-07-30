@@ -22,6 +22,7 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
   @Output() deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateEmitter: EventEmitter<any> = new EventEmitter<any>();
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  @Output()showButton: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() needToShow = false;
   showDiscussion = false;
   @Input() inTask = true;
@@ -49,7 +50,9 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
 
   showDiscussionForm() {
     this.showDiscussion = !this.showDiscussion;
-    window.scrollTo(0, document.body.scrollHeight);
+    setTimeout(() => {
+      window.scrollTo(0, document.body.scrollHeight);
+    }, 0);
   }
 
   closeDiscussionForm(event: any) {
@@ -68,6 +71,7 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
 
   show() {
     this.needToShow = !this.needToShow;
+    this.showButton.emit(true);
   }
 
   ngOnDestroy(): void {

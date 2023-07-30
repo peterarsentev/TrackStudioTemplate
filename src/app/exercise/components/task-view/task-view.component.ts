@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskTopicModel } from '../../../shared/models/task.topic.model';
@@ -17,6 +17,7 @@ import { DiscussionMessageModel } from '../../../shared/models/discussionMessage
 import { MessageService } from '../../../shared/services/message.service';
 import { RateModel } from '../../../shared/models/rate.model';
 import { log } from 'util';
+import { DiscussionBlockComponent } from '../../../shared/components/discussion-block/discussion-block.component';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -44,6 +45,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   totalSolutions = 0;
   private solutionId: number;
   taskTime: string;
+  showButtonBottom = false;
+  @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
@@ -407,5 +410,13 @@ export class TaskViewComponent implements OnInit, OnDestroy {
           }
         }
       );
+  }
+
+  showButton() {
+    this.showButtonBottom = true;
+  }
+
+  showDiscussionForm() {
+    this.discussComponent.showDiscussionForm();
   }
 }

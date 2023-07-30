@@ -194,5 +194,12 @@
                         (closeEmitter)="closeDiscussion($event)"
                         (updateEmitter)="updateDiscussion($event)"
                         (addResponse)="addResponse($event)"
+                        (showButton)="showButton()"
   ></app-discussion-block>
+  <div *ngIf="showButtonBottom" class="row">
+        <span  class="w-100 pull-right mb-1">
+                    <button *ngIf="!!user && user?.login !== 'anonymous'" class="m btn btn-info btn-sm"
+                            (click)="showDiscussionForm()">{{'Обсудить'}}</button>
+        </span>
+  </div>
 </div>

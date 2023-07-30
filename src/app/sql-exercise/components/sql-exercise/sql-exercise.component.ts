@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SqlSolutionService} from '../../../shared/services/sql-solution.service';
 import {SqlExercise, SqlResult} from '../../../shared/models/sql-exercise.model';
@@ -13,6 +13,7 @@ import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {UserService} from '../../../shared/services/user.service';
 import {DiscussionMessageModel} from '../../../shared/models/discussionMessageModel';
+import { DiscussionBlockComponent } from '../../../shared/components/discussion-block/discussion-block.component';
 
 @Component({
   selector: 'app-sql-exercise',
@@ -20,6 +21,8 @@ import {DiscussionMessageModel} from '../../../shared/models/discussionMessageMo
 })
 export class SqlExerciseComponent implements OnInit, OnDestroy {
 
+  @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
+  showButtonBottom = false;
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   exercise: SqlExercise = new SqlExercise(
     -1, '', '', -1, '', '', '', -1, ''
@@ -178,5 +181,12 @@ export class SqlExerciseComponent implements OnInit, OnDestroy {
           this.getDiscussions();
         });
     }
+  }
+  showDiscussionForm() {
+    this.discussComponent.showDiscussionForm();
+  }
+
+  showButton() {
+    this.showButtonBottom = true;
   }
 }

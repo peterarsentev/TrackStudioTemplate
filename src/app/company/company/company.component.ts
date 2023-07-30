@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { pluck, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -7,6 +7,7 @@ import { DiscussionMessageModel } from '../../shared/models/discussionMessageMod
 import { UserService } from '../../shared/services/user.service';
 import { UserModels } from '../../shared/models/user.models';
 import { CompanyService } from '../companyService';
+import { DiscussionBlockComponent } from '../../shared/components/discussion-block/discussion-block.component';
 
 @Component({
   selector: 'app-company',
@@ -15,6 +16,8 @@ import { CompanyService } from '../companyService';
 })
 export class CompanyComponent implements OnInit, OnDestroy {
 
+  @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
+  showButtonBottom = false;
   private unsubscribe$ = new Subject();
   company: CompanyModel;
   discussions: DiscussionMessageModel[] = [];
@@ -80,4 +83,13 @@ export class CompanyComponent implements OnInit, OnDestroy {
         });
      }
   }
+
+  showDiscussionForm() {
+    this.discussComponent.showDiscussionForm();
+  }
+
+  showButton() {
+    this.showButtonBottom = true;
+  }
+
 }

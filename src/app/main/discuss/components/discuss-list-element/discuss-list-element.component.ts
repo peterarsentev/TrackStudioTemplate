@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, OnDestroy, OnInit} from '@angular/core';
+import { AfterViewChecked, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { pluck, switchMap, takeUntil } from 'rxjs/operators';
 import { DiscussModel } from '../../../../shared/models/discuss.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { UserService } from '../../../../shared/services/user.service';
 import { UserModels } from '../../../../shared/models/user.models';
 import { MessageService } from '../../../../shared/services/message.service';
 import { NavService } from '../../../../shared/services/nav.service';
+import { DiscussionBlockComponent } from '../../../../shared/components/discussion-block/discussion-block.component';
 
 @Component({
   selector: 'app-discuss-list-element',
@@ -32,6 +33,7 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
     readOnly: true,
     mode: 'text/x-pgsql'
   };
+  @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
   constructor(private router: Router,
               private discussService: DiscussService,
               private userService: UserService,
@@ -137,5 +139,9 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
       .pipe(switchMap(() =>     this.messageService.getDiscuss(this.id)),
         takeUntil(this.unsubscribe$))
       .subscribe(res => this.discussions = res);
+  }
+
+  showDiscussionForm() {
+    this.discussComponent.showDiscussionForm();
   }
 }
