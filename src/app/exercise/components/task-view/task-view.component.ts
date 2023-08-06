@@ -377,7 +377,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  copyTitle(title: string) {
+  copyTitle() {
+    const title = this.task.task.name + '' +  this.getSolutionId();
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
