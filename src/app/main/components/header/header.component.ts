@@ -57,7 +57,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.bookmarksService.bookmarkModel$
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        console.log('this.bookmarksService.bookmarkModel$')
         if (res) {
           this.getBookMarks();
         }
@@ -181,6 +180,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(res => this.message = res);
     if (!!this.user) {
       this.getNotifications(this.user.id);
+      this.getCountOfDiscuss();
+      this.getCountOfInterviewNotifications();
     }
   }
 
