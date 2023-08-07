@@ -1,8 +1,8 @@
 <div>
-  Выполнено {{solvedTasksCount}} из {{allTasksCount}}
+  <span>Выполнено {{solvedTasksCount}} из {{allTasksCount}}</span>
 </div>
 <div class="progress">
-  <div class="progress-bar bg-info"
+  <div class="progress-bar {{ solvedTasksCount !== allTasksCount ? 'bg-info' : 'bg-success'}}"
        role="progressbar"
        [ngStyle]="{ width: barValue +'%'}"
        aria-valuemin="0"
