@@ -28,6 +28,7 @@ import { CategoryModels } from '../models/category.models';
 import { TopicFilterModels } from '../models/topicFilterModels';
 import { TopicFilter } from '../models/topickFilter';
 import { MessageModel } from '../models/message.model';
+import { NextNavModels } from '../models/next.nav.models';
 
 
 @Injectable({providedIn: 'root'})
@@ -560,5 +561,12 @@ export class TasksService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', String(taskId));
     return this.http.post<{second: number}>(url, params);
+  }
+
+  getNextAndPreviousTopic(topicId: number): Observable<NextNavModels> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('topicId', String(topicId));
+    return this.http.post<NextNavModels>(this.urlJedu + 'task/nextAndPrevious', params);
   }
 }

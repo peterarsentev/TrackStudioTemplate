@@ -247,7 +247,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       this.getButtons(this.task.id);
     }
     if (button.saveAndNext) {
-      this.goTo(this.previousAndNext.next);
+      this.goTo(this.previousAndNext.nextId);
     }
   }
 

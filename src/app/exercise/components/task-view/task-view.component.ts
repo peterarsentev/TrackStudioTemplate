@@ -16,7 +16,6 @@ import { ModalService, TypeModals } from '../../../shared/modal.service';
 import { DiscussionMessageModel } from '../../../shared/models/discussionMessageModel';
 import { MessageService } from '../../../shared/services/message.service';
 import { RateModel } from '../../../shared/models/rate.model';
-import { log } from 'util';
 import { DiscussionBlockComponent } from '../../../shared/components/discussion-block/discussion-block.component';
 
 declare var CodeMirror: any;

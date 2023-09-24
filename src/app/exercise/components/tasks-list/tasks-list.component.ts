@@ -7,6 +7,9 @@ import { Subject } from 'rxjs';
 import { NavService } from '../../../shared/services/nav.service';
 import { NavNode } from '../../../shared/models/nav.node';
 import { TopicModels } from '../../../shared/models/topic.models';
+import { log } from 'util';
+import { PreviousNextNavModels } from '../../../shared/models/previous.next.nav.models';
+import { NextNavModels } from '../../../shared/models/next.nav.models';
 
 @Component({
   selector: 'app-tasks-list',
@@ -20,6 +23,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
   tasks: TaskTopicModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   topic: TopicModels;
+  task: NextNavModels = {};
 
   constructor(private tasksService: TasksService,
               private router: Router,
@@ -34,6 +38,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
         this.topicId = res.topicId;
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, exercise: true});
         this.getTopic();
+        this.getNextOrPrevious(this.topicId);
       });
     this.route.data
       .pipe(pluck('data'),
@@ -71,5 +76,20 @@ export class TasksListComponent implements OnInit, OnDestroy {
           this.name = this.topic.name;
         });
     }
+  }
+
+  goBackToList(topicId?: number) {
+    if (!topicId || topicId === -1) {
+      this.router.navigate(['exercise']).then(() => window.scrollTo(0, 0));
+    } else {
+      this.router.navigate(['exercise', `${topicId}`]).then(() => window.scrollTo(0, 0));
+    }
+  }
+
+  private getNextOrPrevious(topicId: number) {
+    this.tasksService.getNextAndPreviousTopic(topicId)
+      .subscribe((res: NextNavModels) => {
+        this.task = res;
+      });
   }
 }

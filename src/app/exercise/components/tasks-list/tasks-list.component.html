@@ -1,4 +1,16 @@
 <div class="container-fluid">
+  <div class="row pb-2">
+    <span class="w-50">
+    </span>
+    <span class="w-50 pull-right">
+      <button type="button" class="m btn btn-light btn-sm pull-right"
+              (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
+      <button *ngIf="task.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+              (click)="goBackToList(task.nextId)">Следующий<i class="fas fa-angle-right pl-1"></i></button>
+      <button *ngIf="task.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
+              (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущий</button>
+    </span>
+  </div>
   <div class="row">
     <table class="table">
       <thead>
