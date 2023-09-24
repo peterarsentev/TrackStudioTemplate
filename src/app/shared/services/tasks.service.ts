@@ -29,6 +29,7 @@ import { TopicFilterModels } from '../models/topicFilterModels';
 import { TopicFilter } from '../models/topickFilter';
 import { MessageModel } from '../models/message.model';
 import { NextNavModels } from '../models/next.nav.models';
+import { PageModel } from '../models/page.model';
 
 
 @Injectable({providedIn: 'root'})
@@ -377,6 +378,14 @@ export class TasksService {
           return EMPTY;
         })
       );
+  }
+
+  getTasksByUpdate(page: number): Observable<PageModel<TaskTopicModel[]>> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    const url = this.urlJedu + `task/by_update_date`;
+    params = params.append('page', String(page));
+    return this.http.post<PageModel<TaskTopicModel[]>>(url, params);
   }
 
   getTaskById(id: string): Observable<TaskTopicModel> {

@@ -20,6 +20,7 @@ export class NavNode {
     public exams?: boolean,
     public interview?: boolean,
     public rating?: boolean,
+    public updates?: boolean,
   ) {
   }
 }

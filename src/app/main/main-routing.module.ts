@@ -98,6 +98,11 @@ const routes: Routes = [
         loadChildren: () => import('../main/interviews/interviews.module')
           .then(mod => mod.InterviewsModule)
       },
+      {
+        path: 'updates',
+        loadChildren: () => import('../main/updates/updates.module')
+          .then(mod => mod.UpdatesModule)
+      },
     ]
   },
   {path: 'login', component: LoginComponent},

@@ -20,13 +20,15 @@ class TaskModel {
     public taskId?: number,
     public name?: string,
     public topicId?: number,
+    public topicName?: string,
     public number?: string,
     public description?: string,
     public taskName?: string,
     public taskNumber?: number,
     public level?: LevelModels,
     public category?: CategoryModels,
-    public topic?: TopicModels
+    public topic?: TopicModels,
+    public updated?: number
   ) {
   }
 }

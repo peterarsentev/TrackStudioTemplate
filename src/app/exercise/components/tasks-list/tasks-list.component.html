@@ -2,7 +2,7 @@
   <div class="row pb-2">
     <span class="w-50">
     </span>
-    <span class="w-50 pull-right">
+    <span *ngIf="!isSearch" class="w-50 pull-right">
       <button type="button" class="m btn btn-light btn-sm pull-right"
               (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
       <button *ngIf="task.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
@@ -22,6 +22,22 @@
       <tbody>
       <tr *ngFor="let task of tasks; let idx = index">
         <td>
+          <div class="row">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb bg-white">
+                <li class="breadcrumb-item small ref-link">
+                  <a (click)="goToMain()">{{ 'Job4j' }}</a>
+                </li>
+                <li class="breadcrumb-item small ref-link">
+                  <a (click)="goTo(task)">{{ task.task.topicName }}</a>
+                </li>
+                <li class="breadcrumb-item small"
+                    [ngClass]="{'ref-link': false}">
+                  <a>{{ task.task.name }}</a>
+                </li>
+              </ol>
+            </nav>
+          </div>
           <div>
             <i class="fas fa-tasks pr-3"></i>
             <a style="text-decoration: none;" [routerLink]="task.solution

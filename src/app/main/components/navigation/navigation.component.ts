@@ -46,6 +46,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
           this.topicId = res.topicId ? '' + res.topicId : undefined;
           this.taskCodeId = res.taskId ? '' + res.taskId : undefined;
           if (this.router.url !== '/login') {
+            if (res.updates) {
+              this.getNavsForUpdates(res);
+              return;
+            }
             if (res.exercise) {
               this.getNavsForTasks(res);
               return;
@@ -264,5 +268,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
     } else {
       this.solutions = navs;
     }
+  }
+
+  private getNavsForUpdates(res: NavNode) {
+    const navs = [{name: 'Job4j', url: '/', interview: true},
+      { name: 'Обновления', url: '/updates', interview: true}];
+    this.solutions = navs;
   }
 }

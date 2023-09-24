@@ -7,8 +7,6 @@ import { Subject } from 'rxjs';
 import { NavService } from '../../../shared/services/nav.service';
 import { NavNode } from '../../../shared/models/nav.node';
 import { TopicModels } from '../../../shared/models/topic.models';
-import { log } from 'util';
-import { PreviousNextNavModels } from '../../../shared/models/previous.next.nav.models';
 import { NextNavModels } from '../../../shared/models/next.nav.models';
 
 @Component({
@@ -24,6 +22,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   topic: TopicModels;
   task: NextNavModels = {};
+  isSearch: boolean;
 
   constructor(private tasksService: TasksService,
               private router: Router,
@@ -38,6 +37,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
         this.topicId = res.topicId;
         this.navService.setUpModel({...new NavNode(), topicId: this.topicId, exercise: true});
         this.getTopic();
+        this.isSearch = this.router.url.includes('/search/');
         this.getNextOrPrevious(this.topicId);
       });
     this.route.data
@@ -45,6 +45,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
         takeUntil(this.ngUnsubscribe$)
       ).subscribe((res: TaskTopicModel[]) => {
         this.tasks = res;
+        this.isSearch = this.router.url.includes('/search/');
         window.scrollTo(0, 0);
     });
 
@@ -87,9 +88,19 @@ export class TasksListComponent implements OnInit, OnDestroy {
   }
 
   private getNextOrPrevious(topicId: number) {
-    this.tasksService.getNextAndPreviousTopic(topicId)
-      .subscribe((res: NextNavModels) => {
-        this.task = res;
-      });
+    if (!this.isSearch) {
+      this.tasksService.getNextAndPreviousTopic(topicId)
+        .subscribe((res: NextNavModels) => {
+          this.task = res;
+        });
+    }
+  }
+
+  goToMain() {
+    this.router.navigate(['/']);
+  }
+
+  goTo(task: TaskTopicModel) {
+    this.router.navigate(['/exercise', task.task.topicId]);
   }
 }
