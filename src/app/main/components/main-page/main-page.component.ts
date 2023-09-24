@@ -66,31 +66,32 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    if (this.router.url.includes('user')) {
-      const routeParams = this.route.snapshot.paramMap;
-      this.userId = Number(routeParams.get('id'));
-      this.userService.getById(this.userId)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe((res: any) => {
-          this.login = res.user.name;
-          this.navService.setUpModel({name: this.login, url: '/user/' + this.userId, rating: true});
-          this.showNews = false;
-        });
-      this.getCommentsByUserId(this.userId);
-    }
-    this.getCountAllAndSolvedTasks(this.userId);
-    // this.getTotalAndSolvedTasks();
-    this.getProvenTasks(this.userId);
-    // this.getNewTasks(userId);
-    this.getSolvedAndAllExerciseCount(this.userId);
-    this.getLevels(this.userId);
-    this.getSolvedTasks(this.userId);
-    this.getUserActivity(this.userId);
-    this.getUserSolvedActivity(this.userId);
-    this.userService.getModel()
+    this.route.params
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => this.user = res);
+      .subscribe(param => {
+        if (this.router.url.includes('user')) {
+          const routeParams = this.route.snapshot.paramMap;
+          this.userId = Number(routeParams.get('id'));
+          this.userService.getById(this.userId)
+            .pipe(takeUntil(this.ngUnsubscribe$))
+            .subscribe((res: any) => {
+              this.login = res.user.name;
+              this.navService.setUpModel({name: this.login, url: '/user/' + this.userId, rating: true});
+              this.showNews = false;
+            });
+          this.getCommentsByUserId(this.userId);
+        }
+        this.getCountAllAndSolvedTasks(this.userId);
+        this.getProvenTasks(this.userId);
+        this.getSolvedAndAllExerciseCount(this.userId);
+        this.getLevels(this.userId);
+        this.getSolvedTasks(this.userId);
+        this.getUserActivity(this.userId);
+        this.getUserSolvedActivity(this.userId);
+        this.userService.getModel()
+          .pipe(takeUntil(this.ngUnsubscribe$))
+          .subscribe(res => this.user = res);
+      });
   }
 
   getCommentsByUserId(userid: number) {

@@ -464,7 +464,7 @@ export class TasksService {
   getSolvedTasks(userid?: number): Observable<TaskTopicModel[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
-    params = userid ? params.append('userid', String(userid)) : params;
+    params = userid ? params.append('userId', String(userid)) : params;
     const url = this.urlJedu + `task/solved`;
     return this.http.post<TaskTopicModel[]>(url, params);
   }

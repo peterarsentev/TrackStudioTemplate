@@ -16,7 +16,7 @@ export class ChartService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     const sessionId = localStorage.getItem('sessionId');
     params = params.append('sessionId', sessionId);
-    params = userid ?  params.append('userid', String(userid)) : params;
+    params = userid ?  params.append('userId', String(userid)) : params;
     return this.http.post<UserActivityModel[]>(this.urlJedu + 'activity/userActivity', params);
   }
 
@@ -24,7 +24,7 @@ export class ChartService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     const sessionId = localStorage.getItem('sessionId');
     params = params.append('sessionId', sessionId);
-    params = userid ?  params.append('userid', String(userid)) : params;
+    params = userid ?  params.append('userId', String(userid)) : params;
     return this.http.post<UserActivityModel[]>(this.urlJedu + 'activity/userSolvedActivity', params);
   }
 }
