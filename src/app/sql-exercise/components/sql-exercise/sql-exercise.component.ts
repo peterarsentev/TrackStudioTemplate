@@ -66,6 +66,8 @@ export class SqlExerciseComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.alertService.setUpMessage('', null);
     this.activatedRoute.params.subscribe((params) => {
+      this.alertService.setUpMessage('', null);
+      this.solutionResult = new SqlResult(false, '');
       this.userService.getModel()
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(res => this.user = res);
