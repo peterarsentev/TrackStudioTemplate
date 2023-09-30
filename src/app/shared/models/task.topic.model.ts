@@ -32,7 +32,8 @@ class TaskModel {
     public level?: LevelModels,
     public category?: CategoryModels,
     public topic?: TopicModels,
-    public updated?: number
+    public updated?: number,
+    public readTime?: number
   ) {
   }
 }
