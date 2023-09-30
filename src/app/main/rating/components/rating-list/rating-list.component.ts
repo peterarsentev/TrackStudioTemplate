@@ -17,24 +17,27 @@ export class RatingListComponent implements OnInit, OnDestroy{
 
   page = 0;
   paginationAllowed = true;
-  scrollDistance = 2;
+  scrollDistance = 5;
   throttle = 300;
   unsubscribe$: Subject<void> = new Subject();
   ratings: RatingModel[];
   private hasNext: boolean;
   user: UserModels;
+  private ids: number[] = [];
 
   constructor(private route: ActivatedRoute,
               private userStore: UserService,
               private ratingService: RatingService) { }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.route.data
       .pipe(
         pluck('data'),
         takeUntil(this.unsubscribe$)
       )
       .subscribe((res: RatingResponse) => {
+        res.ratings.forEach(r => this.ids.push(r.userId));
         this.ratings = res.ratings;
         this.hasNext = res.hasNext;
       });
@@ -49,7 +52,12 @@ export class RatingListComponent implements OnInit, OnDestroy{
       this.page++;
       this.ratingService.getRating(this.page)
         .subscribe(res => {
-          this.ratings = this.ratings.concat(res.ratings);
+          res.ratings.forEach(r => {
+            if (!this.ids.find(id => r.userId === id)) {
+              this.ids.push(r.userId);
+              this.ratings.push(r);
+            }
+          });
           this.hasNext = res.hasNext;
           this.paginationAllowed = res.hasNext;
         });
