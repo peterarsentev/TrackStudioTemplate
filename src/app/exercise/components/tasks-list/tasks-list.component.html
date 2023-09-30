@@ -63,6 +63,29 @@
               <span *ngIf="task.solution" class=""> | Создано: {{ task.solution.createdTime | date: 'HH:mm dd.MM.yyyy' }}</span>
               <span *ngIf="task.solution" class=""> | Обновлено: {{  task.solution.updatedTime | date: 'HH:mm dd.MM.yyyy' }}</span>
             </span>
+            <span *ngIf="task.rating">
+              <span class="ml-3" >
+                  <i *ngIf="task.rating?.vote !== 'DOWN'"
+                     title="Урок ненравится" class="fa fa-thumbs-down text-muted"
+                     style="cursor: pointer;"></i>
+                  <i *ngIf="task.rating?.vote === 'DOWN'"
+                     title="Урок ненравится" class="fa fa-thumbs-down text-danger" style="cursor: pointer;"></i>
+                  <span class="ml-1 mr-2">{{ task.rating?.down }}</span>
+                  <i *ngIf="task.rating?.vote !== 'UP'"
+                     title="Урок нравится" class="fa fa-thumbs-up text-muted"
+                     style="cursor: pointer;"></i>
+                  <i *ngIf="task.rating?.vote === 'UP'"
+                     title="Урок нравится" class="fa fa-thumbs-up text-primary"
+                     style="cursor: pointer;"></i>
+                  <span class="ml-1">{{ task.rating?.up }}</span>
+              </span>
+              <span *ngIf="task.discussCount">
+                <i class="fa fa-comments-o ml-2 mr-2"
+                   title="Количество обсуждений"
+                ></i>{{ task.discussCount.count }}
+              </span>
+
+            </span>
           </small>
         </td>
       </tr>

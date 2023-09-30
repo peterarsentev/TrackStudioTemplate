@@ -2,6 +2,8 @@ import { UserEduModels } from './userEduModels';
 import { LevelModels } from './level.models';
 import { CategoryModels } from './category.models';
 import { TopicModels } from './topic.models';
+import { RateModel } from './rate.model';
+import { DiscussCount } from './discuss.count';
 
 export class TaskTopicModel {
   constructor(
@@ -10,7 +12,9 @@ export class TaskTopicModel {
     public status?: TaskStatus,
     public solution?: Solution,
     public nextId?: number,
-    public previousId?: number
+    public previousId?: number,
+    public rating?: RateModel,
+    public discussCount?: DiscussCount
   ) {
   }
 }
