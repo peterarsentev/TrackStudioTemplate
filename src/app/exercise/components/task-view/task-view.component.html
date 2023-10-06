@@ -64,9 +64,7 @@
               </div>
               <div>
                 <small class="mb-2 text-muted">
-                  <span class="mr-3">Уровень : {{  task.task?.level.name }}</span>
-                  <span class="mr-3">Блок : {{  task.task?.category.name }}</span>
-                  <span class="mr-3">Тема : {{  task.task?.topic.name }}</span>
+                  {{  task.task?.level.name }} / {{  task.task?.category.name }} / {{  task.task?.topic.name }}
                 </small>
               </div>
               <div>
@@ -79,10 +77,17 @@
                         class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
                   <span *ngIf="task.status?.id == 4"
                         class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
-                  <span *ngIf="task.handler" class="mr-3 font-weight-bolder">Ответственный : {{task.handler.name }}</span>
-                  <span *ngIf="task.solution" class="mr-3">Начало решения : {{ task.solution?.createdTime | date: 'dd.MM.yyyy HH:mm' }}</span>
-                  <span *ngIf="task.solution">Обновлена : {{  task.solution?.updatedTime | date: 'dd.MM.yyyy HH:mm' }}</span>
-                  <span *ngIf="taskTime">{{ 'Среднее время решения: ' + taskTime}}</span>
+                  <span *ngIf="task.handler" class="mr-1 font-weight-bolder"
+                     title="Отвественный">
+                    <i aria-hidden="true" class="fa fa-user text-muted"></i> {{task.handler.name }},
+                  </span>
+                  <span *ngIf="task.solution" class="mr-1" title="Дата начало решения">
+                    <i aria-hidden="true" class="fa fa-hourglass-start text-muted"></i> {{ task.solution?.createdTime | date: 'dd.MM.yyyy HH:mm' }}, </span>
+                  <span *ngIf="task.solution" class="mr-1" title="Дата обоновления решения">
+                    <i aria-hidden="true" class="fa fa-hourglass-3 text-muted"></i> {{  task.solution?.updatedTime | date: 'dd.MM.yyyy HH:mm' }}, </span>
+                  <span *ngIf="taskTime" class="mr-1" title="Среднее время решения">
+                    <i aria-hidden="true" class="fa fa-clock-o text-muted"></i> {{ taskTime }}
+                  </span>
                 </small>
                 <!--                <div class="pull-right col-sm-2">-->
                 <!--                  <app-book-mark-star [name]="name"></app-book-mark-star>-->
