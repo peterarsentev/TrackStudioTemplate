@@ -58,8 +58,8 @@
                      style="cursor: pointer;"></i>
                   <span class="ml-1">{{ rating?.up }}</span>
               </span>
-                <span class="pull-right mr-2" *ngIf="task.task.readTime">
-                  Время на чтение: {{task.task.readTime}} мин.
+                <span class="pull-right mr-2" *ngIf="task.task.readTime" title="Время на чтение">
+                  <i aria-hidden="true" class="fa fa-eye text-muted"></i> {{task.task.readTime}} мин.
                  </span>
               </div>
               <div>
