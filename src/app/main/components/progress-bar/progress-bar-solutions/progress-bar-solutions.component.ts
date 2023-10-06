@@ -47,7 +47,7 @@ export class ProgressBarSolutionsComponent implements OnInit, OnDestroy {
 
   setResult(res: SolvedAllCountModels) {
     this.solvedAndAll = res;
-    this.barValue = Math.round((res.solved / res.all) * 100);
+    this.barValue = +((res.solved / res.all) * 100).toFixed(2);
   }
 
   ngOnDestroy(): void {
