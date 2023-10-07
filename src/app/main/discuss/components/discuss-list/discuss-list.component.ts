@@ -31,6 +31,8 @@ export class DiscussListComponent implements OnInit, OnDestroy {
       .pipe(pluck('data'),
       takeUntil(this.unsubscribe$)
     ).subscribe((res: DiscussModel[]) => {
+      console.log(this.router.url);
+      this.showOnlySub = this.router.url === '/discuss/my';
       this.discussList = res;
       this.hasNext = this.discussList.length === 20;
       this.paginationAllowed = this.discussList.length === 20;
@@ -68,13 +70,6 @@ export class DiscussListComponent implements OnInit, OnDestroy {
     this.messageService.makeSubscribeOrRevert(discuss.id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(res => this.discussList[index].subscribed = res.subscribe);
-  }
-
-  addFilter() {
-    this.showOnlySub = !this.showOnlySub;
-    this.page = 0;
-    this.discussList = [];
-    this.getDiscuss(this.showOnlySub);
   }
 
   goToMain() {

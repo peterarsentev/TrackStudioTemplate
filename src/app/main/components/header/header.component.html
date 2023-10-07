@@ -49,12 +49,20 @@
       <a class="dropdown-item" [routerLink]="['/tasksByStatus/review']">На проверке</a>
     </div>
   </div>
-
-  <span class="navbar-text mr-3 font-weight-bold">
-          <a [routerLink]="['/discuss']" style="text-decoration: none">Обсуждения</a>
+  <div class="dropdown mr-3">
+    <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="discuss"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Обсуждения
+    </button>
+    <span class="navbar-text mr-3 font-weight-bold">
                 <span *ngIf="discussCount?.count > 0" (click)="goToListOfDiscuss()"
                       class="badge badge-primary badge-pill pos ml-1">{{ discussCount?.count }}</span>
-        </span>
+    </span>
+    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
+      <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Все обсуждения</a></li>
+      <li><a class="dropdown-item" [routerLink]="['/discuss/my']">Мои подписки</a></li>
+    </ul>
+  </div>
 
   <div class="dropdown mr-3">
     <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercises"
