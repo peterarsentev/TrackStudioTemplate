@@ -1,8 +1,8 @@
 <ng-container>
 <div class="row">
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb bg-white">
-      <li class="breadcrumb-item small" *ngFor="let nav of solutions; let idx=index"
+    <ol class="breadcrumb2 bg-white">
+      <li class="breadcrumb2-item small" *ngFor="let nav of solutions; let idx=index"
       [ngClass]="{'ref-link': idx !== solutions.length -1}">
         <a (click)="goToSol(nav, idx)">
           {{ nav.name }}
