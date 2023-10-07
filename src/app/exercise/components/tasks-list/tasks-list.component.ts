@@ -23,6 +23,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
   topic: TopicModels;
   task: NextNavModels = {};
   isSearch: boolean;
+  showNaw = false;
 
   constructor(private tasksService: TasksService,
               private router: Router,
@@ -39,6 +40,9 @@ export class TasksListComponent implements OnInit, OnDestroy {
         this.getTopic();
         this.isSearch = this.router.url.includes('/search/');
         this.getNextOrPrevious(this.topicId);
+        if (this.isSearch ||  this.router.url.includes('/updates')) {
+          this.showNaw = true;
+        }
       });
     this.route.data
       .pipe(pluck('data'),

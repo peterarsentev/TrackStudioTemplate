@@ -22,6 +22,22 @@
       <tbody>
       <tr *ngFor="let task of tasks; let idx = index">
         <td>
+          <div *ngIf="showNaw" class="row">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb bg-white">
+                <li class="breadcrumb-item small ref-link">
+                  <a (click)="goToMain()">{{ 'Job4j' }}</a>
+                </li>
+                <li class="breadcrumb-item small ref-link">
+                  <a (click)="goTo(task)">{{ task.task.topicName }}</a>
+                </li>
+                <li class="breadcrumb-item small"
+                    [ngClass]="{'ref-link': false}">
+                  <a>{{ task.task.name }}</a>
+                </li>
+              </ol>
+            </nav>
+          </div>
           <div>
             <i class="fas fa-tasks pr-3"></i>
             <a style="text-decoration: none;" [routerLink]="task.solution

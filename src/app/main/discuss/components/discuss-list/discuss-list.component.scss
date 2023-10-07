@@ -11,3 +11,41 @@
   -ms-overflow-style: none; /* IE 11 */
   scrollbar-width: none; /* Firefox 64 */
 }
+.ref-link {
+  cursor: pointer;
+  color: #0000FF;
+  :hover {
+    color: darkblue;
+  }
+}
+.breadcrumb2 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: .05rem 0.05rem;
+  margin-bottom: 0.05rem;
+  margin-left: 0.75rem;
+  margin-top: 0.05rem;
+  list-style: none;
+  background-color: #e9ecef;
+  border-radius: .25rem
+}
+.breadcrumb2-item + .breadcrumb2-item {
+  padding-left: .5rem
+}
+
+.breadcrumb2-item + .breadcrumb2-item::before {
+  float: left;
+  padding-right: .5rem;
+  color: #6c757d;
+  content: "/"
+}
+
+.breadcrumb2-item + .breadcrumb2-item:hover::before {
+  text-decoration: underline
+}
+
+.breadcrumb2-item + .breadcrumb2-item:hover::before {
+  text-decoration: none
+}

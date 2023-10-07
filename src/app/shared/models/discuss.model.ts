@@ -20,6 +20,9 @@ export class DiscussModel {
     public taskCode?: string,
     public initScript?: string,
     public scheme?: string,
+    public topicName?: string,
+    public topicId?: number,
+
 ) {
   }
 }

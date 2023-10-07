@@ -6,7 +6,7 @@
           Создать обсуждение
         </a>
       </span>
-      <span class="w-50">
+    <span class="w-50">
         <button (click)="addFilter()" class="btn btn-sm btn-light pull-right">
            <i class="fa fa-filter mr-2" aria-hidden="true"></i>
           {{showOnlySub ? 'Все обсуждения' : 'Мои подписки' }}
@@ -39,26 +39,44 @@
              (scrolled)="onScrollDown()">
       <ng-container *ngFor="let discuss of discussList; let idx=index">
         <tr>
-          <td  (click)="goTo(discuss)" style="cursor: pointer;">
-            <div>
-              <i class="fas fa-tasks pr-3"></i>
-              <span class="font-weight-bold">{{discuss.name}}</span>
+          <td style="cursor: pointer;">
+            <div *ngIf="discuss.topicName" class="row">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb2 bg-white">
+                  <li class="breadcrumb2-item small ref-link">
+                    <a (click)="goToMain()">{{ 'Job4j' }}</a>
+                  </li>
+                  <li class="breadcrumb2-item small ref-link">
+                    <a (click)="goByNav(discuss)">{{ discuss.topicName }}</a>
+                  </li>
+                  <li class="breadcrumb2-item small"
+                      [ngClass]="{'ref-link': false}">
+                    <a>{{ discuss.name }}</a>
+                  </li>
+                </ol>
+              </nav>
             </div>
-            <small class="mb-2 text-muted">
+            <div (click)="goTo(discuss)">
+              <div>
+                <i class="fas fa-tasks pr-3"></i>
+                <span class="font-weight-bold">{{discuss.name}}</span>
+              </div>
+              <small class="mb-2 text-muted">
             <span>
               <span class="mr-3">Автор : {{ discuss.submitter.name }}</span>
               <span class="mr-3">Создано : {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}</span>
               <span class="mr-3">Обновлено : {{ discuss.updated | date: 'dd.MM.yyyy HH:mm' }}</span>
             </span>
-            </small>
+              </small>
+            </div>
           </td>
           <td>
             <i *ngIf="!discuss.subscribed"
                style="cursor: pointer;"
                (click)="subscribe(discuss, idx)" title="Подписаться"
                class="fa fa-bell-o mr-2" aria-hidden="true"></i>
-            <i *ngIf="discuss.subscribed"  style="cursor: pointer;"
-            (click)="subscribe(discuss, idx)" title="Отписаться"
+            <i *ngIf="discuss.subscribed" style="cursor: pointer;"
+               (click)="subscribe(discuss, idx)" title="Отписаться"
                class="fa fa-bell-slash-o mr-2" aria-hidden="true"></i>
           </td>
         </tr>
