@@ -1,12 +1,6 @@
 <div class="container-fluid">
   <div class="row pb-lg-3">
-      <span class="w-50">
-        <a routerLink="/discuss/create" class="btn btn-sm btn-info"
-           type="button">
-          Создать обсуждение
-        </a>
-      </span>
-    <span class="w-50">
+    <span class="w-100">
         <button (click)="addFilter()" class="btn btn-sm btn-light pull-right">
            <i class="fa fa-filter mr-2" aria-hidden="true"></i>
           {{showOnlySub ? 'Все обсуждения' : 'Мои подписки' }}
