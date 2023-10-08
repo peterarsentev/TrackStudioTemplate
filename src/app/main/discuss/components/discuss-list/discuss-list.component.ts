@@ -63,7 +63,7 @@ export class DiscussListComponent implements OnInit, OnDestroy {
   }
 
   goTo(discuss: DiscussModel) {
-    this.router.navigate([`${discuss.id}`], { relativeTo: this.route });
+    this.router.navigate(['/discuss', `${discuss.id}`]);
   }
 
   subscribe(discuss: DiscussModel, index) {
