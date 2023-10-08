@@ -1,6 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
-  <div *ngIf="navShow" class="navbar-collapse mr-3" id="navbarText">
-    <ul class="navbar-nav mr-auto"></ul>
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div *ngIf="navShow" class="collapse navbar-collapse" id="navbarSupportedContent">
     <div class="dropdown" *ngIf="user">
       <a class="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -10,6 +14,7 @@
         <a class="dropdown-item" [routerLink]="['/']">Статистика</a>
         <a class="dropdown-item" [routerLink]="['/profile']">Настройки</a>
         <a class="dropdown-item" [routerLink]="['/payment']">Оплата</a>
+        <a class="dropdown-item" [routerLink]="['/interviews']">Собеседования</a>
         <a class="dropdown-item" [routerLink]="['/vacancies']">Вакансии</a>
         <a class="dropdown-item" [routerLink]="['/company']">Компании</a>
         <a href="https://github.com/peterarsentev/job4j_features_bugs/issues" target="_blank"
@@ -26,78 +31,70 @@
         <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
       </div>
     </div>
-
-  </div>
-  <span class="navbar-text font-weight-bold mr-3">
+    <span class="navbar-text font-weight-bold">
           <a [routerLink]="['/exercise']" style="text-decoration: none"
           >Уроки</a>
      <span *ngIf="notifications && count > 0"
            style="cursor: pointer;"
            (click)="readMessages()"
-           class="badge badge-primary badge-pill text-white  ml-1"
+           class="badge badge-primary badge-pill text-white ml-1 mr-2"
      >{{ count }}</span>
         </span>
 
-  <div class="dropdown mr-3">
-    <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="solutionDd"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Решения
-    </button>
-    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="solutionDd">
-      <a class="dropdown-item" [routerLink]="['/tasksByStatus/revert']">Отклоненные</a>
-      <a class="dropdown-item" [routerLink]="['/tasksByStatus/finished']">Выполненные</a>
-      <a class="dropdown-item" [routerLink]="['/tasksByStatus/review']">На проверке</a>
+    <div class="dropdown">
+      <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="solutionDd"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Решения
+      </button>
+      <div class="dropdown-menu dropdown-menu-left" aria-labelledby="solutionDd">
+        <a class="dropdown-item" [routerLink]="['/tasksByStatus/revert']">Отклоненные</a>
+        <a class="dropdown-item" [routerLink]="['/tasksByStatus/finished']">Выполненные</a>
+        <a class="dropdown-item" [routerLink]="['/tasksByStatus/review']">На проверке</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="discuss"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Обсуждения
+      </button>
+      <span class="navbar-text font-weight-bold">
+                <span *ngIf="discussCount?.count > 0" (click)="goToListOfDiscuss()"
+                      class="badge badge-primary badge-pill pos">{{ discussCount?.count }}</span>
+    </span>
+      <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
+        <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Все обсуждения</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/discuss/my']">Мои подписки</a></li>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercises"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Упражнения
+      </button>
+      <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
+        <li><a class="dropdown-item" [routerLink]="['/topics']">Java Core</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/sqlExercise']">SQL</a></li>
+      </ul>
+    </div>
+    <div class="dropdown">
+      <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercisesDd"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Закладки
+      </button>
+      <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercisesDd">
+        <li *ngFor="let book of bookmarks">
+          <!--        <div class="demo">-->
+          <a (click)="goToBook(book)" class="dropdown-item point demo">{{ book.name }}</a>
+          <button (click)="deleteBook($event, book)" type="button" class="close mr-2 mt-1" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <!--        </div>-->
+        </li>
+      </ul>
     </div>
   </div>
-  <div class="dropdown mr-3">
-    <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="discuss"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Обсуждения
-    </button>
-    <span class="navbar-text mr-3 font-weight-bold">
-                <span *ngIf="discussCount?.count > 0" (click)="goToListOfDiscuss()"
-                      class="badge badge-primary badge-pill pos ml-1">{{ discussCount?.count }}</span>
-    </span>
-    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
-      <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Все обсуждения</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/discuss/my']">Мои подписки</a></li>
-    </ul>
-  </div>
-
-  <div class="dropdown mr-3">
-    <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercises"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Упражнения
-    </button>
-    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
-      <li><a class="dropdown-item" [routerLink]="['/topics']">Java Core</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/sqlExercise']">SQL</a></li>
-    </ul>
-  </div>
-
-  <span class="navbar-text mr-3 font-weight-bold">
-          <a [routerLink]="['/interviews']" style="text-decoration: none;"
-          >Собеседования</a>
-          <span *ngIf="interviewNotifications?.count > 0" (click)="goToListOfNotifications()"
-                class="badge badge-primary badge-pill pos ml-1">{{ interviewNotifications?.count }}</span>
-        </span>
-  <div class="dropdown mr-3">
-    <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercisesDd"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Закладки
-    </button>
-    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercisesDd">
-      <li *ngFor="let book of bookmarks">
-<!--        <div class="demo">-->
-        <a (click)="goToBook(book)" class="dropdown-item point demo">{{ book.name }}</a>
-        <button (click)="deleteBook($event, book)" type="button" class="close mr-2 mt-1" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-<!--        </div>-->
-      </li>
-    </ul>
-  </div>
-  <span class="input-group mr-3 w-25">
+  <span class="input-group w-25">
           <input
             type="text"
             #text
