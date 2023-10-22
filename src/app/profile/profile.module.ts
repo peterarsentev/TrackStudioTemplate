@@ -9,7 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ProfileComponent } from './containers/profile/profile.component';
 
 @NgModule({
-  declarations:[
+  declarations: [
     ProfileNavComponent,
     PasswordComponent,
     EditProfileComponent,
@@ -22,7 +22,7 @@ import { ProfileComponent } from './containers/profile/profile.component';
         SharedModule,
         ReactiveFormsModule
     ],
-  providers:[]
+  providers: []
 })
 export class ProfileModule {
 
