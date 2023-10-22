@@ -79,4 +79,8 @@ export class DiscussListComponent implements OnInit, OnDestroy {
   goByNav(discuss: DiscussModel) {
     this.router.navigate(['/exercise', discuss.topicId]);
   }
+
+  goExercise() {
+    this.router.navigate(['/topics']);
+  }
 }

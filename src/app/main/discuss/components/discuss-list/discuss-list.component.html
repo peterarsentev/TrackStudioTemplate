@@ -1,14 +1,5 @@
 <div class="container-fluid">
   <div class="row">
-    <!--        <div class="form-group row">-->
-    <!--          <label for="inputState" class="col-sm-1 col-form-label ml-1">Фильтр</label>-->
-    <!--          <div class="col-sm-3">-->
-    <!--            <select id="inputState" [(ngModel)]="selectedFilter" (change)="setFilter()" class="form-control">-->
-    <!--              <option *ngFor="let f of filters" [ngValue]="f">{{ f.name }}</option>-->
-    <!--            </select>-->
-    <!--          </div>-->
-    <!--          <button (click)="resetFilters()" class="btn btn-sm btn-light mb-2 ml-1 mr-2">Сбросить Фильтр</button>-->
-    <!--        </div>-->
     <table class="table">
       <caption></caption>
       <thead>
@@ -38,6 +29,18 @@
                   <li class="breadcrumb2-item small"
                       [ngClass]="{'ref-link': false}">
                     <a>{{ discuss.name }}</a>
+                  </li>
+                </ol>
+              </nav>
+            </div>
+            <div *ngIf="discuss.exerciseId" class="row">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb2 bg-white">
+                  <li class="breadcrumb2-item small ref-link">
+                    <a (click)="goToMain()">{{ 'Job4j' }}</a>
+                  </li>
+                  <li class="breadcrumb2-item small ref-link">
+                    <a (click)="goExercise()">Упражнения</a>
                   </li>
                 </ol>
               </nav>
