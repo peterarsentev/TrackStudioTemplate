@@ -8,13 +8,21 @@ import { NavService } from '../../shared/services/nav.service';
 import { NavNode } from '../../shared/models/nav.node';
 import { TasksService } from '../../shared/services/tasks.service';
 
+
+export enum Complexity {
+  EAZY = 'EAZY', MEDIUM = 'MEDIUM', DIFFICULT = 'DIFFICULT'
+}
 @Component({
   selector: 'app-task-code',
   templateUrl: './task-code-list.component.html',
   styleUrls: ['./task-code-list.component.scss']
 })
 export class TaskCodeListComponent implements OnInit, OnDestroy {
-
+  complexity = [
+    {key: Complexity.EAZY, name: 'Легко'},
+    {key: Complexity.MEDIUM, name: 'Средне'},
+    {key: Complexity.DIFFICULT, name: 'Сложно'}
+  ];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   taskCodeList: TaskCodeModel[] = [];
   name: string;
@@ -38,7 +46,11 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           this.taskCodeList = res;
-          this.taskCodeList.forEach(task => task.status === null || task.status === undefined ? task.status = 1 : task);
+          this.taskCodeList.forEach(task => {
+            if (!task.status) {
+              task.status = 1;
+            }
+          });
           this.getTopic();
         }
       );
@@ -60,5 +72,21 @@ export class TaskCodeListComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.name = res.name;
       });
+  }
+
+  onChange(value: any) {
+    if (value) {
+      value = value === 'Choose...' ? null : value;
+      this.taskCodeService.getTasksWithStatus(this.topicId, value)
+        .subscribe(res => {
+          this.taskCodeList = res;
+          this.taskCodeList.forEach(task => {
+            if (!task.status) {
+              task.status = 1;
+            }
+          });
+          this.getTopic();
+        });
+    }
   }
 }

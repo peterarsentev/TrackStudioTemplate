@@ -31,11 +31,12 @@ export class TaskCodeService {
     return this.http.post<TaskCodeModel[]>(url, params);
   }
 
-  getTasksWithStatus(id: string) {
+  getTasksWithStatus(id: string, value?: string) {
     const url = this.urlJedu + 'taskcode/solutions';
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('topicId', id);
+    params = value ? params.append('complexity', value) : params;
     return this.http.post<TaskCodeModel[]>(url, params);
   }
 

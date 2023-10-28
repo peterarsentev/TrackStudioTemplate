@@ -11,6 +11,7 @@ export class TaskCodeModel {
     public status?: number,
     public solutionId?: number,
     public explanation?: string,
+    public complexity?: string,
 
     //solution
     public  taskCodeId?: number,
