@@ -21,6 +21,8 @@ export class NavNode {
     public interview?: boolean,
     public rating?: boolean,
     public updates?: boolean,
+    public levelId?: number,
+    public categoryId?: number
   ) {
   }
 }

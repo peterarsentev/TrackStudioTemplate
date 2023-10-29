@@ -111,6 +111,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
       .subscribe((res: TopicFilter) => {
         this.getUserFilters();
         this.getTasksTopicsList();
+        this.navService.setUpModel({...new NavNode(), exercise: true});
       });
   }
 
@@ -120,6 +121,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.getUserFilters();
         this.getTasksTopicsList();
+        this.navService.setUpModel({...new NavNode(), exercise: true});
       });
   }
 
@@ -131,6 +133,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
       ).subscribe(() => {
       this.getUserFilters();
       this.getTasksTopicsList();
+      this.navService.setUpModel({...new NavNode(), exercise: true});
     });
   }
 
@@ -143,6 +146,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
           this.category = undefined;
           this.level = undefined;
           this.getTasksTopicsList();
+          this.navService.setUpModel({...new NavNode(), exercise: true});
         });
     } else {
       this.taskService.deleteTopicFilter(this.level.filterId)
@@ -152,6 +156,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
           this.category = undefined;
           this.level = undefined;
           this.getTasksTopicsList();
+          this.navService.setUpModel({...new NavNode(), exercise: true});
         });
     }
   }
@@ -165,6 +170,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
         ).subscribe(() => {
         this.getUserFilters();
         this.getTasksTopicsList();
+        this.navService.setUpModel({...new NavNode(), exercise: true});
         // this.getCategoriesByLevel(level.id);
       });
     } else {
@@ -175,6 +181,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
           ).subscribe(() => {
           this.getUserFilters();
           this.getTasksTopicsList();
+          this.navService.setUpModel({...new NavNode(), exercise: true});
           // this.getCategoriesByLevel(level.id);
         });
       } else {

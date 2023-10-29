@@ -35,6 +35,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private navService: NavService,
               private router: Router,
+              private taskService: TasksService,
               private tasksService: TasksService, private sqlExerciseService: SqlSolutionService) { }
 
   ngOnInit() {
@@ -207,11 +208,30 @@ export class NavigationComponent implements OnInit, OnDestroy {
       if (!!nav.topicId) {
         this.router.navigate([`${nav.url}`, `${nav.topicId}`]);
       } else {
+        console.log(nav);
+        if (nav.url === 'exercise') {
+          if (nav.levelId) {
+            this.taskService.setNewFilters(nav.levelId, nav.categoryId)
+              .subscribe(() => this.router.navigate([`${nav.url}`]).then(() => {}));
+            return;
+          }
+        }
         this.router.navigate([`${nav.url}`]);
       }
       return;
     }
   }
+
+  /*
+    this.saveFilter(FilterTopicEnum.CATEGORY, category.id);
+    this.saveFilter(FilterTopicEnum.LEVEL, level.id);
+
+      this.taskService.saveFilter(key, value)
+      .subscribe((res: TopicFilter) => {
+        this.getUserFilters();
+        this.getTasksTopicsList();
+      });
+   */
 
   private getVacancy(res: NavNode) {
     const navs = [{name: 'Job4j', url: '/', vacancy: true},

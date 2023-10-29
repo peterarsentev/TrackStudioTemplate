@@ -578,4 +578,12 @@ export class TasksService {
     params = params.append('topicId', String(topicId));
     return this.http.post<NextNavModels>(this.urlJedu + 'task/nextAndPrevious', params);
   }
+
+  setNewFilters(levelId: number, categoryId?: number) {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('levelId', String(levelId));
+    params = categoryId ? params.append('categoryId', String(categoryId)) : params;
+    return this.http.post<any>(this.urlJedu + 'filterTopic/newFilters', params);
+  }
 }
