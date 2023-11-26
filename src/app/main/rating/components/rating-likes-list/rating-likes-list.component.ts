@@ -22,6 +22,7 @@ export class RatingLikesListComponent implements OnInit {
   ratings: RatingModel[];
   private hasNext: boolean;
   user: UserModels;
+  private ids: number[] = [];
 
   constructor(private ratingService: RatingService,
               private router: Router,
@@ -34,6 +35,7 @@ export class RatingLikesListComponent implements OnInit {
         takeUntil(this.unsubscribe$)
       )
       .subscribe((res: RatingResponse) => {
+        res.ratings.forEach(r => this.ids.push(r.userId));
         this.ratings = res.ratings;
         this.hasNext = res.hasNext;
       });
@@ -48,7 +50,12 @@ export class RatingLikesListComponent implements OnInit {
       this.page++;
       this.ratingService.geUsersByLikes(this.page)
         .subscribe(res => {
-          this.ratings = this.ratings.concat(res.ratings);
+          res.ratings.forEach(r => {
+            if (!this.ids.find(id => r.userId === id)) {
+              this.ids.push(r.userId);
+              this.ratings.push(r);
+            }
+          });
           this.hasNext = res.hasNext;
           this.paginationAllowed = res.hasNext;
         });
