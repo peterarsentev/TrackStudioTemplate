@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { debounceTime, filter, takeUntil } from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
+import { debounceTime, filter, pairwise, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
 import { TaskModel } from '../../../shared/models/task.model';
@@ -104,11 +104,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
       });
   }
 
-  getNavsForDiscuss() {
-    this.tasksService.getNavsForDiscuss(this.taskCodeId)
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => this.solutions = res);
-
+  getNavsForDiscuss(discussId?: string) {
+    setTimeout(() => {
+      const list = this.router.url.includes('/all') ? 'all' : 'my';
+      this.tasksService.getNavsForDiscuss(this.taskCodeId, list)
+        .pipe(takeUntil(this.ngUnsubscribe$))
+        .subscribe(res => this.solutions = res);
+    }, 100);
   }
 
   getNavsForSolutions(nav: NavNode) {

@@ -335,10 +335,11 @@ export class TasksService {
     return this.http.post<NavNode[]>(url, params);
   }
 
-  getNavsForDiscuss(discussId?: string): Observable<NavNode[]> {
+  getNavsForDiscuss(discussId?: string, list?: string): Observable<NavNode[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = discussId ? params.append('discussId', discussId) : params;
+    params = list ? params.append('list', list) : params;
     const url = this.urlJedu + `discuss/breadcrumbs`;
     return this.http.post<NavNode[]>(url, params);
   }

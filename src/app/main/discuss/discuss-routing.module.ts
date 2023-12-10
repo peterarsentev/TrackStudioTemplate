@@ -9,10 +9,10 @@ import { DiscussNotificationResolve } from './components/discuss-notification/di
 
 
 const routes: Routes = [
-  { path: 'all', component: DiscussListComponent, resolve: { data: DiscussListResolver } },
-  { path: 'my', component: DiscussListComponent, resolve: { data: DiscussListResolver } },
+  { path: ':all', component: DiscussListComponent, resolve: { data: DiscussListResolver } },
+ // { path: 'my', component: DiscussListComponent, resolve: { data: DiscussListResolver } },
   { path: 'notifications', component: DiscussNotificationComponent, resolve: {data: DiscussNotificationResolve} },
-  { path: ':id', component: DiscussListElementComponent, resolve: { data: DiscussElementResolver } }
+  { path: ':all/:id', component: DiscussListElementComponent, resolve: { data: DiscussElementResolver } }
 ];
 
 @NgModule({

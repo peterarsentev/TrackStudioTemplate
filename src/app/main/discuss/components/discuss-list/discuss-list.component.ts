@@ -31,7 +31,6 @@ export class DiscussListComponent implements OnInit, OnDestroy {
       .pipe(pluck('data'),
       takeUntil(this.unsubscribe$)
     ).subscribe((res: DiscussModel[]) => {
-      console.log(this.router.url);
       this.showOnlySub = this.router.url === '/discuss/my';
       this.discussList = res;
       this.hasNext = this.discussList.length === 20;
@@ -63,7 +62,7 @@ export class DiscussListComponent implements OnInit, OnDestroy {
   }
 
   goTo(discuss: DiscussModel) {
-    this.router.navigate(['/discuss', `${discuss.id}`]);
+    this.router.navigate([this.router.url, `${discuss.id}`]);
   }
 
   subscribe(discuss: DiscussModel, index) {
