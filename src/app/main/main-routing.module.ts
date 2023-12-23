@@ -93,6 +93,7 @@ const routes: Routes = [
         loadChildren: () => import('../main/byStatus/tasks-by-status.module')
           .then(mod => mod.TasksByStatusModule)
       },
+
       {
         path: 'updates',
         loadChildren: () => import('../main/updates/updates.module')
