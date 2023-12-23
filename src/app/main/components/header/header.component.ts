@@ -16,6 +16,7 @@ import { BookmarksModel } from '../../../shared/models/bookmarks.model';
 import { InterviewNotificationService } from '../../../shared/services/interview.notification.service';
 import { BookmarksService } from '../../../shared/services/bookmarks.service';
 import { ModalService, TypeModals } from '../../../shared/modal.service';
+import { TasksService } from '../../../shared/services/tasks.service';
 
 
 @Component({
@@ -38,6 +39,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   discussCount: { count: number };
   bookmarks: BookmarksModel[] = [];
   interviewNotifications: { count: number };
+  allTasksCount = 1;
+  solvedTasksCount = 0;
 
   constructor(
     private userService: UserService,
@@ -51,6 +54,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private modalService: ModalService,
     private interviewNotificationService: InterviewNotificationService,
     private bookmarksService: BookmarksService,
+    private tasksService: TasksService,
   ) {}
 
   ngOnInit() {
@@ -87,6 +91,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getCountOfDiscuss();
     this.getBookMarks();
     this.getCountOfInterviewNotifications();
+    this.tasksService.getCountTasks()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => {
+        this.allTasksCount = res.all;
+        this.solvedTasksCount = res.solved;
+      });
   }
 
   private getBookMarks() {

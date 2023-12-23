@@ -6,6 +6,8 @@ import { Subject } from 'rxjs';
 import { MessageModel } from '../../../shared/models/message.model';
 import {TaskModel} from '../../../shared/models/task.model';
 import {Router} from '@angular/router';
+import { DiscussService } from '../../discuss/discuss.service';
+import { NotificationListModel } from '../../../shared/models/notification.list.model';
 
 @Component({
   selector: 'app-messages',
@@ -17,8 +19,10 @@ export class MessagesComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   messages: MessageModel[];
   userId: string;
+  notifications: NotificationListModel[] = [];
   constructor(private messageService: MessageService,
               private userService: UserService,
+              private discussService: DiscussService,
               private router: Router) { }
 
   ngOnInit() {
@@ -30,6 +34,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
         }),
         takeUntil(this.ngUnsubscribe$)
       ).subscribe(res => this.messages = res);
+    this.discussService.getNotifications()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(res => this.notifications = res);
   }
 
   ngOnDestroy(): void {
@@ -52,5 +59,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
         switchMap(() => this.messageService.getMessages(this.userId)),
         takeUntil(this.ngUnsubscribe$)
       ).subscribe(res =>  this.messages = res);
+  }
+
+  delete(not: NotificationListModel, idx: number) {
+    this.discussService.deleteNotification(not.id)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => this.notifications.splice(idx, 1));
   }
 }

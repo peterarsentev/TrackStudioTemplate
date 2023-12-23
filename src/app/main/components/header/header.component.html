@@ -32,13 +32,10 @@
       </div>
     </div>
     <span class="navbar-text font-weight-bold">
-          <a [routerLink]="['/exercise']" style="text-decoration: none"
-          >Уроки</a>
-     <span *ngIf="notifications && count > 0"
-           style="cursor: pointer;"
-           (click)="readMessages()"
+          <a [routerLink]="['/exercise']" style="text-decoration: none">Уроки</a>
+     <span style="cursor: pointer;"
            class="badge badge-primary badge-pill text-white ml-1 mr-2"
-     >{{ count }}</span>
+     >{{ solvedTasksCount  + '/' + allTasksCount }}</span>
         </span>
 
     <div class="dropdown">
@@ -93,6 +90,12 @@
         </li>
       </ul>
     </div>
+    <span class="navbar-text font-weight-bold">
+          <a [routerLink]="['/messages']" style="text-decoration: none">Уведомления</a>
+        <span *ngIf="count + (discussCount?.count ? discussCount.count : 0) > 0"
+           style="cursor: pointer;" (click)="readMessages()"
+           class="badge badge-primary badge-pill text-white ml-1 mr-2">{{ count + (discussCount?.count ? discussCount.count : 0) }}</span>
+    </span>
   </div>
   <span class="input-group w-25 mwigth">
           <input
