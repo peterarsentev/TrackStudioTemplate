@@ -125,12 +125,13 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
     }, 0);
   }
 
-  goBackToList(id?: number) {
-    if (!id) {
-      this.router.navigate(['discuss']);
-    } else {
-      this.router.navigate(['discuss', id]);
-    }
+  goBackToList(dId?: number) {
+    const urlTree = this.router.parseUrl(this.router.url);
+    const segments = urlTree.root.children.primary.segments;
+    const urlSegment = segments[segments.length - 1];
+    urlSegment.path = String(dId ? dId : '');
+    const url = segments.map(u => u.path).join('/');
+    this.router.navigate([url]);
   }
 
   deleteDiscussion(d: any) {
