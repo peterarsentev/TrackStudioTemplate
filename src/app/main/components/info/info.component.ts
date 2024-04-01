@@ -33,6 +33,20 @@ export class InfoComponent implements OnInit {
     this.router.navigate([info.url]);
   }
 
+  openProfile(userId, login) {
+    this.router.navigate(['user', userId], { state: { login: login } });
+  }
+
+  openTask(taskId, taskNumber) {
+      this.router.navigate(['task'], {
+           queryParams: {
+             action: 'task',
+             taskId: taskId,
+             number: taskNumber
+           }
+         });
+  }
+
   private getList() {
     this.infoService.getList(this.page)
       .subscribe(res => {
@@ -51,4 +65,6 @@ export class InfoComponent implements OnInit {
         this.paginationAllowed = res.length === 10;
       });
   }
+
+
 }

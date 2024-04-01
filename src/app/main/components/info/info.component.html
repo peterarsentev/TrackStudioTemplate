@@ -6,17 +6,32 @@
       <div>
       </div>
     </div>
-    <div class="table2"
-         infiniteScroll
-         [infiniteScrollDistance]="scrollDistance"
-         [infiniteScrollThrottle]="throttle"
-         [scrollWindow]="false"
-         (scrolled)="onScrollDown()">
-      <div (click)="goTo(info)"  *ngFor="let info of infoList;" class="table2__info" >
-        <p class="mb-1"><i class="fas fa-user pr-1"></i> {{info.text}}</p>
-        <p class="mb-1">{{ info.created | date :'dd.MM.yyyy' }}</p>
-      </div>
-
+    <div class="card-body">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Пользователь</th>
+          <th scope="col">Решал</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let info of infoList;">
+          <td>
+            <div (click)="openProfile(info.user.id, info.user.login)" style="cursor: pointer"><i class="fas fa-user pr-1"></i> {{info.user.name}}</div>
+            <small class="mb-2 text-muted">
+              <span>Зарегистрирован : {{ info.user.created | date :'dd.MM.yyyy' }}</span>
+            </small>
+          </td>
+          <td>
+            <small th:if="info.solution" class="mb-2 text-muted">
+              <span>{{info.solution.level.name}} / {{info.solution.category.name}} / {{info.solution.topic.name}}</span>
+            </small>
+            <div><span th:if="info.solution" style="cursor: pointer">
+              {{ info.solution.task.name }} [#{{ info.solution.task.number  }}]</span></div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
