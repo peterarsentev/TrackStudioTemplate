@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,7 +24,7 @@ import { NavService } from '../../../shared/services/nav.service';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit, OnDestroy {
   diagrams: DiagramaModel[] = [];
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   allTasksCount = 1;
@@ -117,6 +117,7 @@ export class MainPageComponent implements OnInit {
 
   getSolvedTasks(userid?: number) {
     this.tasksService.getSolvedTasks(userid)
+    this.tasksService.getSolvedTasks(userid)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
         this.doneTasks = res;
@@ -190,7 +191,7 @@ export class MainPageComponent implements OnInit {
         res.forEach(level => this.tasksService.getCountTasksByLevel(level.id).subscribe(counts => {
           level.all = counts.all;
           level.solved = counts.solved;
-          level.progress = +((level.solved / level.all) * 100).toFixed(2);
+          level.progress = (level.all && level.all > 0) ?  +((level.solved / level.all) * 100).toFixed(2) : 0;
         }));
         this.levels = res;
       });
@@ -199,6 +200,11 @@ export class MainPageComponent implements OnInit {
     this.messageService.updateDiscussion(discussion)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {});
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 
 }
