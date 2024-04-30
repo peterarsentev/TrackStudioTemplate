@@ -2,15 +2,32 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 
+declare var $;
+
 @Component({
   selector: 'app-redactor',
   templateUrl: './redactor.component.html',
   styleUrls: ['./redactor.component.scss']
 })
 export class RedactorComponent implements OnInit, OnDestroy {
-
+  @Input() text: string;
+  inputText$ = new Subject<string>();
+  private ngUnsubscribe$: Subject<void> = new Subject<void>();
   @Input()titleLabel: string;
   @Output() outputEmitter: EventEmitter<string> = new EventEmitter<string>();
+  helloButton = function customButton(context) {
+    const ui = $.summernote.ui;
+    // create button
+    const button = ui.button({
+      contents: 'Code block',
+      tooltip: 'hello',
+      click() {
+        context.invoke('editor.pasteHTML', '<pre><code class="java">class Main{}</code></pre>');
+      }
+    });
+    return button.render();
+  };
+
   config: any = {
     tooltip: false,
     airMode: false,
@@ -62,15 +79,16 @@ export class RedactorComponent implements OnInit, OnDestroy {
       ['para', ['style0', 'ul', 'ol', 'paragraph', 'height']],
       ['insert', ['table', 'link', 'hr']],
       ['view', ['fullscreen']],
+      ['mybutton', ['hello']],
     ],
     codeviewFilter: true,
+    // tslint:disable-next-line:max-line-length
     codeviewFilterRegex: /<\/*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|ilayer|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|t(?:itle|extarea)|xml|.*onmouseover)[^>]*?>/gi,
-    codeviewIframeFilter: true
+    codeviewIframeFilter: true,
+    buttons: {
+      hello: this.helloButton.bind(this)
+    }
   };
-
-  @Input() text: string;
-  inputText$ = new Subject<string>();
-  private ngUnsubscribe$: Subject<void> = new Subject<void>();
 
   constructor() { }
 
