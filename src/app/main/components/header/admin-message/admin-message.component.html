@@ -1,6 +1,10 @@
 <div *ngIf="message.text !== ''" class="container">
-    <div class="alert alert-info mt-2" role="alert">
-        <h4 class="alert-heading">Внимание</h4>
-        <p [innerHTML]="message.text"></p>
-    </div>
+  <div class="alert alert-success mt-3" role="alert">
+    <h5 class="alert-heading"><i class="fa fa-info mr-2" aria-hidden="true"></i>
+    <span [innerHTML]="message.header"></span>
+    </h5>
+    <p [innerHTML]="message.text"></p>
+  </div>
 </div>
+
+

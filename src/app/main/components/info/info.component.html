@@ -23,11 +23,14 @@
             </small>
           </td>
           <td>
-            <small th:if="info.solution" class="mb-2 text-muted">
-              <span>{{info.solution.level.name}} / {{info.solution.category.name}} / {{info.solution.topic.name}}</span>
+            <small *ngIf="info.solution" class="mb-2 text-muted">
+              {{info.solution.level.name}} / {{info.solution.category.name}} / {{info.solution.topic.name}}
             </small>
-            <div><span th:if="info.solution" style="cursor: pointer">
-              {{ info.solution.task.name }} [#{{ info.solution.task.number  }}]</span></div>
+            <div>
+              <span *ngIf="info.solution" style="cursor: pointer">
+              {{ info.solution.task.name }} [#{{ info.solution.task.number  }}]
+              </span>
+            </div>
           </td>
         </tr>
         </tbody>

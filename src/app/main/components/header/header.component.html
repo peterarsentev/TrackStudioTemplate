@@ -130,7 +130,7 @@
 </nav>
 <app-admin-message *ngIf="message" [message]="message"></app-admin-message>
 <div class="container">
-  <app-navigation (getMessage)="getMessage()"
+  <app-navigation (getMessage)="getRecommendation()"
                   *ngIf="navShow"
   ></app-navigation>
   <router-outlet></router-outlet>

@@ -177,8 +177,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  getMessage() {
-    this.messageService.getAdminMessage()
+  getRecommendation() {
+   const currentUrl = this.router.url;
+    this.messageService.getRecommendation(currentUrl)
       .subscribe(res => this.message = res);
     if (!!this.user) {
       this.getNotifications(this.user.id);

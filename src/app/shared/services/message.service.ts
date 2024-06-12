@@ -113,10 +113,11 @@ export class MessageService {
     return this.http.post(url, params);
   }
 
-  getAdminMessage(): Observable<InfoModels> {
-    const url = this.urlJedu + `info/getCurrent`;
+  getRecommendation(page: string): Observable<InfoModels> {
+    const url = this.urlJedu + `info/recommendation`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('page', page);
     return this.http.post<InfoModels>(url, params);
   }
 
