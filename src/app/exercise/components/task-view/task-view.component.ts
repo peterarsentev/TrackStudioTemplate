@@ -46,6 +46,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   taskTime: string;
   showButtonBottom = false;
   @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
+  updatedGreatThanThreeDays: Boolean = false
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
@@ -83,6 +84,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.task = res;
+        this.updatedGreatThanThreeDays = this.isUpdatedGreatThanThreeDays();
         this.name = this.task.task.name;
         if (this.task.status.start) {
           this.messages = [];
@@ -419,4 +421,14 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   showDiscussionForm() {
     this.discussComponent.showDiscussionForm();
   }
+
+   isUpdatedGreatThanThreeDays(): boolean {
+      if (this.task.solution === undefined) {
+          return false;
+      }
+      const updatedTime = this.task.solution.updatedTime;
+      const now = Date.now();
+      const threeDaysInMillis = 3 * 24 * 60 * 60 * 1000;
+      return (now - updatedTime) > threeDaysInMillis;
+   }
 }

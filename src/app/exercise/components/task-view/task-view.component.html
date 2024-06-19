@@ -2,11 +2,10 @@
   <div class="row pb-2">
     <span class="w-50">
     <span class="w-50">
-        <button *ngIf="task.status?.id === 3" class="btn btn-info btn-sm"
-                (click)="goToComments({name: 'Отправить на проверку', id: 2})">Отправить на проверку</button>
-        <button *ngIf="task.status?.id !== 3" class="btn btn-info btn-sm ml-1"
-                (click)="goToComments({name: 'Отправить на проверку', id: 2})">Отправить на проверку</button>
+      <button class="btn btn-info btn-sm"
+              (click)="goToComments({name: 'Отправить на проверку', id: 2})"
 
+              [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : ''">Отправить на проверку</button>
     </span>
     </span>
     <span class="w-50 pull-right">
@@ -148,10 +147,11 @@
   <!--  </div>-->
   <div class="row pt-2">
     <span class="w-50">
-        <button *ngIf="task.status?.id === 3" class="btn btn-info btn-sm mr-3"
-                (click)="goToComments({name: 'Отправить на проверку', id: 2})">Отправить на проверку</button>
-        <button *ngIf="task.status?.id !== 3" class="btn btn-info btn-sm"
-                (click)="goToComments({name: 'Отправить на проверку', id: 2})">Отправить на проверку</button>
+       <button class="btn btn-info btn-sm"
+               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+               [disabled]="updatedGreatThanThreeDays"
+               [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : ''">Отправить на проверку</button>
+
     </span>
     <span class="w-50 pull-right">
       <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
