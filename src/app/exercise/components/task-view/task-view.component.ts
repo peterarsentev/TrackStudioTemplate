@@ -429,6 +429,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       const updatedTime = this.task.solution.updatedTime;
       const now = Date.now();
       const threeDaysInMillis = 3 * 24 * 60 * 60 * 1000;
-      return (now - updatedTime) > threeDaysInMillis;
+      return this.task.status.id === 3 && (now - updatedTime) > threeDaysInMillis;
    }
 }
