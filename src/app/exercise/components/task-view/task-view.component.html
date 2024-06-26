@@ -4,8 +4,8 @@
     <span class="w-50">
       <button class="btn btn-info btn-sm"
               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
-              [disabled]="updatedGreatThanThreeDays"
-              [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : ''">Отправить на проверку</button>
+              [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+              [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
     </span>
     </span>
     <span class="w-50 pull-right">

@@ -17,7 +17,7 @@ export class UserModels {
     public lastLogonDate?: number,
     public email?: string,
     public mentor?: boolean,
-
+    public payment?: string,
     // edu
 
     public pwd?: string,
