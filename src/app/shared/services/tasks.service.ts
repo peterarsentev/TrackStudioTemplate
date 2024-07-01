@@ -30,6 +30,7 @@ import { TopicFilter } from '../models/topickFilter';
 import { MessageModel } from '../models/message.model';
 import { NextNavModels } from '../models/next.nav.models';
 import { PageModel } from '../models/page.model';
+import {RecentlySolvedModels} from '../models/recently-solved-models';
 
 
 @Injectable({providedIn: 'root'})
@@ -586,5 +587,12 @@ export class TasksService {
     params = params.append('levelId', String(levelId));
     params = categoryId ? params.append('categoryId', String(categoryId)) : params;
     return this.http.post<any>(this.urlJedu + 'filterTopic/newFilters', params);
+  }
+
+  getRecentlySolved(taskId: number) {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('taskId', String(taskId));
+    return this.http.post<RecentlySolvedModels[]>(this.urlJedu + 'task/recentlySolved', params);
   }
 }

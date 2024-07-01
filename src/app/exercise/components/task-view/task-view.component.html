@@ -20,7 +20,7 @@
               title="Решения других учеников станут доступны после выполнения урока">Было решено: {{totalSolutions}}</button>
     </span>
   </div>
-  <div class="row pb-3">
+  <div class="row pb-1">
     <div class="w-100 card">
       <div class="card-header">
         <div class="grid">
@@ -74,7 +74,7 @@
                   <span *ngIf="task.status?.id == 4"
                         class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
                   <span *ngIf="task.handler" class="mr-1 font-weight-bolder"
-                     title="Отвественный">
+                        title="Отвественный">
                     <i aria-hidden="true" class="fa fa-user text-muted"></i> {{task.handler.name }},
                   </span>
                   <span *ngIf="task.solution" class="mr-1" title="Дата начало решения">
@@ -105,13 +105,16 @@
       </div>
     </div>
   </div>
-  <!--  <div class="row pb-2 pt-3">-->
-  <!--    <span class="w-50" *ngIf="!showCommentForm">-->
-  <!--      <ng-container *ngFor="let button of buttons">-->
-  <!--        <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>-->
-  <!--      </ng-container>-->
-  <!--    </span>-->
-  <!--  </div>-->
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">Недавно решали: </div>
+        <small style="cursor: pointer;" *ngFor="let rs of recentlySolved" (click)="openProfile(rs.userId, rs.login)">
+          <i class="fa fa-user"></i> {{ rs.username }} {{ rs.time | date: 'dd.MM.yyyy HH:mm' }},&nbsp;
+        </small>
+      </div>
+    </div>
+  </div>
   <div class="row mt-2" *ngIf="messages.length > 0" style="word-break: break-all;">
     <div class="w-100 card">
       <div class="card-header">
@@ -173,7 +176,7 @@
                   (save)="saveComment($event)"
     ></app-comments>
   </div>
-  <div *ngIf="user?.name !== 'anonimus' && rating?.vote === 'NO'" class="row mt-lg-5">
+  <div *ngIf="user?.name !== 'anonimus' && rating?.vote === 'NO'" class="row mt-lg-5 mb-1">
     <div class="w-100 card">
       <div class="card-header">
         <div class="font-weight-bold">Понравилось задание?</div>

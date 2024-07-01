@@ -17,6 +17,7 @@ import { DiscussionMessageModel } from '../../../shared/models/discussionMessage
 import { MessageService } from '../../../shared/services/message.service';
 import { RateModel } from '../../../shared/models/rate.model';
 import { DiscussionBlockComponent } from '../../../shared/components/discussion-block/discussion-block.component';
+import {RecentlySolvedModels} from '../../../shared/models/recently-solved-models';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -46,7 +47,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   taskTime: string;
   showButtonBottom = false;
   @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
-  updatedGreatThanThreeDays: Boolean = false
+  updatedGreatThanThreeDays: Boolean = false;
+  recentlySolved: RecentlySolvedModels[] = [];
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
@@ -72,11 +74,15 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.getTaskById(res.id);
         this.getRate();
         this.getTaskTime();
+        this.tasksService.getRecentlySolved(res.id)
+          .pipe(takeUntil(this.ngUnsubscribe$))
+          .subscribe(it => this.recentlySolved = it);
       });
 
     this.userService.getModel()
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.user = res);
+
   }
 
   getTaskById(id: string) {
@@ -431,4 +437,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       const threeDaysInMillis = 3 * 24 * 60 * 60 * 1000;
       return this.task.status.id === 3 && (now - updatedTime) > threeDaysInMillis;
    }
+
+  openProfile(userId, login) {
+    this.router.navigate(['user', userId], { state: { login: login } });
+  }
 }
