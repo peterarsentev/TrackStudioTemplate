@@ -25,7 +25,6 @@
           <span style="cursor: pointer;"
                 class="ml-0"
           >{{ position }}</span></a>
-        <a class="dropdown-item" [routerLink]="['/rating/likes']">Рейтинг</a>
         <a class="dropdown-item" [routerLink]="['/exams']">Экзамены</a>
         <a class="dropdown-item" [routerLink]="['/updates']">Обновления</a>
         <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
@@ -55,6 +54,7 @@
       <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
         <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Все обсуждения</a></li>
         <li><a class="dropdown-item" [routerLink]="['/discuss/my']">Мои подписки</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/rating/likes']">Рейтинги</a></li>
       </ul>
     </div>
 

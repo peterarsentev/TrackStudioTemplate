@@ -36,6 +36,7 @@ import { ExamQuestionComponent } from './components/exam/exam_question/exam.ques
 import { ExamResultComponent } from './components/exam/exam_result/exam.result.component';
 import { InfoComponent } from './components/info/info.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { LeadersComponent } from './components/exam/exam_intro/leaders/leaders.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
         ChartUserComponent,
         ExamIntroComponent,
         ExamQuestionComponent,
-        ExamResultComponent
+        ExamResultComponent,
+        LeadersComponent
     ],
   imports: [
     CommonModule,

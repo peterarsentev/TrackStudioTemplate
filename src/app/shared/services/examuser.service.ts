@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ExamUser } from '../models/examuser.model';
 import { DBConstat } from '../components/constants/dbconstat';
 import { environment } from '../../../environments/environment';
+import {LeaderModels} from '../models/leader-models';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,13 @@ export class ExamuserService {
     params = params.append('userId', String(examUser.userid));
     params = params.append('total', String(examUser.total));
     return this.http.post<ExamUser>(url, params);
+  }
+
+  getLeaders(examId) {
+    const url = this.url + 'examuser/leaders';
+    let params = new HttpParams();
+    params = params.append('examId', examId);
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<LeaderModels[]>(url, params);
   }
 }
