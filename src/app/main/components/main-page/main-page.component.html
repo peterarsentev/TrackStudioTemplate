@@ -20,7 +20,7 @@
         </thead>
         <tbody>
         <tr>
-          <td>Выполнено / всего:</td>
+          <td>Выполнено уроков {{solvedTasksCount}} из {{allTasksCount}}</td>
           <td>
             <app-progress-bar-view [allTasksCount]="allTasksCount"
                                    [solvedTasksCount]="solvedTasksCount"
@@ -29,7 +29,7 @@
           </td>
         </tr>
         <tr>
-          <td>Выполнено упражнений / всего:</td>
+          <td>Выполнено упражнений {{solvedExerciseCount}} из {{totalExerciseCount}}</td>
           <td>
             <app-progress-bar-view [allTasksCount]="totalExerciseCount"
                                    [solvedTasksCount]="solvedExerciseCount"
@@ -64,16 +64,19 @@
       <table class="table">
         <thead>
         <tr>
-          <th scope="col" class="font-weight-bold">Доступные уровни:</th>
+          <th scope="col" class="font-weight-bold">Доступные уровни</th>
           <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let l of levels">
-          <td>
-            {{ l.name }}
+          <td class="w-75">
+            {{ l.name }}<br/>
+            <small class="text-muted">
+              Выполнено уроков {{ l.solved }} из {{ l.all }}
+            </small>
           </td>
-          <td>
+          <td class="w-25">
             <app-progress-bar-view [allTasksCount]="l.all"
                                    [solvedTasksCount]="l.solved"
                                    [barValue]="l.progress"

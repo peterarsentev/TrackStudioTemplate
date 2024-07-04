@@ -129,8 +129,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/new-task']);
   }
 
-  getCountAllAndSolvedTasks(id?: number) {
-    this.tasksService.getCountTasks(id)
+  getCountAllAndSolvedTasks(userId?: number) {
+    this.tasksService.getCountTasks(userId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.allTasksCount = res.all;
@@ -188,7 +188,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.tasksService.getLevels(userId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
-        res.forEach(level => this.tasksService.getCountTasksByLevel(level.id).subscribe(counts => {
+        res.forEach(level => this.tasksService.getCountTasksByLevel(level.id, userId)
+          .subscribe(counts => {
           level.all = counts.all;
           level.solved = counts.solved;
           level.progress = (level.all && level.all > 0) ?  +((level.solved / level.all) * 100).toFixed(2) : 0;

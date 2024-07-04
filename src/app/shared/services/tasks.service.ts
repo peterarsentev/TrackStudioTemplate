@@ -176,19 +176,20 @@ export class TasksService {
     // }
   }
 
-  getCountTasks(id?: number): Observable<CountModels> {
+  getCountTasks(userId?: number): Observable<CountModels> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     const sessionId = localStorage.getItem('sessionId');
     params = params.append('sessionId', sessionId);
-    params = id ?  params.append('userId', String(id)) : params;
+    params = userId ?  params.append('userId', String(userId)) : params;
     return this.http.post<CountModels>(this.urlJedu + 'task/countTasks', params);
   }
 
-  getCountTasksByLevel(levelId: number): Observable<CountModels> {
+  getCountTasksByLevel(levelId: number, userId: number): Observable<CountModels> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     const sessionId = localStorage.getItem('sessionId');
     params = params.append('sessionId', sessionId);
     params = params.append('levelId', String(levelId));
+    params = userId ? params.append('userId', String(userId)) : params;
     return this.http.post<CountModels>(this.urlJedu + 'task/countTaskByLevel', params);
   }
 
