@@ -137,6 +137,15 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         });
       return;
     }
+    if (this.task.task.type === 2) {
+      this.operation = {name: 'Отправить на проверку', id: 3};
+      const commentAndButtonsModel = new CommentAndButtonsModel();
+      commentAndButtonsModel.saveAndUp = true;
+      commentAndButtonsModel.description = 'Ознакомился\\лась';
+      commentAndButtonsModel.handlerId = this.user.id;
+      this.saveComment(commentAndButtonsModel);
+      return;
+    }
     setTimeout(() => {
       const el = document.querySelector('.com');
       el.scrollIntoView({behavior: 'smooth'});

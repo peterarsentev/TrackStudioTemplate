@@ -2,10 +2,14 @@
   <div class="row pb-2">
     <span class="w-50">
     <span class="w-50">
-      <button class="btn btn-info btn-sm"
+      <button *ngIf="task.task.type !== 2" class="btn btn-info btn-sm"
               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
               [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
               [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
+            <button *ngIf="task.task.type === 2" class="btn btn-info btn-sm"
+                    (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+                    [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+                    [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Ознакомился\лась</button>
     </span>
     </span>
     <span class="w-50 pull-right">
@@ -150,11 +154,14 @@
   <!--  </div>-->
   <div class="row pt-2">
     <span class="w-50">
-       <button class="btn btn-info btn-sm"
+       <button *ngIf="task.task.type !== 2" class="btn btn-info btn-sm"
                (click)="goToComments({name: 'Отправить на проверку', id: 2})"
                [disabled]="updatedGreatThanThreeDays"
                [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : ''">Отправить на проверку</button>
-
+            <button *ngIf="task.task.type === 2" class="btn btn-info btn-sm"
+                    (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+                    [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+                    [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Ознакомился\лась</button>
     </span>
     <span class="w-50 pull-right">
       <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"

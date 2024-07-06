@@ -14,7 +14,7 @@ export class TaskTopicModel {
     public nextId?: number,
     public previousId?: number,
     public rating?: RateModel,
-    public discussCount?: DiscussCount
+    public discussCount?: DiscussCount,
   ) {
   }
 }
@@ -33,7 +33,8 @@ class TaskModel {
     public category?: CategoryModels,
     public topic?: TopicModels,
     public updated?: number,
-    public readTime?: number
+    public readTime?: number,
+    public type?: number
   ) {
   }
 }
