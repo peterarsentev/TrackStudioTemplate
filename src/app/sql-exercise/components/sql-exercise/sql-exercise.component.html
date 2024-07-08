@@ -7,15 +7,22 @@
       <button type="button" class="m btn btn-light btn-sm pull-right mr-2"  *ngIf="prevId !== null"
               (click)="goTo(prevId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
 
+      <button [disabled]="exercise.status !== 'COMPLETE'" class="btn btn-success btn-sm mr-2 pull-right"
+              title="Решения других учеников станут доступны после выполнения упражнения">Было решено: {{ solvedSize.size }}</button>
+
     </div>
   </div>
   <div class="row">
     <div class="w-100 card">
       <div class="card-header">
-        <div class="font-weight-bold">{{ exercise.title }}
-        </div>
-        <div>
-        </div>
+        <div class="font-weight-bold">{{ exercise.title }}</div>
+        <small class="mb-2 text-muted">
+            <span>
+              <span *ngIf="exercise.status === 'COMPLETE'" class="badge badge-success mr-3">Выполнено</span>
+              <span *ngIf="exercise.status === 'NEW'" class="badge badge-danger mr-3">Новая</span>
+              <span *ngIf="exercise.status === 'PROGRESS'" class="badge badge-warning mr-3">В процессе</span>
+            </span>
+        </small>
       </div>
       <div class="card-body">
         <div class="card-text" [innerHTML]="exercise.description "></div>
@@ -36,7 +43,7 @@
           ></ngx-codemirror>
         </div>
 
-        <div class="font-weight-bold">Ваш запрос:</div>
+        <div class="font-weight-bold">Запрос:</div>
         <div *ngIf="load">
           <ngx-codemirror
             [(ngModel)]="solutionSql"
@@ -59,23 +66,30 @@
         </div>
 
         <div>
-
-          <button *ngIf="load && exercise.status == 'NEW'" class="btn btn-success btn-sm mt-2" (click)="sendSolution()"
-                  [disabled]="solutionSql.length == 0 || !checked">
-            <i class="fa fa-caret-right mr-2"></i>
-            <span *ngIf="!checked" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Решить
-          </button>
-          <button *ngIf="load && exercise.status != 'NEW'" class="btn btn-warning btn-sm mt-2 mr-2" (click)="sendSolution()"
-                  [disabled]="solutionSql.length == 0 || !checked">
-            <i class="fa fa-caret-right mr-2"></i>
-            <span *ngIf="!checked" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Проверить
-          </button>
-          <button *ngIf="load && exercise.status != 'NEW'" class="btn btn-warning btn-sm mt-2" (click)="wipeSolution()"
-                  [disabled]="solutionSql.length == 0 || !checked">
-            <i class="fa fa-caret-right mr-2"></i>
-            <span *ngIf="!checked" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Сбросить решение
-          </button>
-
+          <span class="w-50">
+              <button *ngIf="load && exercise.status == 'NEW'"
+                      class="btn btn-success btn-sm mt-2"
+                      (click)="sendSolution()"
+                      [disabled]="solutionSql.length == 0 || !checked">
+                <i class="fa fa-caret-right mr-2"></i>
+                <span *ngIf="!checked"
+                      class="spinner-border spinner-border-sm mr-2" role="status"
+                      aria-hidden="true"></span>Решить
+              </button>
+              <button *ngIf="load && exercise.status != 'NEW'" class="btn btn-success btn-sm mt-2 mr-2" (click)="sendSolution()"
+                      [disabled]="solutionSql.length == 0 || !checked">
+                <i *ngIf="checked" class="fa fa-caret-right mr-2"></i>
+                <span *ngIf="!checked" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Проверить
+              </button>
+          </span>
+          <span class="w-50">
+              <button *ngIf="load && exercise.status != 'NEW'"
+                      class="btn btn-light btn-sm mt-2"
+                      (click)="wipeSolution()"
+                      [disabled]="solutionSql.length == 0 || !checked">
+                <i class="fa fa-refresh mr-2"></i>Сбросить решение
+              </button>
+          </span>
         </div>
         <div>
         </div>

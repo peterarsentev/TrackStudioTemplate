@@ -70,13 +70,10 @@
         </thead>
         <tbody>
         <tr *ngFor="let l of levels">
-          <td class="w-75">
+          <td class="w-50">
             {{ l.name }}<br/>
-            <small class="text-muted">
-              Выполнено уроков {{ l.solved }} из {{ l.all }}
-            </small>
           </td>
-          <td class="w-25">
+          <td class="w-50">
             <app-progress-bar-view [allTasksCount]="l.all"
                                    [solvedTasksCount]="l.solved"
                                    [barValue]="l.progress"

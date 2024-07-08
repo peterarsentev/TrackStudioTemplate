@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { CustomEncoder } from '../custom-encoder';
 import {SqlExercise, SqlResult, SqlSolution, SqlTopic} from '../models/sql-exercise.model';
 import {NavNode} from '../models/nav.node';
+import {SizeModels} from '../models/size.model';
 
 @Injectable({
   providedIn: 'root'
@@ -104,4 +105,11 @@ export class SqlSolutionService {
     return this.http.post<NavNode[]>(url, params);
   }
 
+  solvedSize(exerciseId: number) {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('exerciseId', String(exerciseId));
+    const url = this.urlJedu + `sqlSolution/solvedSize`;
+    return this.http.post<SizeModels>(url, params);
+  }
 }

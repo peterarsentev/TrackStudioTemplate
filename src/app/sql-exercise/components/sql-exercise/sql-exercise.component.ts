@@ -14,6 +14,7 @@ import {Subject} from 'rxjs';
 import {UserService} from '../../../shared/services/user.service';
 import {DiscussionMessageModel} from '../../../shared/models/discussionMessageModel';
 import { DiscussionBlockComponent } from '../../../shared/components/discussion-block/discussion-block.component';
+import {SizeModels} from '../../../shared/models/size.model';
 
 @Component({
   selector: 'app-sql-exercise',
@@ -50,8 +51,8 @@ export class SqlExerciseComponent implements OnInit, OnDestroy {
 
   discussions: DiscussionMessageModel[] = [];
   user: UserModels;
-
   checked = true;
+  solvedSize = new SizeModels(0);
 
   constructor(private activatedRoute: ActivatedRoute,
               private sqlExerciseService: SqlSolutionService,
@@ -71,6 +72,8 @@ export class SqlExerciseComponent implements OnInit, OnDestroy {
       this.userService.getModel()
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(res => this.user = res);
+      this.sqlExerciseService.solvedSize(+params.id)
+        .subscribe(res => this.solvedSize = res);
       this.sqlExerciseService.getById(+params.id).subscribe((result) => {
         this.sqlExerciseService.getSolution(result.id).subscribe(s => {
           this.exercise = result;
@@ -80,8 +83,10 @@ export class SqlExerciseComponent implements OnInit, OnDestroy {
           this.updateImages();
           this.updatePrevNextIds();
           this.navService.setUpModel(
-            {... new NavNode(), sqlExercise: true,
-              topicId: this.exercise.topicId, taskId: this.exercise.id}
+            {
+              ... new NavNode(), sqlExercise: true,
+              topicId: this.exercise.topicId, taskId: this.exercise.id
+            }
           );
           this.getDiscussions();
         });
@@ -106,11 +111,13 @@ export class SqlExerciseComponent implements OnInit, OnDestroy {
   }
 
   wipeSolution() {
-    this.sqlExerciseService.wipeSolution(this.exercise.id).subscribe((result) => {
+    this.sqlExerciseService.wipeSolution(this.exercise.id)
+      .subscribe((result) => {
       this.solutionSql = '';
       this.exercise.status = 'NEW';
       this.alertService.setUpMessage('', null);
       this.checked = true;
+      this.solutionResult = new SqlResult(false, '');
     });
   }
 

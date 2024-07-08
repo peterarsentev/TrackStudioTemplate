@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { DiscussRatingService } from '../../../services/discussRatingService';
 import { RateModel } from '../../../models/rate.model';
+import {Route, Router} from '@angular/router';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -26,7 +27,9 @@ export class DiscussionElementComponent implements OnInit, OnDestroy {
   showDiscussion = false;
   addResponse = false;
   answers: boolean;
-  constructor(private modalService: ModalService, private discussRateService: DiscussRatingService) { }
+  constructor(private modalService: ModalService,
+              private discussRateService: DiscussRatingService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -90,5 +93,10 @@ export class DiscussionElementComponent implements OnInit, OnDestroy {
 
   changeResponse(d: DiscussionMessageModel) {
     d.editResponse = true;
+  }
+
+  goToProfile(userId: string) {
+    this.router.navigate(['user', userId])
+      .then(() => window.scrollTo(0, 0));
   }
 }

@@ -141,8 +141,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       this.operation = {name: 'Отправить на проверку', id: 3};
       const commentAndButtonsModel = new CommentAndButtonsModel();
       commentAndButtonsModel.saveAndUp = true;
-      commentAndButtonsModel.description = 'Ознакомился\\лась';
+      commentAndButtonsModel.description = 'Ознакомился(лась)';
       commentAndButtonsModel.handlerId = this.user.id;
+      commentAndButtonsModel.saveAndNext = true;
       this.saveComment(commentAndButtonsModel);
       return;
     }
@@ -186,6 +187,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.router.navigate(['exercise', `${this.topicId}`]);
         window.scrollTo(0, 0);
       } else {
+        this.taskId = this.task.nextId;
         this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${this.task.nextId}`]);
         window.scrollTo(0, 0);
       }
@@ -199,7 +201,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.messages = res;
         this.messages.forEach(message =>
           message.submitter.mentor = (!!this.handlers.find(h => h.name === message.submitter.name)
-          || message.submitter.email === 'ci_bot@gmail.com'));
+            || message.submitter.email === 'ci_bot@gmail.com'));
         this.updateImages();
       });
   }
@@ -409,9 +411,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   private getTaskTime() {
-      this.tasksService.getTaskTime(this.taskId)
-        .pipe(takeUntil(this.ngUnsubscribe$))
-        .subscribe(
+    this.tasksService.getTaskTime(this.taskId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(
         res => {
           if (!!res && res.second) {
             let delta = res.second;
@@ -437,15 +439,15 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.discussComponent.showDiscussionForm();
   }
 
-   isUpdatedGreatThanThreeDays(): boolean {
-      if (this.task.solution === undefined) {
-          return false;
-      }
-      const updatedTime = this.task.solution.updatedTime;
-      const now = Date.now();
-      const threeDaysInMillis = 3 * 24 * 60 * 60 * 1000;
-      return this.task.status.id === 3 && (now - updatedTime) > threeDaysInMillis;
-   }
+  isUpdatedGreatThanThreeDays(): boolean {
+    if (this.task.solution === undefined) {
+      return false;
+    }
+    const updatedTime = this.task.solution.updatedTime;
+    const now = Date.now();
+    const threeDaysInMillis = 3 * 24 * 60 * 60 * 1000;
+    return this.task.status.id === 3 && (now - updatedTime) > threeDaysInMillis;
+  }
 
   openProfile(userId, login) {
     this.router.navigate(['user', userId], { state: { login: login } });

@@ -17,7 +17,7 @@
              [infiniteScrollThrottle]="throttle"
              (scrolled)="onScrollDown()">
       <ng-container *ngFor="let r of ratings; let idx=index">
-        <tr (click)="goTo(r)" [ngStyle]="{backgroundColor: user?.id == r.userId ? ' #57CFBA' : 'white'}">
+        <tr (click)="goTo(r)" [ngClass]="user?.id == r.userId ? 'alert-success' : ''">
           <td>{{idx + 1}}</td>
           <td style="cursor: pointer;">
             <span class="font-weight-bold">{{r.name}}</span>

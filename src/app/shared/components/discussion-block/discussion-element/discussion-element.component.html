@@ -1,8 +1,9 @@
 <td>
   <div *ngIf="!showDiscussion">
     <div class="pb-3 small">
-                  <span>Oт
-                    <span class="font-weight-bold">{{ discussion.name }}</span>
+                  <span>
+                    <span (click)="goToProfile(discussion.userId)" class="font-weight-bold" style="cursor: pointer;">
+                      <i class="fa fa-user mr-1"></i>{{ discussion.name }}</span>
                   </span>
       <span class="pull-right" *ngIf="discussion.userId === user.id" (click)="openConfirmModal()">
         <i class="fa fa-remove ml-3"></i>
