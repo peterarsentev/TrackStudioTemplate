@@ -38,7 +38,6 @@ import { InfoComponent } from './components/info/info.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LeadersComponent } from './components/exam/exam_intro/leaders/leaders.component';
 
-
 @NgModule({
     declarations: [
         MainLayoutComponent,
@@ -69,7 +68,7 @@ import { LeadersComponent } from './components/exam/exam_intro/leaders/leaders.c
         ExamIntroComponent,
         ExamQuestionComponent,
         ExamResultComponent,
-        LeadersComponent
+        LeadersComponent,
     ],
   imports: [
     CommonModule,

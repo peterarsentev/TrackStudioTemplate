@@ -49,6 +49,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
   updatedGreatThanThreeDays: Boolean = false;
   recentlySolved: RecentlySolvedModels[] = [];
+  code = '';
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
@@ -102,7 +103,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         }
         this.prepareCode();
         this.updateImages();
-
       });
   }
 
@@ -156,8 +156,10 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   saveComment(button: CommentAndButtonsModel) {
     this.showCommentForm = false;
+    console.log(this.code);
+    const textComment = this.task.task.type === 1 ? button.description + '<pre><code class="java">' + this.code + '</code></pre>' : button.description;
     if (this.task.status.id === 1) {
-      this.tasksService.createSolutionAndAddComment(this.task.task.id, this.operation.id, button.handlerId, button.description)
+      this.tasksService.createSolutionAndAddComment(this.task.task.id, this.operation.id, button.handlerId, textComment)
         .subscribe((res) => {
           this.solutionId = res.solutionId;
           this.getTaskById(this.taskId);
@@ -169,7 +171,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         });
     } else {
       this.tasksService.updateSolutionAndAddComment(
-        this.task.task.id, this.task.solution.id, this.operation.id, button.handlerId, button.description)
+        this.task.task.id, this.task.solution.id, this.operation.id, button.handlerId, textComment)
         .subscribe(() => {
           this.getTaskById(this.taskId);
           this.commentService.setUpModel(true);
@@ -188,6 +190,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         window.scrollTo(0, 0);
       } else {
         this.taskId = this.task.nextId;
+        this.messages = [];
         this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${this.task.nextId}`]);
         window.scrollTo(0, 0);
       }
@@ -202,6 +205,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.messages.forEach(message =>
           message.submitter.mentor = (!!this.handlers.find(h => h.name === message.submitter.name)
             || message.submitter.email === 'ci_bot@gmail.com'));
+        this.prepareCode();
         this.updateImages();
       });
   }

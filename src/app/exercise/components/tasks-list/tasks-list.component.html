@@ -10,11 +10,11 @@
           </span>
           <span  *ngIf="!isSearch" class="col-sm-1">
               <button type="button" class="m btn btn-light btn-sm pull-right ml-1"
-                      (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Up</button>
+                      (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>К темам</button>
               <button *ngIf="task.nextId !== -1" type="button" class="ml-1 m btn btn-light btn-sm pull-right"
-                      (click)="goBackToList(task.nextId)">Next.<i class="fas fa-angle-right pl-1"></i></button>
+                      (click)="goBackToList(task.nextId)">Следующий<i class="fas fa-angle-right pl-1"></i></button>
               <button *ngIf="task.previousId !== -1" type="button" class="ml-1 m btn btn-light btn-sm pull-right"
-                      (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Prev.</button>
+                      (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущий</button>
           </span>
         </th>
       </tr>

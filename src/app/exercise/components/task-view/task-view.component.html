@@ -1,16 +1,20 @@
 <div class="container-fluid pb-4">
   <div class="row pb-2">
     <span class="w-50">
-    <span class="w-50">
-      <button *ngIf="task.task.type !== 2" class="btn btn-info btn-sm"
+      <button *ngIf="task?.task?.type === 0" class="btn btn-info btn-sm"
               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
               [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
               [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
-            <button *ngIf="task.task.type === 2" class="btn btn-info btn-sm"
-                    (click)="goToComments({name: 'Отправить на проверку', id: 2})"
-                    [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
-                    [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Ознакомился(лась)</button>
-    </span>
+
+      <button *ngIf="task?.task?.type === 2" class="btn btn-info btn-sm"
+              (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+              [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+              [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Ознакомился(лась)</button>
+
+       <button *ngIf="task?.task?.type === 1" class="btn btn-info btn-sm"
+               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+               [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+               [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
     </span>
     <span class="w-50 pull-right">
       <button type="button" class="m btn btn-light btn-sm pull-right"
@@ -89,9 +93,6 @@
                     <i aria-hidden="true" class="fa fa-clock-o text-muted"></i> {{ taskTime }}
                   </span>
                 </small>
-                <!--                <div class="pull-right col-sm-2">-->
-                <!--                  <app-book-mark-star [name]="name"></app-book-mark-star>-->
-                <!--                </div>-->
               </div>
             </div>
           </div>
@@ -109,6 +110,7 @@
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="w-100 card">
       <div class="card-header">
@@ -144,24 +146,34 @@
       </div>
     </div>
   </div>
-  <!--  <div class="row pt-2" *ngIf="messages.length > 0 && !showCommentForm">-->
-  <!--   <span class="w-50">-->
-  <!--      <ng-container *ngFor="let button of buttons">-->
-  <!--        <button class="m btn btn-info btn-sm" (click)="goToComments(button)">{{ button.name }}</button>-->
-  <!--      </ng-container>-->
-  <!--    </span>-->
 
-  <!--  </div>-->
+  <div class="row mt-1" *ngIf="task?.task?.type === 1">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">Задание</div>
+      </div>
+      <div class="card-body">
+        <app-task-exercise
+          [taskId]="task?.task?.id"
+          (updateCode)="code = $event"></app-task-exercise>
+      </div>
+    </div>
+  </div>
+
   <div class="row pt-2">
     <span class="w-50">
-       <button *ngIf="task.task.type !== 2" class="btn btn-info btn-sm"
+       <button *ngIf="task?.task?.type === 0" class="btn btn-info btn-sm"
                (click)="goToComments({name: 'Отправить на проверку', id: 2})"
                [disabled]="updatedGreatThanThreeDays"
                [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : ''">Отправить на проверку</button>
-            <button *ngIf="task.task.type === 2" class="btn btn-info btn-sm"
-                    (click)="goToComments({name: 'Отправить на проверку', id: 2})"
-                    [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
-                    [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Ознакомился(лась)</button>
+       <button *ngIf="task?.task?.type === 2" class="btn btn-info btn-sm"
+               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+               [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+               [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Ознакомился(лась)</button>
+        <button *ngIf="task?.task?.type === 1" class="btn btn-info btn-sm"
+                (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+                [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+                [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
     </span>
     <span class="w-50 pull-right">
       <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
@@ -172,7 +184,7 @@
               (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
       <button [disabled]="task.status?.id != 3" class="btn btn-success btn-sm ml-1 pull-right"
               (click)="goToSolutions()"
-              title="Решения других учеников станут доступны после выполнения урока">Решения</button>
+              title="Решения других учеников станут доступны после выполнения урока">Было решено: {{totalSolutions}}</button>
     </span>
   </div>
   <div  id="comment" class="row comment">

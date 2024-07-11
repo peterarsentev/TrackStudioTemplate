@@ -52,7 +52,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
     const description = this.form.get('description').value;
     this.save.emit({...button, handlerId, description});
     this.form.reset();
-
   }
 
 

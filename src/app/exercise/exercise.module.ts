@@ -9,12 +9,15 @@ import { MessageElementComponent } from './components/message-element/message-el
 import { SolutionsComponent } from '../main/solutions/components/solutions/solutions.component';
 import { StudentSolutionComponent } from '../main/solutions/components/student-solution/student-solution.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {TaskExerciseModel} from '../shared/models/task.exercise.model';
+import {TaskExerciseComponent} from '../main/components/task-exercise/task-exercise.component';
 
 @NgModule({
   declarations: [
     ExerciseListComponent,
     TasksListComponent,
     TaskViewComponent,
+    TaskExerciseComponent,
     MessageElementComponent,
     SolutionsComponent,
     StudentSolutionComponent

@@ -1,0 +1,20 @@
+<p [innerHTML]="taskExercise?.description"></p>
+<div class="mb-1">
+  <button (click)="runCode()" class="btn btn-success mt-2">
+    <i class="fa fa-caret-right mr-2"></i>Запустить</button>
+</div>
+<div class="codemirror">
+  <ngx-codemirror
+    *ngIf="taskExerciseSolution"
+    [(ngModel)]="taskExerciseSolution.code"
+    [options]="options"
+    (ngModelChange)="onCodeChange($event)"
+  ></ngx-codemirror>
+</div>
+<div class="codemirror mt-1">
+  <label>Вывод:</label>
+  <ngx-codemirror *ngIf="taskExerciseSolution"
+    [(ngModel)]="taskExerciseSolution.output"
+    [options]="options"
+  ></ngx-codemirror>
+</div>
