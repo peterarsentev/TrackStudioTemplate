@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TaskCodeService} from '../../../shared/services/task-code.service';
 import {TaskExerciseModel} from '../../../shared/models/task.exercise.model';
@@ -33,6 +33,14 @@ export class TaskExerciseComponent implements OnInit {
     private router: Router,
     private taskCodeService: TaskCodeService,
   ) {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.taskId && changes.taskId.currentValue) {
+      this.taskId = Number(changes.taskId.currentValue);
+      this.taskExerciseSolution = undefined;
+      this.ngOnInit();
+    }
   }
 
   ngOnInit(): void {

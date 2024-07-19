@@ -91,13 +91,14 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.task = res;
+        this.solutionId = res.solution ? res.solution.id : undefined;
         this.updatedGreatThanThreeDays = this.isUpdatedGreatThanThreeDays();
         this.name = this.task.task.name;
         if (this.task.status.start) {
           this.messages = [];
         }
-        if (!!this.task.solution && !!this.task.solution.id || !!this.solutionId) {
-          this.getMessages(!!this.solutionId ? this.solutionId : this.task.solution.id);
+        if (this.solutionId) {
+          this.getMessages(this.solutionId);
         } else {
           this.messages = [];
         }
@@ -156,7 +157,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   saveComment(button: CommentAndButtonsModel) {
     this.showCommentForm = false;
-    console.log(this.code);
+    this.messages = [];
     const textComment = this.task.task.type === 1 ? button.description + '<pre><code class="java">' + this.code + '</code></pre>' : button.description;
     if (this.task.status.id === 1) {
       this.tasksService.createSolutionAndAddComment(this.task.task.id, this.operation.id, button.handlerId, textComment)
@@ -189,8 +190,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         this.router.navigate(['exercise', `${this.topicId}`]);
         window.scrollTo(0, 0);
       } else {
-        this.taskId = this.task.nextId;
-        this.messages = [];
         this.router.navigate(['exercise', `${this.topicId}`, 'task-view', `${this.task.nextId}`]);
         window.scrollTo(0, 0);
       }
