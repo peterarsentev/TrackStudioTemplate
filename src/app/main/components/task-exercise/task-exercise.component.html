@@ -1,8 +1,13 @@
 <p [innerHTML]="taskExercise?.description"></p>
-<div class="mb-1">
+<div class="mb-1 d-flex justify-content-between">
   <button (click)="runCode()" class="btn btn-success mt-2">
-    <i class="fa fa-caret-right mr-2"></i>Запустить</button>
+    <i class="fa fa-caret-right mr-2"></i>Запустить
+  </button>
+  <button (click)="recyctleCode()" class="btn btn-light mt-2">
+    <i class="fa fa-recycle mr-2"></i>Вернуть каркас
+  </button>
 </div>
+
 <div class="codemirror">
   <ngx-codemirror
     *ngIf="taskExerciseSolution"

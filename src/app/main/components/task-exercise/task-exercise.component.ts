@@ -63,6 +63,10 @@ export class TaskExerciseComponent implements OnInit {
       .subscribe(rs => this.taskExerciseSolution = rs);
   }
 
+  recyctleCode() {
+    this.taskExerciseSolution.code = this.taskExercise.snippet;
+  }
+
   onCodeChange(code: string) {
     if (this.taskExerciseSolution) {
       this.taskExerciseSolution.code = code;
