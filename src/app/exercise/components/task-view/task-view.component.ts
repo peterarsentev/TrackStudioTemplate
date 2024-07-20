@@ -174,7 +174,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       this.tasksService.updateSolutionAndAddComment(
         this.task.task.id, this.task.solution.id, this.operation.id, button.handlerId, textComment)
         .subscribe(() => {
-          this.getTaskById(this.taskId);
+          if (!button.saveAndNext) {
+            this.getTaskById(this.taskId);
+          }
           this.commentService.setUpModel(true);
         }, error => {
           if (error.status  === 403) {
