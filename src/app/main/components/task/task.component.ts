@@ -16,6 +16,7 @@ import { DiscussionMessageModel } from '../../../shared/models/discussionMessage
 import { UserService } from '../../../shared/services/user.service';
 import { RateModel } from '../../../shared/models/rate.model';
 import { CommentService } from '../../../shared/services/comment.service';
+import {EditorConfiguration} from 'codemirror';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -57,64 +58,6 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.getTask();
   }
 
-  private sandBoxWidget(block, java) {
-    const codeEl = document.createElement('textarea');
-    const outputEl = document.createElement('textarea');
-    const button = document.createElement('button');
-    const div = document.createElement('div');
-    const divEnd = document.createElement('div');
-    div.classList.add('pt-2');
-    div.innerText = 'Вывод:';
-    divEnd.classList.add('mt-3');
-    button.classList.add('mt-3');
-    button.classList.add('mb-1');
-    button.classList.add('m');
-    button.classList.add('btn');
-    button.classList.add('btn-success');
-    button.classList.add('btn-sm');
-    const i = document.createElement('i');
-    i.classList.add('fa');
-    i.classList.add('fa-caret-right');
-    i.classList.add('mr-1');
-    button.append(i);
-    button.append('Запустить');
-    block.parentElement.before(button);
-    block.parentElement.before(codeEl);
-    block.parentElement.before(div);
-    block.parentElement.before(outputEl);
-    block.parentElement.before(divEnd);
-    const code = CodeMirror.fromTextArea(codeEl, {
-      lineNumbers: true,
-      matchBrackets: true,
-      mode: java ? 'text/x-java' : 'text/x-sql'
-    });
-    const output = CodeMirror.fromTextArea(outputEl, {
-      lineNumbers: true,
-      matchBrackets: true,
-      mode: java ? 'text/x-java' : 'text/x-sql'
-    });
-    code.getDoc().setValue(
-      block.innerHTML
-        .split('<br>').join('\r\n')
-        .split('&gt;').join('>')
-        .split('&lt;').join('<')
-        .split('&amp;').join('&')
-    );
-    button.addEventListener('click', () => {
-      if (java) {
-        this.tasksService.runJava(code.getValue())
-          .subscribe((model) => {
-            output.getDoc().setValue(model.output);
-          });
-      } else {
-        this.tasksService.runSql(code.getValue())
-          .subscribe((model) => {
-            output.getDoc().setValue(model.output);
-          });
-      }
-    });
-    block.parentElement.parentElement.removeChild(block.parentElement);
-  }
 
   private getTask() {
     this.route.queryParams.pipe(
@@ -136,29 +79,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         this.getButtons(this.task.id);
         this.showCommentForm = false;
         this.getHandlersList();
-        console.log('text 2');
-        setTimeout(() => {
-          document.querySelectorAll('pre code').forEach((block) => {
-            if (block.parentElement && block.parentElement.className.indexOf('run_') > -1) {
-              const java = block.parentElement.className.indexOf('run_main') > -1;
-              this.sandBoxWidget(block, java);
-            } else {
-              hljs.highlightBlock(block);
-            }
-          });
-
-          const options = {
-            templateSelector: '#CodeBadgeTemplate',
-            contentSelector: 'body',
-            copyIconClass: 'fa fa-copy',
-            checkIconClass: 'fa fa-check text-success',
-          };
-          window.highlightJsBadge(options);
-
-          document.querySelectorAll('a img').forEach((block) => {
-            block.parentElement.setAttribute('data-lightbox', 'images');
-          });
-        }, 0);
+        this.prepareCode();
       });
 
     this.userService.getModel()
@@ -309,4 +230,133 @@ export class TaskComponent implements OnInit, OnDestroy {
         .subscribe(() => this.getRate());
     }
   }
+
+  private prepareCode() {
+    setTimeout(() => {
+      document.querySelectorAll('pre code').forEach((block) => {
+        const canRun = block.parentElement.className.indexOf('run_') > -1;
+        const java = block.parentElement.className.indexOf('run_main') > -1;
+        this.sandBoxWidget(block, java, canRun);
+      });
+    }, 0);
+  }
+
+  private sandBoxWidget(block, java, canRun) {
+    // Create elements
+    const codeEl = document.createElement('textarea');
+    const outputEl = document.createElement('textarea');
+    const buttonContainer = document.createElement('div');
+    const runButton = document.createElement('button');
+    const copyButton = document.createElement('button');
+    const div = document.createElement('div');
+    const divEnd = document.createElement('div');
+
+    // Add classes and inner text
+    div.classList.add('pt-2');
+    div.innerText = 'Вывод:';
+    divEnd.classList.add('mt-3');
+    buttonContainer.classList.add('mt-3', 'mb-1', 'd-flex', 'gap-2');
+
+    runButton.classList.add('btn', 'btn-success', 'btn-sm');
+    runButton.innerHTML = '<i class="fa fa-caret-right mr-1"></i>Запустить';
+
+    copyButton.classList.add('btn', 'btn-light', 'btn-sm', 'ml-2');
+    copyButton.innerHTML = '<i class="fa fa-copy mr-1"></i>Копировать';
+
+    // Append buttons to the button container
+    if (canRun) {
+      buttonContainer.appendChild(runButton);
+    }
+    buttonContainer.appendChild(copyButton);
+
+    // Insert elements before the block
+    block.parentElement.before(buttonContainer);
+    block.parentElement.before(codeEl);
+    if (canRun) {
+      block.parentElement.before(div);
+      block.parentElement.before(outputEl);
+    }
+    block.parentElement.before(divEnd);
+
+    // Initialize CodeMirror
+    const code = CodeMirror.fromTextArea(codeEl, {
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: 'text/x-java',
+    } as EditorConfiguration);
+
+    // Set initial code value
+    code.getDoc().setValue(
+      block.innerHTML
+        .split('<br>').join('\r\n')
+        .split('&gt;').join('>')
+        .split('&lt;').join('<')
+        .split('&amp;').join('&')
+    );
+
+    // Fun error handler
+    const handleError = (err) => {
+      // Fun error message
+      const messages = [
+        'Oops! Something went wrong. 🤷‍♂️',
+        'Whoops! Looks like the code ran into a snag. 🥴',
+        'Error! The gremlins are at it again! 👾',
+        'Yikes! The code hit a bump in the road. 🚧',
+        'Oh no! Something broke. We\'ll fix it! 🛠️',
+      ];
+      const message = messages[Math.floor(Math.random() * messages.length)];
+      alert(`${message}\n\nError details: ${err}`);
+
+      // Re-enable the button and revert the icon
+      runButton.disabled = false;
+      runButton.innerHTML = '<i class="fa fa-caret-right mr-1"></i>Запустить';
+    };
+
+    // Run button event listener
+    if (canRun) {
+      const output = CodeMirror.fromTextArea(outputEl, {
+        lineNumbers: true,
+        matchBrackets: true,
+        mode: 'text/x-java',
+      } as EditorConfiguration);
+
+      runButton.addEventListener('click', () => {
+        // Disable the button and change the icon to loading
+        runButton.disabled = true;
+        const originalIcon = runButton.innerHTML;
+        runButton.innerHTML = '<i class="fa fa-spinner fa-spin mr-1"></i>Загрузка...';
+
+        const handleResponse = (model) => {
+          output.getDoc().setValue(model.output);
+          // Enable the button and revert the icon
+          runButton.disabled = false;
+          runButton.innerHTML = originalIcon;
+        };
+
+        if (java) {
+          this.tasksService.runJava(code.getValue()).subscribe(handleResponse, handleError);
+        } else {
+          this.tasksService.runSql(code.getValue()).subscribe(handleResponse, handleError);
+        }
+      });
+    }
+
+    // Copy button event listener
+    copyButton.addEventListener('click', () => {
+      const codeText = code.getValue();
+      navigator.clipboard.writeText(codeText).then(() => {
+        const originalIcon = copyButton.innerHTML;
+        copyButton.innerHTML = '<i class="fa fa-check mr-1"></i>Скопировано';
+        setTimeout(() => {
+          copyButton.innerHTML = originalIcon;
+        }, 2000); // Revert icon back after 2 seconds
+      }).catch(err => {
+        alert('Failed to copy code: ' + err);
+      });
+    });
+
+    // Remove the original block element
+    block.parentElement.parentElement.removeChild(block.parentElement);
+  }
+
 }
