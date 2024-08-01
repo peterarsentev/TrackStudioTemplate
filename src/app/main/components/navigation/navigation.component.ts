@@ -99,6 +99,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
             if (!res.task_code && !res.exercise  && !res.sqlExercise) {
               this.solutions = [{...new NavNode(), name: 'Job4j', url: '/'}];
             }
+
+            if (res.notification) {
+              this.solutions = [{ name: 'Job4j', url: '/'},
+                { name: 'Уведомления', url: '/messages'}];
+              return;
+            }
           }
         }
       });

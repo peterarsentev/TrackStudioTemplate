@@ -85,8 +85,11 @@
       </ul>
     </div>
     <span class="navbar-text font-weight-bold ml-2">
-          <a [routerLink]="['/messages']" style="text-decoration: none">
-            {{ 'Уведомления: ' + (count + (discussCount?.count ? discussCount.count : 0)) }}
+         <a [routerLink]="['/messages']" style="text-decoration: none; position: relative;">
+            Уведомления
+              <span *ngIf="count + (discussCount?.count || 0) > 0" class="badge badge-light">
+                {{ count + (discussCount?.count || 0) }}
+              </span>
           </a>
     </span>
   </div>

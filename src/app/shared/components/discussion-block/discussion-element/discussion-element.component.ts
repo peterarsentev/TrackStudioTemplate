@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { DiscussRatingService } from '../../../services/discussRatingService';
 import { RateModel } from '../../../models/rate.model';
-import {Route, Router} from '@angular/router';
+import {NavigationEnd, Route, Router} from '@angular/router';
 
 @Component({
   // tslint:disable-next-line:component-selector

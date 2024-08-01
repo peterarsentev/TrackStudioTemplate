@@ -11,6 +11,7 @@ export class NavNode {
     public vacancy?: boolean,
     public company?: boolean,
     public task_code?: boolean,
+    public notification?: boolean,
     public sqlExercise?: boolean,
     public solutionId?: string,
     public authorName?: string,

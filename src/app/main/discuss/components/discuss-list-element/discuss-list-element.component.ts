@@ -57,7 +57,6 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
     this.userService.getModel()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(res => this.user = res);
-    this.deleteNotification();
   }
 
   ngAfterViewChecked(): void {

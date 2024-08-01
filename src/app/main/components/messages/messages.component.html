@@ -10,16 +10,16 @@
       </thead>
       <tbody>
       <tr *ngFor="let message of messages">
-        <td style="cursor: pointer;">
+        <td style="cursor: pointer; text-decoration: none;">
           <span>
-            <span><em class="fas fa-tasks pr-3"></em>{{ message.time | getDate }}
-              <a [routerLink]="message.solutionId
+            <span><em class="fas fa-tasks pr-3"></em>
+              <span class="font-weight-bold" [routerLink]="message.solutionId
             ? ['/exercise', message.topicId, 'task', message.taskId, message.solutionId]
              : ['/exercise', message.topicId, 'task-view', message.taskId]">
-                {{ message.text }}
-              </a>
+                {{ message.text }} | {{ message.time | getDate }}
+              </span>
               <span class="pull-right mr-5"><em (click)="deleteMessage(message.id)" class="fas fa-remove"></em></span>
-              <div class="small" [innerHTML]="message.msg"></div>
+              <span class="small" [innerHTML]="message.msg"></span>
             </span>
           </span>
         </td>
@@ -37,17 +37,15 @@
       <ng-container *ngFor="let not of notifications; let idx=index">
         <tr>
           <td style="cursor: pointer;">
-            <a routerLink="/discuss/all/{{not.discussId}}">
-              <div>
-                <i class="fas fa-tasks pr-3"></i>
-                <span class="font-weight-bold">{{not.body}}</span>
-              </div>
-              <small class="mb-2 text-muted">
+            <div routerLink="/discuss/all/{{not.discussId}}" fragment="comment_{{not.messageId}}">
+              <i class="fas fa-tasks pr-3"></i>
+              <span class="font-weight-bold">{{not.body}} | {{ not.time | getDate }}</span>
+            </div>
+            <small class="mb-2 text-muted">
             <span>
               <span class="mr-3">Сообщение от : {{ not.submitter.name }}</span>
             </span>
-              </small>
-            </a>
+            </small>
           </td>
           <td>
             <span class="pull-right mr-5"><em (click)="delete(not, idx)" class="fas fa-remove"></em></span>

@@ -7,7 +7,9 @@ export class NotificationListModel {
     public id?: number,
     public submitter?: UserModels,
     public submitterId?: number,
-    public userId?: number
+    public userId?: number,
+    public time?: number,
+    public messageId?: number
   ) {
   }
 }
