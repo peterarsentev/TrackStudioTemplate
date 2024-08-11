@@ -30,12 +30,25 @@
           Блок
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-          <a *ngFor="let c of currentCategories" (click)="selectCat(c)" class="dropdown-item">{{ c.name }}</a>
+          <ng-container *ngFor="let c of currentCategories">
+            <a *ngIf="c.upgradedId !== 0"
+               (click)="selectCat(c)" class="dropdown-item"
+               style="text-decoration: line-through"
+               title="Блок был обновлен. Подробности в разделе 'Главное меню / Блоки'.">{{ c.name }}</a>
+            <a *ngIf="c.upgradedId === 0" (click)="selectCat(c)" class="dropdown-item">{{ c.name }}</a>
+          </ng-container>
         </div>
       </div>
     </div>
     <div *ngIf="category">
-      <button class="btn btn-sm btn-light mb-3">
+      <button *ngIf="category.upgradedId !== 0"
+              class="btn btn-sm btn-light mb-3"
+              style="text-decoration: line-through"
+              title="Блок был обновлен. Подробности в разделе 'Главное меню / Блоки'.">
+        {{ category.name }}
+        <i (click)="selectCat()" class="fas fa-times pl-1"></i>
+      </button>
+      <button *ngIf="category.upgradedId === 0" class="btn btn-sm btn-light mb-3">
         {{ category.name }}
         <i (click)="selectCat()" class="fas fa-times pl-1"></i>
       </button>
@@ -54,7 +67,15 @@
             <small class="mb-2 text-muted">
             <span>
               <span class="badge badge-light mr-1">{{ task.level.name }}</span>
-              <span class="badge badge-light mr-1">{{ task.category.name }}</span>
+              <span *ngIf="task.category.upgradedId !== 0"
+                    style="text-decoration: line-through;"
+                    title="Блок был обновлен. Подробности в разделе 'Главное меню / Блоки'."
+                    class="badge badge-light mr-1">
+                {{ task.category.name }}
+              </span>
+              <span *ngIf="task.category.upgradedId === 0" class="badge badge-light mr-1">
+                {{ task.category.name }}
+              </span>
             </span>
               <!--            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
               <!--            <span class="mr-3">Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
@@ -64,7 +85,7 @@
         </td>
         <td>
           <app-progress-bar-solutions
-                                      [progress]="task.progress"
+            [progress]="task.progress"
           ></app-progress-bar-solutions>
         </td>
       </tr>

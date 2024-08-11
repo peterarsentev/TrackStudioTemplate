@@ -4,10 +4,12 @@ import { UpdatesRoutingModule } from './updates.routing.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { BlocksComponent } from './components/blocks/blocks.component';
 
 @NgModule({
   declarations: [
-    UpdatedTasksComponent
+    UpdatedTasksComponent,
+    BlocksComponent
   ],
   imports: [UpdatesRoutingModule, CommonModule, SharedModule, InfiniteScrollModule]
 })

@@ -303,4 +303,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
       { name: 'Обновления', url: '/updates', interview: true}];
     this.solutions = navs;
   }
+
+  private getNavsForBlocks(res: NavNode) {
+    const navs = [{name: 'Job4j', url: '/', interview: true},
+      { name: 'Блоки', url: '/updates/blocks', interview: true}];
+    this.solutions = navs;
+  }
 }

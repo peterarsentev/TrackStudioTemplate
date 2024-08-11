@@ -23,7 +23,8 @@ export class NavNode {
     public rating?: boolean,
     public updates?: boolean,
     public levelId?: number,
-    public categoryId?: number
+    public categoryId?: number,
+    public blocks?: boolean,
   ) {
   }
 }

@@ -83,7 +83,7 @@ export class TaskExerciseComponent implements OnInit, OnChanges {
     this.taskExerciseSolutionService.runJava(this.taskExerciseSolution, this.taskId).subscribe(handleResponse, handleError);
   }
 
-  recyctleCode() {
+  recycleCode() {
     this.taskExerciseSolution.code = this.taskExercise.snippet;
   }
 

@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-header">
+        <div class="font-weight-bold">В этом разделе вы можете ознакомиться со структурой курса.</div>
+        <div>
+          <small class="mb-2 text-muted">
+            Здесь находятся описание блоков, стоимость прохождения блока и его обновления.
+          </small>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <ng-container *ngFor="let category of categories">
+            <tr>
+              <td>
+                <span *ngIf="category.upgradedId !== 0"
+                      class="font-weight-bold"
+                      style="text-decoration: line-through;">{{ category.name }}</span>
+                <span *ngIf="category.upgradedId === 0"
+                      class="font-weight-bold">{{ category.name }}</span>
+                <span *ngIf="category.upgradedId !== 0"> | Обновлен на </span>
+                <span *ngIf="category.upgradedId !== 0"
+                      class="font-weight-bold">{{ categoryById.get(category.upgradedId).name }}
+                </span>
+                <br/>
+                <p [innerHTML]="category?.description | safeCode"></p>
+              </td>
+            </tr>
+          </ng-container>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
