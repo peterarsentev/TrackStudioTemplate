@@ -4,7 +4,8 @@ export class CategoryModels {
     public name?: string,
     public filterId?: number,
     public description?: string,
-    public upgradedId?: number
+    public upgradedId?: number,
+    public levelId?: number
   ) {
   }
 }

@@ -14,6 +14,7 @@
           <ng-container *ngFor="let category of categories">
             <tr>
               <td>
+                <span class="font-weight-bold">{{ levelById.get(category.levelId).name }} | </span>
                 <span *ngIf="category.upgradedId !== 0"
                       class="font-weight-bold"
                       style="text-decoration: line-through;">{{ category.name }}</span>
