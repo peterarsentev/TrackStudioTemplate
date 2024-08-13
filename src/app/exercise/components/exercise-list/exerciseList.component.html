@@ -41,14 +41,14 @@
       </div>
     </div>
     <div *ngIf="category">
-      <button *ngIf="category.upgradedId !== 0"
+      <button *ngIf="category?.upgradedId !== 0"
               class="btn btn-sm btn-light mb-3"
               style="text-decoration: line-through"
               title="Блок был обновлен. Подробности в разделе 'Главное меню / Блоки'.">
         {{ category.name }}
         <i (click)="selectCat()" class="fas fa-times pl-1"></i>
       </button>
-      <button *ngIf="category.upgradedId === 0" class="btn btn-sm btn-light mb-3">
+      <button *ngIf="category?.upgradedId === 0" class="btn btn-sm btn-light mb-3">
         {{ category.name }}
         <i (click)="selectCat()" class="fas fa-times pl-1"></i>
       </button>

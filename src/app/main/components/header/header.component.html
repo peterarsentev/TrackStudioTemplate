@@ -14,9 +14,11 @@
         <a class="dropdown-item" [routerLink]="['/']">Статистика</a>
         <a class="dropdown-item" [routerLink]="['/profile']">Настройки</a>
         <a class="dropdown-item" [routerLink]="['/payment']">Оплата</a>
+        <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="https://checkdev.ru/" target="_blank">Собеседования</a>
         <a class="dropdown-item" [routerLink]="['/vacancies']">Вакансии</a>
         <a class="dropdown-item" [routerLink]="['/company']">Компании</a>
+        <div class="dropdown-divider"></div>
         <a href="https://github.com/peterarsentev/job4j_features_bugs/issues" target="_blank"
            class="dropdown-item">
           Критика и предложения
@@ -26,8 +28,10 @@
                 class="ml-0"
           >{{ position }}</span></a>
         <a class="dropdown-item" [routerLink]="['/exams']">Экзамены</a>
+        <div class="dropdown-divider"></div>
         <a class="dropdown-item" [routerLink]="['/updates']">Обновления</a>
         <a class="dropdown-item" [routerLink]="['/updates/blocks']">Блоки</a>
+        <div class="dropdown-divider"></div>
         <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
       </div>
     </div>
