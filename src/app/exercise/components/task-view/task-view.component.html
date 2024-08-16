@@ -82,7 +82,7 @@
                   <span *ngIf="task.status?.id == 4"
                         class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
                   <span *ngIf="task.handler" class="mr-1 font-weight-bolder"
-                        title="Отвественный">
+                        title="Ответственный">
                     <i aria-hidden="true" class="fa fa-user text-muted"></i> {{task.handler.name }},
                   </span>
                   <span *ngIf="task.solution" class="mr-1" title="Дата начало решения">
