@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="w-100 card">
+      <div class="card-header">
+        <span class="w-50 font-weight-bold">
+          {{ taskCodeModel?.taskcode.name }}
+        </span><br/>
+        <span class="text-muted small" *ngIf="userModels">
+          Автор: {{ userModels.name }} | Решено: {{ taskCodeModel?.solution.updatedTime | date:'dd.MM.yyyy hh:MM' }}
+        </span><br/>
+      </div>
+      <div class="card-body">
+        <div class="card-text" [innerHTML]="taskCodeModel?.taskcode.description "></div>
+        <div class="d-flex justify-content-between align-items-center font-weight-bold">
+          <span>Каркас: {{taskCodeModel?.taskcode.className}}</span>
+        </div>
+        <div *ngIf="taskCodeModel">
+          <ngx-codemirror
+            [(ngModel)]="taskCodeModel.solution.code"
+            [options]="options"
+          ></ngx-codemirror>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

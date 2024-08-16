@@ -7,6 +7,7 @@ import { TaskCodeSolutionsListComponent } from './task-code-solutions-list/task-
 import { TaskCodeSolutionsResolver } from './task-code-solutions-list/task-code-solutions-resolver';
 import { UserSolutionComponent } from './user-solution/user-solution.component';
 import { UserSolutionResolver } from './user-solution/user-solution-resolver';
+import {TaskCodeShareComponent} from './task-code-share/task-code-share.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
        { path: ':topicId/task_code/:task_code_id/:solutionId/solutions',
          component:  TaskCodeSolutionsListComponent, resolve: {data: TaskCodeSolutionsResolver} },
       { path: ':topicId/task_code/:task_code_id/:solutionId/solutions/:userId',
-        component:  UserSolutionComponent, resolve: {data: UserSolutionResolver} }
+        component:  UserSolutionComponent, resolve: {data: UserSolutionResolver} },
+      { path: ':topicId/task_code_share/:task_code_id/:solutionId', component:  TaskCodeShareComponent },
     ]
   }
 ];

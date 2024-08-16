@@ -7,6 +7,7 @@ export class SolutionModels {
     public  statusId?: number,
     public  createdTime?: number,
     public  updatedTime?: number,
+    public userId?: number
   ) {
   }
 }

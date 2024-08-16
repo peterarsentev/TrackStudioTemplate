@@ -63,6 +63,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
               this.getNavsForSolutions(res);
               return;
             }
+            if (res.task_code_share) {
+              this.getNavsForSolutions(res);
+              return;
+            }
             if (res.discuss) {
               this.getNavsForDiscuss();
               return;
@@ -207,6 +211,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
       }
       if (nav.url === 'task_code') {
         this.router.navigate(['topics', `${nav.topicId}`, 'task_code', `${nav.taskCodeId}`, `${nav.solutionId}`]);
+        return;
+      }
+      if (nav.url === 'task_code_share') {
+        this.router.navigate(['topics', `${nav.topicId}`, 'task_code_share', `${nav.taskCodeId}`, `${nav.solutionId}`]);
         return;
       }
       if (nav.url === 'task_code_solutions') {

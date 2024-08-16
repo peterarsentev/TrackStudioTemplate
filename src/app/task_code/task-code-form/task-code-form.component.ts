@@ -7,7 +7,6 @@ import { TasksService } from '../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
 import { AlertService } from '../../shared/services/alertService';
 
-
 @Component({
   selector: 'app-task-code-form',
   templateUrl: './task-code-form.component.html',
@@ -17,13 +16,14 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
   previousAndNext: NextPreviousSolutions = {};
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   dis = false;
-  @Input()taskModel: TaskCodeModel = {};
+  @Input() taskModel: TaskCodeModel = {};
   @Input() taskClass: string;
   @Input() count: number;
   @Input() taskTest: string;
   @Input() explanation: string;
   @Input() status: number;
   private taskId: string;
+  private solutionId: string;
   @Output() goToSolutions = new EventEmitter<boolean>();
   show = false;
   @Input() set output(output: string) {
@@ -68,6 +68,7 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(params => {
           this.taskId = params.task_code_id;
+          this.solutionId = params.solutionId;
           return this.taskService.getNextPreviousSol(this.taskId);
         }),
         takeUntil(this.ngUnsubscribe$),

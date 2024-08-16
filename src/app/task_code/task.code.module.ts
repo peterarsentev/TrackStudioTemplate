@@ -9,6 +9,7 @@ import { TaskCodeRoutingModule } from './task.code.routing.module';
 import { TaskCodeSolutionsListComponent } from './task-code-solutions-list/task-code-solutions-list.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { UserSolutionComponent } from './user-solution/user-solution.component';
+import { TaskCodeShareComponent } from './task-code-share/task-code-share.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { UserSolutionComponent } from './user-solution/user-solution.component';
     TaskCodeFormComponent,
     TaskCodeSolutionComponent,
     TaskCodeSolutionsListComponent,
-    UserSolutionComponent
+    UserSolutionComponent,
+    TaskCodeShareComponent
   ],
   imports: [
     CommonModule,
