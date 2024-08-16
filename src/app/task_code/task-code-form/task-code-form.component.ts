@@ -22,8 +22,8 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
   @Input() taskTest: string;
   @Input() explanation: string;
   @Input() status: number;
-  private taskId: string;
-  private solutionId: string;
+  taskId: string;
+  solutionId: string;
   @Output() goToSolutions = new EventEmitter<boolean>();
   show = false;
   @Input() set output(output: string) {
