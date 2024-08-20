@@ -8,7 +8,7 @@
     <div class="dropdown" *ngIf="user">
       <a class="btn dropdown-toggle text-white font-weight-bold" type="button" id="dropdownMenuButton"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{ user.name }}
+        <i class="fas fa-user-circle"></i> {{ user.name }}
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" [routerLink]="['/']">Статистика</a>
@@ -27,7 +27,6 @@
           <span style="cursor: pointer;"
                 class="ml-0"
           >{{ position }}</span></a>
-        <a class="dropdown-item" [routerLink]="['/exams']">Экзамены</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" [routerLink]="['/updates']">Обновления</a>
         <a class="dropdown-item" [routerLink]="['/updates/blocks']">Блоки</a>
@@ -37,13 +36,13 @@
     </div>
     <span class="navbar-text font-weight-bold ml-2 mr-2">
           <a [routerLink]="['/exercise']" style="text-decoration: none">
-            {{'Уроки: ' + solvedTasksCount  + '/' + allTasksCount }}
+            <i class="fas fa-tachometer-alt"></i> {{'Уроки: ' + solvedTasksCount  + '/' + allTasksCount }}
           </a>
     </span>
     <div class="dropdown">
       <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="solutionDd"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Решения
+        <i class="fas fa-thumbtack"></i> Решения
       </button>
       <div class="dropdown-menu dropdown-menu-left" aria-labelledby="solutionDd">
         <a class="dropdown-item" [routerLink]="['/tasksByStatus/revert']">Отклоненные</a>
@@ -51,14 +50,23 @@
         <a class="dropdown-item" [routerLink]="['/tasksByStatus/review']">На проверке</a>
       </div>
     </div>
+    <span class="navbar-text font-weight-bold ml-2 mr-2">
+         <a [routerLink]="['/messages']" style="text-decoration: none; position: relative;">
+            <i class="fas fa-envelope-open-text mr-1" title="Уведомления"></i>
+              <span *ngIf="count + (discussCount?.count || 0) > 0" class="badge badge-light">
+                {{ count + (discussCount?.count || 0) }}
+              </span>
+          </a>
+    </span>
     <div class="dropdown">
       <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="discuss"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Обсуждения
+        <i class="fas fa-users" title="Сообщество"></i> Сообщество
       </button>
       <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
-        <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Все обсуждения</a></li>
-        <li><a class="dropdown-item" [routerLink]="['/discuss/my']">Мои подписки</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Решения</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Oбсуждения</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/discuss/my']">Подписки</a></li>
         <li><a class="dropdown-item" [routerLink]="['/rating/likes']">Рейтинги</a></li>
       </ul>
     </div>
@@ -66,19 +74,26 @@
     <div class="dropdown">
       <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercises"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Упражнения
+        <i class="fas fa-dumbbell" title="Упражнения"></i> Упражнения
       </button>
       <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
         <li><a class="dropdown-item" [routerLink]="['/topics']">Java Core</a></li>
         <li><a class="dropdown-item" [routerLink]="['/sqlExercise']">SQL</a></li>
       </ul>
     </div>
+
+    <span class="navbar-text font-weight-bold ml-2 mr-2">
+          <a [routerLink]="['/exams']" style="text-decoration: none">
+            <i class="fas fa-check-double"></i> Тесты
+          </a>
+    </span>
+
     <div class="dropdown">
       <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercisesDd"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Закладки
+        <i class="far fa-bookmark"></i>
       </button>
-      <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercisesDd">
+      <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="exercisesDd">
         <li *ngFor="let book of bookmarks">
           <!--        <div class="demo">-->
           <a (click)="goToBook(book)" class="dropdown-item point demo">{{ book.name }}</a>
@@ -89,24 +104,17 @@
         </li>
       </ul>
     </div>
-    <span class="navbar-text font-weight-bold ml-2">
-         <a [routerLink]="['/messages']" style="text-decoration: none; position: relative;">
-            Уведомления
-              <span *ngIf="count + (discussCount?.count || 0) > 0" class="badge badge-light">
-                {{ count + (discussCount?.count || 0) }}
-              </span>
-          </a>
-    </span>
   </div>
-  <span class="input-group w-25 mwigth">
-          <input
-            type="text"
-            #text
-            (keydown.enter)="search(text.value)"
-            class="form-control bg-dark text-white"
-            placeholder="Поиск"
-            aria-label="Поиск"
-            aria-describedby="basic-addon2"/>
+
+  <span class="input-group w-auto mwigth">
+              <input
+                type="text"
+                #text
+                (keydown.enter)="search(text.value)"
+                class="form-control bg-dark text-white"
+                placeholder="Поиск"
+                aria-label="Поиск"
+                aria-describedby="basic-addon2"/>
            <div *ngIf="searchResult" (click)="clearSearch()" class="dropdown-menu2">
              <div *ngIf="searchResult.tasks">
              <p class="dropdown-header">Задачи</p>
