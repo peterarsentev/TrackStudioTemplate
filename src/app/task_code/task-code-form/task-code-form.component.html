@@ -4,7 +4,7 @@
             (click)="goTo(previousAndNext.next)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
     <button type="button" class="m btn btn-light pull-right btn-sm mr-2"  *ngIf="!!previousAndNext.previous"
             (click)="goTo(previousAndNext.previous)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
-    <button [disabled]="status !== 4" (click)="goToUserList()" class="btn btn-success btn-sm mr-2 pull-right"
+    <button [disabled]="status !== 4" (click)="goToUserList()" class="btn btn-info btn-sm mr-2 pull-right"
             title="Решения других учеников станут доступны после выполнения упражнения">Было решено: {{ count }}</button>
   </div>
 </div>
@@ -13,6 +13,12 @@
     <div class="card-header">
         <span class="w-50 font-weight-bold">
           {{ taskModel.name }}
+            <br/><span>
+          <span *ngIf="status === 1" class="badge badge-danger mr-3">Новая</span>
+          <span *ngIf="status === 2" class="badge badge-warning mr-3">В процессе</span>
+          <span *ngIf="status === 3" class="badge badge-warning mr-3">В процессе</span>
+          <span *ngIf="status === 4" class="badge badge-success mr-3">Решена</span>
+            </span>
         </span>
       <span class="w-50">
           <app-book-mark-star [name]="taskModel.name"></app-book-mark-star>
@@ -20,13 +26,22 @@
     </div>
     <div class="card-body">
       <div class="card-text" [innerHTML]="taskModel.description "></div>
-      <div class="d-flex justify-content-between align-items-center font-weight-bold">
-        <span>Каркас: {{taskModel.className}}</span>
-        <a class="btn btn-light btn-sm" target="_blank"
-           [routerLink]="['/topics', taskModel.topicId, 'task_code_share', taskId, solutionId]">
-        <i class="fas fa-share-alt"></i>
-        </a>
+      <div class="d-flex justify-content-between align-items-center font-weight-bold mb-1">
+        <span class="mr-auto">Каркас: {{taskModel.className}}</span>
+
+        <div class="d-flex">
+          <a class="btn btn-info btn-sm mr-2" target="_blank"
+             [class.disabled]="status != 4"
+             [routerLink]="['/solution_community', 'publish', 'taskCode', solutionId]">
+            <i class="fas fa-users"></i> Отправить сообществу
+          </a>
+          <a class="btn btn-light btn-sm" target="_blank"
+             [routerLink]="['/topics', taskModel.topicId, 'task_code_share', taskId, solutionId]">
+            <i class="fas fa-share-alt"></i>
+          </a>
+        </div>
       </div>
+
       <div>
         <ngx-codemirror
           [(ngModel)]="taskClass"

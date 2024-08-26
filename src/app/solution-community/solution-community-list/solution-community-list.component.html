@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row">
+    <table class="table">
+      <tbody infinite-scroll
+             class="noscroll"
+             [infiniteScrollDisabled]="!paginationAllowed"
+             [infiniteScrollDistance]="scrollDistance"
+             [infiniteScrollThrottle]="throttle"
+             (scrolled)="onScrollDown()">
+      <ng-container *ngFor="let solution of solutionCommunities; let idx=index">
+        <tr>
+          <td style="cursor: pointer;">
+            <div (click)="openSolutionCommunity(solution.id)">
+              <div>
+                <i class="fas fa-tasks pr-3"></i>
+                <span class="font-weight-bold">{{solution.name}}</span>
+              </div>
+              <small class="mb-2 text-muted">
+                <span>
+                  <span class="mr-3">Автор : {{ solution.userName }}</span>
+                  <span class="mr-3">Создано : {{ solution.created | date: 'dd.MM.yyyy HH:mm' }}</span>
+                </span>
+              </small>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

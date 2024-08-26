@@ -1,17 +1,17 @@
 <div class="container-fluid pb-4">
   <div class="row pb-2">
     <span class="w-50">
-      <button *ngIf="task?.task?.type === 0" class="btn btn-info btn-sm"
+      <button *ngIf="task?.task?.type === 0" class="btn btn-success btn-sm"
               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
               [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
               [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
 
-      <button *ngIf="task?.task?.type === 2" class="btn btn-info btn-sm"
+      <button *ngIf="task?.task?.type === 2" class="btn btn-success btn-sm"
               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
               [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
               [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Ознакомился(лась)</button>
 
-       <button *ngIf="task?.task?.type === 1" class="btn btn-info btn-sm"
+       <button *ngIf="task?.task?.type === 1" class="btn btn-success btn-sm"
                (click)="goToComments({name: 'Отправить на проверку', id: 2})"
                [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
                [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
@@ -23,7 +23,7 @@
               (click)="goBackToList(task.nextId)">Следующий<i class="fas fa-angle-right pl-1"></i></button>
       <button *ngIf="task.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
               (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущий</button>
-      <button [disabled]="task.status?.id != 3" class="btn btn-success btn-sm ml-1 pull-right"
+      <button [disabled]="task.status?.id != 3" class="btn btn-info btn-sm ml-1 pull-right"
               (click)="goToSolutions()"
               title="Решения других учеников станут доступны после выполнения урока">Было решено: {{totalSolutions}}</button>
     </span>
@@ -162,15 +162,15 @@
 
   <div class="row pt-2">
     <span class="w-50">
-       <button *ngIf="task?.task?.type === 0" class="btn btn-info btn-sm"
+       <button *ngIf="task?.task?.type === 0" class="btn btn-success btn-sm"
                (click)="goToComments({name: 'Отправить на проверку', id: 2})"
                [disabled]="updatedGreatThanThreeDays"
                [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : ''">Отправить на проверку</button>
-       <button *ngIf="task?.task?.type === 2" class="btn btn-info btn-sm"
+       <button *ngIf="task?.task?.type === 2" class="btn btn-success btn-sm"
                (click)="goToComments({name: 'Отправить на проверку', id: 2})"
                [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
                [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Ознакомился(лась)</button>
-        <button *ngIf="task?.task?.type === 1" class="btn btn-info btn-sm"
+        <button *ngIf="task?.task?.type === 1" class="btn btn-success btn-sm"
                 (click)="goToComments({name: 'Отправить на проверку', id: 2})"
                 [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
                 [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
@@ -182,7 +182,7 @@
               (click)="goBackToList(task.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
       <button *ngIf="task.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
               (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
-      <button [disabled]="task.status?.id != 3" class="btn btn-success btn-sm ml-1 pull-right"
+      <button [disabled]="task.status?.id != 3" class="btn btn-info btn-sm ml-1 pull-right"
               (click)="goToSolutions()"
               title="Решения других учеников станут доступны после выполнения урока">Было решено: {{totalSolutions}}</button>
     </span>

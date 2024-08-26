@@ -11,13 +11,9 @@
       </div>
       <div class="card-body">
         <p [innerHTML]="exam?.description | safeCode"></p>
-        <div>
-          <div class="col text-center">
-            <button class="btn btn-info btn-default" (click)="startExam(exam)">Пройти</button>
-          </div>
-        </div>
       </div>
     </div>
+    <button class="btn btn-success btn-default mt-2" (click)="startExam(exam)">Начать</button>
   </div>
   <app-leaders></app-leaders>
 </div>

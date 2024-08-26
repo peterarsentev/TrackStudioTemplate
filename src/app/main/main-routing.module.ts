@@ -99,6 +99,11 @@ const routes: Routes = [
         loadChildren: () => import('../main/updates/updates.module')
           .then(mod => mod.UpdatesModule)
       },
+      {
+        path: 'solution_community',
+        loadChildren: () => import('../solution-community/solution-community.module')
+          .then(mod => mod.SolutionCommunityModule)
+      },
     ]
   },
   {path: 'login', component: LoginComponent},

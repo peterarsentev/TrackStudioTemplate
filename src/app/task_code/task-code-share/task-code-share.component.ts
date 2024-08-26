@@ -43,7 +43,7 @@ export class TaskCodeShareComponent implements OnInit {
       .pipe(
         switchMap(params => {
           this.navService.setUpModel({...new NavNode(), topicId: params.topicId, task_code_share: true});
-          return this.taskCodeService.getSolution(params.task_code_id, params.solutionId);
+          return this.taskCodeService.getTaskAndSolution(params.task_code_id, params.solutionId);
         }), takeUntil(this.ngUnsubscribe$)
       ).subscribe((res: SolutionTaskCodeModels) => {
         this.taskCodeModel = res;

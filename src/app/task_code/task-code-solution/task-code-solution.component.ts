@@ -25,7 +25,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   taskId: string;
   solutionId: string;
-  status: string;
+  status: number;
   solutionAndTaskCode: SolutionTaskCodeModels = {
     solution: {}, taskcode: {}
   };
@@ -86,7 +86,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
                 })
               );
           }
-          return this.taskCodeService.getSolution(this.taskId, this.solutionId);
+          return this.taskCodeService.getTaskAndSolution(this.taskId, this.solutionId);
         }),
         takeUntil(this.ngUnsubscribe$)
       ).subscribe((res: SolutionTaskCodeModels) => {
@@ -152,6 +152,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   }
 
   private prepareResult(res: { output: string, status: number }) {
+    this.solutionAndTaskCode.solution.statusId = res.status;
     this.output = res.output;
     if (res.status === 3) {
       this.alertService.setUpMessage('Задача решена не верно, попробуйте еще раз', TypeAlertsModel.DANGER);

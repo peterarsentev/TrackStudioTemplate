@@ -7,7 +7,7 @@
       <button type="button" class="m btn btn-light btn-sm pull-right mr-2"  *ngIf="prevId !== null"
               (click)="goTo(prevId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
 
-      <button [disabled]="exercise.status !== 'COMPLETE'" class="btn btn-success btn-sm mr-2 pull-right"
+      <button [disabled]="exercise.status !== 'COMPLETE'" class="btn btn-info btn-sm mr-2 pull-right"
               title="Решения других учеников станут доступны после выполнения упражнения">Было решено: {{ solvedSize.size }}</button>
 
     </div>

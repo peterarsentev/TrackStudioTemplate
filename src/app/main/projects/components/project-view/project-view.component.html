@@ -2,23 +2,26 @@
   <div class="container-fluid">
     <div class="row">
       <div class="w-100 card">
-          <div class="card-header">
-            <div class="font-weight-bold">{{project.name}}</div>
-            <div>
-              <span *ngIf="project.status == 0"
-                    class="badge badge-info mr-3">Ожидает сборки</span>
-              <span *ngIf="project.status == 1"
-                    class="badge badge-warning mr-3">Идет сборка</span>
-              <span *ngIf="project.status == 2"
-                    class="badge badge-success mr-3">Проект собран</span>
-              <span *ngIf="project.status == 3"
-                    class="badge badge-danger mr-3">Проект содержит ошибки</span>
-            </div>
+        <div class="card-header">
+          <div class="font-weight-bold">{{project.name}}</div>
+          <div>
+            <span *ngIf="project.status == 0"
+                  class="badge badge-info mr-3">Ожидает сборки</span>
+            <span *ngIf="project.status == 1"
+                  class="badge badge-warning mr-3">Идет сборка</span>
+            <span *ngIf="project.status == 2"
+                  class="badge badge-success mr-3">Проект собран</span>
+            <span *ngIf="project.status == 3"
+                  class="badge badge-danger mr-3">Проект содержит ошибки</span>
           </div>
-          <div class="card-body">
-            <pre>{{project.log}}</pre>
-          </div>
+        </div>
+        <div class="card-body">
+          <ngx-codemirror
+            [(ngModel)]="project.log"
+            [options]="options"
+          ></ngx-codemirror>
         </div>
       </div>
     </div>
+  </div>
 </ng-container>

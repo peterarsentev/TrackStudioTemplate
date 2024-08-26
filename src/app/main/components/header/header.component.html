@@ -64,8 +64,8 @@
         <i class="fas fa-users" title="Сообщество"></i> Сообщество
       </button>
       <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
-        <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Решения</a></li>
-        <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Oбсуждения</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/solution_community']">Code review</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Обсуждение</a></li>
         <li><a class="dropdown-item" [routerLink]="['/discuss/my']">Подписки</a></li>
         <li><a class="dropdown-item" [routerLink]="['/rating/likes']">Рейтинги</a></li>
       </ul>
@@ -79,14 +79,9 @@
       <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
         <li><a class="dropdown-item" [routerLink]="['/topics']">Java Core</a></li>
         <li><a class="dropdown-item" [routerLink]="['/sqlExercise']">SQL</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/exams']">Экзамены</a></li>
       </ul>
     </div>
-
-    <span class="navbar-text font-weight-bold ml-2 mr-2">
-          <a [routerLink]="['/exams']" style="text-decoration: none">
-            <i class="fas fa-check-double"></i> Тесты
-          </a>
-    </span>
 
     <div class="dropdown">
       <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercisesDd"

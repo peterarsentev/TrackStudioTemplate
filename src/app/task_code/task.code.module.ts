@@ -19,7 +19,7 @@ import { TaskCodeShareComponent } from './task-code-share/task-code-share.compon
     TaskCodeSolutionComponent,
     TaskCodeSolutionsListComponent,
     UserSolutionComponent,
-    TaskCodeShareComponent
+    TaskCodeShareComponent,
   ],
   imports: [
     CommonModule,

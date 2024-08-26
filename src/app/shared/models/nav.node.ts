@@ -26,6 +26,7 @@ export class NavNode {
     public categoryId?: number,
     public blocks?: boolean,
     public task_code_share?: boolean,
+    public solution_community?: boolean,
   ) {
   }
 }
