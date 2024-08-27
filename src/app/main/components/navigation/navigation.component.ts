@@ -109,6 +109,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
                 { name: 'Уведомления', url: '/messages'}];
               return;
             }
+
+            if (res.solution_community) {
+              this.solutions = [{ name: 'Job4j', url: '/'},
+                { name: 'Code review', url: '/solution_community'}];
+              return;
+            }
           }
         }
       });

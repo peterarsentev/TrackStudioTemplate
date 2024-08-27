@@ -11,6 +11,7 @@ import {TaskCodeService} from '../../shared/services/task-code.service';
 import {SolutionCommunityModel} from '../../shared/models/solution.community.model';
 import {DiscussionBlockComponent} from '../../shared/components/discussion-block/discussion-block.component';
 import {SolutionCommunityOperationModel} from '../../shared/models/solution.community.operation.model';
+import {NavNode} from '../../shared/models/nav.node';
 
 @Component({
   selector: 'app-solution-community-item',
@@ -43,6 +44,7 @@ export class SolutionCommunityItemComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.navService.setUpModel({...new NavNode(), solution_community: true });
     const solutionCommunityId = Number(this.route.snapshot.paramMap.get('solutionCommunityId'));
     this.solutionCommunityService
       .findById(solutionCommunityId)

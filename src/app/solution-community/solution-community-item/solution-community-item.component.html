@@ -27,9 +27,11 @@
     <div class="card w-100">
       <div class="card-header">
         <div class="font-weight-bold">Комментарии</div>
+        <div class="small text-muted">Проведите код-ревью решения:
+          оставьте рекомендации по улучшению или похвалите за качественную работу.</div>
       </div>
       <div class="card-body">
-        <table class="table">
+        <table class="table" *ngIf="solutionCommunityOperations.length > 0">
           <ng-container *ngFor="let operation of solutionCommunityOperations; let idx=index">
             <tr>
               <td>
@@ -45,6 +47,9 @@
             </tr>
           </ng-container>
         </table>
+        <div *ngIf="solutionCommunityOperations.length == 0">
+          Сделай лучше, стань первым, кто проведет код-ревью этого решения!
+        </div>
       </div>
     </div>
   </div>

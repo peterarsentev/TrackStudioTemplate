@@ -29,7 +29,7 @@ export class SolutionCommunityListComponent implements OnInit, OnDestroy {
               public route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.navService.setUpModel({...new NavNode(), discuss: true });
+    this.navService.setUpModel({...new NavNode(), solution_community: true });
     this.solutionCommunityService.findAll(this.page)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(res => {
