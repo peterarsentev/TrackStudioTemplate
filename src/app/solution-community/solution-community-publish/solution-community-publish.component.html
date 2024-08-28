@@ -9,7 +9,7 @@
           Автор: {{ userModels.name }} | Решено: {{ created | date:'dd.MM.yyyy hh:MM' }}
         </span><br/>
       </div>
-      <div class="card-body">
+      <div class="card-body pre-scrollable">
         <div class="card-text" [innerHTML]="description"></div>
         <div *ngIf="code">
           <ngx-codemirror
@@ -19,6 +19,26 @@
         </div>
       </div>
     </div>
+
+    <div class="w-100 card mt-2">
+      <div class="card-header">
+        <span class="w-50 font-weight-bold">
+          Решение
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="card-text" *ngIf="text" [innerHTML]="text"></div>
+        <div class="card-text" *ngIf="code">
+          <div *ngIf="code">
+            <ngx-codemirror
+              [(ngModel)]="code"
+              [options]="options"
+            ></ngx-codemirror>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div>
       <button (click)="publishSolution()" class="pull-left btn btn-success btn-sm mt-2">
         Опубликовать решение</button>

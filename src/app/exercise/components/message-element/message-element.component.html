@@ -14,7 +14,17 @@
                 </span> к <span class="font-weight-bold">{{ message.handler.name }}
                   [{{!message.submitter.mentor ? 'Ментор' : 'Ученик'}}]</span>
                 </span>
-    <span class="pull-right" *ngIf="message.submitter.id === user.id" (click)="editMessage()">
+    <span class="pull-right"
+          style="cursor: pointer;"
+          *ngIf="message.submitter.id === user.id"
+          title="Отправить решение сообществу"
+          [routerLink]="['/solution_community', 'publish', 'task', message.message.id]">
+      <i class="fa fa-users ml-3"></i>
+    </span>
+    <span class="pull-right"
+          style="cursor: pointer;"
+          title="Отредактировать"
+          *ngIf="message.submitter.id === user.id" (click)="editMessage()">
       <i class="fa fa-edit ml-3"></i>
     </span>
     <span class="pull-right">{{ message.message.timeMils | date: 'dd.MM.yyyy HH:mm' }}</span>
