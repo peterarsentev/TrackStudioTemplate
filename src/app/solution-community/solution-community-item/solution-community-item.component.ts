@@ -1,18 +1,17 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Subject} from 'rxjs';
-import {UserModels} from '../../shared/models/user.models';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NavService} from '../../shared/services/nav.service';
-import {AlertService} from '../../shared/services/alertService';
-import {TasksService} from '../../shared/services/tasks.service';
-import {SolutionCommunityService} from '../../shared/services/solution.community.service';
-import {UserService} from '../../shared/services/user.service';
-import {TaskCodeService} from '../../shared/services/task-code.service';
-import {SolutionCommunityModel} from '../../shared/models/solution.community.model';
-import {DiscussionBlockComponent} from '../../shared/components/discussion-block/discussion-block.component';
-import {SolutionCommunityOperationModel} from '../../shared/models/solution.community.operation.model';
-import {NavNode} from '../../shared/models/nav.node';
-import {EditorConfiguration} from 'codemirror';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NavService } from '../../shared/services/nav.service';
+import { AlertService } from '../../shared/services/alertService';
+import { TasksService } from '../../shared/services/tasks.service';
+import { SolutionCommunityService } from '../../shared/services/solution.community.service';
+import { UserService } from '../../shared/services/user.service';
+import { TaskCodeService } from '../../shared/services/task-code.service';
+import { SolutionCommunityModel } from '../../shared/models/solution.community.model';
+import { SolutionCommunityOperationModel } from '../../shared/models/solution.community.operation.model';
+import { NavNode } from '../../shared/models/nav.node';
+import { EditorConfiguration } from 'codemirror';
+import { takeUntil } from 'rxjs/operators';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -23,7 +22,7 @@ declare const window: any;
   templateUrl: './solution-community-item.component.html',
   styleUrls: ['./solution-community-item.component.scss']
 })
-export class SolutionCommunityItemComponent implements OnInit {
+export class SolutionCommunityItemComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   options = {
     lineNumbers: true,
@@ -36,7 +35,7 @@ export class SolutionCommunityItemComponent implements OnInit {
   created: number;
   solutionCommunity: SolutionCommunityModel;
   addFormComment = false;
-  solutionCommunityOperations: SolutionCommunityOperationModel[];
+  solutionCommunityOperations: SolutionCommunityOperationModel[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -49,19 +48,23 @@ export class SolutionCommunityItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.navService.setUpModel({...new NavNode(), solution_community: true });
-    const solutionCommunityId = Number(this.route.snapshot.paramMap.get('solutionCommunityId'));
-    this.solutionCommunityService
-      .findById(solutionCommunityId)
-      .subscribe(res => {
-          this.solutionCommunity = res;
-          this.prepareCode();
-      });
-    this.solutionCommunityService
-      .findOperationsBySolutionCommunityId(solutionCommunityId)
-      .subscribe(res => {
-        this.solutionCommunityOperations = res;
-        this.prepareCode();
+    this.navService.setUpModel({...new NavNode(), solution_community: true});
+    this.route.params
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(params => {
+        const solutionCommunityId = params.solutionCommunityId;
+        this.solutionCommunityService
+          .findById(solutionCommunityId)
+          .subscribe(res => {
+            this.solutionCommunity = res;
+            this.prepareCode();
+          });
+        this.solutionCommunityService
+          .findOperationsBySolutionCommunityId(solutionCommunityId)
+          .subscribe(res => {
+            this.solutionCommunityOperations = res;
+            this.prepareCode();
+          });
       });
   }
 
@@ -154,5 +157,10 @@ export class SolutionCommunityItemComponent implements OnInit {
       });
     });
     block.parentElement.parentElement.removeChild(block.parentElement);
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 }

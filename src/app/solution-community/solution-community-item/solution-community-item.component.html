@@ -1,5 +1,15 @@
 <div class="container-fluid">
   <div class="row">
+    <div class="w-100 pull-right mb-2">
+      <a *ngIf="!!solutionCommunity?.nextId && solutionCommunity?.nextId !== -1"
+         type="button" class="m btn btn-light btn-sm pull-right"
+         [routerLink]="['/solution_community','item', solutionCommunity?.nextId]">Следующая<i class="fas fa-angle-right pl-1"></i></a>
+      <a *ngIf="!!solutionCommunity?.previousId && solutionCommunity?.previousId !== -1"
+         type="button" class="m btn btn-light pull-right btn-sm mr-2"
+          [routerLink]="['/solution_community','item', solutionCommunity?.previousId]"><i class="fas fa-angle-left pr-1"></i>Предыдущая</a>
+    </div>
+  </div>
+  <div class="row">
     <div class="w-100 card ">
       <div class="card-header">
         <span class="w-50 font-weight-bold">
@@ -21,7 +31,7 @@
         </span><br/>
       </div>
       <div class="card-body">
-        <div class="card-text" *ngIf="solutionCommunity.operationId"
+        <div class="card-text" *ngIf="solutionCommunity?.operationId"
              [innerHTML]="solutionCommunity.solution"></div>
         <div class="card-text" *ngIf="solutionCommunity?.solutionCodeId">
             <ngx-codemirror

@@ -9,4 +9,7 @@ export class SolutionCommunityModel {
   public operationId: number;
   public solutionCodeId: number;
   public solution?: string;
+  public nextId?: number;
+  public previousId?: number;
+
 }
