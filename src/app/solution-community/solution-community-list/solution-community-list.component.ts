@@ -16,7 +16,7 @@ import {DiscussModel} from '../../shared/models/discuss.model';
 export class SolutionCommunityListComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject();
-  solutionCommunities: SolutionCommunityModel[];
+  solutionCommunities: SolutionCommunityModel[] = [];
   paginationAllowed = true;
   scrollDistance = 5;
   throttle: 100;

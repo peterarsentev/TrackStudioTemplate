@@ -11,5 +11,6 @@ export class SolutionCommunityModel {
   public solution?: string;
   public nextId?: number;
   public previousId?: number;
+  public answers?: number;
 
 }
