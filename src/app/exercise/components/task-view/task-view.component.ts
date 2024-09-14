@@ -58,6 +58,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   showPopup = false;
   popupX = 0;
   popupY = 0;
+  isDragging = false;
+  dragStartX = 0;
+  dragStartY = 0;
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
@@ -551,5 +554,28 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   openNewTab() {
     localStorage.setItem('assistant', this.selectedText);
     window.open(this.router.serializeUrl(this.router.createUrlTree(['assistant'])), '_blank');
+  }
+
+  startDrag(event: MouseEvent) {
+    this.isDragging = true;
+    this.dragStartX = event.clientX - this.popupX;
+    this.dragStartY = event.clientY - this.popupY;
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (this.isDragging) {
+      this.popupX = event.clientX - this.dragStartX;
+      this.popupY = event.clientY - this.dragStartY;
+    }
+  }
+
+  @HostListener('document:mouseup')
+  onMouseUp() {
+    this.isDragging = false;
+  }
+
+  closePopup() {
+    this.showPopup = false;
   }
 }

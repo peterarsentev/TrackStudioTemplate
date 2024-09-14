@@ -98,13 +98,17 @@
           </div>
         </div>
       </div>
-      <div class="card-body">
+      <div class="custom-card card-body">
         <p class="card-text" [innerHTML]="task?.task?.description | safeCode"></p>
         <!-- Popup div -->
-        <div *ngIf="showPopup" [ngStyle]="{'top': popupY + 'px', 'left': popupX + 'px'}" class="popup">
-         <a (click)="openNewTab()" class="btn badge-info">AI объясни</a>
-         <a class="btn badge-info disabled">Создать пометку.</a>
-         <a class="btn badge-info disabled">Создать отчет об ошибке.</a>
+        <div *ngIf="showPopup"
+             [ngStyle]="{'top': popupY + 'px', 'left': popupX + 'px'}"
+             class="popup"
+             (mousedown)="startDrag($event)">
+          <a (click)="openNewTab()" class="btn badge-info">AI объясни</a>
+          <a class="btn badge-info disabled">Создать пометку.</a>
+          <a class="btn badge-info disabled">Создать отчет об ошибке.</a>
+          <a (click)="closePopup()" class="btn badge-info">Закрыть</a>
         </div>
       </div>
       <div class="card-footer text-muted">

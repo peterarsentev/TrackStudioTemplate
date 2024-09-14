@@ -1,6 +1,14 @@
-<p>{{question}}</p>
-<div *ngIf="inProgress">
-  {{'Обрабатывается'}}
+<div class="card">
+  <div class="card-header">
+    <span class="font-weight-bold">AI объясни</span>
+    <div *ngIf="inProgress">
+      <i class="fa fa-spinner spinner-icon mr-1"
+         title="Обрабатывается ..."
+         aria-hidden="true"></i>Обрабатывается...
+    </div>
+  </div>
+  <div class="card-body">
+    <p [innerHTML]="question | safeCode"></p>
+    <p *ngIf="!inProgress" [innerHTML]="answer | safeCode"></p>
+  </div>
 </div>
-
-<p *ngIf="!inProgress">{{answer}}</p>
