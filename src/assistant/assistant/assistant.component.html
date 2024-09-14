@@ -1,0 +1,6 @@
+<p>{{question}}</p>
+<div *ngIf="inProgress">
+  {{'Обрабатывается'}}
+</div>
+
+<p *ngIf="!inProgress">{{answer}}</p>

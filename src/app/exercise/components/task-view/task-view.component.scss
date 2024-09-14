@@ -1,0 +1,30 @@
+.popup {
+  position: absolute;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;  /* Increased padding for a wider popup */
+  border-radius: 8px;
+  font-size: 14px;  /* Adjust font size if needed */
+  width: max-content;  /* Increased width for a larger popup */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);  /* Slightly stronger shadow */
+  z-index: 1000;
+}
+
+.card {
+  margin: 20px;
+}
+
+.card-body {
+  position: relative;
+}
+
+.btn {
+  display: block;  /* Make buttons stack vertically */
+  margin-bottom: 5px;  /* Add some space between buttons */
+  color: #fff;
+  background-color: #17a2b8;
+  border-radius: 4px;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+}

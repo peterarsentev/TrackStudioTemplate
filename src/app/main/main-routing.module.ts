@@ -18,6 +18,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { ExamResultComponent } from './components/exam/exam_result/exam.result.component';
 import { ExamIntroComponent } from './components/exam/exam_intro/exam.intro.component';
 import { ExamQuestionComponent } from './components/exam/exam_question/exam.question.component';
+import { AssistantComponent } from '../../assistant/assistant/assistant.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ const routes: Routes = [
       {path: 'exams/detail/:examId/question', component: ExamQuestionComponent},
       {path: 'exams/detail/:examId/question/:questionId', component: ExamQuestionComponent},
       {path: 'exams/result/:examId', component: ExamResultComponent},
+      {path: 'assistant', component: AssistantComponent},
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module')

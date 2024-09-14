@@ -37,39 +37,41 @@ import { ExamResultComponent } from './components/exam/exam_result/exam.result.c
 import { InfoComponent } from './components/info/info.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LeadersComponent } from './components/exam/exam_intro/leaders/leaders.component';
+import { AssistantComponent } from '../../assistant/assistant/assistant.component';
 
 @NgModule({
-    declarations: [
-        MainLayoutComponent,
-        HeaderComponent,
-        LoginComponent,
-        MainPageComponent,
-        TaskComponent,
-        TasksComponent,
-        // NavigationComponent,
-        FooterComponent,
-        ProgressBarTasksComponent,
-        MessageComponent,
-        GetDatePipe,
-        NewTaskComponent,
-        DiagramComponent,
-        MessagesComponent,
-        InfoComponent,
-        SandboxComponent,
-        ExamComponent,
-        LeftSideBarComponent,
-        TaskNotFoundComponent,
-        TaskAccessComponent,
-        ErrorComponent,
-        RegistrationComponent,
-        AdminMessageComponent,
-        PaymentComponent,
-        ChartUserComponent,
-        ExamIntroComponent,
-        ExamQuestionComponent,
-        ExamResultComponent,
-        LeadersComponent,
-    ],
+  declarations: [
+    MainLayoutComponent,
+    HeaderComponent,
+    LoginComponent,
+    MainPageComponent,
+    TaskComponent,
+    TasksComponent,
+    // NavigationComponent,
+    FooterComponent,
+    ProgressBarTasksComponent,
+    MessageComponent,
+    GetDatePipe,
+    NewTaskComponent,
+    DiagramComponent,
+    MessagesComponent,
+    InfoComponent,
+    SandboxComponent,
+    ExamComponent,
+    LeftSideBarComponent,
+    TaskNotFoundComponent,
+    TaskAccessComponent,
+    ErrorComponent,
+    RegistrationComponent,
+    AdminMessageComponent,
+    PaymentComponent,
+    ChartUserComponent,
+    ExamIntroComponent,
+    ExamQuestionComponent,
+    ExamResultComponent,
+    LeadersComponent,
+    AssistantComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -83,15 +85,14 @@ import { LeadersComponent } from './components/exam/exam_intro/leaders/leaders.c
     ChartModule,
     InfiniteScrollModule
   ],
-    entryComponents: [],
-    exports: [
-    ],
-    providers: [
-        {
-            provide: MatDialogRef,
-            useValue: {}
-        }
-    ]
+  entryComponents: [],
+  exports: [],
+  providers: [
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    }
+  ]
 })
 export class MainModule {
 

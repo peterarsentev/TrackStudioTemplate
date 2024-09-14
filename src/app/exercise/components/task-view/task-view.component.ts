@@ -19,6 +19,8 @@ import { RateModel } from '../../../shared/models/rate.model';
 import { DiscussionBlockComponent } from '../../../shared/components/discussion-block/discussion-block.component';
 import {RecentlySolvedModels} from '../../../shared/models/recently-solved-models';
 import {EditorConfiguration} from 'codemirror';
+import { HostListener } from '@angular/core';
+import { AssistantService } from '../../../../assistant/assistant/assistant.service';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -48,9 +50,14 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   taskTime: string;
   showButtonBottom = false;
   @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
-  updatedGreatThanThreeDays: Boolean = false;
+  updatedGreatThanThreeDays: boolean = false;
   recentlySolved: RecentlySolvedModels[] = [];
   code = '';
+
+  selectedText = '';
+  showPopup = false;
+  popupX = 0;
+  popupY = 0;
 
   constructor(private tasksService: TasksService,
               private navService: NavService,
@@ -59,7 +66,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
               private userService: UserService,
               private modalService: ModalService,
               private messageService: MessageService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute, private assistantService: AssistantService) { }
 
   ngOnInit() {
     this.getHandlersList();
@@ -85,6 +92,33 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => this.user = res);
 
+  }
+
+  @HostListener('document:selectionchange', ['$event'])
+  checkSelection(event: MouseEvent): void {
+    const selection = window.getSelection();
+
+    if (selection && selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      const selectedText = selection.toString();
+
+      if (selectedText.trim() !== '') {
+        // Get the bounding client rect of the selected range
+        const rect = range.getBoundingClientRect();
+
+        // Set the popup position relative to the selected text
+        this.popupX = rect.left + window.scrollX + rect.width / 3; // Adjust X position
+        this.popupY = rect.top + window.scrollY;  // Adjust Y position (above the text)
+
+        // Set selected text
+        this.selectedText = selectedText;
+        this.showPopup = true;  // Show popup
+        console.log(' Show popup');
+      } else {
+        this.showPopup = false;  // Hide popup if no text is selected
+        console.log('Hide popup if no text is selected');
+      }
+    }
   }
 
   getTaskById(id: string) {
@@ -511,6 +545,11 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   openProfile(userId, login) {
-    this.router.navigate(['user', userId], { state: { login: login } });
+    this.router.navigate(['user', userId], { state: { login } });
+  }
+
+  openNewTab() {
+    localStorage.setItem('assistant', this.selectedText);
+    window.open(this.router.serializeUrl(this.router.createUrlTree(['assistant'])), '_blank');
   }
 }
