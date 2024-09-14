@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { TasksService } from '../../../shared/services/tasks.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskTopicModel } from '../../../shared/models/task.topic.model';
@@ -21,6 +21,7 @@ import {RecentlySolvedModels} from '../../../shared/models/recently-solved-model
 import {EditorConfiguration} from 'codemirror';
 import { HostListener } from '@angular/core';
 import { AssistantService } from '../../../../assistant/assistant/assistant.service';
+import {DOCUMENT} from '@angular/common';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -62,7 +63,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   dragStartX = 0;
   dragStartY = 0;
 
-  constructor(private tasksService: TasksService,
+  constructor(
+              @Inject(DOCUMENT) private document: Document,
+              private tasksService: TasksService,
               private navService: NavService,
               private router: Router,
               private commentService: CommentService,
@@ -553,7 +556,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   openNewTab() {
     localStorage.setItem('assistant', this.selectedText);
-    window.open(this.router.serializeUrl(this.router.createUrlTree(['assistant'])), '_blank');
+    const baseHref = this.document.getElementsByTagName('base')[0].href;
+    const url = this.router.serializeUrl(this.router.createUrlTree(['assistant']));
+    window.open(baseHref + url, '_blank');
   }
 
   startDrag(event: MouseEvent) {
