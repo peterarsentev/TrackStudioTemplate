@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="card-body">
-    <p [innerHTML]="question | safeCode"></p>
+    <p>{{question}}</p>
     <p *ngIf="!inProgress" [innerHTML]="answer | safeCode"></p>
   </div>
 </div>

@@ -2,27 +2,22 @@
   position: absolute;
   background-color: #f5f5f5;
   color: #333;
-  padding: 15px 25px;
+  padding: 5px;
   border-radius: 10px;
   font-size: 16px;
-  width: max-content;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   transition: opacity 0.3s ease-in-out;
   opacity: 0.95;
-}
-
-.custom-card .close-btn:hover {
-  color: #d9534f; /* Red color on hover */
+  white-space: nowrap; /* Prevent line breaks */
 }
 
 .custom-card .btn {
-  display: block;
-  margin-bottom: 10px;
+  display: inline-block; /* Display buttons inline */
+  margin: 5px; /* Small margin for spacing between buttons */
   color: #fff;
   background-color: #17a2b8;
-  border-radius: 20px;
-  padding: 10px 20px;
+  padding: 5px 15px; /* Adjust padding for inline display */
   text-align: center;
   text-decoration: none;
   transition: background-color 0.3s ease, transform 0.2s ease;
