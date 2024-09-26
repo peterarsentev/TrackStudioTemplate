@@ -12,7 +12,7 @@ import { DiscussionMessageModel } from '../../shared/models/discussionMessageMod
   providedIn: 'root'
 })
 export class DiscussService {
-  urlJedu = `${environment.urlJedu}/`;
+  urlJedu = `${environment.url}/`;
 
   constructor(private http: HttpClient) { }
 

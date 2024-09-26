@@ -12,7 +12,7 @@ import {SizeModels} from '../models/size.model';
 })
 export class SqlTopicService {
 
-  urlJedu = `${environment.urlJedu}/`;
+  urlJedu = `${environment.url}/`;
 
   constructor(private http: HttpClient) { }
 
@@ -39,7 +39,7 @@ export class SqlTopicService {
 })
 export class SqlSolutionService {
 
-  urlJedu = `${environment.urlJedu}/`;
+  urlJedu = `${environment.url}/`;
 
   constructor(private http: HttpClient) { }
 

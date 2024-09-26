@@ -14,7 +14,7 @@ import {OperationCommunityModel} from '../models/operation.community.model';
 })
 export class OperationService {
 
-  private urlServer =  `${environment.urlJedu}/`;
+  private urlServer =  `${environment.url}/`;
   constructor(private http: HttpClient) {
   }
 

@@ -12,8 +12,8 @@ import { DiscussModel } from '../models/discuss.model';
 
 @Injectable({providedIn: 'root'})
 export class MessageService {
-  private url = `${environment.urlJedu}/rest/messenger/`;
-  urlJedu = `${environment.urlJedu}/`;
+  private url = `${environment.url}/rest/messenger/`;
+  urlJedu = `${environment.url}/`;
   constructor(private http: HttpClient) {}
 
 

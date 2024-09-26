@@ -13,7 +13,7 @@ import { SolutionsModel } from '../models/solutions.model';
   providedIn: 'root'
 })
 export class TaskCodeService {
-  urlJedu = `${environment.urlJedu}/`;
+  urlJedu = `${environment.url}/`;
 
   constructor(private http: HttpClient) { }
 

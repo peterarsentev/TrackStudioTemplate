@@ -13,7 +13,7 @@ import {SolutionCommunityOperationModel} from '../models/solution.community.oper
 })
 export class SolutionCommunityService {
 
-  private urlServer =  `${environment.urlJedu}/`;
+  private urlServer =  `${environment.url}/`;
   constructor(private http: HttpClient) {
   }
 

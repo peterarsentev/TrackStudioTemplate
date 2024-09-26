@@ -12,7 +12,7 @@ import {CategoryModels} from '../models/category.models';
 })
 export class CategoryService {
 
-  private url =  `${environment.urlJedu}/`;
+  private url =  `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

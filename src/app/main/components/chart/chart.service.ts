@@ -7,7 +7,7 @@ import { UserActivityModel } from '../../../shared/models/user.activity.model';
 
 @Injectable({providedIn: 'root'})
 export class ChartService {
-  urlJedu = `${environment.urlJedu}/`;
+  urlJedu = `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

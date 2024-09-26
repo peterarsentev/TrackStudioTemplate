@@ -11,7 +11,7 @@ import {LeaderModels} from '../models/leader-models';
 })
 export class ExamuserService {
 
-  private url = `${environment.urlJedu}/`;
+  private url = `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

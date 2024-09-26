@@ -13,7 +13,7 @@ import { RegistrationModel } from '../models/registration.model';
 export class AuthService {
 
   public error$: Subject<string> = new Subject<string>();
-  private urlJedu = `${environment.urlJedu}/`;
+  private urlJedu = `${environment.url}/`;
 
   constructor(private http: HttpClient, private userService: UserService) {
   }
@@ -53,7 +53,7 @@ export class AuthService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     if (!!sessionId) {
-      return this.http.post<UserResponse>(`${environment.urlJedu}/login/session`, params);
+      return this.http.post<UserResponse>(`${environment.url}/login/session`, params);
         // .pipe(
         //   catchError(err => {
         //       localStorage.clear();
@@ -124,7 +124,7 @@ export class AuthService {
   }
 
   registration(loginModel: RegistrationModel) {
-    const url = `${environment.urlJedu}/rest/registration/registration`;
+    const url = `${environment.url}/rest/registration/registration`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('login', loginModel.login);
     params = params.append('username', loginModel.name);

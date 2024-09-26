@@ -7,7 +7,7 @@ import { RatingResponse } from '../../../shared/models/rating.response';
 
 @Injectable({providedIn: 'root'})
 export class RatingService {
-  urlJedu = `${environment.urlJedu}/`;
+  urlJedu = `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

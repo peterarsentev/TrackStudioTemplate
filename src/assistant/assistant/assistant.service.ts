@@ -7,7 +7,7 @@ import { AssistantModel } from './assistant.model';
 
 @Injectable({providedIn: 'root'})
 export class AssistantService {
-  urlJedu = `${environment.urlJedu}/`;
+  urlJedu = `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

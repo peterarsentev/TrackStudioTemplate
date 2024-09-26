@@ -16,7 +16,7 @@ import {ProgressModel} from '../models/progress.model';
 })
 export class ExamsService {
 
-  private url = `${environment.urlJedu}/`;
+  private url = `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

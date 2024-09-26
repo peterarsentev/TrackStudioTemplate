@@ -9,7 +9,7 @@ import { Links } from '../../shared/models/links';
 @Injectable({providedIn: 'root'})
 export class SolutionsService {
 
-  url = `${environment.urlJedu}/`;
+  url = `${environment.url}/`;
 
   constructor(private http: HttpClient) {}
 

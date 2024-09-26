@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="card w-100">
+      <div class="card-header">
+        <div class="font-weight-bold">{{ question?.title }}</div>
+      </div>
+      <div class="card-body">
+        <p class="card-text" style="word-wrap: break-word;
+        white-space: pre-wrap;" [innerHTML]="question?.description"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+     <span class="w-50">
+               <button (click)="showAddCommentForm(true)" class="pull-left btn btn-success btn-sm mt-2">
+      Решить</button>
+          </span>
+    <span class="w-50">
+               <button  class="pull-right btn btn-light btn-sm mt-2">
+      История ответов</button>
+          </span>
+  </div>
+
+  <div class="row" *ngIf="addFormComment">
+    <app-discussion
+      title="Введите ответ"
+      (closeEmitter)="saveAnswer($event)"
+    ></app-discussion>
+  </div>
+
+  <div class="row pt-2" *ngIf="showEstimate">
+    <div class="card w-100">
+      <div class="card-header">
+        <span class="font-weight-bold" *ngIf="loadingAi">Анализ AI</span>
+        <div *ngIf="loadingAi">
+          <i class="fa fa-spinner spinner-icon mr-1"
+             title="Обрабатывается ..."
+             aria-hidden="true"></i>Обрабатывается...
+        </div>
+        <span *ngIf="!loadingAi" class="font-weight-bold">Ваш балл: {{ answer?.estimate }}%</span>
+      </div>
+      <div class="card-body">
+        Ваш ответ:
+        <p *ngIf="!loadingAi" [innerHTML]="answer?.text | safeCode"></p>
+        Объяснение:
+        <p *ngIf="!loadingAi" [innerHTML]="question?.explanation | safeCode"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

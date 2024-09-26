@@ -36,8 +36,8 @@ import {RecentlySolvedModels} from '../models/recently-solved-models';
 @Injectable({providedIn: 'root'})
 export class TasksService {
 
-  private url = `${environment.urlJedu}/rest/task/`;
-  urlJedu = `${environment.urlJedu}/`;
+  private url = `${environment.url}/rest/task/`;
+  urlJedu = `${environment.url}/`;
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
   }
@@ -218,7 +218,7 @@ export class TasksService {
   }
 
   gerResponsiblePeople(taskId: string, mstatusId: string): Observable<{ handlers: UserModels[] }> {
-    const url = `${environment.urlJedu}/rest/message`;
+    const url = `${environment.url}/rest/message`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);
@@ -235,7 +235,7 @@ export class TasksService {
   }
 
   sendComment(taskId: string, mstatusId: string, handlerId: string, description: string) {
-    const url = `${environment.urlJedu}/rest/message`;
+    const url = `${environment.url}/rest/message`;
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('taskId', taskId);

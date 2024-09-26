@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class InfoService {
-  urlJedu = `${environment.urlJedu}/`;
+  urlJedu = `${environment.url}/`;
   constructor(private http: HttpClient) {
   }
 

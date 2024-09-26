@@ -10,7 +10,7 @@ import {TaskExerciseModel} from '../models/task.exercise.model';
 })
 export class TaskExerciseService {
 
-  private urlServer =  `${environment.urlJedu}/`;
+  private urlServer =  `${environment.url}/`;
   constructor(private http: HttpClient) {
   }
 

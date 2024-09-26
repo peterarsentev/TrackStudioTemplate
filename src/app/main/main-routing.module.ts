@@ -106,6 +106,11 @@ const routes: Routes = [
         loadChildren: () => import('../solution-community/solution-community.module')
           .then(mod => mod.SolutionCommunityModule)
       },
+      {
+        path: 'interview',
+        loadChildren: () => import('../interview/interview.module')
+          .then(mod => mod.InterviewModule)
+      },
     ]
   },
   {path: 'login', component: LoginComponent},

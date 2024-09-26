@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 })
 export class QoptsService {
 
-  private url = `${environment.urlJedu}/`;
+  private url = `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

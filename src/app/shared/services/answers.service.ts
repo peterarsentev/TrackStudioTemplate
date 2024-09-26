@@ -10,7 +10,7 @@ import {Question} from '../models/question.model';
 })
 export class AnswersService {
 
-  private url = `${environment.urlJedu}/`;
+  private url = `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

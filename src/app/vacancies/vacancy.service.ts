@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class VacancyService {
 
-  private  eduUrl = `${environment.urlJedu}/`;
+  private  eduUrl = `${environment.url}/`;
 
   constructor(private http: HttpClient) {}
 

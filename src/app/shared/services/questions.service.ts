@@ -12,7 +12,7 @@ import {NavQuestionModel} from '../models/nav.question.models';
 })
 export class QuestionsService {
 
-  private url = `${environment.urlJedu}/`;
+  private url = `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

@@ -1,4 +1,4 @@
 export interface Environment {
   production: boolean;
-  urlJedu: string;
+  url: string;
 }

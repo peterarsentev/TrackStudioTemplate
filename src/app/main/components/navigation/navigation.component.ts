@@ -8,6 +8,8 @@ import { EmergencyModel } from '../../../shared/models/emergency.model';
 import { NavNode } from '../../../shared/models/nav.node';
 import { NavService } from '../../../shared/services/nav.service';
 import {SqlSolutionService} from '../../../shared/services/sql-solution.service';
+import {InterviewTopicService} from '../../../shared/services/interview/interview.topic.service';
+import {InterviewQuestionService} from '../../../shared/services/interview/interview.question.service';
 
 @Component({
   selector: 'app-navigation',
@@ -36,7 +38,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
               private navService: NavService,
               private router: Router,
               private taskService: TasksService,
-              private tasksService: TasksService, private sqlExerciseService: SqlSolutionService) { }
+              private tasksService: TasksService,
+              private interviewTopicService: InterviewTopicService,
+              private interviewQuestionService: InterviewQuestionService,
+              private sqlExerciseService: SqlSolutionService) { }
 
   ngOnInit() {
     this.navService.getModel()
@@ -84,7 +89,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
               return;
             }
             if (res.interview) {
-              this.interviews(res);
+              this.interview(res);
               return;
             }
             if (res.rating) {
@@ -292,11 +297,18 @@ export class NavigationComponent implements OnInit, OnDestroy {
     }
   }
 
-  private interviews(res: NavNode) {
+  private interview(res: NavNode) {
     const navs = [{name: 'Job4j', url: '/', interview: true},
-      { name: 'Собеседования', url: '/interviews', interview: true}];
-    if (res.name) {
-      this.solutions = [...navs, res];
+      { name: 'Собеседования', url: '/interview', interview: true}];
+    if (res.interviewQuestionId) {
+      this.interviewQuestionService.findByTopicIdAndQuestionId(res.interviewTopicId, res.interviewQuestionId)
+        .subscribe(rs => this.solutions = [...navs,
+          { name: rs.topicName, url: '/interview/' + rs.topicId, interview: true},
+          { name: rs.questionTitle, interview: true}]
+        );
+    } else if (res.interviewTopicId) {
+      this.interviewTopicService.getById(res.interviewTopicId)
+        .subscribe(rs => this.solutions = [...navs, {name: rs.name, url: '/interview/' + rs.id, interview: true}]);
     } else {
       this.solutions = navs;
     }

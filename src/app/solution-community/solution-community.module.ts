@@ -7,7 +7,6 @@ import {SolutionCommunityPublishComponent} from './solution-community-publish/so
 import {SharedModule} from '../shared/shared.module';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
-
 @NgModule({
   declarations: [
     SolutionCommunityListComponent,

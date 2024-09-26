@@ -6,8 +6,8 @@ import { Environment } from './interface';
 
 export const environment: Environment = {
   production: false,
-    urlJedu: 'http://localhost:9070'
-  // urlJedu: 'https://job4j.ru/api/'
+    url: 'http://localhost:9070'
+  // url: 'https://job4j.ru/api/'
 };
 
 /*

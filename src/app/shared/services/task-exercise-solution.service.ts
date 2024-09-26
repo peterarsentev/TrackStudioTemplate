@@ -11,7 +11,7 @@ import {TaskExerciseSolutionModel} from '../models/task.exercise.solution.model'
 })
 export class TaskExerciseSolutionService {
 
-  private urlServer =  `${environment.urlJedu}/`;
+  private urlServer =  `${environment.url}/`;
   constructor(private http: HttpClient) {
   }
 

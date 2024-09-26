@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 })
 export class AoptsService {
 
-  private url =  `${environment.urlJedu}/`;
+  private url =  `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

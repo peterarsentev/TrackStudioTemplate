@@ -7,7 +7,7 @@ import { ProjectModel } from './project.model';
 
 @Injectable({providedIn: 'root'})
 export class ProjectService {
-  private  eduUrl = `${environment.urlJedu}/`;
+  private  eduUrl = `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

@@ -13,7 +13,7 @@ import {LevelModels} from '../models/level.models';
 })
 export class LevelService {
 
-  private url =  `${environment.urlJedu}/`;
+  private url =  `${environment.url}/`;
 
   constructor(private http: HttpClient) {
   }

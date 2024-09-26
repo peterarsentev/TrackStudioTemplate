@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 @Injectable({providedIn: 'root'})
 export class DiscussRatingService {
 
-  urlJedu = `${environment.urlJedu}/`;
+  urlJedu = `${environment.url}/`;
   constructor(private http: HttpClient) {
   }
 
