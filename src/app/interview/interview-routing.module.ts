@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: '', component: InterviewTopicsComponent },
   { path: ':topicId', component: InterviewTopicComponent, },
   { path: ':topicId/question/:questionId', component: InterviewQuestionComponent, },
-  { path: ':topicId/question/:questionId', component: InterviewQuestionComponent, },
 ];
 
 @NgModule({

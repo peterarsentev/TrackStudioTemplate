@@ -38,7 +38,7 @@ export class InterviewQuestionComponent implements OnInit {
       .getById(topicId)
       .subscribe(rs => this.topic = rs);
     this.interviewQuestionService
-      .getById(topicId)
+      .getById(questionId)
       .subscribe(rs => this.question = rs);
   }
 
