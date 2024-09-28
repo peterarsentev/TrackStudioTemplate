@@ -8,6 +8,7 @@ import {NavNode} from '../../../shared/models/nav.node';
 import {NavService} from '../../../shared/services/nav.service';
 import {InterviewAnswerService} from '../../../shared/services/interview/interview.answer.service';
 import {InterviewAnswerModels} from '../../../shared/models/interview/interview.answer.model';
+import {RoleService} from '../../../shared/services/role.service';
 
 @Component({
   selector: 'app-interview-question',
@@ -22,12 +23,14 @@ export class InterviewQuestionComponent implements OnInit {
   addFormComment = false;
   showEstimate = false;
   loadingAi = false;
+  canSolveInterview = false;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private navService: NavService,
               private interviewAnswerService: InterviewAnswerService,
               private interviewTopicService: InterviewTopicService,
+              private roleService: RoleService,
               private interviewQuestionService: InterviewQuestionService) { }
 
   ngOnInit(): void {
@@ -40,6 +43,8 @@ export class InterviewQuestionComponent implements OnInit {
     this.interviewQuestionService
       .getById(questionId)
       .subscribe(rs => this.question = rs);
+    this.roleService.getRulesForCurrentSession()
+      .subscribe(rs => this.canSolveInterview = !rs.find(rule => rule.key === 'CAN_SOLVE_INTERVIEW'));
   }
 
   saveAnswer($event: any) {

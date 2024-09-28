@@ -17,7 +17,7 @@
           Загрузить обсуждения: {{discussions.length}}
         </button>
           <button class="mt-2 m btn btn-info btn-sm ml-2"
-                  *ngIf="needToShow && !!user && user?.login !== 'anonymous' && canResponse"
+                  *ngIf="needToShow && canCreateDiscuss"
                   (click)="showDiscussionForm()">
             {{'Обсудить'}}
           </button>

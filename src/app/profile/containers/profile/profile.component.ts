@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { MessageService } from '../../../shared/services/message.service';
+import {RuleModels} from '../../../shared/models/rule.models';
+import {RoleService} from '../../../shared/services/role.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,17 +17,20 @@ import { MessageService } from '../../../shared/services/message.service';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
-private ngUnsubscribe$: Subject<void> = new Subject<void>();
+  private ngUnsubscribe$: Subject<void> = new Subject<void>();
   user: UserModels;
   form: FormGroup;
-  showNotification: boolean
+  showNotification: boolean;
+  rules: RuleModels[];
+  canUpdateYourSelf = false;
 
   constructor(private userService: UserService,
-    private authService: AuthService,
-    private fb: FormBuilder,
-    private messageService: MessageService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+              private authService: AuthService,
+              private fb: FormBuilder,
+              private messageService: MessageService,
+              private roleService: RoleService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getNotificationState();
@@ -33,7 +38,12 @@ private ngUnsubscribe$: Subject<void> = new Subject<void>();
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(user => {
         this.user = user;
-  });
+        this.roleService.getRulesForCurrentSession()
+          .subscribe(rs => {
+            this.rules = rs;
+            this.canUpdateYourSelf = !!this.rules.find(rule => rule.key === 'CAN_SOLVE_TASK');
+          });
+      });
   }
 
   ngOnDestroy(): void {

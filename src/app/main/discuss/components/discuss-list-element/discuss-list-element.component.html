@@ -73,7 +73,7 @@
   </div>
   <div class="row mt-1" >
      <span class="w-50 pull-left">
-         <button (click)="showDiscussionForm()" class="m btn btn-info btn-sm">
+         <button *ngIf="canCreateDiscuss" (click)="showDiscussionForm()" class="m btn btn-info btn-sm">
             {{'Обсудить'}}
           </button>
         </span>
@@ -95,7 +95,7 @@
   ></app-discussion-block>
   <div class="row">
         <span class="w-100 pull-right mb-1">
-                    <button *ngIf="!!user && user?.login !== 'anonymous'" class="m btn btn-info btn-sm"
+                    <button *ngIf="canCreateDiscuss" class="m btn btn-info btn-sm"
                             (click)="showDiscussionForm()">{{'Обсудить'}}</button>
           <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
                   (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>

@@ -1,5 +1,5 @@
 <div class="container-fluid pb-4">
-  <div class="row pb-2">
+  <div class="row pb-2" *ngIf="canUpdateYourSelf">
     <span class="w-50 pull-right">
       <button type="button" (click)="goToEditProfile()" class="m btn btn-info btn-sm mr-1">
         Редактировать
@@ -25,7 +25,7 @@
             <td>Почта</td>
             <td>{{user?.email}}</td>
           </tr>
-          <tr>
+          <tr *ngIf="canUpdateYourSelf">
             <td>Уведомления</td>
             <td>
                 <label class="switch pull-left" >

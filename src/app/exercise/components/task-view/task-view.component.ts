@@ -22,6 +22,7 @@ import {EditorConfiguration} from 'codemirror';
 import { HostListener } from '@angular/core';
 import { AssistantService } from '../../../../assistant/assistant/assistant.service';
 import {DOCUMENT} from '@angular/common';
+import {RoleService} from '../../../shared/services/role.service';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -51,9 +52,10 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   taskTime: string;
   showButtonBottom = false;
   @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
-  updatedGreatThanThreeDays: boolean = false;
+  updatedGreatThanThreeDays = false;
   recentlySolved: RecentlySolvedModels[] = [];
   code = '';
+  canSolveTask = false;
 
   selectedText = '';
   showPopup = false;
@@ -62,6 +64,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   isDragging = false;
   dragStartX = 0;
   dragStartY = 0;
+
+  canCreateDiscuss = false;
 
   constructor(
               @Inject(DOCUMENT) private document: Document,
@@ -72,7 +76,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
               private userService: UserService,
               private modalService: ModalService,
               private messageService: MessageService,
-              private route: ActivatedRoute, private assistantService: AssistantService) { }
+              private route: ActivatedRoute,
+              private assistantService: AssistantService,
+              private roleService: RoleService) { }
 
   ngOnInit() {
     this.getHandlersList();
@@ -96,7 +102,14 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
     this.userService.getModel()
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(res => this.user = res);
+      .subscribe(res => {
+        this.user = res;
+        this.roleService.getRulesForCurrentSession()
+          .subscribe(rs => {
+            this.canSolveTask = !!rs.find(rule => rule.key === 'CAN_SOLVE_TASK');
+            this.canCreateDiscuss = !!rs.find(rule => rule.key === 'DISCUSS_CAN_CREATE');
+          });
+      });
 
   }
 
@@ -107,22 +120,14 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     if (selection && selection.rangeCount > 0) {
       const range = selection.getRangeAt(0);
       const selectedText = selection.toString();
-
       if (selectedText.trim() !== '') {
-        // Get the bounding client rect of the selected range
         const rect = range.getBoundingClientRect();
-
-        // Set the popup position relative to the selected text
-        this.popupX = rect.left + window.scrollX + rect.width / 3; // Adjust X position
-        this.popupY = rect.top + window.scrollY;  // Adjust Y position (above the text)
-
-        // Set selected text
+        this.popupX = window.scrollX;
+        this.popupY = window.scrollY; // Adjust this value for vertical positioning
         this.selectedText = selectedText;
         this.showPopup = true;  // Show popup
-        console.log(' Show popup');
       } else {
         this.showPopup = false;  // Hide popup if no text is selected
-        console.log('Hide popup if no text is selected');
       }
     }
   }

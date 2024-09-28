@@ -1,6 +1,7 @@
 <div class="container-fluid pb-4">
   <div class="row pb-2">
     <span class="w-50">
+      <ng-container *ngIf="canSolveTask">
       <button *ngIf="task?.task?.type === 0" class="btn btn-success btn-sm"
               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
               [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
@@ -15,6 +16,7 @@
                (click)="goToComments({name: 'Отправить на проверку', id: 2})"
                [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
                [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
+      </ng-container>
     </span>
     <span class="w-50 pull-right">
       <button type="button" class="m btn btn-light btn-sm pull-right"
@@ -106,9 +108,11 @@
              class="popup"
              (mousedown)="startDrag($event)">
           <a (click)="openNewTab()" class="btn btn-sm badge-info">AI объясни</a>
-          <a class="btn btn-sm badge-info disabled">Создать пометку</a>
-          <a class="btn btn-sm badge-info disabled">Создать отчет об ошибке</a>
-          <a (click)="closePopup()" class="btn btn-sm badge-info">Закрыть</a>
+          <a class="btn btn-sm badge-info disabled"><i class="fas fa-plus"></i> пометку</a>
+          <a class="btn btn-sm badge-info disabled"><i class="fas fa-plus"></i> отчет об ошибке</a>
+          <a (click)="closePopup()" class="btn btn-sm badge-info">
+            <i class="fas fa-times"></i> <!-- Font Awesome close icon -->
+          </a>
         </div>
       </div>
       <div class="card-footer text-muted">
@@ -172,6 +176,7 @@
 
   <div class="row pt-2">
     <span class="w-50">
+      <ng-container *ngIf="canSolveTask">
        <button *ngIf="task?.task?.type === 0" class="btn btn-success btn-sm"
                (click)="goToComments({name: 'Отправить на проверку', id: 2})"
                [disabled]="updatedGreatThanThreeDays"
@@ -184,6 +189,7 @@
                 (click)="goToComments({name: 'Отправить на проверку', id: 2})"
                 [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
                 [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
+      </ng-container>
     </span>
     <span class="w-50 pull-right">
       <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
@@ -233,7 +239,7 @@
                         (addResponse)="addResponse($event)"
                         (showButton)="showButton()"
   ></app-discussion-block>
-  <div *ngIf="showButtonBottom" class="row">
+  <div *ngIf="showButtonBottom && canCreateDiscuss" class="row">
         <span  class="w-100 pull-right mb-1">
                     <button *ngIf="!!user && user?.login !== 'anonymous'" class="m btn btn-info btn-sm"
                             (click)="showDiscussionForm()">{{'Обсудить'}}</button>

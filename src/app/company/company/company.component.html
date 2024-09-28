@@ -28,7 +28,7 @@
                         (deleteEmitter)="deleteComment($event)"
                         (showButton)="showButton()"
   ></app-discussion-block>
-  <div *ngIf="showButtonBottom" class="row">
+  <div *ngIf="showButtonBottom && canCreateDiscuss" class="row">
         <span  class="w-100 pull-right mb-1">
                     <button *ngIf="!!user && user?.login !== 'anonymous'" class="m btn btn-info btn-sm"
                             (click)="showDiscussionForm()">{{'Обсудить'}}</button>
