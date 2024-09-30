@@ -37,6 +37,7 @@ export class TaskCodeSolutionComponent implements OnInit, OnDestroy {
   countSolvedTasks: number;
   @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
   showButtonBottom = false;
+  canCreateDiscuss = true;
 
   constructor(private router: Router,
               private route: ActivatedRoute,

@@ -22,6 +22,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
   company: CompanyModel;
   discussions: DiscussionMessageModel[] = [];
   user: UserModels;
+  canCreateDiscuss = true;
   constructor(private route: ActivatedRoute, private userService: UserService, private companyService: CompanyService) { }
 
   ngOnInit() {

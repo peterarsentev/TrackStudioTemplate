@@ -53,6 +53,7 @@ export class SqlExerciseComponent implements OnInit, OnDestroy {
   user: UserModels;
   checked = true;
   solvedSize = new SizeModels(0);
+  canCreateDiscuss = true;
 
   constructor(private activatedRoute: ActivatedRoute,
               private sqlExerciseService: SqlSolutionService,

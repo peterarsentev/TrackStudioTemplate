@@ -33,6 +33,7 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
     readOnly: true,
     mode: 'text/x-pgsql'
   };
+  canCreateDiscuss = true;
   @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;
   constructor(private router: Router,
               private discussService: DiscussService,

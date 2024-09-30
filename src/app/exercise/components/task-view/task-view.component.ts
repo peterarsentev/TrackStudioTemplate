@@ -58,13 +58,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   canSolveTask = false;
 
   selectedText = '';
-  showPopup = false;
-  popupX = 0;
-  popupY = 0;
-  isDragging = false;
-  dragStartX = 0;
-  dragStartY = 0;
-
   canCreateDiscuss = false;
 
   constructor(
@@ -122,12 +115,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       const selectedText = selection.toString();
       if (selectedText.trim() !== '') {
         const rect = range.getBoundingClientRect();
-        this.popupX = window.scrollX;
-        this.popupY = window.scrollY; // Adjust this value for vertical positioning
         this.selectedText = selectedText;
-        this.showPopup = true;  // Show popup
-      } else {
-        this.showPopup = false;  // Hide popup if no text is selected
       }
     }
   }
@@ -564,28 +552,5 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     const baseHref = this.document.getElementsByTagName('base')[0].href;
     const url = this.router.serializeUrl(this.router.createUrlTree(['assistant']));
     window.open(baseHref + url, '_blank');
-  }
-
-  startDrag(event: MouseEvent) {
-    this.isDragging = true;
-    this.dragStartX = event.clientX - this.popupX;
-    this.dragStartY = event.clientY - this.popupY;
-  }
-
-  @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
-    if (this.isDragging) {
-      this.popupX = event.clientX - this.dragStartX;
-      this.popupY = event.clientY - this.dragStartY;
-    }
-  }
-
-  @HostListener('document:mouseup')
-  onMouseUp() {
-    this.isDragging = false;
-  }
-
-  closePopup() {
-    this.showPopup = false;
   }
 }

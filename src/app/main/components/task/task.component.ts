@@ -46,7 +46,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   user: UserModels;
   rating: RateModel;
   handlers: UserModels[] = [];
-
+  canCreateDiscuss = true;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private commentService: CommentService,

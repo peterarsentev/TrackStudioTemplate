@@ -102,18 +102,6 @@
       </div>
       <div class="custom-card card-body">
         <p class="card-text" [innerHTML]="task?.task?.description | safeCode"></p>
-        <!-- Popup div -->
-        <div *ngIf="showPopup"
-             [ngStyle]="{'top': popupY + 'px', 'left': popupX + 'px'}"
-             class="popup"
-             (mousedown)="startDrag($event)">
-          <a (click)="openNewTab()" class="btn btn-sm badge-info">AI объясни</a>
-          <a class="btn btn-sm badge-info disabled"><i class="fas fa-plus"></i> пометку</a>
-          <a class="btn btn-sm badge-info disabled"><i class="fas fa-plus"></i> отчет об ошибке</a>
-          <a (click)="closePopup()" class="btn btn-sm badge-info">
-            <i class="fas fa-times"></i> <!-- Font Awesome close icon -->
-          </a>
-        </div>
       </div>
       <div class="card-footer text-muted">
         {{ task?.task?.name }} {{ getSolutionId() }}
