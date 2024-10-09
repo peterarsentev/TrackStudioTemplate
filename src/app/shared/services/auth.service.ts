@@ -106,7 +106,7 @@ export class AuthService {
     return this.http.post(url, params);
   }
 
-  updateProfile(userId: string, email: string, name: string) {
+  updateProfile(userId: string, email: string, name: string, startedAt: number) {
     const url = this.urlJedu + 'user/update';
     const sessionId = localStorage.getItem('sessionId');
     let params = new HttpParams({encoder: new CustomEncoder()});
@@ -114,6 +114,11 @@ export class AuthService {
     params = params.append('id', userId);
     params = params.append('email', email);
     params = params.append('name', name);
+    if (startedAt) {
+      const date = new Date(startedAt);
+      const milliseconds = date.getTime();
+      params = params.append('startedAt', String(milliseconds));
+    }
     return this.http.post(url, params)
       .pipe(
         tap(this.setSessionId),

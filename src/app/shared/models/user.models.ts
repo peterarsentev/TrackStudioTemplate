@@ -21,6 +21,7 @@ export class UserModels {
     // edu
 
     public pwd?: string,
+    public startedAt?: number,
   ) {
   }
 }

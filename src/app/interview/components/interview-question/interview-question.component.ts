@@ -24,6 +24,9 @@ export class InterviewQuestionComponent implements OnInit {
   showEstimate = false;
   loadingAi = false;
   canSolveInterview = false;
+  showStories = false;
+  stories: InterviewAnswerModels[] = [];
+  totalAnswers = 0;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -45,6 +48,8 @@ export class InterviewQuestionComponent implements OnInit {
       .subscribe(rs => this.question = rs);
     this.roleService.getRulesForCurrentSession()
       .subscribe(rs => this.canSolveInterview = !rs.find(rule => rule.key === 'CAN_SOLVE_INTERVIEW'));
+    this.interviewAnswerService.getTotalAnswerByQuestionId(questionId)
+      .subscribe(rs => this.totalAnswers = rs.size);
   }
 
   saveAnswer($event: any) {
@@ -58,7 +63,27 @@ export class InterviewQuestionComponent implements OnInit {
       });
   }
 
+  loadStories() {
+    this.addFormComment = false;
+    this.showEstimate = false;
+    this.loadingAi = false;
+    this.interviewAnswerService.loadStories(this.question.id)
+      .subscribe(rs => {
+        this.showStories = true;
+        this.stories = rs;
+      });
+  }
+
   showAddCommentForm(show: boolean) {
     this.addFormComment = show;
+    this.showEstimate = false;
+    this.loadingAi = false;
+  }
+
+  showAnswer(show: boolean) {
+    this.addFormComment = false;
+    this.showEstimate = true;
+    this.loadingAi = false;
+    this.answer = new InterviewAnswerModels(0, 'Без ответа', 0);
   }
 }

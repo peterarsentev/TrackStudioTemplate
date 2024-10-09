@@ -39,7 +39,10 @@
         </tr>
         <tr>
           <td>Начало обучения:</td>
-          <td>{{ submitDate | getDate }}</td>
+          <td>
+            <ng-container *ngIf="!user?.startedAt">{{ submitDate | getDate }}</ng-container>
+            <ng-container *ngIf="user?.startedAt">{{ user.startedAt | getDate }}</ng-container>
+          </td>
         </tr>
         <tr>
           <td>Последняя активность в курсе:</td>

@@ -40,6 +40,13 @@
             <td>Номер договора для оплаты</td>
             <td>{{user?.id}}</td>
           </tr>
+          <tr>
+            <td>Начало обучения</td>
+            <td>
+              <ng-container *ngIf="!user?.startedAt">Вычисляется от даты первого комментария к уроку</ng-container>
+              <ng-container *ngIf="user?.startedAt">{{ user?.startedAt | date: 'dd.MM.yyyy HH:mm' }}</ng-container>
+            </td>
+          </tr>
         </table>
       </div>
     </div>

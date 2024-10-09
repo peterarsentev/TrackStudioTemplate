@@ -130,7 +130,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   getCountAllAndSolvedTasks(userId?: number) {
-    this.tasksService.getCountTasks(userId)
+    this.tasksService.getCountTasksByStartedAt(userId)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.allTasksCount = res.all;
@@ -138,11 +138,21 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.tasksBarValue = +((this.solvedTasksCount / this.allTasksCount) * 100).toFixed(2);
         this.submitDate = res.submitDate === 0 ? new Date().getTime() : res.submitDate;
         this.updateDate = res.updateDate === 0 ? new Date().getTime() : res.updateDate;
-        this.countOfDays = Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24);
+        this.countOfDays = this.daysOfStarted();
         this.speed = this.solvedTasksCount / this.countOfDays;
         const days = Math.round((this.allTasksCount - this.solvedTasksCount) / this.speed);
-        this.endOfCourse = moment().add(days, 'days').format('DD.MM.YYYY HH:mm');
+        if (this.countOfDays > 0) {
+          this.endOfCourse = moment().add(days, 'days').format('DD.MM.YYYY HH:mm');
+        }
       });
+  }
+
+  daysOfStarted() {
+    if (this.user.startedAt) {
+      return Math.round((new Date().getTime() - this.user.startedAt) / 1000 / 60 / 60 / 24);
+    } else {
+      return Math.round((new Date().getTime() - this.submitDate) / 1000 / 60 / 60 / 24);
+    }
   }
 
   getProvenTasks(userId?: number) {
