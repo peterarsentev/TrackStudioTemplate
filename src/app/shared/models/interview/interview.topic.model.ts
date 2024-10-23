@@ -2,7 +2,8 @@ export class InterviewTopicModels {
   constructor(
     public id?: number,
     public name?: string,
-    public position?: number
+    public position?: number,
+    public views?: number
   ) {
   }
 }

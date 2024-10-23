@@ -22,6 +22,13 @@ export class InterviewTopicService {
     return this.http.post<InterviewTopicModels[]>(url, params);
   }
 
+  getViewsForAllTopics(): Observable<Map<number, number>> {
+    const url = this.url + `interviewTopic/allWithStatistic`;
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<Map<number, number>>(url, params);
+  }
+
   getById(topicId: number): Observable<InterviewTopicModels> {
     const url = this.url + `interviewTopic/get`;
     let params = new HttpParams({encoder: new CustomEncoder()});

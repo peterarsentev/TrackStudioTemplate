@@ -13,6 +13,7 @@ import {NavService} from '../../../shared/services/nav.service';
 export class InterviewTopicsComponent implements OnInit {
 
   topics: InterviewTopicModels[] = [];
+  views: Map<number, number>;
 
   constructor(private router: Router,
               private navService: NavService,
@@ -23,6 +24,10 @@ export class InterviewTopicsComponent implements OnInit {
     this.interviewTopicService
       .getAllInterviewTopics()
       .subscribe(rs => this.topics = rs);
+
+    this.interviewTopicService
+      .getViewsForAllTopics()
+      .subscribe(rs => this.views = rs);
   }
 
   linkTopic(topicId: number) {

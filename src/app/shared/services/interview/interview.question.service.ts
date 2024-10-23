@@ -25,6 +25,14 @@ export class InterviewQuestionService {
     return this.http.post<InterviewQuestionModels[]>(url, params);
   }
 
+  getQuestionsWithStatisticByTopic(topicId: number): Observable<Map<number, number>> {
+    const url = this.url + `interviewQuestion/getQuestionsWithStatisticByTopic`;
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('topicId', String(topicId));
+    return this.http.post<Map<number, number>>(url, params);
+  }
+
   findByTopicIdAndQuestionId(topicId: number, questionId: number): Observable<InterviewTopicQuestionModels> {
     const url = this.url + `interviewQuestion/findByTopicIdAndQuestionId`;
     let params = new HttpParams({encoder: new CustomEncoder()});

@@ -7,7 +7,10 @@
             <div (click)="linkQuestion(topic?.id, question?.id)">
               <div>
                 <i class="fas fa-tasks pr-2"></i>
-                <span class="font-weight-bold">{{question.title}}</span>
+                <span class="font-weight-bold">{{question.title}}</span><br/>
+                <span class="small text-muted">
+                  <i aria-hidden="true" class="fa fa-eye"></i> {{ views[question.id] }}
+                </span>
               </div>
             </div>
           </td>
