@@ -3,6 +3,7 @@ import {InterviewTopicService} from '../../../shared/services/interview/intervie
 import {ActivatedRoute, Router} from '@angular/router';
 import {InterviewQuestionService} from '../../../shared/services/interview/interview.question.service';
 import {InterviewQuestionModels} from '../../../shared/models/interview/interview.question.model';
+import {PreviousNextModel} from '../../../shared/models/interview/previous.next.model';
 import {InterviewTopicModels} from '../../../shared/models/interview/interview.topic.model';
 import {NavNode} from '../../../shared/models/nav.node';
 import {NavService} from '../../../shared/services/nav.service';
@@ -27,6 +28,8 @@ export class InterviewQuestionComponent implements OnInit {
   showStories = false;
   stories: InterviewAnswerModels[] = [];
   totalAnswers = 0;
+  previousNext: PreviousNextModel;
+  explanation = false;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -39,6 +42,10 @@ export class InterviewQuestionComponent implements OnInit {
   ngOnInit(): void {
     const topicId = Number(this.activatedRoute.snapshot.paramMap.get('topicId'));
     const questionId = Number(this.activatedRoute.snapshot.paramMap.get('questionId'));
+    this.loadQuestion(topicId, questionId);
+  }
+
+  loadQuestion(topicId: number, questionId: number) {
     this.navService.setUpModel({...new NavNode(), interviewTopicId: topicId, interviewQuestionId: questionId, interview: true });
     this.interviewTopicService
       .getById(topicId)
@@ -50,6 +57,9 @@ export class InterviewQuestionComponent implements OnInit {
       .subscribe(rs => this.canSolveInterview = !rs.find(rule => rule.key === 'CAN_SOLVE_INTERVIEW'));
     this.interviewAnswerService.getTotalAnswerByQuestionId(questionId)
       .subscribe(rs => this.totalAnswers = rs.size);
+    this.interviewQuestionService
+      .getPreviousNext(questionId)
+      .subscribe(rs => this.previousNext = rs);
   }
 
   saveAnswer($event: any) {
@@ -85,5 +95,20 @@ export class InterviewQuestionComponent implements OnInit {
     this.showEstimate = true;
     this.loadingAi = false;
     this.answer = new InterviewAnswerModels(0, 'Без ответа', 0);
+  }
+
+  showExplanation() {
+    this.explanation = !this.explanation;
+  }
+
+  linkTo(topicId: number, questionId: number) {
+    this.addFormComment = false;
+    this.showEstimate = false;
+    this.loadingAi = false;
+    this.canSolveInterview = false;
+    this.showStories = false;
+    this.explanation = false;
+    window.scroll(0, 0);
+    this.loadQuestion(topicId, questionId);
   }
 }

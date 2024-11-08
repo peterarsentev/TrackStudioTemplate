@@ -7,9 +7,14 @@
             <div (click)="linkQuestion(topic?.id, question?.id)">
               <div>
                 <i class="fas fa-tasks pr-2"></i>
-                <span class="font-weight-bold">{{question.title}}</span><br/>
-                <span class="small text-muted">
-                  <i aria-hidden="true" class="fa fa-eye"></i> {{ views[question.id] }}
+                <span class="font-weight-bold">{{question?.title}}</span><br/>
+                <ng-container *ngIf="status">
+                  <span *ngIf="status[question?.id] === 1 || !status[question?.id]" class="badge badge-danger mr-3">Слабый</span>
+                  <span *ngIf="status[question?.id] === 2" class="badge badge-warning mr-3">Средний</span>
+                  <span *ngIf="status[question?.id] === 3" class="badge badge-success mr-3">Сильный</span>
+                </ng-container>
+                <span class="small text-muted" *ngIf="views">
+                  <i aria-hidden="true" class="fa fa-eye"></i> {{ views[question?.id] }}
                 </span>
               </div>
             </div>

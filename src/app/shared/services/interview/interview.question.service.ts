@@ -6,6 +6,7 @@ import {InterviewTopicModels} from '../../models/interview/interview.topic.model
 import {InterviewQuestionModels} from '../../models/interview/interview.question.model';
 import {environment} from '../../../../environments/environment';
 import {InterviewTopicQuestionModels} from '../../models/interview/interview.topic.question.model';
+import {PreviousNextModel} from '../../models/interview/previous.next.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,14 @@ export class InterviewQuestionService {
     return this.http.post<Map<number, number>>(url, params);
   }
 
+  getScope(topicId: number): Observable<Map<number, number>> {
+    const url = this.url + `interviewQuestion/getScope`;
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('topicId', String(topicId));
+    return this.http.post<Map<number, number>>(url, params);
+  }
+
   findByTopicIdAndQuestionId(topicId: number, questionId: number): Observable<InterviewTopicQuestionModels> {
     const url = this.url + `interviewQuestion/findByTopicIdAndQuestionId`;
     let params = new HttpParams({encoder: new CustomEncoder()});
@@ -48,5 +57,12 @@ export class InterviewQuestionService {
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     params = params.append('questionId', String(questionId));
     return this.http.post<InterviewQuestionModels>(url, params);
+  }
+
+  getPreviousNext(questionId: number): Observable<PreviousNextModel> {
+    const url = this.url + `interviewQuestion/previousNext`;
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('questionId', String(questionId));
+    return this.http.post<PreviousNextModel>(url, params);
   }
 }

@@ -17,6 +17,7 @@ export class InterviewTopicComponent implements OnInit {
   topic: InterviewTopicModels;
   questions: InterviewQuestionModels[] = [];
   views: Map<number, number>;
+  status: Map<number, number>;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -36,6 +37,10 @@ export class InterviewTopicComponent implements OnInit {
     this.interviewQuestionService
       .getQuestionsWithStatisticByTopic(topicId)
       .subscribe(rs => this.views = rs);
+
+    this.interviewQuestionService
+      .getScope(topicId)
+      .subscribe(rs => this.status = rs);
   }
 
   linkQuestion(topicId: number, questionId: number) {

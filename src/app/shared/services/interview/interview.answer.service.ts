@@ -7,6 +7,7 @@ import {InterviewTopicModels} from '../../models/interview/interview.topic.model
 import {InterviewAnswerModels} from '../../models/interview/interview.answer.model';
 import {InterviewTopicQuestionModels} from '../../models/interview/interview.topic.question.model';
 import {SizeModels} from '../../models/size.model';
+import {PreviousNextModel} from '../../models/interview/previous.next.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,16 +1,23 @@
 <div class="container">
   <div class="row">
-    <span class="w-100 mb-2">
-    <button
-      [disabled]="!!canSolveInterview"
-      [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
-      (click)="loadStories()"
-      class="pull-right btn btn-light btn-sm">
-      История ответов</button>
-            <span class="pull-right btn btn-info btn-sm mr-2">
+     <span class="w-50">
+                <button [disabled]="!!canSolveInterview"
+                        [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
+                        (click)="showExplanation()"
+                        class="pull-left btn btn-info btn-sm mb-2">
+                 <i class="fa fa-graduation-cap"></i> Изучить</button>
+          </span>
+    <span class="w-50">
+      <ng-container *ngIf="previousNext">
+          <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="!!previousNext.nextId"
+                  (click)="linkTo(question?.topicId, previousNext?.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
+          <button type="button" class="m btn btn-light pull-right btn-sm mr-2"  *ngIf="!!previousNext.previousId"
+            (click)="linkTo(question?.topicId, previousNext?.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
+        </ng-container>
+        <span class="pull-right btn btn-info btn-sm mr-2">
               Было решено: {{ totalAnswers }}
             </span>
-          </span>
+     </span>
   </div>
 
   <div class="row">
@@ -33,12 +40,13 @@
                        class="pull-left btn btn-success btn-sm mt-2">
                 Решить</button>
           </span>
-    <span class="w-50">
-               <button [disabled]="!!canSolveInterview"
-                       [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
-                       (click)="showAnswer(true)"
-                       class="pull-right btn btn-light btn-sm mt-2 ml-2">
-                Посмотреть ответ</button>
+    <span class="w-50 mt-2">
+                   <button
+                     [disabled]="!!canSolveInterview"
+                     [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
+                     (click)="loadStories()"
+                     class="pull-right btn btn-light btn-sm">
+      История ответов</button>
           </span>
   </div>
 
@@ -70,6 +78,16 @@
     </div>
   </div>
 
+  <div class="row pt-2" *ngIf="explanation">
+    <div class="card w-100">
+      <div class="card-header">
+        <div class="font-weight-bold">Объяснение</div>
+      </div>
+      <div class="card-body" [innerHTML]="question?.explanation | safeCode">
+      </div>
+    </div>
+  </div>
+
   <div class="row pt-2" *ngIf="showEstimate">
     <div class="card w-100">
       <div class="card-header">
@@ -84,8 +102,6 @@
       <div class="card-body">
         Ваш ответ:
         <p *ngIf="!loadingAi" [innerHTML]="answer?.text | safeCode"></p>
-        Объяснение:
-        <p *ngIf="!loadingAi" [innerHTML]="question?.explanation | safeCode"></p>
       </div>
     </div>
   </div>
