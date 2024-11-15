@@ -6,6 +6,9 @@ export class InterviewQuestionModels {
     public description?: string,
     public explanation?: string,
     public topicId?: number,
+    public level?: string,
+    public views?: number,
+    public status?: number
   ) {
   }
 }

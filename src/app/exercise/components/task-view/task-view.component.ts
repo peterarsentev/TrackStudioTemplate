@@ -193,7 +193,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.showCommentForm = false;
     this.messages = [];
     const textComment = this.task.task.type === 1 ? button.description + '<pre><code class="java">' + this.code + '</code></pre>' : button.description;
-    if (this.task.status.id === 1) {
+    if (this.task.status.id === 1 && this.task.solution === undefined) {
       this.tasksService.createSolutionAndAddComment(this.task.task.id, this.operation.id, button.handlerId, textComment)
         .subscribe((res) => {
           this.solutionId = res.solutionId;
