@@ -2,9 +2,10 @@
   <div *ngIf="!showDiscussion">
     <div class="pb-3 small">
                   <span>
-                    <span (click)="goToProfile(discussion.userId)" class="font-weight-bold" style="cursor: pointer;">
+                    <span (click)="goToProfile(discussion.userId)" class="font-weight-bold d-block" style="cursor: pointer;">
                       <i class="fa fa-user mr-1"></i>{{ discussion.name }}</span>
                   </span>
+      <small *ngIf="discussion.userCreated" class="mb-2 text-muted d-block">{{' Дата регистрации:'}} {{ discussion.userCreated | date: 'dd.MM.yyyy'}}</small>
       <span class="pull-right" *ngIf="discussion.userId === user.id" (click)="openConfirmModal()">
         <i class="fa fa-remove ml-3"></i>
        </span>
@@ -25,9 +26,10 @@
           <ng-container *ngFor="let d of discussion.responses">
             <div *ngIf="!d.editResponse">
               <div class="pb-3">
-                  <span class="small">Oт
+                  <span class="small d-block">Oт
                     <span class="font-weight-bold">{{ d.name }}</span>
                   </span>
+                <small *ngIf="d.userCreated" class="mb-2 text-muted d-block">{{' Дата регистрации:'}} {{ d.userCreated | date: 'dd.MM.yyyy'}}</small>
                 <span class="pull-right" *ngIf="d.userId === user.id" (click)="openConfirmModal(d)">
                     <i class="fa fa-remove ml-3"></i>
                    </span>
