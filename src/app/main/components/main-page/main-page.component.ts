@@ -53,6 +53,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   user: UserModels;
   private userId: number;
   showNews = true;
+  solvedSqlExerciseCount = 0;
+  totalSqlExerciseCount = 1;
+  solSqlBarValue: number;
 
   constructor(private tasksService: TasksService,
               private authService: AuthService,
@@ -84,6 +87,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.getCountAllAndSolvedTasks(this.userId);
         this.getProvenTasks(this.userId);
         this.getSolvedAndAllExerciseCount(this.userId);
+        this.getSolvedAndAllSqlExerciseCount(this.userId);
         this.getLevels(this.userId);
         this.getSolvedTasks(this.userId);
         this.getUserActivity(this.userId);
@@ -179,6 +183,16 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.solvedExerciseCount = res.solved;
         this.totalExerciseCount = res.all;
         this.solBarValue = +((this.solvedExerciseCount / this.totalExerciseCount) * 100).toFixed(2);
+      });
+  }
+
+  private getSolvedAndAllSqlExerciseCount(userId?: number) {
+    this.tasksService.getSolvedAndAllSqlExerciseCount(userId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((res) => {
+        this.solvedSqlExerciseCount = res.solved;
+        this.totalSqlExerciseCount = res.all;
+        this.solSqlBarValue = +((this.solvedSqlExerciseCount / this.totalSqlExerciseCount) * 100).toFixed(2);
       });
   }
 

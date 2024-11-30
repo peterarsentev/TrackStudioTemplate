@@ -29,11 +29,20 @@
           </td>
         </tr>
         <tr>
-          <td>Выполнено упражнений {{solvedExerciseCount}} из {{totalExerciseCount}}</td>
+          <td>Выполнено упражнений Java Core {{solvedExerciseCount}} из {{totalExerciseCount}}</td>
           <td>
             <app-progress-bar-view [allTasksCount]="totalExerciseCount"
                                    [solvedTasksCount]="solvedExerciseCount"
                                    [barValue]="solBarValue"
+            ></app-progress-bar-view>
+          </td>
+        </tr>
+        <tr>
+          <td>Выполнено упражнений SQL {{solvedSqlExerciseCount}} из {{totalSqlExerciseCount}}</td>
+          <td>
+            <app-progress-bar-view [allTasksCount]="totalSqlExerciseCount"
+                                   [solvedTasksCount]="solvedSqlExerciseCount"
+                                   [barValue]="solSqlBarValue"
             ></app-progress-bar-view>
           </td>
         </tr>
