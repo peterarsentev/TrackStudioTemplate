@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TopicModels } from '../../shared/models/topic.models';
 import { NavService } from '../../shared/services/nav.service';
 import { NavNode } from '../../shared/models/nav.node';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-topics',
@@ -17,7 +18,8 @@ export class TopicsComponent implements OnInit {
   constructor(private taskCodeService: TaskCodeService,
               private route: ActivatedRoute,
               private navService: NavService,
-              private router: Router) { }
+              private router: Router,
+              private titleService: Title) { }
 
   ngOnInit() {
     this.navService.setUpModel({...new NavNode(), task_code: true});
@@ -25,6 +27,7 @@ export class TopicsComponent implements OnInit {
       .subscribe(res => {
         this.total = res.total;
       });
+    this.titleService.setTitle('Job4j Упражнения');
   }
 
   goToTasks(topic: TopicModels) {

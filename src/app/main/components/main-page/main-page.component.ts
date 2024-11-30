@@ -18,6 +18,7 @@ import { DiscussService } from '../../discuss/discuss.service';
 import { DiscussionMessageModel } from '../../../shared/models/discussionMessageModel';
 import { MessageService } from '../../../shared/services/message.service';
 import { NavService } from '../../../shared/services/nav.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-main',
@@ -65,10 +66,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
               private messageService: MessageService,
               private discussService: DiscussService,
               private navService: NavService,
-              private router: Router) {
+              private router: Router, private titleService: Title) {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Job4j');
     this.route.params
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(param => {
@@ -120,7 +122,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   getSolvedTasks(userid?: number) {
-    this.tasksService.getSolvedTasks(userid)
+    this.tasksService.getSolvedTasks(userid);
     this.tasksService.getSolvedTasks(userid)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {

@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule, Provider } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -34,7 +34,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
   ],
   exports: [
   ],
-  providers: [INTERCEPTOR_PROVIDER],
+  providers: [INTERCEPTOR_PROVIDER, Title],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
