@@ -73,6 +73,7 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
   show() {
     this.needToShow = !this.needToShow;
     this.showButton.emit(true);
+    this.updateImages();
   }
 
   ngOnDestroy(): void {
@@ -88,5 +89,13 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
     if (this.router.url.includes('user')) {
       this.router.navigate(['discuss', discussion.discussId]);
     }
+  }
+
+  private updateImages() {
+    setTimeout(() => {
+      document.querySelectorAll('a img').forEach((block) => {
+        block.parentElement.setAttribute('data-lightbox', 'images');
+      });
+    }, 0);
   }
 }
