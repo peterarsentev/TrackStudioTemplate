@@ -9,6 +9,7 @@ import { TopicModels } from '../../../shared/models/topic.models';
 import { CategoryModels } from '../../../shared/models/category.models';
 import { LevelModels } from '../../../shared/models/level.models';
 import { TopicFilter } from '../../../shared/models/topickFilter';
+import { Title } from '@angular/platform-browser';
 
 export enum FilterTopicEnum {
   EMPTY, LEVEL, CATEGORY
@@ -30,6 +31,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
 
   constructor(private taskService: TasksService,
               private router: Router,
+              private titleService: Title,
               private navService: NavService,
               private route: ActivatedRoute) {
   }
@@ -43,6 +45,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
       this.tasks = res as TopicModels[];
       window.scrollTo(0, 0);
     });
+    this.titleService.setTitle('Job4j Уроки');
     this.getLevels();
     this.getUserFilters();
   }

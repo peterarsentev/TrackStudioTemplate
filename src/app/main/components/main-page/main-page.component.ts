@@ -18,6 +18,7 @@ import { DiscussService } from '../../discuss/discuss.service';
 import { DiscussionMessageModel } from '../../../shared/models/discussionMessageModel';
 import { MessageService } from '../../../shared/services/message.service';
 import { NavService } from '../../../shared/services/nav.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-main',
@@ -53,6 +54,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   user: UserModels;
   private userId: number;
   showNews = true;
+  solvedSqlExerciseCount = 0;
+  totalSqlExerciseCount = 1;
+  solSqlBarValue: number;
 
   constructor(private tasksService: TasksService,
               private authService: AuthService,
@@ -62,10 +66,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
               private messageService: MessageService,
               private discussService: DiscussService,
               private navService: NavService,
-              private router: Router) {
+              private router: Router, private titleService: Title) {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Job4j');
     this.route.params
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(param => {
@@ -84,6 +89,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.getCountAllAndSolvedTasks(this.userId);
         this.getProvenTasks(this.userId);
         this.getSolvedAndAllExerciseCount(this.userId);
+        this.getSolvedAndAllSqlExerciseCount(this.userId);
         this.getLevels(this.userId);
         this.getSolvedTasks(this.userId);
         this.getUserActivity(this.userId);
@@ -116,7 +122,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   getSolvedTasks(userid?: number) {
-    this.tasksService.getSolvedTasks(userid)
+    this.tasksService.getSolvedTasks(userid);
     this.tasksService.getSolvedTasks(userid)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((res) => {
@@ -179,6 +185,16 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.solvedExerciseCount = res.solved;
         this.totalExerciseCount = res.all;
         this.solBarValue = +((this.solvedExerciseCount / this.totalExerciseCount) * 100).toFixed(2);
+      });
+  }
+
+  private getSolvedAndAllSqlExerciseCount(userId?: number) {
+    this.tasksService.getSolvedAndAllSqlExerciseCount(userId)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((res) => {
+        this.solvedSqlExerciseCount = res.solved;
+        this.totalSqlExerciseCount = res.all;
+        this.solSqlBarValue = +((this.solvedSqlExerciseCount / this.totalSqlExerciseCount) * 100).toFixed(2);
       });
   }
 

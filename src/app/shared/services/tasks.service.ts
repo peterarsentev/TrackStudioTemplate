@@ -370,6 +370,14 @@ export class TasksService {
     return this.http.post<CountModels>(url, params);
   }
 
+  getSolvedAndAllSqlExerciseCount(userId?: number): Observable<CountModels> {
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = userId ? params.append('userId', String(userId)) : params;
+    const url = this.urlJedu + `sqlSolution/countTasks`;
+    return this.http.post<CountModels>(url, params);
+  }
+
   getTasksTopicsList(): Observable<TopicModels[]> {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', localStorage.getItem('sessionId'));

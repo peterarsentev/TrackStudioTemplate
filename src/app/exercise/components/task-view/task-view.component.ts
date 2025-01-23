@@ -23,6 +23,7 @@ import { HostListener } from '@angular/core';
 import { AssistantService } from '../../../../assistant/assistant/assistant.service';
 import {DOCUMENT} from '@angular/common';
 import {RoleService} from '../../../shared/services/role.service';
+import { Title } from '@angular/platform-browser';
 
 declare var CodeMirror: any;
 declare var hljs: any;
@@ -71,6 +72,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
               private messageService: MessageService,
               private route: ActivatedRoute,
               private assistantService: AssistantService,
+              private titleService: Title,
               private roleService: RoleService) { }
 
   ngOnInit() {
@@ -125,6 +127,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
         this.task = res;
+        this.titleService.setTitle(this.task.task.name);
         this.solutionId = res.solution ? res.solution.id : undefined;
         this.updatedGreatThanThreeDays = this.isUpdatedGreatThanThreeDays();
         this.name = this.task.task.name;

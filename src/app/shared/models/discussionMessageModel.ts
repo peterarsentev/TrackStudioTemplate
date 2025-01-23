@@ -16,7 +16,8 @@ export class DiscussionMessageModel {
     public sqlExerciseId?: number,
     public discussId?: number,
     public responses?: DiscussionMessageModel[],
-    public editResponse?: boolean
+    public editResponse?: boolean,
+    public userCreated?: number
   ) {
   }
 }

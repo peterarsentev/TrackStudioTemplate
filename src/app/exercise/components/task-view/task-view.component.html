@@ -50,11 +50,11 @@
                      style="cursor: pointer;" aria-hidden="true"></i>
                   <app-book-mark-star [name]="name"></app-book-mark-star>
                   <i *ngIf="rating?.vote !== 'DOWN'"
-                     title="Урок ненравится"
+                     title="Урок не нравится"
                      (click)="vote(false)" class="fa fa-thumbs-down text-muted"
                      style="cursor: pointer;"></i>
                   <i *ngIf="rating?.vote === 'DOWN'"
-                     title="Урок ненравится"
+                     title="Урок не нравится"
                      (click)="vote(false)" class="fa fa-thumbs-down text-danger" style="cursor: pointer;"></i>
                   <span class="ml-1 mr-2">{{ rating?.down }}</span>
                   <i *ngIf="rating?.vote !== 'UP'"
