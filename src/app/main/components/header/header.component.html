@@ -64,8 +64,15 @@
         <i class="fas fa-users" title="Сообщество"></i> Сообщество
       </button>
       <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-left" aria-labelledby="exercises">
+        <li>
+          <a class="dropdown-item" [routerLink]="['/interviews']">Mock собеседования
+            <span *ngIf="mockNotifications && mockNotifications.count > 0" class="badge badge-dark">
+                {{ mockNotifications.count }}
+              </span>
+          </a>
+        </li>
         <li><a class="dropdown-item" [routerLink]="['/solution_community']">Code review</a></li>
-        <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Обсуждение</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Обсуждения</a></li>
         <li><a class="dropdown-item" [routerLink]="['/discuss/my']">Подписки</a></li>
         <li><a class="dropdown-item" [routerLink]="['/rating/likes']">Рейтинги</a></li>
       </ul>
