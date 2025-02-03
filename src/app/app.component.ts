@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IconService } from './shared/services/IconService';
 import { AuthService } from './shared/services/auth.service';
+import {NavigationEnd} from '@angular/router';
 
 @Component({
   selector: 'app-root',

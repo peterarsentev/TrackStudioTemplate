@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="card mb-3 w-100" (click)="linkCourse(category?.id)">
+      <div class="card-header">
+        <div class="small d-flex justify-content-between">
+          <span class="font-weight-bold">{{ category?.name }}</span>
+          <span class="text-primary">{{ category?.price }} &#8381;</span>
+        </div>
+        <div class="small d-flex justify-content-between">
+          <span>{{ category?.levelName }}</span>
+        </div>
+
+      </div>
+      <div class="card-body">
+        <p class="card-text" [innerHTML]="category?.description | safeCode">
+        </p>
+        <div  class="d-flex justify-content-center">
+          <button (click)="listToTask()" class="btn btn-success btn-sm m-1">Начать демо</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

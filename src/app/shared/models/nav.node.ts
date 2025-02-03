@@ -28,7 +28,9 @@ export class NavNode {
     public task_code_share?: boolean,
     public solution_community?: boolean,
     public interviewTopicId?: number,
-    public interviewQuestionId?: number
+    public interviewQuestionId?: number,
+    public courses?: boolean,
+    public courseId?: number,
   ) {
   }
 }

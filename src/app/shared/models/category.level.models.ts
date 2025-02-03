@@ -1,4 +1,4 @@
-export class CategoryModels {
+export class CategoryLevelModels {
   constructor(
     public id?: number,
     public name?: string,
@@ -7,7 +7,8 @@ export class CategoryModels {
     public upgradedId?: number,
     public levelId?: number,
     public price?: number,
-    public shortDesc?: string
+    public shortDesc?: string,
+    public levelName?: string,
   ) {
   }
 }

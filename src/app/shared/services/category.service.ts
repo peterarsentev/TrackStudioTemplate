@@ -6,6 +6,7 @@ import { Answer } from '../models/answer.model';
 import { Aopt } from '../models/aopt.model';
 import { environment } from '../../../environments/environment';
 import {CategoryModels} from '../models/category.models';
+import {CategoryLevelModels} from '../models/category.level.models';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,20 @@ export class CategoryService {
     let params = new HttpParams();
     params = params.append('sessionId', localStorage.getItem('sessionId'));
     return this.http.post<CategoryModels[]>(url, params);
+  }
+
+  getActiveCategories(): Observable<CategoryModels[]> {
+    const url = this.url + 'category/active';
+    let params = new HttpParams();
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    return this.http.post<CategoryModels[]>(url, params);
+  }
+
+  findByCategoryId(categoryId: number): Observable<CategoryLevelModels> {
+    const url = this.url + 'category/findByCategoryId';
+    let params = new HttpParams();
+    params = params.append('sessionId', localStorage.getItem('sessionId'));
+    params = params.append('categoryId', String(categoryId));
+    return this.http.post<CategoryLevelModels>(url, params);
   }
 }

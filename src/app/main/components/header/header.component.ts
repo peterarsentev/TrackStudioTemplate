@@ -182,7 +182,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   getRecommendation() {
-   const currentUrl = this.router.url;
+    const currentUrl = this.router.url;
     this.messageService.getRecommendation(currentUrl)
       .subscribe(res => this.message = res);
     if (!!this.user) {
@@ -253,5 +253,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .deleteBook(book.id)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => this.bookmarksService.setUpModel(true));
+  }
+
+  onActivate(componentRef: any) {
+    this.getRecommendation();
   }
 }

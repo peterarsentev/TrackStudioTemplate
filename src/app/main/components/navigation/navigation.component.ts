@@ -10,6 +10,7 @@ import { NavService } from '../../../shared/services/nav.service';
 import {SqlSolutionService} from '../../../shared/services/sql-solution.service';
 import {InterviewTopicService} from '../../../shared/services/interview/interview.topic.service';
 import {InterviewQuestionService} from '../../../shared/services/interview/interview.question.service';
+import {CategoryService} from '../../../shared/services/category.service';
 
 @Component({
   selector: 'app-navigation',
@@ -41,7 +42,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
               private tasksService: TasksService,
               private interviewTopicService: InterviewTopicService,
               private interviewQuestionService: InterviewQuestionService,
-              private sqlExerciseService: SqlSolutionService) { }
+              private sqlExerciseService: SqlSolutionService,
+              private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.navService.getModel()
@@ -118,6 +120,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
             if (res.solution_community) {
               this.solutions = [{ name: 'Job4j', url: '/'},
                 { name: 'Code review', url: '/solution_community'}];
+              return;
+            }
+
+            if (res.courses) {
+              this.courses(res);
+              return;
+            }
+
+            if (res.courseId) {
+              this.course(res);
               return;
             }
           }
@@ -333,6 +345,21 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private getNavsForBlocks(res: NavNode) {
     const navs = [{name: 'Job4j', url: '/', interview: true},
       { name: 'Блоки', url: '/updates/blocks', interview: true}];
+    this.solutions = navs;
+  }
+
+  private courses(res: NavNode) {
+    const navs = [{name: 'Job4j', url: '/', courses: true},
+      { name: 'Курсы', url: '/courses', courses: true}];
+    this.solutions = navs;
+  }
+
+  private course(res: NavNode) {
+    const navs = [{name: 'Job4j', url: '/', courses: true},
+      { name: 'Курсы', url: '/courses', courses: true}];
+    this.categoryService.findByCategoryId(res.courseId)
+      .subscribe(rs => this.solutions = [...navs, {name: rs.name, url: '/courses/' + rs.id, courses: true}]);
+
     this.solutions = navs;
   }
 }

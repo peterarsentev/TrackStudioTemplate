@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-success" role="alert" style="background-color: aliceblue">
+        <h5 class="alert-heading">
+          <span>Специальные предложения</span>
+        </h5>
+        <p>
+          <strong>Уровень "Стажер"</strong>: 34 780 &#8381;, 5 курсов, скидка - 10%, выгода - 3 478 &#8381;<br/>
+          <strong>Уровень "Джуниор"</strong>: 36 240 &#8381;, 6 курсов, скидка - 10%, выгода - 3 624 &#8381;<br/>
+          <strong>Уровень "Middle"</strong>: 38 910 &#8381;, 7 курсов, скидка - 10%, выгода - 3 891 &#8381;<br/>
+          <strong>Уровень "Senior"</strong>: 30 735 &#8381;, 3 курса, скидка - 10%, выгода - 3 415 &#8381;<br/>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <ng-container *ngFor="let category of categories; let i = index">
+      <div class="col-sm-4">
+        <div class="card mb-3" (click)="linkCourse(category?.id)">
+          <div class="card-header">
+            <div class="small d-flex justify-content-between">
+              <span class="font-weight-bold">{{ category.name }}</span>
+              <span class="text-primary">{{ category.price }} &#8381;</span>
+            </div>
+            <div class="small d-flex justify-content-between">
+              <span>{{ levelById.get(category.levelId).name }}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text" [innerHTML]="category?.shortDesc | safeCode"></p>
+          </div>
+        </div>
+      </div>
+      <!-- Force new row after every 3 cards -->
+      <div class="clearfix" *ngIf="(i + 1) % 3 === 0"></div>
+    </ng-container>
+  </div>
+</div>

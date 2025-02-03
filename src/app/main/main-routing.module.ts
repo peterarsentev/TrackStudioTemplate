@@ -116,6 +116,11 @@ const routes: Routes = [
         loadChildren: () => import('../main/interviews/interviews.module')
           .then(mod => mod.InterviewsModule)
       },
+      {
+        path: 'courses',
+        loadChildren: () => import('../main/courses/courses.module')
+          .then(mod => mod.CoursesModule)
+      },
     ]
   },
   {path: 'login', component: LoginComponent},
