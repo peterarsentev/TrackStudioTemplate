@@ -100,7 +100,16 @@ export class TasksService {
     let params = new HttpParams({encoder: new CustomEncoder()});
     params = params.append('sessionId', sessionId);
     params = params.append('code', code);
-    const url = this.urlJedu + `code/run`;
+    const url = this.urlJedu + `code/runJava`;
+    return this.http.post<OutputModel>(url, params);
+  }
+
+  runGoLang(code: string) {
+    const sessionId = localStorage.getItem('sessionId');
+    let params = new HttpParams({encoder: new CustomEncoder()});
+    params = params.append('sessionId', sessionId);
+    params = params.append('code', code);
+    const url = this.urlJedu + `code/runGoLang`;
     return this.http.post<OutputModel>(url, params);
   }
 

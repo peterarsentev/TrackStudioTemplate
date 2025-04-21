@@ -284,12 +284,14 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       document.querySelectorAll('pre code').forEach((block) => {
         const canRun = block.parentElement.className.indexOf('run_') > -1;
         const java = block.parentElement.className.indexOf('run_main') > -1;
-        this.sandBoxWidget(block, java, canRun);
+        const golang = block.parentElement.className.indexOf('run_golang') > -1;
+
+        this.sandBoxWidget(block, java, canRun, golang);
       });
     }, 0);
   }
 
-  private sandBoxWidget(block, java, canRun) {
+  private sandBoxWidget(block, java, canRun, golang) {
     // Create elements
     const codeEl = document.createElement('textarea');
     const outputEl = document.createElement('textarea');
@@ -305,10 +307,10 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     divEnd.classList.add('mt-3');
     buttonContainer.classList.add('mt-3', 'mb-1', 'd-flex', 'gap-2');
 
-    runButton.classList.add('btn', 'btn-success', 'btn-sm');
+    runButton.classList.add('btn', 'btn-success', 'btn-sm', 'mr-1');
     runButton.innerHTML = '<i class="fa fa-caret-right mr-1"></i>Запустить';
 
-    copyButton.classList.add('btn', 'btn-light', 'btn-sm', 'ml-2');
+    copyButton.classList.add('btn', 'btn-light', 'btn-sm');
     copyButton.innerHTML = '<i class="fa fa-copy mr-1"></i>Копировать';
 
     // Append buttons to the button container
@@ -326,7 +328,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     }
     block.parentElement.before(divEnd);
 
-    // Initialize CodeMirror
     const code = CodeMirror.fromTextArea(codeEl, {
       lineNumbers: true,
       matchBrackets: true,
@@ -383,6 +384,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
         if (java) {
           this.tasksService.runJava(code.getValue()).subscribe(handleResponse, handleError);
+        } else if (golang) {
+            this.tasksService.runGoLang(code.getValue()).subscribe(handleResponse, handleError);
         } else {
           this.tasksService.runSql(code.getValue()).subscribe(handleResponse, handleError);
         }

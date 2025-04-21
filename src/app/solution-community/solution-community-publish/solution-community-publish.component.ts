@@ -80,13 +80,14 @@ export class SolutionCommunityPublishComponent implements OnInit {
       setTimeout(() => {
         document.querySelectorAll('pre code').forEach((block) => {
           const java = block.parentElement.className.indexOf('run_main') > -1;
-          this.sandBoxWidget(block, java);
+          const golang = block.parentElement.className.indexOf('run_golang') > -1;
+          this.sandBoxWidget(block, java, golang);
         });
       }, 0);
     }
   }
 
-  private sandBoxWidget(block, java) {
+  private sandBoxWidget(block, java, golang) {
     // Create elements
     const codeEl = document.createElement('textarea');
     const outputEl = document.createElement('textarea');

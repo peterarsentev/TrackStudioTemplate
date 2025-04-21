@@ -236,12 +236,13 @@ export class TaskComponent implements OnInit, OnDestroy {
       document.querySelectorAll('pre code').forEach((block) => {
         const canRun = block.parentElement.className.indexOf('run_') > -1;
         const java = block.parentElement.className.indexOf('run_main') > -1;
-        this.sandBoxWidget(block, java, canRun);
+        const golang = block.parentElement.className.indexOf('run_golang') > -1;
+        this.sandBoxWidget(block, java, canRun, golang);
       });
     }, 0);
   }
 
-  private sandBoxWidget(block, java, canRun) {
+  private sandBoxWidget(block, java, canRun, golang) {
     // Create elements
     const codeEl = document.createElement('textarea');
     const outputEl = document.createElement('textarea');
@@ -335,6 +336,8 @@ export class TaskComponent implements OnInit, OnDestroy {
 
         if (java) {
           this.tasksService.runJava(code.getValue()).subscribe(handleResponse, handleError);
+        } else if (golang) {
+            this.tasksService.runGoLang(code.getValue()).subscribe(handleResponse, handleError);
         } else {
           this.tasksService.runSql(code.getValue()).subscribe(handleResponse, handleError);
         }
