@@ -332,7 +332,31 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       lineNumbers: true,
       matchBrackets: true,
       mode: 'text/x-java',
+      indentUnit: 4,
+      indentWithTabs: false,
     } as EditorConfiguration);
+
+    const runCode = (output, runButton) => {
+      // Disable the button and change the icon to loading
+      runButton.disabled = true;
+      const originalIcon = runButton.innerHTML;
+      runButton.innerHTML = '<i class="fa fa-spinner fa-spin mr-1"></i>Загрузка...';
+
+      const handleResponse = (model) => {
+        output.getDoc().setValue(model.output);
+        // Enable the button and revert the icon
+        runButton.disabled = false;
+        runButton.innerHTML = originalIcon;
+      };
+
+      if (java) {
+        this.tasksService.runJava(code.getValue()).subscribe(handleResponse, handleError);
+      } else if (golang) {
+        this.tasksService.runGoLang(code.getValue()).subscribe(handleResponse, handleError);
+      } else {
+        this.tasksService.runSql(code.getValue()).subscribe(handleResponse, handleError);
+      }
+    };
 
     // Set initial code value
     code.getDoc().setValue(
@@ -367,29 +391,17 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         lineNumbers: true,
         matchBrackets: true,
         mode: 'text/x-java',
+        indentUnit: 4,
+        indentWithTabs: false,
       } as EditorConfiguration);
 
-      runButton.addEventListener('click', () => {
-        // Disable the button and change the icon to loading
-        runButton.disabled = true;
-        const originalIcon = runButton.innerHTML;
-        runButton.innerHTML = '<i class="fa fa-spinner fa-spin mr-1"></i>Загрузка...';
-
-        const handleResponse = (model) => {
-          output.getDoc().setValue(model.output);
-          // Enable the button and revert the icon
-          runButton.disabled = false;
-          runButton.innerHTML = originalIcon;
-        };
-
-        if (java) {
-          this.tasksService.runJava(code.getValue()).subscribe(handleResponse, handleError);
-        } else if (golang) {
-            this.tasksService.runGoLang(code.getValue()).subscribe(handleResponse, handleError);
-        } else {
-          this.tasksService.runSql(code.getValue()).subscribe(handleResponse, handleError);
+      code.on('keydown', (cm, event) => {
+        if (event.shiftKey && event.key === 'Enter') {
+          event.preventDefault();
+          runCode(output, runButton)
         }
       });
+      runButton.addEventListener('click', () => runCode(output, runButton));
     }
 
     // Copy button event listener

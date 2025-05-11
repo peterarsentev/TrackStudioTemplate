@@ -46,13 +46,17 @@
         <ngx-codemirror
           [(ngModel)]="taskClass"
           [options]="options"
+          #editor
         ></ngx-codemirror>
       </div>
       <div>
 <span class="w-50">
+          <button (click)="runCode()" [disabled]="dis" class="btn btn-success btn-sm mt-2 mr-1">
+            <i class="fa fa-caret-right mr-2"></i>
+            <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Запустить main</button>
           <button *ngIf="status === 1" (click)="submit(taskClass)" [disabled]="dis" class="btn btn-success btn-sm mt-2">
             <i class="fa fa-caret-right mr-2"></i>
-            <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Решить</button>
+            <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Проверить</button>
           <button *ngIf="status === 2" (click)="submit(taskClass)" [disabled]="dis" class="btn btn-success btn-sm mt-2">
             <i class="fa fa-caret-right mr-2"></i>
             <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Проверить</button>

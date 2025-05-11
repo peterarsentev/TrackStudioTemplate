@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import { TaskCodeModel } from '../../shared/models/task.code.models';
 import { NextPreviousSolutions } from '../../shared/models/nextPreviousSolutions';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,13 +6,14 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { TasksService } from '../../shared/services/tasks.service';
 import { Subject } from 'rxjs';
 import { AlertService } from '../../shared/services/alertService';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-task-code-form',
   templateUrl: './task-code-form.component.html',
   styleUrls: ['./task-code-form.component.scss']
 })
-export class TaskCodeFormComponent implements OnInit, OnDestroy {
+export class TaskCodeFormComponent implements OnInit, OnDestroy, AfterViewInit {
   previousAndNext: NextPreviousSolutions = {};
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   dis = false;
@@ -44,6 +45,8 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
     lineNumbers: true,
     readOnly: false,
     mode: 'text/x-java',
+    indentUnit: 4,
+    indentWithTabs: false,
   };
 
   optionsTest = {
@@ -58,10 +61,22 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
     mode: 'text/x-java'
   };
 
+  @ViewChild('editor', {static: true}) editor;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private alertService: AlertService,
+              private cdRef: ChangeDetectorRef,
               private taskService: TasksService) {}
+
+  ngAfterViewInit() {
+    this.editor.codeMirror.on('keydown', (cm, event) => {
+      if (event.shiftKey && event.key === 'Enter') {
+        event.preventDefault();
+        this.runCode();
+      }
+    });
+  }
 
   ngOnInit() {
     this.route.params
@@ -113,5 +128,13 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy {
 
   showExplanation() {
     this.show = !this.show;
+  }
+
+  runCode() {
+    this.taskService.runJava(this.taskClass)
+      .subscribe(value => {
+        this.text = value.output;
+        this.cdRef.detectChanges();
+      });
   }
 }

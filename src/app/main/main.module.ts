@@ -38,6 +38,7 @@ import { InfoComponent } from './components/info/info.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LeadersComponent } from './components/exam/exam_intro/leaders/leaders.component';
 import { AssistantComponent } from '../../assistant/assistant/assistant.component';
+import { TrendComponent } from './components/header/trend/trend.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { AssistantComponent } from '../../assistant/assistant/assistant.componen
     ExamQuestionComponent,
     ExamResultComponent,
     LeadersComponent,
-    AssistantComponent
+    AssistantComponent,
+    TrendComponent
   ],
   imports: [
     CommonModule,

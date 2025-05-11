@@ -24,6 +24,8 @@ export class TaskExerciseComponent implements OnInit, OnChanges {
     readOnly: false,
     mode: 'text/x-java',
     autocorrect: true,
+    indentUnit: 4,
+    indentWithTabs: false,
   };
 
   constructor(
@@ -80,7 +82,8 @@ export class TaskExerciseComponent implements OnInit, OnChanges {
       runButtonEl.innerHTML = originalIcon;
     };
 
-    this.taskExerciseSolutionService.runJava(this.taskExerciseSolution, this.taskId).subscribe(handleResponse, handleError);
+    this.taskExerciseSolutionService.runJava(this.taskExerciseSolution, this.taskId)
+      .subscribe(handleResponse, handleError);
   }
 
   recycleCode() {
