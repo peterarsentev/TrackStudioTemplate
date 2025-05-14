@@ -1,4 +1,10 @@
 <div class="container-fluid">
+  <div class="row pb-2">
+    <div class="col-12 d-flex justify-content-between">
+      <button (click)="linkAbout()" class="btn btn-info">О проекте</button>
+      <a href="https://vk.com/topic-137186267_36711020?offset=120" target="_blank" class="btn btn-success">Отзывы</a>
+    </div>
+  </div>
   <div class="row">
     <div class="col-12">
       <div class="alert alert-success" role="alert" style="background-color: aliceblue">
@@ -20,11 +26,11 @@
         <div class="card mb-3" (click)="linkCourse(category?.id)">
           <div class="card-header">
             <div class="small d-flex justify-content-between">
-              <span class="font-weight-bold">{{ category.name }}</span>
-              <span class="text-primary">{{ category.price }} &#8381;</span>
+              <span class="font-weight-bold">{{ category?.name }}</span>
+              <span class="text-primary">{{ category?.price }} &#8381;</span>
             </div>
             <div class="small d-flex justify-content-between">
-              <span>{{ levelById.get(category.levelId).name }}</span>
+              <span>{{ levelById.get(category?.levelId)?.name }}</span>
             </div>
           </div>
           <div class="card-body">

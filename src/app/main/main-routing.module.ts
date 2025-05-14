@@ -19,6 +19,7 @@ import { ExamResultComponent } from './components/exam/exam_result/exam.result.c
 import { ExamIntroComponent } from './components/exam/exam_intro/exam.intro.component';
 import { ExamQuestionComponent } from './components/exam/exam_question/exam.question.component';
 import { AssistantComponent } from '../../assistant/assistant/assistant.component';
+import {AboutComponent} from './about/about.component';
 
 const routes: Routes = [
   {
@@ -121,6 +122,7 @@ const routes: Routes = [
         loadChildren: () => import('../main/courses/courses.module')
           .then(mod => mod.CoursesModule)
       },
+      {path: 'about', component: AboutComponent},
     ]
   },
   {path: 'login', component: LoginComponent},

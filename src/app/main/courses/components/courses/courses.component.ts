@@ -46,4 +46,7 @@ export class CoursesComponent implements OnInit {
     this.router.navigate(['courses', categoryId]);
   }
 
+  linkAbout() {
+    this.router.navigate(['about']);
+  }
 }

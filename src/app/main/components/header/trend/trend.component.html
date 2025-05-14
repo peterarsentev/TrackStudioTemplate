@@ -1,0 +1,13 @@
+<div>
+  <span *ngFor="let trend of trends">
+    <span class="badge bg-light text-dark">
+      {{ trend.keywords }} {{ trend.currentTotal }}
+      <ng-container *ngIf="trend.currentTotal > trend.lastTotal">
+        <span style="color: green;">&#8593; +{{ trend.currentTotal - trend.lastTotal }}</span>
+      </ng-container>
+      <ng-container *ngIf="trend.currentTotal < trend.lastTotal">
+        <span style="color: red;">&#8595; -{{ trend.lastTotal - trend.currentTotal }}</span>
+      </ng-container>
+    </span>
+  </span>
+</div>
