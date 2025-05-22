@@ -2,18 +2,12 @@
   <div class="w-100 card">
     <div class="card-header">
       <div class="font-weight-bold"><i class="fa fa-users mr-2" aria-hidden="true"></i>
-        Были сегодня : {{ infoList.length }}</div>
+        Были сегодня: {{ infoList.length }}. Решали: {{ countSolutions }}</div>
       <div>
       </div>
     </div>
     <div class="card-body">
       <table class="table">
-        <thead>
-        <tr>
-          <th scope="col">Пользователь</th>
-          <th scope="col">Решал</th>
-        </tr>
-        </thead>
         <tbody>
         <tr *ngFor="let info of infoList;">
           <td>

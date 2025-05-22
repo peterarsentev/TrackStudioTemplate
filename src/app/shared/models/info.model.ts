@@ -1,9 +1,10 @@
+import {UserModels} from './user.models';
+import {SolutionModels} from './solution.models';
+
 export class InfoModel {
   constructor(
-    public id: number,
-    public name: string,
-    public created: number,
-    public url: string
+   public user?: UserModels,
+   public solution?: SolutionModels
   ) {
   }
 }

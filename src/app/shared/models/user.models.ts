@@ -22,6 +22,7 @@ export class UserModels {
 
     public pwd?: string,
     public startedAt?: number,
+    public created?: number,
   ) {
   }
 }

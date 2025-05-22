@@ -16,6 +16,7 @@ export class InfoComponent implements OnInit {
   throttle = 500;
   infoList: InfoModel[] = [];
   hasNext = false;
+  countSolutions = 0;
   constructor(private router: Router, private infoService: InfoService) { }
 
   ngOnInit() {
@@ -51,20 +52,28 @@ export class InfoComponent implements OnInit {
     this.infoService.getList(this.page)
       .subscribe(res => {
         this.infoList = this.infoList.concat(res);
-        console.log(this.infoList)
+        this.reloadSolutionSize();
         this.hasNext = res.length === 10;
         this.paginationAllowed = res.length === 10;
       });
+  }
+
+  private reloadSolutionSize() {
+    this.countSolutions = 0;
+    for (let i = 0; i < this.infoList.length; i++) {
+      if (this.infoList[i].solution !== undefined) {
+        this.countSolutions++
+      }
+    }
   }
 
   private getListFirstTime() {
     this.infoService.getList(this.page)
       .subscribe(res => {
         this.infoList = res;
+        this.reloadSolutionSize();
         this.hasNext = res.length === 10;
         this.paginationAllowed = res.length === 10;
       });
   }
-
-
 }
