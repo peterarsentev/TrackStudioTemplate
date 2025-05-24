@@ -1,4 +1,4 @@
-<div class="col-sm-2 pull-right">
+<span class="col-sm-2 pull-right">
       <span style="display: flex" *ngIf="user?.name !== 'anonimus' && !!discussion?.id && discussion?.userId != user?.id" class="pull-right">
         <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted"
            style="cursor: pointer;"></i>
@@ -11,4 +11,4 @@
            style="cursor: pointer;"></i>
         <span class="ml-1">{{ rating?.up }}</span>
       </span>
-</div>
+</span>
