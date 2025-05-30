@@ -8,6 +8,8 @@ import { NavNode } from '../../../../shared/models/nav.node';
 import { NavService } from '../../../../shared/services/nav.service';
 import {BookmarksModel} from '../../../../shared/models/bookmarks.model';
 import {InterviewNotificationService} from '../../../../shared/services/interview.notification.service';
+import {UserService} from '../../../../shared/services/user.service';
+import {UserModels} from '../../../../shared/models/user.models';
 
 @Component({
   selector: 'app-interviews-list',
@@ -26,9 +28,11 @@ export class InterviewsListComponent implements OnInit, OnDestroy {
   showAlert = false;
   existingId: number;
   mockNotifications: { count: number };
+  user: UserModels;
 
   constructor(private interviewsService: InterviewsService,
               private navService: NavService,
+              private userService: UserService,
               private interviewNotificationService: InterviewNotificationService,
               private router: Router) { }
 
@@ -37,6 +41,8 @@ export class InterviewsListComponent implements OnInit, OnDestroy {
     this.interviewNotificationService.getCount()
       .subscribe(res => this.mockNotifications = res);
     this.navService.setUpModel({...new NavNode(), interview: true });
+    this.userService.getModel()
+      .subscribe(user => this.user = user);
   }
 
   onScrollDown() {
@@ -63,6 +69,10 @@ export class InterviewsListComponent implements OnInit, OnDestroy {
   }
 
   newInterviewForm() {
-    this.router.navigate(['interviews', 'new']);
+    if (!!this.user && this.user.login !== 'guest') {
+      this.router.navigate(['interviews', 'new']);
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 }

@@ -1,8 +1,6 @@
-<div class="row pt-3">
-  <div class="col-sm">
-  </div>
-  <div class="col-sm">
-    <div class="w-100 card">
+<div class="row pt-3 justify-content-center">
+  <div class="col-sm-6">
+    <div class="card w-100">
       <div class="card-body">
         <div class="alert alert-danger" role="alert" *ngIf="error">
           Неверный логин или пароль!
@@ -13,59 +11,71 @@
         <form [formGroup]="form">
           <div class="form-group mt-3">
             <label for="email">Логин:</label>
-            <input  formControlName="login"
-                    type="text"
-                    (ngModelChange)="resetError()"
-                    class="form-control"
-                    placeholder="Введите логин" id="email">
+            <input
+              formControlName="login"
+              type="text"
+              (ngModelChange)="resetError()"
+              class="form-control"
+              placeholder="Введите логин"
+              id="email">
             <div *ngFor="let error of validationErrors.login">
-                            <span *ngIf="form.get('login').hasError(error.type)
-                                        && (form.get('login').dirty
-                                        || form.get('login').touched)"
-                                  class="validation">{{ error.message }}</span>
+              <span
+                *ngIf="form.get('login').hasError(error.type)
+                        && (form.get('login').dirty
+                        || form.get('login').touched)"
+                class="validation">
+                {{ error.message }}
+              </span>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group mt-3">
             <label for="pwd">Пароль:</label>
-            <input formControlName="password"
-                   type="password"
-                   (ngModelChange)="resetError()"
-                   class="form-control"
-                   (keydown.enter)="sendForm()"
-                   placeholder="Введите пароль" id="pwd">
+            <input
+              formControlName="password"
+              type="password"
+              (ngModelChange)="resetError()"
+              class="form-control"
+              (keydown.enter)="sendForm()"
+              placeholder="Введите пароль"
+              id="pwd">
             <div *ngFor="let error of validationErrors.password">
-                        <span *ngIf="form.get('password').hasError(error.type)
-                                    && (form.get('password').dirty
-                                    || form.get('password').touched)"
-                              class="validation">{{ error.message }}</span>
+              <span
+                *ngIf="form.get('password').hasError(error.type)
+                        && (form.get('password').dirty
+                        || form.get('password').touched)"
+                class="validation">
+                {{ error.message }}
+              </span>
             </div>
-
           </div>
-          <!--          <button (click)="goMain()"-->
-          <!--                  [disabled]="submit"-->
-          <!--                  type="button"-->
-          <!--                  class="btn btn-light pull-right">-->
-          <!--            <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>-->
-          <!--            Отмена-->
-          <!--          </button>-->
-          <button (click)="login()"
-                  [disabled]="form.invalid || submit"
-                  type="button"
-                  class="btn btn-primary pull-left">
-            <span *ngIf="submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </form>
+
+        <div>
+          <button
+            (click)="login()"
+            [disabled]="form.invalid || submit"
+            type="button"
+            class="btn btn-primary mr-2">
+            <i class="fas fa-sign-in-alt me-1"></i>
             Войти
           </button>
-          <button (click)="registration()"
-                  type="button"
-                  class="btn btn-light pull-right ml-2">
-            Получить доступ
+          <button
+            (click)="loginViaTelegram()"
+            type="button"
+            class="btn btn-info mr-2">
+            <i class="fab fa-telegram-plane me-1"></i>
+            Войти через Telegram
           </button>
-        </form>
-      </div>
-      <div class="col-sm">
+          <button
+            (click)="loginViaGitHub()"
+            type="button"
+            class="btn btn-dark">
+            <i class="fab fa-github mr-2"></i>
+            Войти через GitHub
+          </button>
+        </div>
+
       </div>
     </div>
-  </div>
-  <div class="col-sm">
   </div>
 </div>

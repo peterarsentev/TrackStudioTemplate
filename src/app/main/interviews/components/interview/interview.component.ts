@@ -49,7 +49,7 @@ export class InterviewComponent implements OnInit, OnDestroy {
         this.hasApproved = !!this.interview.wishers.find(w => w.approve);
         this.wisher = this.interview.wishers.find(w => w.approve);
       }
-      });
+    });
     this.userService
       .getModel()
       .pipe(takeUntil(this.unsubscribe$))
@@ -72,7 +72,11 @@ export class InterviewComponent implements OnInit, OnDestroy {
   }
 
   joinToInterview() {
-    this.showInput = true;
+    if (this.user.login !== 'guest') {
+      this.showInput = true;
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
   sendRequest() {

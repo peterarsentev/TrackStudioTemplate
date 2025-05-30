@@ -32,7 +32,7 @@
               </div>
             </div>
             <div class="col-sm-2">
-               <span *ngIf="user?.name !== 'anonimus' && !!task?.shortname" class="pull-right">
+               <span *ngIf="user?.login !== 'guest' && !!task?.shortname" class="pull-right">
                   <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-muted" style="cursor: pointer;"></i>
                   <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fas fa-thumbs-down text-danger" style="cursor: pointer;"></i>
                   <span class="ml-1 mr-2">{{ rating?.down }}</span>
@@ -110,7 +110,7 @@
                   (save)="saveComment($event)"
     ></app-comments>
   </div>
-  <div *ngIf="user?.name !== 'anonimus' && rating?.vote === 'NO' && !!task?.shortname" class="row mt-lg-5">
+  <div *ngIf="user?.login !== 'guest' && rating?.vote === 'NO' && !!task?.shortname" class="row mt-lg-5">
     <div class="w-100 card">
       <div class="card-header">
         <div class="font-weight-bold">Понравилось задание?</div>
@@ -161,7 +161,7 @@
     </div>
   </div>
   <div *ngIf="canCreateDiscuss" class="row pt-2">
-   <span class="mt-3 w-50">
+   <span class="mt-3 w-50" *ngIf="!!user && user?.login !== 'guest'">
         <button class="m btn btn-info btn-sm"
                 (click)="showDiscussionForm()">{{'Обсудить'}}</button>
     </span>

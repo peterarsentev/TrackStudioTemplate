@@ -75,7 +75,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((user) => {
         this.user = user;
-        this.notifications = !!this.user.name && this.user.name !== 'Аnonymous';
+        this.notifications = !!this.user.name && this.user.login !== 'guest';
         if (this.notifications) {
           this.getNotifications(this.user.id);
         }

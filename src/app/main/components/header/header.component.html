@@ -15,7 +15,7 @@
             <i class="fas fa-tachometer-alt"></i> {{'Уроки: ' + solvedTasksCount  + '/' + allTasksCount }}
           </a>
     </span>
-    <div class="dropdown">
+    <div *ngIf="user.login !== 'guest'" class="dropdown">
       <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="solutionDd"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-thumbtack"></i> Решения
@@ -26,7 +26,7 @@
         <a class="dropdown-item" [routerLink]="['/tasksByStatus/review']">На проверке</a>
       </div>
     </div>
-    <span class="navbar-text font-weight-bold ml-2 mr-2">
+    <span *ngIf="user.login !== 'guest'" class="navbar-text font-weight-bold ml-2 mr-2">
          <a [routerLink]="['/messages']" style="text-decoration: none; position: relative;">
             <i class="fas fa-envelope-open-text mr-1" title="Уведомления"></i>
               <span *ngIf="count + (discussCount?.count || 0) > 0" class="badge badge-light">
@@ -67,7 +67,7 @@
       </ul>
     </div>
 
-    <div class="dropdown">
+    <div *ngIf="user?.login !== 'guest'" class="dropdown">
       <button class="btn dropdown-toggle font-weight-bold text-white" type="button" id="exercisesDd"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="far fa-bookmark"></i>
@@ -123,7 +123,14 @@
           </span>
         </span>
 
-  <div class="dropdown" *ngIf="user">
+
+  <span *ngIf="user?.login === 'guest'" class="navbar-text font-weight-bold ml-2 mr-2">
+          <a [routerLink]="['/login']" style="text-decoration: none">
+            <i class="fas fa-sign-in"></i> Войти
+          </a>
+    </span>
+
+  <div class="dropdown" *ngIf="user?.login !== 'guest'">
     <a class="btn dropdown-toggle text-white font-weight-bold" type="button" id="dropdownMenuButton"
        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fas fa-user-circle"></i> {{ user.name }}

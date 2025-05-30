@@ -27,7 +27,6 @@ export class DiscussionBlockComponent implements OnInit, OnDestroy {
   showDiscussion = false;
   @Input() inTask = true;
   constructor(private route: ActivatedRoute, private router: Router) { }
-  canCreateDiscuss = true;
 
   ngOnInit() {
     if (this.router.url.includes('discuss') || this.router.url.includes('task_code')) {

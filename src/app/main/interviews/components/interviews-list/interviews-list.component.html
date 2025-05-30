@@ -5,7 +5,7 @@
         Создать собеседование
       </button>
 
-      <button (click)="linkToNotifications()" class="btn btn-sm btn-info" type="button">
+      <button *ngIf="!!user && user?.login !== 'guest'" (click)="linkToNotifications()" class="btn btn-sm btn-info" type="button">
         Уведомления <span *ngIf="mockNotifications && mockNotifications.count > 0" class="badge badge-light">
                 {{ mockNotifications.count }}
               </span>

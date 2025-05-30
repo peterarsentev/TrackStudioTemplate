@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { LoginModel } from '../../../shared/models/login.model';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { UserService } from '../../../shared/services/user.service';
 import { UserModels } from '../../../shared/models/user.models';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private route: Router,
-    private userService: UserService,
+    private activatedRoute: ActivatedRoute,
     public authService: AuthService
   ) {}
 
@@ -58,6 +59,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      const sessionId = params['sessionId'];
+      if (sessionId) {
+        // Сохраняем и редиректим
+        localStorage.setItem('sessionId', sessionId);
+        this.route.navigate(['/']);
+      }
+    });
     this.form = this.fb.group({
       login: [{ value: '', disabled: this.submit }, Validators.required],
       password: [{ value: '', disabled: this.submit }, Validators.required],
@@ -93,5 +102,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.login();
     }
   }
-}
 
+  loginViaGitHub() {
+    window.location.href = `${environment.url}/` + 'oauth/github_authorize';
+  }
+
+  loginViaTelegram() {
+    window.location.href = "https://t.me/job4j_notification_bot";
+  }
+}

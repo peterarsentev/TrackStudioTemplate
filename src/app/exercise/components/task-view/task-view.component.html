@@ -43,7 +43,7 @@
                      title="Копировать название"
                      style="cursor: pointer;" aria-hidden="true"></i>
                 </span>
-                <span *ngIf="user?.name !== 'anonimus'" class="pull-right">
+                <span *ngIf="user?.login !== 'guest'" class="pull-right">
                   <i class="fa fa-comments-o mr-2"
                      onclick="window.scrollTo(0, document.body.scrollHeight);"
                      title="Открыть обсуждения учеников"
@@ -199,7 +199,7 @@
                   (save)="saveComment($event)"
     ></app-comments>
   </div>
-  <div *ngIf="user?.name !== 'anonimus' && rating?.vote === 'NO'" class="row mt-lg-5 mb-1">
+  <div *ngIf="user?.login !== 'guest' && rating?.vote === 'NO'" class="row mt-lg-5 mb-1">
     <div class="w-100 card">
       <div class="card-header">
         <div class="font-weight-bold">Понравилось задание?</div>
@@ -229,7 +229,7 @@
   ></app-discussion-block>
   <div *ngIf="showButtonBottom && canCreateDiscuss" class="row">
         <span  class="w-100 pull-right mb-1">
-                    <button *ngIf="!!user && user?.login !== 'anonymous'" class="m btn btn-info btn-sm"
+                    <button *ngIf="!!user && user?.login !== 'guest'" class="m btn btn-info btn-sm"
                             (click)="showDiscussionForm()">{{'Обсудить'}}</button>
         </span>
   </div>

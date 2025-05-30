@@ -4,6 +4,8 @@ import {NavService} from '../../../../shared/services/nav.service';
 import {CategoryService} from '../../../../shared/services/category.service';
 import {CategoryLevelModels} from '../../../../shared/models/category.level.models';
 import {NavNode} from '../../../../shared/models/nav.node';
+import {UserService} from '../../../../shared/services/user.service';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-course',
@@ -17,6 +19,7 @@ export class CourseComponent implements OnInit {
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private navService: NavService,
+              private userService: UserService,
               private categoryService: CategoryService) { }
 
   ngOnInit() {
@@ -27,7 +30,15 @@ export class CourseComponent implements OnInit {
   }
 
   listToTask() {
-    this.router.navigate(['exercise']);
+    this.userService
+      .getModel()
+      .subscribe((user) => {
+        if (user.login !== 'guest') {
+          this.router.navigate(['exercise']);
+        } else {
+          this.router.navigate(['login']);
+        }
+      });
   }
 
   linkCourse(categoryId: number) {
