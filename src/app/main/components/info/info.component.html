@@ -1,41 +1,13 @@
-<div class="row mt-lg-5" style="word-break: break-all;">
-  <div class="w-100 card">
-    <div class="card-header">
-      <div class="font-weight-bold"><i class="fa fa-users mr-2" aria-hidden="true"></i>
-        Были сегодня: {{ infoList.length }}. Решали: {{ countSolutions }}</div>
-      <div>
-      </div>
-    </div>
-    <div class="card-body">
-      <div>
-          <span *ngFor="let info of infoList;">
+<div class="row mb-lg-3 pt-lg-3">
+  <div class="col-sm-12 pb-2">
+    <span class="font-weight-bold">
+      <i class="fa fa-users mr-2" aria-hidden="true"></i>Были сегодня: {{ infoList.length }} Решали: {{ countSolutions }}</span>
+  </div>
+  <div class="col-sm-12">
+    <ng-container *ngFor="let info of infoList;">
             <span class="badge bg-light text-dark" style="cursor: pointer" (click)="openProfile(info.user.id, info.user.login)">
                <i class="fas fa-user pr-1"></i> {{info.user.name}}
             </span>
-          </span>
-      </div>
-      <!--<table class="table">-->
-        <!--<tbody>-->
-        <!--<tr *ngFor="let info of infoList;">-->
-          <!--<td>-->
-            <!--<div (click)="openProfile(info.user.id, info.user.login)" style="cursor: pointer"><i class="fas fa-user pr-1"></i> {{info.user.name}}</div>-->
-            <!--<small class="mb-2 text-muted">-->
-              <!--<span>Зарегистрирован : {{ info.user.created | date :'dd.MM.yyyy' }}</span>-->
-            <!--</small>-->
-          <!--</td>-->
-          <!--<td>-->
-            <!--<small *ngIf="info.solution" class="mb-2 text-muted">-->
-              <!--{{info.solution.level.name}} / {{info.solution.category.name}} / {{info.solution.topic.name}}-->
-            <!--</small>-->
-            <!--<div>-->
-              <!--<span *ngIf="info.solution" style="cursor: pointer">-->
-              <!--{{ info.solution.task.name }} [#{{ info.solution.task.number  }}]-->
-              <!--</span>-->
-            <!--</div>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-      <!--</table>-->
-    </div>
+    </ng-container>
   </div>
 </div>

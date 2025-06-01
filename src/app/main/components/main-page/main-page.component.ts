@@ -19,6 +19,10 @@ import { DiscussionMessageModel } from '../../../shared/models/discussionMessage
 import { MessageService } from '../../../shared/services/message.service';
 import { NavService } from '../../../shared/services/nav.service';
 import { Title } from '@angular/platform-browser';
+import {CategoryModels} from '../../../shared/models/category.models';
+import {CategoryService} from '../../../shared/services/category.service';
+import {LevelService} from '../../../shared/services/level.service';
+import {NavNode} from '../../../shared/models/nav.node';
 
 @Component({
   selector: 'app-main',
@@ -58,6 +62,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
   totalSqlExerciseCount = 1;
   solSqlBarValue: number;
 
+  categories: CategoryModels[];
+  categoryById = new Map();
+  levelById = new Map();
+
   constructor(private tasksService: TasksService,
               private authService: AuthService,
               private chartService: ChartService,
@@ -66,8 +74,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
               private messageService: MessageService,
               private discussService: DiscussService,
               private navService: NavService,
-              private router: Router, private titleService: Title) {
-  }
+              private router: Router,
+              private titleService: Title,
+              private categoryService: CategoryService,
+              private levelService: LevelService,
+  ) {}
 
   ngOnInit() {
     this.titleService.setTitle('Job4j');
@@ -97,6 +108,22 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.userService.getModel()
           .pipe(takeUntil(this.ngUnsubscribe$))
           .subscribe(res => this.user = res);
+      });
+    this.categoryService.getActiveCategories()
+      .subscribe(rs => {
+        this.categories = rs;
+        this.categoryById = rs.reduce((acc, item) => {
+          acc.set(item.id, item);
+          return acc;
+        }, new Map());
+      });
+
+    this.levelService.getLevels()
+      .subscribe(rs => {
+        this.levelById = rs.reduce((acc, item) => {
+          acc.set(item.id, item);
+          return acc;
+        }, new Map());
       });
   }
 
@@ -234,5 +261,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
+  linkCourse(categoryId: number) {
+    this.router.navigate(['courses', categoryId]);
+  }
 }
-
