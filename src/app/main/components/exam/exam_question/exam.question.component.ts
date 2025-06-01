@@ -12,6 +12,9 @@ import { AoptsService } from '../../../../shared/services/aopts.service';
 import { ProgressModel } from '../../../../shared/models/progress.model';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import {EditorConfiguration} from 'codemirror';
+
+declare var CodeMirror: any;
 
 @Component({
   selector: 'app-exam.question',
@@ -46,6 +49,7 @@ export class ExamQuestionComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.navQuestion = res;
         this.loadQuestionWithAnswer(res.current);
+        this.prepareCode();
       });
     this.examsService.getExamById(this.examId)
       .subscribe(res => this.exam = res);
@@ -126,5 +130,66 @@ export class ExamQuestionComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  private prepareCode() {
+    setTimeout(() => {
+      document.querySelectorAll('pre code').forEach((block) => {
+        this.sandBoxWidget(block, false, false, false);
+      });
+    }, 0);
+  }
+
+  private sandBoxWidget(block, java, canRun, golang) {
+    // Create elements
+    const codeEl = document.createElement('textarea');
+    const buttonContainer = document.createElement('div');
+    const copyButton = document.createElement('button');
+    const div = document.createElement('div');
+    const divEnd = document.createElement('div');
+
+    // Add classes and inner text
+    div.classList.add('pt-2');
+    div.innerText = 'Вывод:';
+    divEnd.classList.add('mt-3');
+    buttonContainer.classList.add('mt-3', 'mb-1', 'd-flex', 'gap-2');
+    copyButton.classList.add('btn', 'btn-light', 'btn-sm');
+    copyButton.innerHTML = '<i class="fa fa-copy mr-1"></i>Копировать';
+    buttonContainer.appendChild(copyButton);
+    block.parentElement.before(buttonContainer);
+    block.parentElement.before(codeEl);
+    block.parentElement.before(divEnd);
+
+    const code = CodeMirror.fromTextArea(codeEl, {
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: 'text/x-java',
+      indentUnit: 4,
+      indentWithTabs: false,
+    } as EditorConfiguration);
+
+    code.getDoc().setValue(
+      block.innerHTML
+        .split('<br>').join('\r\n')
+        .split('&gt;').join('>')
+        .split('&lt;').join('<')
+        .split('&amp;').join('&')
+    );
+
+    copyButton.addEventListener('click', () => {
+      const codeText = code.getValue();
+      navigator.clipboard.writeText(codeText).then(() => {
+        const originalIcon = copyButton.innerHTML;
+        copyButton.innerHTML = '<i class="fa fa-check mr-1"></i>Скопировано';
+        setTimeout(() => {
+          copyButton.innerHTML = originalIcon;
+        }, 2000); // Revert icon back after 2 seconds
+      }).catch(err => {
+        alert('Failed to copy code: ' + err);
+      });
+    });
+
+    // Remove the original block element
+    block.parentElement.parentElement.removeChild(block.parentElement);
   }
 }
