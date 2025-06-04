@@ -1,27 +1,45 @@
-<div class="row mb-lg-3 pt-lg-3">
-  <div class="col-sm-12 pb-2">
-    <span class="font-weight-bold">
-      <i class="fa fa-bar-chart mr-2" aria-hidden="true"></i>Тренды вакансий:</span>
+<!-- Гостевая секция -->
+<div class="row px-2" *ngIf="!!user && user.login === 'guest'">
+  <div class="col-12 px-3 pb-2 alert alert-success mt-3" role="alert" style="background-color: aliceblue">
+    <h5 class="alert-heading d-flex align-items-center">
+      <i class="fas fa-graduation-cap mr-2"></i>
+      <span>О проекте Job4j</span>
+    </h5>
+    <p>
+      Job4j — образовательная платформа, созданная в 2015 году, чтобы помочь освоить современные технологии программирования:
+      Java, Go, Kotlin, SQL, шаблоны проектирования, микросервисы, Kafka, Redis, Docker, Kubernetes, Prometheus и Grafana.
+      За эти годы мы подготовили более 2500 выпускников и помогли им найти работу.
+    </p>
   </div>
-  <div class="col-sm-12">
+</div>
+
+<!-- Тренды вакансий -->
+<div class="row mb-lg-3 pt-lg-3">
+  <div class="col-12 px-3 pb-2 d-flex align-items-center">
+    <i class="fa fa-bar-chart mr-2" aria-hidden="true"></i>
+    <span class="font-weight-bold">Тренды вакансий:</span>
+  </div>
+  <div class="col-12 px-3">
     <app-trend></app-trend>
   </div>
 </div>
-<div class="row mb-lg-3 pt-lg-3" *ngIf="!!user && user.login === 'guest'">
-  <div class="col-sm-12 pb-2">
-    <span class="font-weight-bold">
-      <i class="fa fa-graduation-cap mr-2" aria-hidden="true"></i>Учебные программы:</span>
+
+<!-- Учебные программы для гостей -->
+<div class="row" *ngIf="!!user && user.login === 'guest'">
+  <div class="col-12 px-3 pt-2 pb-2 d-flex align-items-center">
+    <i class="fa fa-graduation-cap mr-2" aria-hidden="true"></i>
+    <span class="font-weight-bold">Учебные программы:</span>
   </div>
-  <div class="row">
-    <ng-container *ngFor="let category of categories; let i = index">
-      <div class="col-sm-4">
-        <div class="card mb-3" style="cursor: pointer;" (click)="linkCourse(category?.id)">
+  <div class="col-12 px-3">
+    <div class="row">
+      <div class="col-md-4 mb-3" *ngFor="let category of categories; let i = index">
+        <div class="card h-100" style="cursor: pointer;" (click)="linkCourse(category?.id)">
           <div class="card-header">
             <div class="small d-flex justify-content-between">
               <span class="font-weight-bold">{{ category?.name }}</span>
               <span class="text-primary">{{ category?.price }} &#8381;</span>
             </div>
-            <div class="small d-flex justify-content-between">
+            <div class="small">
               <span>{{ levelById.get(category?.levelId)?.name }}</span>
             </div>
           </div>
@@ -30,24 +48,25 @@
           </div>
         </div>
       </div>
-      <!-- Force new row after every 3 cards -->
-      <div class="clearfix" *ngIf="(i + 1) % 3 === 0"></div>
-    </ng-container>
+    </div>
   </div>
 </div>
+
+<!-- Статистика для авторизованных пользователей -->
 <div class="row mb-lg-3" *ngIf="!!user && user.login !== 'guest'">
-  <div class="col-sm-6">
-    <span class="font-weight-bold">Общая активность {{': ' + user?.name }}</span>
+  <div class="col-md-6 px-3 mb-3">
+    <span class="font-weight-bold">Общая активность: {{ user?.name }}</span>
     <app-chart [activity]="ua"></app-chart>
   </div>
-  <div class="col-sm-6">
+  <div class="col-md-6 px-3 mb-3">
     <span class="font-weight-bold">Выполненные уроки</span>
     <app-chart [activity]="uaSolved"></app-chart>
   </div>
 </div>
+
 <div class="row" *ngIf="!!user && user.login !== 'guest'">
-  <div class="col-sm-6">
-    <table class="table">
+  <div class="col-md-6 px-3 mb-3">
+    <table class="table mb-0">
       <thead>
       <tr>
         <th scope="col" class="font-weight-bold">Прогресс обучения</th>
@@ -56,30 +75,33 @@
       </thead>
       <tbody>
       <tr>
-        <td>Выполнено уроков {{solvedTasksCount}} из {{allTasksCount}}</td>
+        <td>Выполнено уроков {{ solvedTasksCount }} из {{ allTasksCount }}</td>
         <td>
-          <app-progress-bar-view [allTasksCount]="allTasksCount"
-                                 [solvedTasksCount]="solvedTasksCount"
-                                 [barValue]="tasksBarValue"
-          ></app-progress-bar-view>
+          <app-progress-bar-view
+            [allTasksCount]="allTasksCount"
+            [solvedTasksCount]="solvedTasksCount"
+            [barValue]="tasksBarValue">
+          </app-progress-bar-view>
         </td>
       </tr>
       <tr>
-        <td>Выполнено упражнений Java Core {{solvedExerciseCount}} из {{totalExerciseCount}}</td>
+        <td>Выполнено упражнений Java Core {{ solvedExerciseCount }} из {{ totalExerciseCount }}</td>
         <td>
-          <app-progress-bar-view [allTasksCount]="totalExerciseCount"
-                                 [solvedTasksCount]="solvedExerciseCount"
-                                 [barValue]="solBarValue"
-          ></app-progress-bar-view>
+          <app-progress-bar-view
+            [allTasksCount]="totalExerciseCount"
+            [solvedTasksCount]="solvedExerciseCount"
+            [barValue]="solBarValue">
+          </app-progress-bar-view>
         </td>
       </tr>
       <tr>
-        <td>Выполнено упражнений SQL {{solvedSqlExerciseCount}} из {{totalSqlExerciseCount}}</td>
+        <td>Выполнено упражнений SQL {{ solvedSqlExerciseCount }} из {{ totalSqlExerciseCount }}</td>
         <td>
-          <app-progress-bar-view [allTasksCount]="totalSqlExerciseCount"
-                                 [solvedTasksCount]="solvedSqlExerciseCount"
-                                 [barValue]="solSqlBarValue"
-          ></app-progress-bar-view>
+          <app-progress-bar-view
+            [allTasksCount]="totalSqlExerciseCount"
+            [solvedTasksCount]="solvedSqlExerciseCount"
+            [barValue]="solSqlBarValue">
+          </app-progress-bar-view>
         </td>
       </tr>
       <tr>
@@ -108,8 +130,8 @@
       </tbody>
     </table>
   </div>
-  <div class="col-sm-6">
-    <table class="table">
+  <div class="col-md-6 px-3 mb-3">
+    <table class="table mb-0">
       <thead>
       <tr>
         <th scope="col" class="font-weight-bold">Доступные уровни</th>
@@ -118,26 +140,28 @@
       </thead>
       <tbody>
       <tr *ngFor="let l of levels">
+        <td class="w-50">{{ l.name }}</td>
         <td class="w-50">
-          {{ l.name }}<br/>
-        </td>
-        <td class="w-50">
-          <app-progress-bar-view [allTasksCount]="l.all"
-                                 [solvedTasksCount]="l.solved"
-                                 [barValue]="l.progress"
-          ></app-progress-bar-view>
+          <app-progress-bar-view
+            [allTasksCount]="l.all"
+            [solvedTasksCount]="l.solved"
+            [barValue]="l.progress">
+          </app-progress-bar-view>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
+
 <app-info *ngIf="showNews"></app-info>
-<app-discussion-block *ngIf="discussions.length > 0" [discussions]="discussions"
-                      [user]="user"
-                      [inTask]="false"
-                      [needToShow]="true"
-                      [canResponse]="false"
-                      [title]="'Комментарии ученика'"
-                      (updateEmitter)="updateDiscussion($event)"
-></app-discussion-block>
+<app-discussion-block
+  *ngIf="discussions.length > 0"
+  [discussions]="discussions"
+  [user]="user"
+  [inTask]="false"
+  [needToShow]="true"
+  [canResponse]="false"
+  [title]="'Комментарии ученика'"
+  (updateEmitter)="updateDiscussion($event)">
+</app-discussion-block>

@@ -1,172 +1,159 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom px-3">
   <button class="navbar-toggler" type="button" data-toggle="collapse"
           data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
           aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div *ngIf="navShow" class="collapse navbar-collapse" id="navbarSupportedContent">
-    <span class="navbar-text ml-2 mr-2">
-          <a [routerLink]="['/courses']" style="text-decoration: none">
-            <i class="fas fa-list"></i> Курсы
-          </a>
-    </span>
-    <span class="navbar-text ml-2 mr-2">
-          <a [routerLink]="['/exercise']" style="text-decoration: none">
-            <i class="fas fa-tachometer-alt"></i> {{'Уроки: ' + solvedTasksCount  + '/' + allTasksCount }}
-          </a>
-    </span>
-    <div *ngIf="!!user && user.login !== 'guest'" class="dropdown">
-      <button class="btn dropdown-toggle" type="button" id="solutionDd"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-thumbtack"></i> Решения
-      </button>
-      <div class="dropdown-menu dropdown-menu-left" aria-labelledby="solutionDd">
-        <a class="dropdown-item" [routerLink]="['/tasksByStatus/revert']">Отклоненные</a>
-        <a class="dropdown-item" [routerLink]="['/tasksByStatus/finished']">Выполненные</a>
-        <a class="dropdown-item" [routerLink]="['/tasksByStatus/review']">На проверке</a>
-      </div>
-    </div>
-    <span *ngIf="!!user && user.login !== 'guest'" class="navbar-text ml-2 mr-2">
-         <a [routerLink]="['/messages']" style="text-decoration: none; position: relative;">
-            <i class="fas fa-envelope-open-text mr-1" title="Уведомления"></i>
-              <span *ngIf="count + (discussCount?.count || 0) > 0" class="badge badge-light">
-                {{ count + (discussCount?.count || 0) }}
-              </span>
-          </a>
-    </span>
-    <div class="dropdown">
-      <button class="btn dropdown-toggle" type="button" id="discuss"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-users" title="Сообщество"></i> Сообщество
-      </button>
-      <ul class="dropdown-menu dropdown-menu dropdown-menu-left" aria-labelledby="exercises">
-        <li>
-          <a class="dropdown-item" [routerLink]="['/interviews']">Mock собеседования
-            <span *ngIf="mockNotifications && mockNotifications.count > 0" class="badge badge-light">
-                {{ mockNotifications.count }}
-              </span>
-          </a>
-        </li>
-        <li><a class="dropdown-item" [routerLink]="['/solution_community']">Code review</a></li>
-        <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Обсуждения</a></li>
-        <li><a class="dropdown-item" [routerLink]="['/discuss/my']">Подписки</a></li>
-        <li><a class="dropdown-item" [routerLink]="['/rating/likes']">Рейтинги</a></li>
-      </ul>
-    </div>
 
-    <div class="dropdown">
-      <button class="btn dropdown-toggle" type="button" id="exercises"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-dumbbell" title="Упражнения"></i> Упражнения
-      </button>
-      <ul class="dropdown-menu dropdown-menu dropdown-menu-left" aria-labelledby="exercises">
-        <li><a class="dropdown-item" [routerLink]="['/topics']">Java Core</a></li>
-        <li><a class="dropdown-item" [routerLink]="['/sqlExercise']">SQL</a></li>
-        <li><a class="dropdown-item" [routerLink]="['/exams']">Экзамены</a></li>
-        <li><a class="dropdown-item" [routerLink]="['/interview']">Собеседования</a></li>
-      </ul>
-    </div>
+  <div *ngIf="navShow" class="collapse navbar-collapse ml-2" id="navbarSupportedContent">
+    <ul class="navbar-nav align-items-center mr-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link d-flex align-items-center" [routerLink]="['/courses']">
+          <i class="fas fa-list mr-1"></i> Курсы
+        </a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link d-flex align-items-center" [routerLink]="['/exercise']">
+          <i class="fas fa-tachometer-alt mr-1"></i> {{ 'Уроки: ' + solvedTasksCount + '/' + allTasksCount }}
+        </a>
+      </li>
 
-    <div *ngIf="!!user && user.login !== 'guest'" class="dropdown">
-      <button class="btn dropdown-toggle" type="button" id="exercisesDd"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="far fa-bookmark"></i>
-      </button>
-      <ul class="dropdown-menu dropdown-menu dropdown-menu-right" aria-labelledby="exercisesDd">
-        <li *ngFor="let book of bookmarks">
-          <!--        <div class="demo">-->
-          <a (click)="goToBook(book)" class="dropdown-item point demo">{{ book.name }}</a>
-          <button (click)="deleteBook($event, book)" type="button" class="close mr-2 mt-1" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <!--        </div>-->
-        </li>
-      </ul>
-    </div>
-  </div>
+      <li *ngIf="!!user && user.login !== 'guest'" class="nav-item dropdown px-2">
+        <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button"
+                id="solutionDd" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-thumbtack mr-1"></i> Решения
+        </button>
+        <div class="dropdown-menu" aria-labelledby="solutionDd">
+          <a class="dropdown-item" [routerLink]="['/tasksByStatus/revert']">Отклоненные</a>
+          <a class="dropdown-item" [routerLink]="['/tasksByStatus/finished']">Выполненные</a>
+          <a class="dropdown-item" [routerLink]="['/tasksByStatus/review']">На проверке</a>
+        </div>
+      </li>
 
-  <span class="input-group w-auto mwigth">
-              <input
-                type="text"
-                #text
-                (keydown.enter)="search(text.value)"
-                class="form-control bg-light"
-                placeholder="Поиск"
-                aria-label="Поиск"
-                aria-describedby="basic-addon2"/>
-           <div *ngIf="searchResult" (click)="clearSearch()" class="dropdown-menu2">
-             <div *ngIf="searchResult.tasks">
-             <p class="dropdown-header">Задачи</p>
-              <div role="separator" class="dropdown-divider"></div>
-                <a *ngFor="let t of searchResult.tasks" class="dropdown-item"
-                   routerLink="/discuss/{{t.id}}">{{t.name}}</a>
-             <div role="separator" class="dropdown-divider"></div>
-               </div>
-             <div *ngIf="searchResult.exercises">
-              <p class="dropdown-header">Упражнения</p>
-              <div role="separator" class="dropdown-divider"></div>
-                   <a *ngFor="let e of searchResult.exercises"
-                      class="dropdown-item" routerLink="/discuss/{{e.id}}">{{e.name}}</a>
-              <div role="separator" class="dropdown-divider"></div>
-               </div>
-             <div *ngIf="searchResult.discuss">
-                   <p class="dropdown-header">Обсуждения</p>
-                   <div role="separator" class="dropdown-divider"></div>
-                   <a *ngFor="let d of searchResult.discuss"
-                      class="dropdown-item" routerLink="/discuss/{{d.id}}">{{d.name}}</a>
-             </div>
-      </div>
-          <span class="input-group-append">
-            <button (click)="search(text.value)" class="btn btn-outline-light ccolor" type="button">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
+      <li *ngIf="!!user && user.login !== 'guest'" class="nav-item px-2 d-flex justify-content-center">
+        <a class="nav-link position-relative d-flex align-items-center" [routerLink]="['/messages']">
+          <i class="fas fa-envelope-open-text mr-1" title="Уведомления"></i>
+          <span *ngIf="count + (discussCount?.count || 0) > 0" class="badge badge-light ml-1">
+            {{ count + (discussCount?.count || 0) }}
           </span>
-        </span>
+        </a>
+      </li>
 
+      <li class="nav-item dropdown px-2">
+        <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button"
+                id="discuss" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-users mr-1" title="Сообщество"></i> Сообщество
+        </button>
+        <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="discuss">
+          <li>
+            <a class="dropdown-item d-flex justify-content-between align-items-center"
+               [routerLink]="['/interviews']">
+              Mock собеседования
+              <span *ngIf="mockNotifications && mockNotifications.count > 0"
+                    class="badge badge-light">{{ mockNotifications.count }}</span>
+            </a>
+          </li>
+          <li><a class="dropdown-item" [routerLink]="['/solution_community']">Code review</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Обсуждения</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/discuss/my']">Подписки</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/rating/likes']">Рейтинги</a></li>
+        </ul>
+      </li>
 
-  <span *ngIf="!!user && user.login === 'guest'" class="navbar-text ml-2 mr-2">
-          <a [routerLink]="['/login']" style="text-decoration: none">
-            <i class="fas fa-sign-in"></i> Войти
-          </a>
-    </span>
+      <li class="nav-item dropdown px-2">
+        <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button"
+                id="exercises" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-dumbbell mr-1" title="Упражнения"></i> Упражнения
+        </button>
+        <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="exercises">
+          <li><a class="dropdown-item" [routerLink]="['/topics']">Java Core</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/sqlExercise']">SQL</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/exams']">Экзамены</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/interview']">Собеседования</a></li>
+        </ul>
+      </li>
 
-  <div class="dropdown" *ngIf="!!user && user.login !== 'guest'">
-    <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <i class="fas fa-user-circle"></i> {{ user.name }}
-    </a>
-    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" [routerLink]="['/']">Статистика</a>
-      <a class="dropdown-item" [routerLink]="['/profile']">Настройки</a>
-      <a class="dropdown-item" [routerLink]="['/payment']">Оплата</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="https://checkdev.ru/" target="_blank">Собеседования</a>
-      <a class="dropdown-item" [routerLink]="['/vacancies']">Вакансии</a>
-      <a class="dropdown-item" [routerLink]="['/company']">Компании</a>
-      <div class="dropdown-divider"></div>
-      <a href="https://github.com/peterarsentev/job4j_features_bugs/issues" target="_blank"
-         class="dropdown-item">
-        Критика и предложения
+      <li *ngIf="!!user && user.login !== 'guest'" class="nav-item dropdown px-2">
+        <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button"
+                id="exercisesDd" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="far fa-bookmark"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="exercisesDd">
+          <li *ngFor="let book of bookmarks" class="d-flex justify-content-between align-items-center px-2">
+            <a (click)="goToBook(book)" class="dropdown-item flex-fill">{{ book.name }}</a>
+            <button (click)="deleteBook($event, book)" type="button" class="close ml-2" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <form class="form-inline my-2 my-lg-0 ml-lg-3">
+      <div class="input-group" style="width: 250px; max-width: 100%;">
+        <input
+          type="text"
+          #text
+          (keydown.enter)="search(text.value)"
+          class="form-control form-control-sm"
+          placeholder="Поиск"
+          aria-label="Поиск"
+          aria-describedby="search-button"
+          style="min-width: 0;"
+        />
+        <div *ngIf="searchResult" (click)="clearSearch()" class="dropdown-menu2">
+        </div>
+        <div class="input-group-append">
+          <button (click)="search(text.value)" class="btn btn-outline-secondary btn-sm" type="button" id="search-button">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <span *ngIf="!!user && user.login === 'guest'" class="navbar-text px-2">
+      <a [routerLink]="['/login']" class="d-flex align-items-center text-decoration-none">
+        <i class="fas fa-sign-in mr-1"></i> Войти
       </a>
-      <a class="dropdown-item" [routerLink]="['/rating']">Скорость прохождения
-        <span style="cursor: pointer;"
-              class="ml-0"
-        >{{ position }}</span></a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" [routerLink]="['/updates']">Обновления</a>
-      <a class="dropdown-item" [routerLink]="['/updates/blocks']">Блоки</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
+    </span>
+    <div class="dropdown" *ngIf="!!user && user.login !== 'guest'">
+      <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user-circle"></i> {{ user.name }}
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" [routerLink]="['/']">Статистика</a>
+        <a class="dropdown-item" [routerLink]="['/profile']">Настройки</a>
+        <a class="dropdown-item" [routerLink]="['/payment']">Оплата</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="https://checkdev.ru/" target="_blank">Собеседования</a>
+        <a class="dropdown-item" [routerLink]="['/vacancies']">Вакансии</a>
+        <a class="dropdown-item" [routerLink]="['/company']">Компании</a>
+        <div class="dropdown-divider"></div>
+        <a href="https://github.com/peterarsentev/job4j_features_bugs/issues" target="_blank"
+           class="dropdown-item">
+          Критика и предложения
+        </a>
+        <a class="dropdown-item" [routerLink]="['/rating']">Скорость прохождения
+          <span style="cursor: pointer;" class="ml-0">{{ position }}</span>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" [routerLink]="['/updates']">Обновления</a>
+        <a class="dropdown-item" [routerLink]="['/updates/blocks']">Блоки</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
+      </div>
     </div>
   </div>
 </nav>
+
 <app-admin-message *ngIf="!!user && user.login !== 'guest' && message" [message]="message"></app-admin-message>
-<div class="container">
-  <app-navigation (getMessage)="getRecommendation()"
-                  *ngIf="navShow"
-  ></app-navigation>
+
+<div class="container px-3">
+  <app-navigation (getMessage)="getRecommendation()" *ngIf="navShow"></app-navigation>
   <router-outlet (activate)="onActivate($event)"></router-outlet>
 </div>
+
 <div
   class="pr-lg-3 pb-lg-5"
   style="position: fixed; bottom: 0; right: 0; z-index: 1;"
