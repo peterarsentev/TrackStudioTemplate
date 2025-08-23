@@ -8,18 +8,19 @@
   <div *ngIf="navShow" class="collapse navbar-collapse ml-2" id="navbarSupportedContent">
     <ul class="navbar-nav align-items-center mr-auto">
       <li class="nav-item px-2">
-        <a class="nav-link d-flex align-items-center" [routerLink]="['/courses']">
+        <a class="nav-link d-flex align-items-center text-dark" [routerLink]="['/courses']">
           <i class="fas fa-list mr-1"></i> Курсы
         </a>
       </li>
       <li class="nav-item px-2">
-        <a class="nav-link d-flex align-items-center" [routerLink]="['/exercise']">
+        <a class="nav-link d-flex align-items-center text-dark" [routerLink]="['/exercise']">
           <i class="fas fa-tachometer-alt mr-1"></i> {{ 'Уроки: ' + solvedTasksCount + '/' + allTasksCount }}
         </a>
       </li>
 
       <li *ngIf="!!user && user.login !== 'guest'" class="nav-item dropdown px-2">
-        <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button"
+        <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center
+text-dark" type="button"
                 id="solutionDd" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-thumbtack mr-1"></i> Решения
         </button>
@@ -31,7 +32,8 @@
       </li>
 
       <li *ngIf="!!user && user.login !== 'guest'" class="nav-item px-2 d-flex justify-content-center">
-        <a class="nav-link position-relative d-flex align-items-center" [routerLink]="['/messages']">
+        <a class="nav-link position-relative d-flex align-items-center
+text-dark" [routerLink]="['/messages']">
           <i class="fas fa-envelope-open-text mr-1" title="Уведомления"></i>
           <span *ngIf="count + (discussCount?.count || 0) > 0" class="badge badge-light ml-1">
             {{ count + (discussCount?.count || 0) }}
@@ -40,7 +42,8 @@
       </li>
 
       <li class="nav-item dropdown px-2">
-        <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button"
+        <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center
+text-dark" type="button"
                 id="discuss" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-users mr-1" title="Сообщество"></i> Сообщество
         </button>
@@ -61,7 +64,8 @@
       </li>
 
       <li class="nav-item dropdown px-2">
-        <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button"
+        <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center
+text-dark" type="button"
                 id="exercises" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-dumbbell mr-1" title="Упражнения"></i> Упражнения
         </button>
@@ -86,6 +90,13 @@
             </button>
           </li>
         </ul>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link d-flex align-items-center text-dark"
+        href="https://vk.com/topic-137186267_36711020?offset=120"
+        target="_blank">
+          <i class="fas fa-users mr-1"></i> Отзывы
+        </a>
       </li>
     </ul>
 
@@ -112,8 +123,11 @@
     </form>
 
     <span *ngIf="!!user && user.login === 'guest'" class="navbar-text px-2">
-      <a [routerLink]="['/login']" class="d-flex align-items-center text-decoration-none">
-        <i class="fas fa-sign-in mr-1"></i> Войти
+      <a [routerLink]="['/login']"
+         class="btn btn-success d-flex align-items-center
+         font-weight-bold
+         text-decoration-none text-white">
+         Войти
       </a>
     </span>
     <div class="dropdown" *ngIf="!!user && user.login !== 'guest'">
