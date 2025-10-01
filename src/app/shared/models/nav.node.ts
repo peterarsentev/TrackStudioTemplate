@@ -31,6 +31,8 @@ export class NavNode {
     public interviewQuestionId?: number,
     public courses?: boolean,
     public courseId?: number,
+    public article?: boolean,
+    public articleName?: string,
   ) {
   }
 }

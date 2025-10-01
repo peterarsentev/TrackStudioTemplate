@@ -123,6 +123,11 @@ const routes: Routes = [
           .then(mod => mod.CoursesModule)
       },
       {path: 'about', component: AboutComponent},
+      {
+        path: 'article',
+        loadChildren: () => import('../main/article/article.module')
+          .then(mod => mod.ArticleModule)
+      },
     ]
   },
   {path: 'login', component: LoginComponent},

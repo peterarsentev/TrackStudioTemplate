@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="row">
+    <table class="table">
+      <caption></caption>
+      <thead>
+      <tr>
+        <th scope="col">Название</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let article of articles; let idx=index">
+        <tr>
+          <td (click)="goToArticle(article)" style="cursor: pointer;">
+            <div>
+              <i class="fas fa-tasks pr-3"></i>
+              <span class="font-weight-bold">{{ article.title }}</span>
+            </div>
+            <small class="mb-2 text-muted">
+              {{ article.shortDesc }}
+            </small>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+

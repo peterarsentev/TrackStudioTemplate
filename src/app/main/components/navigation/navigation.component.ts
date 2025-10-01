@@ -94,6 +94,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
               this.interview(res);
               return;
             }
+
+            if (res.article) {
+              this.article(res);
+              return;
+            }
+
             if (res.rating) {
               this.rating(res);
               return;
@@ -321,6 +327,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
     } else if (res.interviewTopicId) {
       this.interviewTopicService.getById(res.interviewTopicId)
         .subscribe(rs => this.solutions = [...navs, {name: rs.name, url: '/interview/' + rs.id, interview: true}]);
+    } else {
+      this.solutions = navs;
+    }
+  }
+
+  private article(res: NavNode) {
+    const navs = [{name: 'Job4j', url: '/', interview: true},
+      { name: 'Статьи', url: '/article', interview: true}];
+    if (res.articleName) {
+      this.solutions = [...navs, { name: res.articleName, interview: true}];
     } else {
       this.solutions = navs;
     }
