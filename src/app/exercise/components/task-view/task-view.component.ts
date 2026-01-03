@@ -307,11 +307,11 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     divEnd.classList.add('mt-3');
     buttonContainer.classList.add('mt-3', 'mb-1', 'd-flex', 'gap-2');
 
-    runButton.classList.add('btn', 'btn-success', 'btn-sm', 'mr-1');
-    runButton.innerHTML = '<i class="fa fa-caret-right mr-1"></i>Запустить';
+    runButton.classList.add('btn', 'btn-success', 'btn-sm', 'me-1');
+    runButton.innerHTML = '<i class="fa fa-caret-right me-1"></i>Запустить';
 
-    copyButton.classList.add('btn', 'btn-light', 'btn-sm');
-    copyButton.innerHTML = '<i class="fa fa-copy mr-1"></i>Копировать';
+    copyButton.classList.add('btn', 'btn-outline-light', 'btn-sm');
+    copyButton.innerHTML = '<i class="fa fa-copy me-1"></i>Копировать';
 
     // Append buttons to the button container
     if (canRun) {
@@ -334,6 +334,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       mode: 'text/x-java',
       indentUnit: 4,
       indentWithTabs: false,
+      theme: "dracula"
     } as EditorConfiguration);
 
     const runCode = (output, runButton) => {
@@ -393,6 +394,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         mode: 'text/x-java',
         indentUnit: 4,
         indentWithTabs: false,
+        theme: "dracula"
       } as EditorConfiguration);
 
       code.on('keydown', (cm, event) => {

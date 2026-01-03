@@ -1,51 +1,104 @@
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-3">
-      <img src="assets/img/about.jpg" class="img-fluid" alt="Фото" />
+<div class="container py-5">
+  <!-- About project -->
+  <div class="row g-4 align-items-center mb-5">
+    <div class="col-md-4 col-lg-3 text-center">
+      <img
+        src="assets/img/about.jpg"
+        class="img-fluid rounded-4 shadow-soft"
+        alt="Job4j"
+      />
     </div>
-    <div class="col-md-9">
-      <h1>О проекте Job4j</h1>
-      <p>Job4j — образовательная платформа, созданная для того, чтобы помочь людям освоить современные технологии программирования:
-        <span class="badge bg-light text-dark">Java</span>,
-        <span class="badge bg-light text-dark">GoLang</span>,
-        <span class="badge bg-light text-dark">Kotlin</span>,
-        <span class="badge bg-light text-dark">SQL</span>,
-        <span class="badge bg-light text-dark">Шаблоны проектирования</span>,
-        <span class="badge bg-light text-dark">Микросервисы</span>,
-        <span class="badge bg-light text-dark">Kafka</span>,
-        <span class="badge bg-light text-dark">Redis</span>,
-        <span class="badge bg-light text-dark">Docker</span>,
-        <span class="badge bg-light text-dark">Kubernetes</span>,
-        <span class="badge bg-light text-dark">Prometheus</span>,
-        <span class="badge bg-light text-dark">Grafana</span>.
+
+    <div class="col-md-8 col-lg-9">
+      <h1 class="fw-bold mb-3">О проекте Job4j</h1>
+
+      <p class="text-muted-soft">
+        Job4j — образовательная платформа, созданная для того, чтобы помочь людям
+        освоить современные технологии программирования через практику и проекты.
       </p>
-      <p>
-        Проект был создан в 2015 году. За это время мы подготовили и помогли найти работу более 2500 выпускников.
+
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <span class="badge rounded-pill badge-glass">Java</span>
+        <span class="badge rounded-pill badge-glass">Go</span>
+        <span class="badge rounded-pill badge-glass">Kotlin</span>
+        <span class="badge rounded-pill badge-glass">SQL</span>
+        <span class="badge rounded-pill badge-glass">Паттерны проектирования</span>
+        <span class="badge rounded-pill badge-glass">Микросервисы</span>
+        <span class="badge rounded-pill badge-glass">Kafka</span>
+        <span class="badge rounded-pill badge-glass">Redis</span>
+        <span class="badge rounded-pill badge-glass">Docker</span>
+        <span class="badge rounded-pill badge-glass">Kubernetes</span>
+        <span class="badge rounded-pill badge-glass">Prometheus</span>
+        <span class="badge rounded-pill badge-glass">Grafana</span>
+      </div>
+
+      <p class="text-muted-soft">
+        Проект был создан в 2015 году. За это время мы подготовили и помогли найти
+        работу более <strong class="text-white">2500 выпускникам</strong>.
       </p>
-      <p>
-        Изначально я понимал, что программирование можно освоить только через прикладные задачи.
-        Поэтому весь процесс обучения основан на создании проектов.
-        Каждый урок проверяю я и мои помощники (Стас Коробейников, Алексей Есипов и Андрей Хинку).
-        Такой подход дает нам возможность оперативно корректировать успеваемость учеников.
-        Отдельно мы проверяем теорию, поскольку это необходимо для успешного прохождения собеседований.
+
+      <p class="text-muted-soft">
+        С самого начала я понимал, что программирование можно освоить только через
+        прикладные задачи. Поэтому весь процесс обучения основан на создании
+        реальных проектов.
+        Каждый урок проверяю я и мои помощники
+        (<span class="text-white">Стас Коробейников</span>,
+        <span class="text-white">Алексей Есипов</span>,
+        <span class="text-white">Андрей Хинку</span>).
+        Такой подход позволяет оперативно корректировать прогресс учеников и
+        глубже прорабатывать теорию, необходимую для собеседований.
       </p>
     </div>
   </div>
 
-  <hr>
+  <!-- Divider -->
+  <div class="border-top border-soft my-5"></div>
 
-  <!-- Информация о вас -->
+  <!-- About me -->
   <div class="row">
-    <div class="col-md-12">
-      <h2>Обо мне</h2>
-      <p>Меня зовут Петр Арсентив, я — разработчик с опытом работы в Java, Kotlin и других современных технологиях.
-        Мою карьеру я начал в 2009 году, и за это время я всегда старался помогать коллегам и друзьям, рассказывая им,
-        как здорово быть программистом. В 2015 году я решил, что стоит создать платформу, на которой соберу свои знания в единую форму.
-        Так и появился проект Job4j. У меня трое детей, поэтому процесс обучения — не только часть моей профессиональной жизни, но и часть моей семейной жизни.
+    <div class="col-lg-10">
+      <h2 class="fw-bold mb-3">Обо мне</h2>
+
+      <p class="text-muted-soft">
+        Меня зовут <strong class="text-white">Пётр Арсентив</strong>.
+        Я практикующий разработчик с 2009 года и автор образовательной платформы Job4j.
       </p>
-      <p>В жизни есть много больших вопросов, и один из них — вопрос о своем предназначении. Мне посчастливилось понять,
-        что мое предназначение — быть учителем. Несмотря на то, что по профессии я инженер и мне нравится решать технические задачи,
-        большее удовлетворение я получаю от объяснения решений, чтобы другие могли решать подобные задачи.</p>
+
+      <p class="text-muted-soft">
+        За годы работы я прошёл путь от разработчика до инженера,
+        который проектирует системы, принимает архитектурные решения
+        и отвечает за результат. Я работал с Java, Kotlin, Go, SQL,
+        микросервисами и инфраструктурными инструментами —
+        не в учебных примерах, а в реальных проектах.
+      </p>
+
+      <p class="text-muted-soft">
+        В какой-то момент я понял, что большинству людей не хватает не информации,
+        а <strong class="text-white">структуры и инженерного мышления</strong>.
+        Именно поэтому в 2015 году появился Job4j —
+        как система подготовки разработчиков, которые понимают,
+        что и зачем они делают.
+      </p>
+
+      <p class="text-muted-soft">
+        Я не обучаю заучиванию синтаксиса и копированию решений.
+        Я учу <strong class="text-white">думать как инженер</strong>:
+        писать осмысленный код, объяснять свои решения
+        и расти от уровня к уровню осознанно, а не случайно.
+      </p>
+
+      <p class="text-muted-soft">
+        У меня трое детей, поэтому для меня обучение —
+        это не конвейер и не поток.
+        Я делаю курсы так, как хотел бы,
+        чтобы учили моих детей: честно,
+        последовательно и с уважением к времени ученика.
+      </p>
+
+      <p class="text-muted-soft">
+        Если вы устали от разрозненных курсов и хотите системного результата —
+        обучение в Job4j создано именно для этого.
+      </p>
     </div>
   </div>
 </div>

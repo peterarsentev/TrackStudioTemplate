@@ -7,7 +7,7 @@ import {NavService} from '../../../../shared/services/nav.service';
 import {NavNode} from '../../../../shared/models/nav.node';
 
 @Component({
-  selector: 'app-courses',
+  selector: 'courses-component',
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss']
 })

@@ -1,45 +1,73 @@
-<div class="container-fluid">
-  <div class="row pb-2">
-    <div class="col-12 d-flex justify-content-between">
-      <button (click)="linkAbout()" class="btn btn-info">О проекте</button>
-      <a href="https://vk.com/topic-137186267_36711020?offset=120" target="_blank" class="btn btn-success">Отзывы</a>
-    </div>
+<div class="container py-4">
+  <!-- Top actions -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <button (click)="linkAbout()" class="btn btn-outline-light border-soft">
+      <i class="bi bi-info-circle me-1"></i>
+      О проекте
+    </button>
+    <a
+      href="https://vk.com/topic-137186267_36711020?offset=120"
+      target="_blank"
+      class="btn btn-outline-light border-soft"
+    >
+      <i class="bi bi-chat-quote me-1"></i>
+      Отзывы
+    </a>
   </div>
-  <div class="row">
-    <div class="col-12">
-      <div class="alert alert-success" role="alert" style="background-color: aliceblue">
-        <h5 class="alert-heading">
-          <span>Специальные предложения</span>
-        </h5>
-        <p>
-          <strong>Уровень "Стажер"</strong>: 34 780 &#8381;, 5 курсов, скидка - 10%, выгода - 3 478 &#8381;<br/>
-          <strong>Уровень "Джуниор"</strong>: 36 240 &#8381;, 6 курсов, скидка - 10%, выгода - 3 624 &#8381;<br/>
-          <strong>Уровень "Middle"</strong>: 38 910 &#8381;, 7 курсов, скидка - 10%, выгода - 3 891 &#8381;<br/>
-          <strong>Уровень "Senior"</strong>: 30 735 &#8381;, 3 курса, скидка - 10%, выгода - 3 415 &#8381;<br/>
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <ng-container *ngFor="let category of categories; let i = index">
-      <div class="col-sm-4">
-        <div class="card mb-3" (click)="linkCourse(category?.id)">
-          <div class="card-header">
-            <div class="small d-flex justify-content-between">
-              <span class="font-weight-bold">{{ category?.name }}</span>
-              <span class="text-primary">{{ category?.price }} &#8381;</span>
-            </div>
-            <div class="small d-flex justify-content-between">
-              <span>{{ levelById.get(category?.levelId)?.name }}</span>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="card-text" [innerHTML]="category?.shortDesc | safeCode"></p>
-          </div>
+
+  <!-- Special offer -->
+  <div class="mb-4">
+    <div class="card-glass rounded-4 p-4 shadow-sm">
+      <h5 class="fw-bold mb-3">
+        <span class="badge rounded-pill badge-accent me-2">%</span>
+        Специальные предложения
+      </h5>
+
+      <div class="text-muted-soft small lh-lg">
+        <div>
+          <strong class="text-white">Уровень «Стажер»</strong> —
+          34 780 &#8381; · 5 курсов · скидка 10% · выгода 3 478 &#8381;
+        </div>
+        <div>
+          <strong class="text-white">Уровень «Джуниор»</strong> —
+          36 240 &#8381; · 6 курсов · скидка 10% · выгода 3 624 &#8381;
+        </div>
+        <div>
+          <strong class="text-white">Уровень «Middle»</strong> —
+          38 910 &#8381; · 7 курсов · скидка 10% · выгода 3 891 &#8381;
+        </div>
+        <div>
+          <strong class="text-white">Уровень «Senior»</strong> —
+          30 735 &#8381; · 3 курса · скидка 10% · выгода 3 415 &#8381;
         </div>
       </div>
-      <!-- Force new row after every 3 cards -->
-      <div class="clearfix" *ngIf="(i + 1) % 3 === 0"></div>
+    </div>
+  </div>
+
+  <!-- Courses -->
+  <div class="row g-3">
+    <ng-container *ngFor="let category of categories">
+      <div class="col-md-6 col-lg-4">
+        <div
+          class="card-glass rounded-4 h-100 p-3 shadow-sm cursor-pointer"
+          (click)="linkCourse(category?.id)"
+        >
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div class="fw-semibold">
+              {{ category?.name }}
+              <div class="text-muted-soft small">
+                {{ levelById.get(category?.levelId)?.name }}
+              </div>
+            </div>
+
+            <span class="badge rounded-pill badge-good">
+              {{ category?.price }} &#8381;
+            </span>
+          </div>
+
+          <div class="text-muted-soft small" [innerHTML]="category?.shortDesc | safeCode"></div>
+        </div>
+      </div>
     </ng-container>
   </div>
 </div>

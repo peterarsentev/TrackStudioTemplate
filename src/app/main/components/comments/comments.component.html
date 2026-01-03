@@ -1,52 +1,115 @@
-<div class="container-fluid pb-4">
-  <div class="row pt-3 com" id="com">
-    <form [formGroup]="form">
-      <app-hendlers [handlers]="handlers"
-                    [searchHandlers]="handlers"
-                    (selected)="selectPerson($event)"
-      ></app-hendlers>
-      <div *ngFor="let error of validationErrors.handlerId">
-                            <span *ngIf="form.get('handlerId').hasError(error.type)
-                                        && (form.get('handlerId').dirty
-                                        || form.get('handlerId').touched)"
-                                  class="validation">{{ error.message }}</span>
+<div class="container pb-4">
+  <div class="row pt-3" id="com">
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white d-flex align-items-center gap-2">
+            <i class="bi bi-chat-square-text"></i>
+            Комментарий
+          </div>
+          <div class="text-muted-soft small mt-1">
+            Выполняется: <span class="text-white">{{ operation }}</span>
+          </div>
+        </div>
+
+        <div class="px-3 px-md-4 py-3">
+          <form [formGroup]="form">
+            <!-- Handlers -->
+            <div class="mb-3">
+              <app-hendlers
+                [handlers]="handlers"
+                [searchHandlers]="handlers"
+                (selected)="selectPerson($event)"
+              ></app-hendlers>
+
+              <div *ngFor="let error of validationErrors.handlerId" class="mt-2">
+                <small
+                  *ngIf="
+                    form.get('handlerId').hasError(error.type) &&
+                    (form.get('handlerId').dirty || form.get('handlerId').touched)
+                  "
+                  class="text-danger"
+                >
+                  {{ error.message }}
+                </small>
+              </div>
+            </div>
+
+            <!-- Editor -->
+            <div class="mb-3">
+              <app-redactor
+                [titleLabel]="'Выполняется: ' + operation"
+                (outputEmitter)="setDescription($event)"
+              ></app-redactor>
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex flex-wrap gap-2 justify-content-between">
+              <div class="d-flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  class="btn btn-j-primary"
+                  [disabled]="form.invalid || disabled"
+                  (click)="form.valid && submitComment({ save: true })"
+                >
+                  <span
+                    *ngIf="disabled"
+                    class="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Сохранить
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-outline-light border-soft"
+                  [disabled]="form.invalid || disabled"
+                  (click)="form.valid && submitComment({ saveAndUp: true })"
+                >
+                  <span
+                    *ngIf="disabled"
+                    class="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Сохранить и наверх
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-outline-light border-soft"
+                  [disabled]="form.invalid || disabled"
+                  (click)="form.valid && submitComment({ saveAndNext: true })"
+                >
+                  <span
+                    *ngIf="disabled"
+                    class="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Сохранить и далее
+                </button>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-outline-light border-soft"
+                [disabled]="disabled"
+                (click)="closeForm()"
+              >
+                <span
+                  *ngIf="disabled"
+                  class="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                Отмена
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="pt-3">
-        <app-redactor [titleLabel]="'Выполняется: ' + operation"
-                      (outputEmitter)="setDescription($event)"
-        ></app-redactor>
-      </div>
-      <button
-        class="btn btn-primary"
-        [disabled]="form.invalid || disabled"
-        (click)="form.valid && submitComment({ save: true })"
-      >
-        <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Сохранить</button>
-      <button
-        class="btn btn-primary ml-2"
-        [disabled]="form.invalid || disabled"
-        (click)="form.valid && submitComment({ saveAndUp: true })"
-      >
-        <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Сохранить и перейти наверх</button>
-      <button
-        class="btn btn-primary ml-2"
-        [disabled]="form.invalid || disabled"
-        (click)="form.valid && submitComment({ saveAndNext: true })"
-      >
-        <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Сохранить и перейти далее</button>
-      <button
-        [disabled]="disabled"
-        style="float: right;"
-        class="btn btn-info ml-2"
-        (click)="closeForm()"
-      >
-        <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Отмена</button>
-    </form>
+    </div>
   </div>
 </div>
-
-

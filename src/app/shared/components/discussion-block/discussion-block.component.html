@@ -1,32 +1,61 @@
-<div class="row mt-1" style="word-break: break-all;">
-  <div class="w-100 card">
-    <div class="card-header">
-      <div class="font-weight-bold"><i class="fa fa-comments-o mr-2" aria-hidden="true"></i>Обсуждения</div>
-      <div>
-        <small *ngIf="title" class="mb-2 text-muted">
-          {{ title }}
-        </small>
-        <small *ngIf="!title" class="mb-2 text-muted">{{ company ? 'Эти комментарии доступны всем. Поделитесь своим мнением о компании'
-          : 'Эти комментарии доступны всем ученикам. Поделитесь своим мнением о задаче,\n' +
-          '          полезными ссылками, рекомендациями по решению. Не скидывайте решения целиком!'}}
-        </small>
+<div class="row mt-2" style="word-break: break-all;">
+  <div class="col-12">
+    <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+      <!-- Header -->
+      <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+        <div class="d-flex flex-wrap gap-2 align-items-start justify-content-between">
+          <div class="min-w-0">
+            <div class="fw-semibold text-white d-flex align-items-center gap-2">
+              <i class="bi bi-chat-dots"></i>
+              Обсуждения
+            </div>
+
+            <div class="mt-1">
+              <small *ngIf="title" class="text-muted-soft">
+                {{ title }}
+              </small>
+
+              <small *ngIf="!title" class="text-muted-soft">
+                {{
+                company
+                ? 'Эти комментарии доступны всем. Поделитесь своим мнением о компании'
+                : 'Эти комментарии доступны всем ученикам. Поделитесь своим мнением о задаче, полезными ссылками, рекомендациями по решению. Не скидывайте решения целиком!'
+                }}
+              </small>
+            </div>
+          </div>
+
+          <div *ngIf="inTask" class="d-flex flex-wrap gap-2">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+              (click)="show()"
+            >
+              <i class="bi bi-download"></i>
+              Загрузить: {{ discussions.length }}
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+              *ngIf="!!user && user?.login !== 'guest'"
+              (click)="showDiscussionForm()"
+            >
+              <i class="bi bi-chat-right-text"></i>
+              Обсудить
+            </button>
+          </div>
+        </div>
       </div>
-      <div *ngIf="inTask">
-        <button (click)="show()" class="mt-2 m btn btn-info btn-sm">
-          <i class="fa fa-download mr-2" aria-hidden="true"></i>
-          Загрузить обсуждения: {{discussions.length}}
-        </button>
-          <button class="mt-2 m btn btn-info btn-sm ml-2"
-                  *ngIf="!!user && user?.login !== 'guest'"
-                  (click)="showDiscussionForm()">
-            {{'Обсудить'}}
-          </button>
-      </div>
-    </div>
-    <div *ngIf="needToShow" class="card-body">
-      <table class="table" *ngIf="discussions">
-        <tbody>
-        <tr app-discussion-element
+
+      <!-- Body -->
+      <div *ngIf="needToShow" class="px-3 px-md-4 py-3 bg-transparent">
+        <table class="table table-borderless mb-0 align-middle bg-transparent" *ngIf="discussions">
+          <tbody class="bg-transparent">
+          <tr
+            app-discussion-element
+            class="border-bottom border-soft bg-transparent"
+            *ngFor="let discussion of discussions"
             (click)="goTo(discussion)"
             [user]="user"
             [canResponse]="canResponse"
@@ -34,22 +63,21 @@
             (response)="addNewResponse($event)"
             (deleteEmitter)="deleteDiscussion($event)"
             (updateEmitter)="update($event)"
-            *ngFor="let discussion of discussions">
-        </tr>
-        </tbody>
-      </table>
-<!--      <div *ngIf="!!user && user?.login !== 'anonymous' && canResponse" class="row pt-2">-->
-<!--     <span class="mt-3 w-50">-->
-<!--          <button class="m btn btn-info btn-sm"-->
-<!--                  (click)="showDiscussionForm()">{{'Обсудить'}}</button>-->
-<!--      </span>-->
-<!--      </div>-->
-      <div class="row" *ngIf="showDiscussion">
-        <app-discussion
-          (closeEmitter)="closeDiscussionForm($event)"
-        ></app-discussion>
+            style="background: transparent !important;"
+          ></tr>
+
+          <tr *ngIf="!discussions?.length" class="bg-transparent" style="background: transparent !important;">
+            <td class="text-center text-muted-soft py-4 bg-transparent" style="background: transparent !important;">
+              Пока нет обсуждений
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="row mt-3 bg-transparent" *ngIf="showDiscussion">
+          <app-discussion (closeEmitter)="closeDiscussionForm($event)"></app-discussion>
+        </div>
       </div>
     </div>
   </div>
 </div>
-

@@ -1,1 +1,28 @@
 <app-header></app-header>
+
+<app-admin-message *ngIf="!!user && user.login !== 'guest' && message" [message]="message"></app-admin-message>
+
+<div class="container px-3">
+  <app-navigation (getMessage)="getRecommendation()" *ngIf="navShow"></app-navigation>
+  <router-outlet (activate)="onActivate($event)"></router-outlet>
+</div>
+
+<div
+  class="pr-lg-3 pb-lg-5"
+  style="position: fixed; bottom: 0; right: 0; z-index: 1;"
+>
+  <div class="mb-1" style="cursor: pointer;" onclick="window.scrollTo(0, 0);">
+    <i class="fa fa-arrow-circle-up fa-lg"></i>
+  </div>
+  <div *ngIf="iconComment" class="mb-2" style="cursor: pointer;">
+    <i (click)="goToComments()" class="fa fa-comment fa-lg" aria-hidden="true"></i>
+  </div>
+  <div
+    style="cursor: pointer;"
+    onclick="window.scrollTo(0, document.body.scrollHeight);"
+  >
+    <i class="fa fa-arrow-circle-down fa-lg"></i>
+  </div>
+</div>
+
+<app-footer></app-footer>

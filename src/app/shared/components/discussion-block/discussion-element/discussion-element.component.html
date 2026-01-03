@@ -1,60 +1,109 @@
-<td id="comment_{{discussion.id}}">
-  <div *ngIf="!showDiscussion">
-    <div class="pb-3 small" style="display: flex;justify-content: space-between;align-items: center;">
-      <span>
-        <span>
-          <span (click)="goToProfile(discussion.userId)" class="font-weight-bold d-block" style="cursor: pointer;">
-            <i class="fa fa-user mr-1"></i>{{ discussion.name }}
-          </span>
+<td id="comment_{{discussion.id}}" class="bg-transparent">
+  <div *ngIf="!showDiscussion" class="bg-transparent">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-start gap-3 mb-2 bg-transparent">
+      <div class="min-w-0 bg-transparent">
+        <div
+          (click)="goToProfile(discussion.userId)"
+          class="fw-semibold text-white cursor-pointer d-inline-flex align-items-center gap-2"
+        >
+          <i class="bi bi-person"></i>
+          <span class="text-truncate">{{ discussion.name }}</span>
+        </div>
+
+        <div *ngIf="discussion.userCreated" class="text-muted-soft small mt-1">
+          Дата регистрации: {{ discussion.userCreated | date: 'dd.MM.yyyy' }}
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end bg-transparent">
+        <span class="text-muted-soft small">
+          {{ discussion.time | date: 'dd.MM.yyyy HH:mm' }}
         </span>
-        <small *ngIf="discussion.userCreated"
-               class="mb-2 text-muted d-block">{{ ' Дата регистрации:' }} {{ discussion.userCreated | date: 'dd.MM.yyyy' }}</small>
-      </span>
-      <span class="pull-right">
-          <span>{{ discussion.time | date: 'dd.MM.yyyy HH:mm' }}</span>
-          <span *ngIf="discussion.userId === user.id" (click)="openConfirmModal()">
-            <i class="fa fa-remove ml-3"></i>
-           </span>
-          <span *ngIf="discussion.userId === user.id" (click)="change()">
-             <i class="fa fa-edit ml-3"></i>
-          </span>
-        <app-rating [user]="user"
-                    [discussion]="discussion"></app-rating>
-      </span>
+
+        <button
+          *ngIf="discussion.userId === user.id"
+          type="button"
+          class="btn btn-sm btn-link text-muted-soft p-0 bg-transparent"
+          (click)="openConfirmModal()"
+          title="Удалить"
+        >
+          <i class="bi bi-x-lg"></i>
+        </button>
+
+        <button
+          *ngIf="discussion.userId === user.id"
+          type="button"
+          class="btn btn-sm btn-link text-muted-soft p-0 bg-transparent"
+          (click)="change()"
+          title="Редактировать"
+        >
+          <i class="bi bi-pencil"></i>
+        </button>
+
+        <app-rating [user]="user" [discussion]="discussion"></app-rating>
+      </div>
     </div>
 
-    <p [innerHTML]="discussion.text | safeCode"></p>
-    <div *ngIf="!!discussion?.responses?.length">
-      <div class="card mt-1 mb-1">
-        <div class="card-header">
-          <div class="font-weight-bold">Ответы:</div>
+    <!-- Text -->
+    <div class="mb-2 bg-transparent">
+      <div class="text-muted-soft bg-transparent" [innerHTML]="discussion.text | safeCode"></div>
+    </div>
+
+    <!-- Responses -->
+    <div *ngIf="!!discussion?.responses?.length" class="mt-2 bg-transparent">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden bg-transparent">
+        <div class="px-3 py-2 border-bottom border-soft bg-transparent">
+          <div class="fw-semibold text-white">Ответы</div>
         </div>
-        <div class="card-body">
+
+        <div class="px-3 py-3 bg-transparent">
           <ng-container *ngFor="let d of discussion.responses">
-            <div *ngIf="!d.editResponse">
-              <div class="pb-3" style="display: flex;justify-content: space-between;align-items: center;">
-                <span>
-    <span class="small d-block">Oт
-    <span class="font-weight-bold">{{ d.name }}</span>
-    </span>
-                  <small *ngIf="d.userCreated"
-                         class="mb-2 text-muted d-block">{{ ' Дата регистрации:' }} {{ d.userCreated | date: 'dd.MM.yyyy' }}</small>
-                </span>
-                <span class="pull-right">
-                    <span>{{ d.time | date: 'dd.MM.yyyy HH:mm' }}</span>
-                    <span *ngIf="d.userId === user.id" (click)="openConfirmModal(d)">
-    <i class="fa fa-remove ml-3"></i>
-    </span>
-                    <span *ngIf="d.userId === user.id" (click)="changeResponse(d)">
-    <i class="fa fa-edit ml-3"></i>
-    </span>
-                  <app-rating [user]="user"
-                              [discussion]="d"></app-rating>
-                </span>
-              </div >
-              <p class="card-text" [innerHTML]="d.text | safeCode"></p>
+            <div class="pb-3 border-bottom border-soft mb-3 bg-transparent" *ngIf="!d.editResponse">
+              <div class="d-flex justify-content-between align-items-start gap-3 mb-2 bg-transparent">
+                <div class="min-w-0 bg-transparent">
+                  <div class="small text-muted-soft">
+                    От <span class="fw-semibold text-white">{{ d.name }}</span>
+                  </div>
+
+                  <div *ngIf="d.userCreated" class="text-muted-soft small mt-1">
+                    Дата регистрации: {{ d.userCreated | date: 'dd.MM.yyyy' }}
+                  </div>
+                </div>
+
+                <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end bg-transparent">
+                  <span class="text-muted-soft small">
+                    {{ d.time | date: 'dd.MM.yyyy HH:mm' }}
+                  </span>
+
+                  <button
+                    *ngIf="d.userId === user.id"
+                    type="button"
+                    class="btn btn-sm btn-link text-muted-soft p-0 bg-transparent"
+                    (click)="openConfirmModal(d)"
+                    title="Удалить"
+                  >
+                    <i class="bi bi-x-lg"></i>
+                  </button>
+
+                  <button
+                    *ngIf="d.userId === user.id"
+                    type="button"
+                    class="btn btn-sm btn-link text-muted-soft p-0 bg-transparent"
+                    (click)="changeResponse(d)"
+                    title="Редактировать"
+                  >
+                    <i class="bi bi-pencil"></i>
+                  </button>
+
+                  <app-rating [user]="user" [discussion]="d"></app-rating>
+                </div>
+              </div>
+
+              <div class="text-muted-soft bg-transparent" [innerHTML]="d.text | safeCode"></div>
             </div>
-            <div class="row" *ngIf="d.editResponse">
+
+            <div class="row bg-transparent" *ngIf="d.editResponse">
               <app-discussion
                 [title]="'Выполняется: Редактирование комментария'"
                 [text]="d.text"
@@ -66,22 +115,30 @@
       </div>
     </div>
 
-    <div *ngIf="!discussion.parentId || discussion.parentId === -1">
-      <button type="button" (click)="showAddResponseForm()"
-              class="pull-left btn btn-light btn-sm">
-        <i class="fa fa-reply mr-1"></i>
+    <!-- Reply button -->
+    <div *ngIf="!discussion.parentId || discussion.parentId === -1" class="mt-2 bg-transparent">
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="showAddResponseForm()"
+      >
+        <i class="bi bi-reply"></i>
         Ответить
       </button>
     </div>
   </div>
-  <div class="row" *ngIf="showDiscussion">
+
+  <!-- Edit discussion -->
+  <div class="row bg-transparent" *ngIf="showDiscussion">
     <app-discussion
       [title]="'Выполняется: Редактирование комментария'"
       [text]="discussion.text"
       (closeEmitter)="update($event)"
     ></app-discussion>
   </div>
-  <div class="row" *ngIf="addResponse">
+
+  <!-- Add response -->
+  <div class="row bg-transparent" *ngIf="addResponse">
     <app-discussion
       [title]="'Выполняется: Ответ на комментарий'"
       [text]=""

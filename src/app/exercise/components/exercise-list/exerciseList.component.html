@@ -1,92 +1,131 @@
-<div class="container-fluid">
-  <div class="form-row">
-    <div class="form-group mr-2">
-      <div class="dropdown">
-        <button class="btn btn-sm btn-light dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-          Уровень
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a *ngFor="let l of levels" (click)="selectLevel(l)" class="dropdown-item">{{ l.name }}</a>
-        </div>
-      </div>
-    </div>
-    <div class="mr-2" *ngIf="level">
-      <button (click)="selectLevel()" class="btn btn-sm btn-light mb-3">
-        {{ level.name }}
-        <i (click)="selectLevel()" class="fas fa-times pl-1"></i>
+<div class="container py-3">
+  <!-- Filters -->
+  <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+    <!-- Level dropdown -->
+    <div class="dropdown">
+      <button
+        class="btn btn-sm btn-outline-light border-soft dropdown-toggle"
+        type="button"
+        id="dropdownLevel"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Уровень
       </button>
+      <ul
+        class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
+        aria-labelledby="dropdownLevel"
+      >
+        <li *ngFor="let l of levels">
+          <a class="dropdown-item" (click)="selectLevel(l)">{{ l.name }}</a>
+        </li>
+      </ul>
     </div>
-    <div class="form-group mr-2">
-      <div class="dropdown">
-        <button class="btn btn-sm btn-light dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton2"
-                data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-          Блок
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-          <ng-container *ngFor="let c of currentCategories">
-            <a *ngIf="c.upgradedId !== 0"
-               (click)="selectCat(c)" class="dropdown-item"
-               style="text-decoration: line-through"
-               title="Блок был обновлен. Подробности в разделе 'Главное меню / Блоки'.">{{ c.name }}</a>
-            <a *ngIf="c.upgradedId === 0" (click)="selectCat(c)" class="dropdown-item">{{ c.name }}</a>
-          </ng-container>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="category">
-      <button *ngIf="category?.upgradedId !== 0"
-              class="btn btn-sm btn-light mb-3"
-              style="text-decoration: line-through"
-              title="Блок был обновлен. Подробности в разделе 'Главное меню / Блоки'.">
-        {{ category.name }}
-        <i (click)="selectCat()" class="fas fa-times pl-1"></i>
+
+    <!-- Selected level chip -->
+    <button
+      *ngIf="level"
+      type="button"
+      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-2"
+      (click)="selectLevel()"
+    >
+      <span>{{ level.name }}</span>
+      <i class="bi bi-x-lg"></i>
+    </button>
+
+    <!-- Category dropdown -->
+    <div class="dropdown">
+      <button
+        class="btn btn-sm btn-outline-light border-soft dropdown-toggle"
+        type="button"
+        id="dropdownCat"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Блок
       </button>
-      <button *ngIf="category?.upgradedId === 0" class="btn btn-sm btn-light mb-3">
-        {{ category.name }}
-        <i (click)="selectCat()" class="fas fa-times pl-1"></i>
-      </button>
+      <ul
+        class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
+        aria-labelledby="dropdownCat"
+      >
+        <ng-container *ngFor="let c of currentCategories">
+          <li *ngIf="c.upgradedId !== 0">
+            <a
+              class="dropdown-item text-decoration-line-through"
+              (click)="selectCat(c)"
+              title="Блок был обновлен. Подробности в разделе 'Главное меню / Блоки'."
+            >
+              {{ c.name }}
+            </a>
+          </li>
+          <li *ngIf="c.upgradedId === 0">
+            <a class="dropdown-item" (click)="selectCat(c)">{{ c.name }}</a>
+          </li>
+        </ng-container>
+      </ul>
     </div>
+
+    <!-- Selected category chip -->
+    <button
+      *ngIf="category"
+      type="button"
+      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-2"
+      (click)="selectCat()"
+      [class.text-decoration-line-through]="category?.upgradedId !== 0"
+      [attr.title]="
+        category?.upgradedId !== 0
+          ? 'Блок был обновлен. Подробности в разделе \'Главное меню / Блоки\'.'
+          : null
+      "
+    >
+      <span>{{ category.name }}</span>
+      <i class="bi bi-x-lg"></i>
+    </button>
   </div>
-  <div class="row">
-    <table class="table">
-      <tbody>
-      <tr *ngFor="let task of tasks">
-        <td>
-          <a style="text-decoration: none;" [routerLink]="['/exercise', task?.id]">
-            <div>
-              <i class="fas fa-folder pr-3"></i>
-              <span class="font-weight-bold">{{task.name}}</span>
+
+  <!-- List -->
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+    <table class="table table-borderless mb-0 align-middle bg-transparent">
+      <tbody class="bg-transparent">
+      <tr *ngFor="let task of tasks" class="border-bottom border-soft bg-transparent">
+        <td class="py-3 bg-transparent">
+          <a class="text-decoration-none d-block" [routerLink]="['/exercise', task?.id]">
+            <div class="fw-semibold d-flex align-items-center gap-2 mb-1">
+              <i class="bi bi-folder"></i>
+              <span class="text-white">{{ task.name }}</span>
             </div>
-            <small class="mb-2 text-muted">
-            <span>
-              <span class="badge badge-light mr-1">{{ task.level.name }}</span>
-              <span *ngIf="task.category.upgradedId !== 0"
-                    style="text-decoration: line-through;"
-                    title="Блок был обновлен. Подробности в разделе 'Главное меню / Блоки'."
-                    class="badge badge-light mr-1">
-                {{ task.category.name }}
-              </span>
-              <span *ngIf="task.category.upgradedId === 0" class="badge badge-light mr-1">
-                {{ task.category.name }}
-              </span>
-            </span>
-              <!--            <span class="mr-3">Создана : {{ task.task.submitdate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
-              <!--            <span class="mr-3">Обновлена : {{  task.task.updatedate | date: 'hh:mm dd.MM.yyyy' }}</span>-->
-              <!--            <span class="mr-3" *ngIf="!task.task.preferences.includes('V')"> Потрачено : {{ getSpentDays( task.task.submitdate, task.task.updatedate)}} </span>-->
-            </small>
+
+            <div class="small text-muted-soft d-flex flex-wrap gap-2">
+                <span class="badge rounded-pill badge-glass">
+                  {{ task.level.name }}
+                </span>
+
+              <span
+                class="badge rounded-pill badge-glass"
+                *ngIf="task.category.upgradedId === 0"
+              >
+                  {{ task.category.name }}
+                </span>
+
+              <span
+                class="badge rounded-pill badge-glass text-decoration-line-through"
+                *ngIf="task.category.upgradedId !== 0"
+                title="Блок был обновлен. Подробности в разделе 'Главное меню / Блоки'."
+              >
+                  {{ task.category.name }}
+                </span>
+            </div>
           </a>
         </td>
-        <td>
-          <app-progress-bar-solutions
-            [progress]="task.progress"
-          ></app-progress-bar-solutions>
+
+        <td class="py-3 bg-transparent" style="width: 260px;">
+          <app-progress-bar-solutions [progress]="task.progress"></app-progress-bar-solutions>
+        </td>
+      </tr>
+
+      <tr *ngIf="!tasks?.length" class="bg-transparent">
+        <td class="text-center text-muted-soft py-4 bg-transparent" colspan="2">
+          Ничего не найдено
         </td>
       </tr>
       </tbody>

@@ -1,15 +1,33 @@
-<div class="row">
-  <nav aria-label="breadcrumb" *ngIf="solutions.length > 1">
-    <ol class="breadcrumb2 bg-white">
-      <li class="breadcrumb2-item small" *ngFor="let nav of solutions; let idx=index"
-      [ngClass]="{'ref-link': idx !== solutions.length -1}">
-        <a (click)="goToSol(nav, idx)">
-          {{ nav.name }}
-        </a>
-      </li>
-    </ol>
-  </nav>
+<div class="row mb-3 mt-3" *ngIf="solutions.length > 1">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <div
+        class="d-inline-flex align-items-center gap-2 px-3 py-2
+               card-glass rounded-4 shadow-sm"
+      >
+        <ng-container *ngFor="let nav of solutions; let idx = index">
+          <ng-container *ngIf="idx !== solutions.length - 1; else last">
+            <a
+              class="text-decoration-none text-muted-soft fw-semibold cursor-pointer"
+              (click)="goToSol(nav, idx)"
+            >
+              {{ nav.name }}
+            </a>
+            <span class="text-muted-soft">/</span>
+          </ng-container>
+
+          <ng-template #last>
+            <span class="text-white fw-semibold">
+              {{ nav.name }}
+            </span>
+          </ng-template>
+        </ng-container>
+      </div>
+    </nav>
+  </div>
 </div>
+
+
 <!--<ng-container  *ngIf="show">-->
 <!--<div class="row p-3" *ngFor="let message of emergency">-->
     <!--<div class="card w-100">-->

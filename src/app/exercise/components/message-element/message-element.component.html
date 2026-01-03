@@ -1,41 +1,95 @@
 <div *ngIf="!edit">
-  <div class="pb-3 small">
-                <span>
-                 <span *ngIf="message.status?.id == 1"
-                       class="badge badge-danger mr-3">{{ message.status?.statusName }}</span>
-                  <span *ngIf="message.status?.id == 3"
-                        class="badge badge-success mr-3">{{ message.status?.statusName }}</span>
-                  <span *ngIf="message.status?.id == 2"
-                        class="badge badge-dark mr-3">{{ message.status?.statusName }}</span>
-                  <span *ngIf="message.status?.id == 4"
-                        class="badge badge-warning mr-3">{{ message.status?.statusName }}</span>
-                  Сообщение от <span class="font-weight-bold">{{ message.submitter.name }}
-                  [{{message.submitter.mentor ? 'Ментор' : 'Ученик'}}]
-                </span> к <span class="font-weight-bold">{{ message.handler.name }}
-                  [{{!message.submitter.mentor ? 'Ментор' : 'Ученик'}}]</span>
-                </span>
-    <span class="pull-right"
-          style="cursor: pointer;"
-          *ngIf="message.submitter.id === user.id"
-          title="Отправить решение сообществу"
-          [routerLink]="['/solution_community', 'publish', 'task', message.message.id]">
-      <i class="fa fa-users ml-3"></i>
-    </span>
-    <span class="pull-right"
-          style="cursor: pointer;"
-          title="Отредактировать"
-          *ngIf="message.submitter.id === user.id" (click)="editMessage()">
-      <i class="fa fa-edit ml-3"></i>
-    </span>
-    <span class="pull-right">{{ message.message.timeMils | date: 'dd.MM.yyyy HH:mm' }}</span>
+  <div
+    class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2 small"
+  >
+    <div class="d-flex flex-wrap align-items-center gap-2">
+      <!-- Status -->
+      <span
+        *ngIf="message.status"
+        class="badge rounded-pill"
+        [ngClass]="{
+          'badge-accent': message.status?.id == 1,
+          'badge-good': message.status?.id == 3,
+          'badge-warn': message.status?.id == 4
+        }"
+      >
+        {{ message.status?.statusName }}
+      </span>
+
+      <!-- From / To -->
+      <span class="text-muted-soft">
+        Сообщение от
+        <span class="fw-semibold text-white">
+          {{ message.submitter.name }} [{{ message.submitter.mentor ? 'Ментор' : 'Ученик' }}]
+        </span>
+        к
+        <span class="fw-semibold text-white">
+          {{ message.handler.name }} [{{ !message.submitter.mentor ? 'Ментор' : 'Ученик' }}]
+        </span>
+      </span>
+    </div>
+
+    <!-- Right actions -->
+    <div class="d-flex align-items-center gap-2">
+      <span class="text-muted-soft">
+        {{ message.message.timeMils | date: 'dd.MM.yyyy HH:mm' }}
+      </span>
+
+      <a
+        *ngIf="message.submitter.id === user.id"
+        class="btn btn-sm btn-link text-muted-soft p-0"
+        title="Отправить решение сообществу"
+        [routerLink]="['/solution_community', 'publish', 'task', message.message.id]"
+      >
+        <i class="bi bi-people"></i>
+      </a>
+
+      <button
+        *ngIf="message.submitter.id === user.id"
+        type="button"
+        class="btn btn-sm btn-link text-muted-soft p-0"
+        title="Отредактировать"
+        (click)="editMessage()"
+      >
+        <i class="bi bi-pencil"></i>
+      </button>
+    </div>
   </div>
-  <div class="text-wrap" [innerHTML]="message.message.text"></div>
+
+  <!-- TEXT (главный источник белого фона) -->
+  <div class="text-wrap">
+    <div
+      class="text-muted-soft"
+      [innerHTML]="message.message.text"
+    ></div>
+  </div>
 </div>
+
 <div *ngIf="edit">
-  <app-redactor [text]="message.message.text" [titleLabel]="'Выполняется: Редактирование' "
-                (outputEmitter)="updateComment($event)"
+  <app-redactor
+    [text]="message.message.text"
+    [titleLabel]="'Выполняется: Редактирование'"
+    (outputEmitter)="updateComment($event)"
   ></app-redactor>
-  <button [disabled]="!newText"
-          (click)="update()" class="btn btn-sm btn-success mr-2">Сохранить</button>
-  <button (click)="cancel()" class="btn btn-sm btn-outline-secondary">Отменить</button>
+
+  <div
+    class="d-flex flex-wrap gap-2 mt-2"
+  >
+    <button
+      type="button"
+      class="btn btn-sm btn-j-primary"
+      [disabled]="!newText"
+      (click)="update()"
+    >
+      Сохранить
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-light border-soft"
+      (click)="cancel()"
+    >
+      Отменить
+    </button>
+  </div>
 </div>

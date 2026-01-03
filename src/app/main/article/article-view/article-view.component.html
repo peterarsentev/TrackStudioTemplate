@@ -3,6 +3,7 @@
     <div class="card">
       <div class="card-header">
         <span class="font-weight-bold">{{ article?.title }}</span>
+        <span class="small">{{ article?.shortDesc }}</span>
       </div>
       <div class="card-body">
         <p class="card-text" [innerHTML]="article?.description"></p>

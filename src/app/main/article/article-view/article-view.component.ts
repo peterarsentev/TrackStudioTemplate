@@ -4,6 +4,7 @@ import {ArticleService} from '../../../shared/services/article.service';
 import {ArticleModel} from '../../../shared/models/article.model';
 import {NavNode} from '../../../shared/models/nav.node';
 import {NavService} from '../../../shared/services/nav.service';
+import {prepareCode} from '../../../shared/code-viewer';
 
 @Component({
   selector: 'app-article-view',
@@ -26,6 +27,7 @@ export class ArticleViewComponent implements OnInit {
       .subscribe(res => {
         this.article = res;
         this.navService.setUpModel({...new NavNode(), articleName: res.title, article: true });
+        prepareCode()
       });
   }
 

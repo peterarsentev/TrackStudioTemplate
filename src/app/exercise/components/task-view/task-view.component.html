@@ -1,236 +1,393 @@
-<div class="container-fluid pb-4">
-  <div class="row pb-2">
-    <span class="w-50">
+<div class="container py-3 pb-4">
+  <!-- TOP ACTIONS -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+    <div class="d-flex flex-wrap gap-2">
       <ng-container *ngIf="canSolveTask">
-      <button *ngIf="task?.task?.type === 0" class="btn btn-success btn-sm"
-              (click)="goToComments({name: 'Отправить на проверку', id: 2})"
-              [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
-              [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
+        <button
+          *ngIf="task?.task?.type === 0"
+          class="btn btn-j-primary btn-sm"
+          (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+          [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+          [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')"
+        >
+          <i class="bi bi-send me-1"></i>Отправить на проверку
+        </button>
 
-      <button *ngIf="task?.task?.type === 2" class="btn btn-success btn-sm"
-              (click)="goToComments({name: 'Отправить на проверку', id: 2})"
-              [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
-              [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Ознакомился(лась)</button>
+        <button
+          *ngIf="task?.task?.type === 2"
+          class="btn btn-j-primary btn-sm"
+          (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+          [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+          [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')"
+        >
+          <i class="bi bi-check2-circle me-1"></i>Ознакомился(лась)
+        </button>
 
-       <button *ngIf="task?.task?.type === 1" class="btn btn-success btn-sm"
-               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
-               [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
-               [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
+        <button
+          *ngIf="task?.task?.type === 1"
+          class="btn btn-j-primary btn-sm"
+          (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+          [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+          [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')"
+        >
+          <i class="bi bi-send me-1"></i>Отправить на проверку
+        </button>
       </ng-container>
-    </span>
-    <span class="w-50 pull-right">
-      <button type="button" class="m btn btn-light btn-sm pull-right"
-              (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
-      <button *ngIf="task.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-              (click)="goBackToList(task.nextId)">Следующий<i class="fas fa-angle-right pl-1"></i></button>
-      <button *ngIf="task.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-              (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущий</button>
-      <button [disabled]="task.status?.id != 3" class="btn btn-info btn-sm ml-1 pull-right"
-              (click)="goToSolutions()"
-              title="Решения других учеников станут доступны после выполнения урока">Было решено: {{totalSolutions}}</button>
-    </span>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2">
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="goBackToList()"
+      >
+        <i class="bi bi-chevron-up"></i>Вверх
+      </button>
+
+      <button
+        *ngIf="task.previousId !== -1"
+        type="button"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="goBackToList(task.previousId)"
+      >
+        <i class="bi bi-chevron-left"></i>Предыдущий
+      </button>
+
+      <button
+        *ngIf="task.nextId !== -1"
+        type="button"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="goBackToList(task.nextId)"
+      >
+        Следующий<i class="bi bi-chevron-right"></i>
+      </button>
+
+      <button
+        [disabled]="task.status?.id != 3"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="goToSolutions()"
+        title="Решения других учеников станут доступны после выполнения урока"
+      >
+        <i class="bi bi-people"></i>
+        Было решено: {{ totalSolutions }}
+      </button>
+    </div>
   </div>
-  <div class="row pb-1">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="grid">
-          <div class="row">
-            <div class="col-sm-12">
-              <div>
-                <span class="font-weight-bold">{{ task?.task?.name }} {{ getSolutionId() }}
-                  <i class="fa fa-copy ml-1"
-                     (click)="copyTitle()"
-                     title="Копировать название"
-                     style="cursor: pointer;" aria-hidden="true"></i>
-                </span>
-                <span *ngIf="user?.login !== 'guest'" class="pull-right">
-                  <i class="fa fa-comments-o mr-2"
-                     onclick="window.scrollTo(0, document.body.scrollHeight);"
-                     title="Открыть обсуждения учеников"
-                     style="cursor: pointer;" aria-hidden="true"></i>
-                  <app-book-mark-star [name]="name"></app-book-mark-star>
-                  <i *ngIf="rating?.vote !== 'DOWN'"
-                     title="Урок не нравится"
-                     (click)="vote(false)" class="fa fa-thumbs-down text-muted"
-                     style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'DOWN'"
-                     title="Урок не нравится"
-                     (click)="vote(false)" class="fa fa-thumbs-down text-danger" style="cursor: pointer;"></i>
-                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
-                  <i *ngIf="rating?.vote !== 'UP'"
-                     title="Урок нравится"
-                     (click)="vote(true)" class="fa fa-thumbs-up text-muted"
-                     style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'UP'"
-                     title="Урок нравится"
-                     (click)="vote(true)" class="fa fa-thumbs-up text-primary"
-                     style="cursor: pointer;"></i>
-                  <span class="ml-1">{{ rating?.up }}</span>
-              </span>
-                <span class="pull-right mr-2" *ngIf="task?.task?.readTime" title="Время на чтение">
-                  <i aria-hidden="true" class="fa fa-eye text-muted"></i> {{task.task.readTime}} мин.
-                 </span>
-              </div>
-              <div>
-              </div>
-              <div>
-                <small class="mb-2 text-muted">
-                 <span *ngIf="task.status?.id == 1"
-                       class="badge badge-danger mr-3">{{ task.status?.statusName }}</span>
-                  <span *ngIf="task.status?.id == 3"
-                        class="badge badge-success mr-3">{{ task.status?.statusName }}</span>
-                  <span *ngIf="task.status?.id == 2"
-                        class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
-                  <span *ngIf="task.status?.id == 4"
-                        class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
-                  <span *ngIf="task.handler" class="mr-1 font-weight-bolder"
-                        title="Ответственный">
-                    <i aria-hidden="true" class="fa fa-user text-muted"></i> {{task.handler.name }},
-                  </span>
-                  <span *ngIf="task.solution" class="mr-1" title="Дата начало решения">
-                    <i aria-hidden="true" class="fa fa-hourglass-start text-muted"></i> {{ task.solution?.createdTime | date: 'dd.MM.yyyy HH:mm' }}, </span>
-                  <span *ngIf="task.solution" class="mr-1" title="Дата обоновления решения">
-                    <i aria-hidden="true" class="fa fa-hourglass-3 text-muted"></i> {{  task.solution?.updatedTime | date: 'dd.MM.yyyy HH:mm' }}, </span>
-                  <span *ngIf="taskTime" class="mr-1" title="Среднее время решения">
-                    <i aria-hidden="true" class="fa fa-clock-o text-muted"></i> {{ taskTime }}
-                  </span>
-                </small>
-              </div>
-            </div>
+
+  <!-- TASK CARD -->
+  <div class="card-glass rounded-4 shadow-soft overflow-hidden mb-3">
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="d-flex justify-content-between align-items-start gap-3">
+        <div class="min-w-0">
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <span class="fw-semibold text-white">
+              {{ task?.task?.name }} {{ getSolutionId() }}
+            </span>
+
+            <i
+              class="bi bi-copy text-muted-soft cursor-pointer"
+              (click)="copyTitle()"
+              title="Копировать название"
+            ></i>
+
+            <span
+              *ngIf="task?.task?.readTime"
+              class="badge rounded-pill badge-glass"
+              title="Время на чтение"
+            >
+              <i class="bi bi-eye me-1"></i>{{ task.task.readTime }} мин.
+            </span>
+          </div>
+
+          <div class="small text-muted-soft d-flex flex-wrap align-items-center gap-2 mt-2">
+            <span
+              class="badge rounded-pill"
+              [ngClass]="{
+                'badge-accent': task.status?.id == 1,
+                'badge-good': task.status?.id == 3,
+                'badge-warn': task.status?.id == 2 || task.status?.id == 4,
+                'badge-glass': !task.status
+              }"
+              *ngIf="task.status"
+            >
+              {{ task.status?.statusName }}
+            </span>
+
+            <span *ngIf="task.handler" class="d-inline-flex align-items-center gap-1" title="Ответственный">
+              <i class="bi bi-person"></i>
+              <span class="text-white">{{ task.handler.name }}</span>
+            </span>
+
+            <span *ngIf="task.solution" class="d-inline-flex align-items-center gap-1" title="Дата начала решения">
+              <i class="bi bi-hourglass-split"></i>
+              {{ task.solution?.createdTime | date: 'dd.MM.yyyy HH:mm' }}
+            </span>
+
+            <span *ngIf="task.solution" class="d-inline-flex align-items-center gap-1" title="Дата обновления решения">
+              <i class="bi bi-hourglass-bottom"></i>
+              {{ task.solution?.updatedTime | date: 'dd.MM.yyyy HH:mm' }}
+            </span>
+
+            <span *ngIf="taskTime" class="d-inline-flex align-items-center gap-1" title="Среднее время решения">
+              <i class="bi bi-clock"></i>
+              {{ taskTime }}
+            </span>
+
+            <i
+              *ngIf="task.solution && task.task.updated > task.solution.updatedTime"
+              class="bi bi-arrow-repeat text-muted-soft"
+              title="Описание урока было обновлено"
+            ></i>
           </div>
         </div>
+
+        <div class="d-flex align-items-center gap-2 flex-wrap" *ngIf="user?.login !== 'guest'">
+          <i
+            class="bi bi-chat-dots text-muted-soft cursor-pointer"
+            onclick="window.scrollTo(0, document.body.scrollHeight);"
+            title="Открыть обсуждения учеников"
+          ></i>
+
+          <app-book-mark-star [name]="name"></app-book-mark-star>
+
+          <span class="d-inline-flex align-items-center gap-2">
+            <span class="d-inline-flex align-items-center gap-1">
+              <i
+                class="bi bi-hand-thumbs-down cursor-pointer"
+                [ngClass]="rating?.vote === 'DOWN' ? 'text-danger' : 'text-muted-soft'"
+                title="Урок не нравится"
+                (click)="vote(false)"
+              ></i>
+              <span class="text-muted-soft">{{ rating?.down }}</span>
+            </span>
+
+            <span class="d-inline-flex align-items-center gap-1">
+              <i
+                class="bi bi-hand-thumbs-up cursor-pointer"
+                [ngClass]="rating?.vote === 'UP' ? 'text-primary' : 'text-muted-soft'"
+                title="Урок нравится"
+                (click)="vote(true)"
+              ></i>
+              <span class="text-muted-soft">{{ rating?.up }}</span>
+            </span>
+          </span>
+        </div>
       </div>
-      <div class="custom-card card-body">
-        <p class="card-text" [innerHTML]="task?.task?.description | safeCode"></p>
-      </div>
-      <div class="card-footer text-muted">
-        {{ task?.task?.name }} {{ getSolutionId() }}
-        <i class="fa fa-copy ml-1"
-           (click)="copyTitle()"
-           title="Копировать название"
-           style="cursor: pointer;" aria-hidden="true"></i>
+    </div>
+
+    <div class="px-3 px-md-4 py-3">
+      <p class="mb-0" [innerHTML]="task?.task?.description | safeCode"></p>
+    </div>
+
+    <div class="px-3 px-md-4 py-2 border-top border-soft text-muted-soft small d-flex align-items-center gap-2">
+      <span>{{ task?.task?.name }} {{ getSolutionId() }}</span>
+      <i
+        class="bi bi-copy cursor-pointer"
+        (click)="copyTitle()"
+        title="Копировать название"
+      ></i>
+    </div>
+  </div>
+
+  <!-- RECENTLY SOLVED -->
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white">Недавно решали</div>
+    </div>
+    <div class="px-3 px-md-4 py-3">
+      <div class="d-flex flex-wrap gap-2">
+        <button
+          *ngFor="let rs of recentlySolved"
+          type="button"
+          class="badge rounded-pill badge-glass cursor-pointer border-0"
+          (click)="openProfile(rs.userId, rs.login)"
+        >
+          <i class="bi bi-person me-1"></i>{{ rs.username }}
+          <span class="text-muted-soft ms-1">{{ rs.time | date: 'dd.MM.yyyy HH:mm' }}</span>
+        </button>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">Недавно решали: </div>
-        <small style="cursor: pointer;" *ngFor="let rs of recentlySolved" (click)="openProfile(rs.userId, rs.login)">
-          <i class="fa fa-user"></i> {{ rs.username }} {{ rs.time | date: 'dd.MM.yyyy HH:mm' }},&nbsp;
-        </small>
-      </div>
+  <!-- MESSAGES -->
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3" *ngIf="messages.length > 0">
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white">Сообщения</div>
     </div>
-  </div>
-  <div class="row mt-2" *ngIf="messages.length > 0" style="word-break: break-all;">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">Сообщения</div>
-      </div>
-      <div class="card-body">
-        <table class="table">
-          <tbody>
-          <tr *ngFor="let message of messages">
-            <td *ngIf="message.submitter.mentor" style='border-left: 5px solid #ffc107;' >
-              <app-message-element [message]="message"
-                                   [taskId]="task.task.id"
-                                   [user]="user"></app-message-element>
-            </td>
-            <td *ngIf="!message.submitter.mentor">
-              <app-message-element [message]="message"
-                                   [taskId]="task.task.id"
-                                   [user]="user"></app-message-element>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+
+    <div class="px-3 px-md-4 py-3" style="word-break: break-all;">
+      <table class="table table-borderless mb-0 align-middle">
+        <tbody>
+        <tr *ngFor="let message of messages" class="border-bottom border-soft">
+          <td
+            class="py-2 bg-transparent text-white"
+            [class.border-start]="message.submitter.mentor"
+            [style.borderLeft]="message.submitter.mentor ? '5px solid #ffc107' : null"
+          >
+            <app-message-element
+              [message]="message"
+              [taskId]="task.task.id"
+              [user]="user"
+            ></app-message-element>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <div class="row mt-1" *ngIf="task?.task?.type === 1">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">Задание</div>
-      </div>
-      <div class="card-body">
-        <app-task-exercise
-          [taskId]="task?.task?.id"
-          (updateCode)="code = $event"></app-task-exercise>
-      </div>
+  <!-- EXERCISE -->
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3" *ngIf="task?.task?.type === 1">
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white">Задание</div>
+    </div>
+    <div class="px-3 px-md-4 py-3">
+      <app-task-exercise
+        [taskId]="task?.task?.id"
+        (updateCode)="code = $event"
+      ></app-task-exercise>
     </div>
   </div>
 
-  <div class="row pt-2">
-    <span class="w-50">
+  <!-- BOTTOM ACTIONS -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-2 mb-2">
+    <div class="d-flex flex-wrap gap-2">
       <ng-container *ngIf="canSolveTask">
-       <button *ngIf="task?.task?.type === 0" class="btn btn-success btn-sm"
-               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
-               [disabled]="updatedGreatThanThreeDays"
-               [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : ''">Отправить на проверку</button>
-       <button *ngIf="task?.task?.type === 2" class="btn btn-success btn-sm"
-               (click)="goToComments({name: 'Отправить на проверку', id: 2})"
-               [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
-               [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Ознакомился(лась)</button>
-        <button *ngIf="task?.task?.type === 1" class="btn btn-success btn-sm"
-                (click)="goToComments({name: 'Отправить на проверку', id: 2})"
-                [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
-                [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')">Отправить на проверку</button>
+        <button
+          *ngIf="task?.task?.type === 0"
+          class="btn btn-j-primary btn-sm"
+          (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+          [disabled]="updatedGreatThanThreeDays"
+          [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : ''"
+        >
+          <i class="bi bi-send me-1"></i>Отправить на проверку
+        </button>
+
+        <button
+          *ngIf="task?.task?.type === 2"
+          class="btn btn-j-primary btn-sm"
+          (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+          [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+          [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')"
+        >
+          <i class="bi bi-check2-circle me-1"></i>Ознакомился(лась)
+        </button>
+
+        <button
+          *ngIf="task?.task?.type === 1"
+          class="btn btn-j-primary btn-sm"
+          (click)="goToComments({name: 'Отправить на проверку', id: 2})"
+          [disabled]="updatedGreatThanThreeDays || user?.payment === 'Демо доступ'"
+          [title]="updatedGreatThanThreeDays ? 'Вы не можете повторно отправлять решение.' : (user?.payment === 'Демо доступ' ? 'Пробный период закончился' : '')"
+        >
+          <i class="bi bi-send me-1"></i>Отправить на проверку
+        </button>
       </ng-container>
-    </span>
-    <span class="w-50 pull-right">
-      <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-              (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
-      <button *ngIf="task.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-              (click)="goBackToList(task.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-      <button *ngIf="task.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-              (click)="goBackToList(task.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
-      <button [disabled]="task.status?.id != 3" class="btn btn-info btn-sm ml-1 pull-right"
-              (click)="goToSolutions()"
-              title="Решения других учеников станут доступны после выполнения урока">Было решено: {{totalSolutions}}</button>
-    </span>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2">
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="goBackToList()"
+      >
+        <i class="bi bi-chevron-up"></i>Вверх
+      </button>
+
+      <button
+        *ngIf="task.previousId !== -1"
+        type="button"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="goBackToList(task.previousId)"
+      >
+        <i class="bi bi-chevron-left"></i>Предыдущая
+      </button>
+
+      <button
+        *ngIf="task.nextId !== -1"
+        type="button"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="goBackToList(task.nextId)"
+      >
+        Следующая<i class="bi bi-chevron-right"></i>
+      </button>
+
+      <button
+        [disabled]="task.status?.id != 3"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="goToSolutions()"
+        title="Решения других учеников станут доступны после выполнения урока"
+      >
+        <i class="bi bi-people"></i>
+        Было решено: {{ totalSolutions }}
+      </button>
+    </div>
   </div>
-  <div  id="comment" class="row comment">
-    <app-comments *ngIf="showCommentForm"
-                  [operation]="operation.name"
-                  [handlers]="handlers"
-                  [taskId]="task.task.id + ''"
-                  (save)="saveComment($event)"
+
+  <!-- COMMENTS -->
+  <div id="comment" class="row comment">
+    <app-comments
+      *ngIf="showCommentForm"
+      [operation]="operation.name"
+      [handlers]="handlers"
+      [taskId]="task.task.id + ''"
+      (save)="saveComment($event)"
     ></app-comments>
   </div>
-  <div *ngIf="user?.login !== 'guest' && rating?.vote === 'NO'" class="row mt-lg-5 mb-1">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">Понравилось задание?</div>
-        <div>
-          <small class="mb-2 text-muted">
-            Поставьте понравилось или нет. Эта оценка позволяет нам улучшать проект Job4j.
-          </small>
-          <span class="ml-3">
-                  <i *ngIf="rating?.vote !== 'DOWN'" (click)="vote(false)" class="fa fa-thumbs-down text-muted" style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'DOWN'" (click)="vote(false)" class="fa fa-thumbs-down text-danger" style="cursor: pointer;"></i>
-                  <span class="ml-1 mr-2">{{ rating?.down }}</span>
-                  <i *ngIf="rating?.vote !== 'UP'" (click)="vote(true)" class="fa fa-thumbs-up text-muted" style="cursor: pointer;"></i>
-                  <i *ngIf="rating?.vote === 'UP'" (click)="vote(true)" class="fa fa-thumbs-up text-primary" style="cursor: pointer;"></i>
-                  <span class="ml-1">{{ rating?.up }}</span>
+
+  <!-- POST-RATING -->
+  <div *ngIf="user?.login !== 'guest' && rating?.vote === 'NO'" class="mt-4">
+    <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+      <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+        <div class="fw-semibold text-white">Понравилось задание?</div>
+        <div class="text-muted-soft small mt-1">
+          Поставьте понравилось или нет. Эта оценка позволяет нам улучшать проект Job4j.
+        </div>
+      </div>
+
+      <div class="px-3 px-md-4 py-3">
+        <div class="d-inline-flex align-items-center gap-3">
+          <span class="d-inline-flex align-items-center gap-1">
+            <i
+              class="bi bi-hand-thumbs-down cursor-pointer"
+              [ngClass]="rating?.vote === 'DOWN' ? 'text-danger' : 'text-muted-soft'"
+              (click)="vote(false)"
+            ></i>
+            <span class="text-muted-soft">{{ rating?.down }}</span>
+          </span>
+
+          <span class="d-inline-flex align-items-center gap-1">
+            <i
+              class="bi bi-hand-thumbs-up cursor-pointer"
+              [ngClass]="rating?.vote === 'UP' ? 'text-primary' : 'text-muted-soft'"
+              (click)="vote(true)"
+            ></i>
+            <span class="text-muted-soft">{{ rating?.up }}</span>
           </span>
         </div>
       </div>
     </div>
   </div>
-  <app-discussion-block [discussions]="discussions"
-                        [user]="user"
-                        (deleteEmitter)="deleteDiscussion($event)"
-                        (closeEmitter)="closeDiscussion($event)"
-                        (updateEmitter)="updateDiscussion($event)"
-                        (addResponse)="addResponse($event)"
-                        (showButton)="showButton()"
+
+  <!-- DISCUSSIONS -->
+  <app-discussion-block
+    [discussions]="discussions"
+    [user]="user"
+    (deleteEmitter)="deleteDiscussion($event)"
+    (closeEmitter)="closeDiscussion($event)"
+    (updateEmitter)="updateDiscussion($event)"
+    (addResponse)="addResponse($event)"
+    (showButton)="showButton()"
   ></app-discussion-block>
-  <div *ngIf="showButtonBottom && canCreateDiscuss" class="row">
-        <span  class="w-100 pull-right mb-1">
-                    <button *ngIf="!!user && user?.login !== 'guest'" class="m btn btn-info btn-sm"
-                            (click)="showDiscussionForm()">{{'Обсудить'}}</button>
-        </span>
+
+  <!-- DISCUSS BUTTON -->
+  <div *ngIf="showButtonBottom && canCreateDiscuss" class="mt-2 d-flex justify-content-end">
+    <button
+      *ngIf="!!user && user?.login !== 'guest'"
+      class="btn btn-sm btn-outline-light border-soft"
+      (click)="showDiscussionForm()"
+    >
+      <i class="bi bi-chat-right-text me-1"></i>Обсудить
+    </button>
   </div>
 </div>
