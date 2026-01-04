@@ -1,58 +1,136 @@
-<div class="container-fluid pb-4">
-  <div class="row pb-2 w-100">
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Уведомления об уроках
-          <button class="btn btn-info pull-right" (click)="deleteMessage()">Удалить все</button>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let message of messages">
-        <td style="cursor: pointer; text-decoration: none;">
-          <span>
-            <span><em class="fas fa-tasks pr-3"></em>
-              <span class="font-weight-bold" [routerLink]="message.solutionId
-            ? ['/exercise', message.topicId, 'task', message.taskId, message.solutionId]
-             : ['/exercise', message.topicId, 'task-view', message.taskId]">
-                {{ message.text }} | {{ message.time | getDate }}
-              </span>
-              <span class="pull-right mr-5"><em (click)="deleteMessage(message.id)" class="fas fa-remove"></em></span>
-              <span class="small" [innerHTML]="message.msg"></span>
-            </span>
-          </span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <table *ngIf="notifications.length > 0" class="table">
-      <thead>
-      <tr>
-        <th scope="col">Уведомления об обсуждениях
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-container *ngFor="let not of notifications; let idx=index">
-        <tr>
-          <td style="cursor: pointer;">
-            <div routerLink="/discuss/all/{{not.discussId}}" fragment="comment_{{not.messageId}}">
-              <i class="fas fa-tasks pr-3"></i>
-              <span class="font-weight-bold">{{not.body}} | {{ not.time | getDate }}</span>
-            </div>
-            <small class="mb-2 text-muted">
-            <span>
-              <span class="mr-3">Сообщение от : {{ not.submitter.name }}</span>
-            </span>
-            </small>
-          </td>
-          <td>
-            <span class="pull-right mr-5"><em (click)="delete(not, idx)" class="fas fa-remove"></em></span>
-          </td>
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+<div class="container py-3">
+  <div class="row">
+    <div class="col-12">
+
+      <!-- Уведомления об уроках -->
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
+            <div class="fw-semibold text-white">Уведомления об уроках</div>
+
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+              (click)="deleteMessage()"
+            >
+              <i class="bi bi-trash"></i>
+              Удалить все
+            </button>
+          </div>
+        </div>
+
+        <div class="px-3 px-md-4 py-2">
+          <table class="table table-borderless mb-0 align-middle bg-transparent">
+            <tbody class="bg-transparent">
+            <tr *ngFor="let message of messages" class="border-bottom border-soft bg-transparent">
+              <td class="py-3 bg-transparent">
+                <div class="d-flex align-items-start justify-content-between gap-3">
+                  <div class="min-w-0">
+                    <a
+                      class="text-decoration-none d-block"
+                      [routerLink]="
+                          message.solutionId
+                            ? ['/exercise', message.topicId, 'task', message.taskId, message.solutionId]
+                            : ['/exercise', message.topicId, 'task-view', message.taskId]
+                        "
+                    >
+                      <div class="d-flex align-items-start gap-2">
+                        <i class="bi bi-list-check mt-1 text-muted-soft"></i>
+                        <div class="min-w-0">
+                          <div class="fw-semibold text-white text-truncate">
+                            {{ message.text }}
+                          </div>
+                          <div class="small text-muted-soft mt-1">
+                            {{ message.time | getDate }}
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+
+                    <div class="small text-muted-soft mt-2" [innerHTML]="message.msg"></div>
+                  </div>
+
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-link text-muted-soft p-0"
+                    title="Удалить"
+                    (click)="deleteMessage(message.id)"
+                  >
+                    <i class="bi bi-x-lg"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngIf="!messages?.length" class="bg-transparent">
+              <td class="text-center text-muted-soft py-4 bg-transparent">
+                Нет уведомлений по урокам
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Уведомления об обсуждениях -->
+      <div *ngIf="notifications.length > 0" class="card-glass rounded-4 shadow-sm overflow-hidden">
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white">Уведомления об обсуждениях</div>
+        </div>
+
+        <div class="px-3 px-md-4 py-2">
+          <table class="table table-borderless mb-0 align-middle bg-transparent">
+            <tbody class="bg-transparent">
+            <tr
+              *ngFor="let not of notifications; let idx = index"
+              class="border-bottom border-soft bg-transparent"
+            >
+              <td class="py-3 bg-transparent">
+                <div class="d-flex align-items-start justify-content-between gap-3">
+                  <a
+                    class="text-decoration-none d-block flex-grow-1"
+                    [routerLink]="['/discuss/all', not.discussId]"
+                    [fragment]="'comment_' + not.messageId"
+                  >
+                    <div class="d-flex align-items-start gap-2">
+                      <i class="bi bi-chat-dots mt-1 text-muted-soft"></i>
+
+                      <div class="min-w-0">
+                        <div class="fw-semibold text-white">
+                          {{ not.body }}
+                        </div>
+
+                        <div class="small text-muted-soft mt-1">
+                          {{ not.time | getDate }}
+                          <span class="ms-2">•</span>
+                          <span class="ms-2">От: <span class="text-white">{{ not.submitter.name }}</span></span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-link text-muted-soft p-0"
+                    title="Удалить"
+                    (click)="delete(not, idx)"
+                  >
+                    <i class="bi bi-x-lg"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngIf="!notifications?.length" class="bg-transparent">
+              <td class="text-center text-muted-soft py-4 bg-transparent">
+                Нет уведомлений по обсуждениям
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>

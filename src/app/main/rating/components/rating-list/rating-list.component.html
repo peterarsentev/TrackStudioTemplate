@@ -1,34 +1,73 @@
-<div class="container-fluid">
+<div class="container py-3">
   <div class="row">
-    <table class="table">
-      <caption></caption>
-      <thead>
-      <tr>
-        <th scope="col">№</th>
-        <th scope="col">Имя</th>
-        <th scope="col">Рейтинг</th>
-        <th scope="col">Дата регистрации</th>
-      </tr>
-      </thead>
-      <tbody infinite-scroll
-             class="noscroll"
-             [infiniteScrollDisabled]="!paginationAllowed"
-             [infiniteScrollDistance]="scrollDistance"
-             [infiniteScrollThrottle]="throttle"
-             (scrolled)="onScrollDown()">
-      <ng-container *ngFor="let r of ratings; let idx=index">
-        <tr  [ngStyle]="{backgroundColor: user?.id == r.userId ? ' #57CFBA' : 'white'}">
-          <td>{{idx + 1}}</td>
-          <td style="cursor: pointer;">
-            <span class="font-weight-bold">{{r.name}}</span>
-          </td>
-          <td>
-            {{ r.score }}
-          </td>
-          <td>{{ r.register | date: 'dd MMM yyyy' }}</td>
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+        <!-- Header -->
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white d-flex align-items-center gap-2">
+            <i class="bi bi-trophy"></i>
+            Рейтинг участников
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive bg-transparent">
+          <table class="table table-borderless mb-0 align-middle bg-transparent table-glass">
+            <thead class="border-bottom border-soft bg-transparent">
+            <tr class="text-muted-soft small bg-transparent">
+              <th class="py-3 bg-transparent">#</th>
+              <th class="py-3 bg-transparent">Имя</th>
+              <th class="py-3 bg-transparent">Рейтинг</th>
+              <th class="py-3 bg-transparent">Регистрация</th>
+            </tr>
+            </thead>
+
+            <tbody
+              infinite-scroll
+              class="noscroll bg-transparent"
+              [infiniteScrollDisabled]="!paginationAllowed"
+              [infiniteScrollDistance]="scrollDistance"
+              [infiniteScrollThrottle]="throttle"
+              (scrolled)="onScrollDown()"
+            >
+            <tr
+              *ngFor="let r of ratings; let idx = index"
+              class="border-bottom border-soft bg-transparent cursor-pointer"
+              [class.bg-glass]="user?.id === r.userId"
+            >
+              <td class="py-3 bg-transparent text-muted-soft">
+                {{ idx + 1 }}
+              </td>
+
+              <td class="py-3 bg-transparent">
+                  <span class="fw-semibold text-white">
+                    {{ r.name }}
+                  </span>
+              </td>
+
+              <td class="py-3 bg-transparent">
+                  <span class="fw-semibold text-white">
+                    {{ r.score }}
+                  </span>
+              </td>
+
+              <td class="py-3 bg-transparent text-muted-soft">
+                {{ r.register | date: 'dd MMM yyyy' }}
+              </td>
+            </tr>
+
+            <tr *ngIf="!ratings?.length" class="bg-transparent">
+              <td colspan="4" class="text-center text-muted-soft py-4 bg-transparent">
+                Рейтинг пока пуст
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /Table -->
+
+      </div>
+    </div>
   </div>
 </div>

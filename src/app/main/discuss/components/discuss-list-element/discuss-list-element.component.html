@@ -1,109 +1,223 @@
-<div class="container-fluid">
-  <div class="row">
-        <span class="w-100 pull-right mb-1">
-          <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-                  (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
-          <button *ngIf="discuss.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-                  (click)="goBackToList(discuss.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-          <button *ngIf="discuss.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-                  (click)="goBackToList(discuss.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
-        </span>
+<div class="container py-3">
+  <!-- Top actions -->
+  <div class="d-flex flex-wrap justify-content-end gap-2 mb-3">
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+      (click)="goBackToList()"
+    >
+      <i class="bi bi-chevron-up"></i>
+      Вверх
+    </button>
+
+    <button
+      *ngIf="discuss.previousId !== -1"
+      type="button"
+      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+      (click)="goBackToList(discuss.previousId)"
+    >
+      <i class="bi bi-chevron-left"></i>
+      Предыдущая
+    </button>
+
+    <button
+      *ngIf="discuss.nextId !== -1"
+      type="button"
+      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+      (click)="goBackToList(discuss.nextId)"
+    >
+      Следующая
+      <i class="bi bi-chevron-right"></i>
+    </button>
   </div>
-  <div class="row">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="grid">
-          <div class="row">
-            <div class="col-sm-12">
-              <div>
-                <span class="font-weight-bold w-50">
-                  <a
-                    *ngIf="discuss.taskId"> {{ 'Урок / ' + discuss.topic.level.name + ' / ' + discuss.topic.category.name + ' / '}}</a>
-                  <a
-                    *ngIf="discuss.exerciseId"> {{ 'Упражнение / '  }}</a>
-                  <a *ngIf="discuss.sqlExerciseId"> {{  'Упражнение SQL / ' }}</a>
-                  <a *ngIf="discuss.taskId"
-                     [routerLink]="'/exercise/' + discuss.topic.id  + '/' + 'task-view/' + discuss.taskId">{{discuss.name}}</a>
-                  <a *ngIf="discuss.exerciseId"
-                     [routerLink]="'/topics/' +  discuss.topic.id + '/' + 'task_code/' + discuss.exerciseId + '/new_task'">{{discuss.name}}</a>
-                  <a *ngIf="discuss.sqlExerciseId"
-                     [routerLink]="'/sqlExercise/' + discuss.topic.id + '/show/' + discuss.sqlExerciseId">{{discuss.name}}</a>
-                  <a *ngIf="!discuss.taskId && !discuss.exerciseId && !discuss.sqlExerciseId">{{ discuss.name }}</a>
-                </span>
-                <span class="w-50">
-                  <app-book-mark-star [name]="discuss.name"></app-book-mark-star>
-                  <i *ngIf="!discuss.subscribed" style="cursor: pointer;"
-                     (click)="subscribe()" title="Подписаться"
-                     class="fa fa-bell-o mr-2 pull-right" aria-hidden="true"></i>
-                  <i *ngIf="discuss.subscribed" style="cursor: pointer;"
-                     (click)="subscribe()" title="Отписаться"
-                     class="fa fa-bell-slash-o mr-2 pull-right" aria-hidden="true"></i>
-                </span>
-              </div>
-              <div>
-                <small class="mb-2 text-muted">
-                  <span class="mr-3">Автор : {{discuss.submitter.name }}</span>
-                  <span class="mr-3">Дата создания : {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}</span>
-                  <span>Обновлена : {{  discuss.updated | date: 'dd.MM.yyyy HH:mm' }}</span>
-                </small>
-              </div>
-            </div>
+
+  <!-- Discussion card -->
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+    <!-- Header -->
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="d-flex flex-wrap gap-2 align-items-start justify-content-between">
+        <div class="min-w-0">
+          <div class="fw-semibold text-white">
+            <!-- Prefix -->
+            <ng-container *ngIf="discuss.taskId">
+              Урок / {{ discuss.topic.level.name }} / {{ discuss.topic.category.name }} /
+            </ng-container>
+            <ng-container *ngIf="discuss.exerciseId">
+              Упражнение /
+            </ng-container>
+            <ng-container *ngIf="discuss.sqlExerciseId">
+              Упражнение SQL /
+            </ng-container>
+
+            <!-- Title link -->
+            <a
+              *ngIf="discuss.taskId"
+              class="link-light text-decoration-none"
+              [routerLink]="'/exercise/' + discuss.topic.id + '/task-view/' + discuss.taskId"
+            >
+              {{ discuss.name }}
+            </a>
+
+            <a
+              *ngIf="discuss.exerciseId"
+              class="link-light text-decoration-none"
+              [routerLink]="'/topics/' + discuss.topic.id + '/task_code/' + discuss.exerciseId + '/new_task'"
+            >
+              {{ discuss.name }}
+            </a>
+
+            <a
+              *ngIf="discuss.sqlExerciseId"
+              class="link-light text-decoration-none"
+              [routerLink]="'/sqlExercise/' + discuss.topic.id + '/show/' + discuss.sqlExerciseId"
+            >
+              {{ discuss.name }}
+            </a>
+
+            <span *ngIf="!discuss.taskId && !discuss.exerciseId && !discuss.sqlExerciseId">
+              {{ discuss.name }}
+            </span>
+          </div>
+
+          <div class="small text-muted-soft mt-2 d-flex flex-wrap gap-3">
+            <span>Автор: <span class="text-white">{{ discuss.submitter.name }}</span></span>
+            <span>Создано: {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}</span>
+            <span>Обновлено: {{ discuss.updated | date: 'dd.MM.yyyy HH:mm' }}</span>
           </div>
         </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <app-book-mark-star [name]="discuss.name"></app-book-mark-star>
+
+          <button
+            type="button"
+            class="btn btn-sm btn-link text-muted-soft p-0"
+            [title]="discuss.subscribed ? 'Отписаться' : 'Подписаться'"
+            (click)="subscribe()"
+          >
+            <i class="bi" [ngClass]="discuss.subscribed ? 'bi-bell-slash' : 'bi-bell'"></i>
+          </button>
+        </div>
       </div>
-      <div class="card-body pre-scrollable">
-        <p class="card-text" [innerHTML]="discuss.description | safeCode"></p>
-        <p *ngIf="discuss.taskCode">
-          <ngx-codemirror [(ngModel)]="discuss.taskCode"
-                          [options]="options"
-          ></ngx-codemirror>
-        </p>
-        <div *ngIf="!!discuss.sqlExerciseId">
-          <div class="font-weight-bold">Схема базы данных:</div>
-          <ngx-codemirror [(ngModel)]="discuss.scheme"
-                          [options]="optionsOutput"
-          ></ngx-codemirror>
-          <div class="font-weight-bold">Данные:</div>
-          <ngx-codemirror [(ngModel)]="discuss.initScript"
-                          [options]="optionsOutput"
-          ></ngx-codemirror>
+    </div>
+
+    <!-- Body -->
+    <div class="px-3 px-md-4 py-3">
+      <div class="text-muted-soft" [innerHTML]="discuss.description | safeCode"></div>
+
+      <div *ngIf="discuss.taskCode" class="mt-3">
+        <ngx-codemirror [(ngModel)]="discuss.taskCode" [options]="options"></ngx-codemirror>
+      </div>
+
+      <div *ngIf="!!discuss.sqlExerciseId" class="mt-3">
+        <div class="fw-semibold text-white mb-2">Схема базы данных</div>
+        <ngx-codemirror [(ngModel)]="discuss.scheme" [options]="optionsOutput"></ngx-codemirror>
+
+        <div class="fw-semibold text-white mt-3 mb-2">Данные</div>
+        <ngx-codemirror [(ngModel)]="discuss.initScript" [options]="optionsOutput"></ngx-codemirror>
+      </div>
+    </div>
+
+    <!-- Footer actions -->
+    <div class="px-3 px-md-4 py-3 border-top border-soft">
+      <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
+        <button
+          *ngIf="canCreateDiscuss"
+          type="button"
+          class="btn btn-sm btn-j-primary d-inline-flex align-items-center gap-1"
+          (click)="showDiscussionForm()"
+        >
+          <i class="bi bi-chat-right-text"></i>
+          Обсудить
+        </button>
+
+        <div class="d-flex flex-wrap gap-2 ms-auto">
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+            (click)="goBackToList()"
+          >
+            <i class="bi bi-chevron-up"></i>
+            Вверх
+          </button>
+
+          <button
+            *ngIf="discuss.previousId !== -1"
+            type="button"
+            class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+            (click)="goBackToList(discuss.previousId)"
+          >
+            <i class="bi bi-chevron-left"></i>
+            Предыдущая
+          </button>
+
+          <button
+            *ngIf="discuss.nextId !== -1"
+            type="button"
+            class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+            (click)="goBackToList(discuss.nextId)"
+          >
+            Следующая
+            <i class="bi bi-chevron-right"></i>
+          </button>
         </div>
       </div>
     </div>
   </div>
-  <div class="row mt-1" >
-     <span class="w-50 pull-left">
-         <button *ngIf="canCreateDiscuss" (click)="showDiscussionForm()" class="m btn btn-info btn-sm">
-            {{'Обсудить'}}
-          </button>
-        </span>
-        <span class="w-50 pull-right">
-          <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-                  (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
-          <button *ngIf="discuss.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-                  (click)="goBackToList(discuss.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-          <button *ngIf="discuss.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-                  (click)="goBackToList(discuss.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
-        </span>
+
+  <!-- Discussion block -->
+  <div class="mt-3">
+    <app-discussion-block
+      [discussions]="discussions"
+      [user]="user"
+      (addResponse)="addNewResponse($event)"
+      (updateEmitter)="updateDiscussion($event)"
+      (deleteEmitter)="deleteDiscussion($event)"
+      (closeEmitter)="closeDiscussion($event)"
+    ></app-discussion-block>
   </div>
-  <app-discussion-block [discussions]="discussions"
-                        [user]="user"
-                        (addResponse)="addNewResponse($event)"
-                        (updateEmitter)="updateDiscussion($event)"
-                        (deleteEmitter)="deleteDiscussion($event)"
-                        (closeEmitter)="closeDiscussion($event)"
-  ></app-discussion-block>
-  <div class="row">
-        <span class="w-100 pull-right mb-1">
-                    <button *ngIf="canCreateDiscuss" class="m btn btn-info btn-sm"
-                            (click)="showDiscussionForm()">{{'Обсудить'}}</button>
-          <button type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-                  (click)="goBackToList()"><i class="fas fa-angle-up pr-1"></i>Вверх</button>
-          <button *ngIf="discuss.nextId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-                  (click)="goBackToList(discuss.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-          <button *ngIf="discuss.previousId !== -1" type="button" class="ml-2 m btn btn-light btn-sm pull-right"
-                  (click)="goBackToList(discuss.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
-        </span>
+
+  <!-- Bottom quick actions -->
+  <div class="d-flex flex-wrap gap-2 justify-content-between mt-3">
+    <button
+      *ngIf="canCreateDiscuss"
+      type="button"
+      class="btn btn-sm btn-j-primary d-inline-flex align-items-center gap-1"
+      (click)="showDiscussionForm()"
+    >
+      <i class="bi bi-chat-right-text"></i>
+      Обсудить
+    </button>
+
+    <div class="d-flex flex-wrap gap-2 ms-auto">
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="goBackToList()"
+      >
+        <i class="bi bi-chevron-up"></i>
+        Вверх
+      </button>
+
+      <button
+        *ngIf="discuss.previousId !== -1"
+        type="button"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="goBackToList(discuss.previousId)"
+      >
+        <i class="bi bi-chevron-left"></i>
+        Предыдущая
+      </button>
+
+      <button
+        *ngIf="discuss.nextId !== -1"
+        type="button"
+        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        (click)="goBackToList(discuss.nextId)"
+      >
+        Следующая
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
   </div>
 </div>
-

@@ -1,21 +1,57 @@
-<div class="container-fluid">
+<div class="container py-3">
   <div class="row">
-    <table class="table">
-      <ng-container *ngFor="let topic of topics; let idx=index">
-        <tr>
-          <td style="cursor: pointer;">
-            <div (click)="linkTopic(topic?.id)">
-              <div>
-                <i class="fas fa-tasks pr-2"></i>
-                <span class="font-weight-bold">{{topic?.name}}</span><br/>
-                <span class="small text-muted" *ngIf="views">
-                  <i aria-hidden="true" class="fa fa-eye"></i> {{ views[topic?.id] }}
-                </span>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </ng-container>
-    </table>
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+        <!-- Header -->
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white">
+            Темы
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="px-3 px-md-4 py-2">
+          <table class="table table-borderless mb-0 align-middle bg-transparent">
+            <tbody class="bg-transparent">
+            <tr
+              *ngFor="let topic of topics; let idx = index"
+              class="border-bottom border-soft bg-transparent"
+              style="cursor: pointer;"
+              (click)="linkTopic(topic?.id)"
+            >
+              <td class="py-3 bg-transparent">
+                <div class="d-flex align-items-start gap-2">
+                  <i class="bi bi-folder2-open mt-1 text-muted-soft"></i>
+
+                  <div class="min-w-0">
+                    <div class="fw-semibold text-white mb-1">
+                      {{ topic?.name }}
+                    </div>
+
+                    <div
+                      class="small text-muted-soft d-flex align-items-center gap-1"
+                      *ngIf="views"
+                    >
+                      <i class="bi bi-eye"></i>
+                      {{ views[topic?.id] }}
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngIf="!topics?.length" class="bg-transparent">
+              <td class="text-center text-muted-soft py-4 bg-transparent">
+                Тем пока нет
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /List -->
+
+      </div>
+    </div>
   </div>
 </div>

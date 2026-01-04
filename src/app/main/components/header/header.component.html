@@ -25,7 +25,6 @@
 
         <li class="nav-item">
           <a class="nav-link px-3 rounded-pill" [routerLink]="['/exercise']">
-            <i class="fas fa-tachometer-alt me-1"></i>
             {{ 'Уроки: ' + solvedTasksCount + '/' + allTasksCount }}
           </a>
         </li>
@@ -38,9 +37,11 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <i class="fas fa-thumbtack me-1"></i> Решения
+            Решения
           </button>
-          <ul class="dropdown-menu dropdown-menu-glass" aria-labelledby="solutionDd">
+          <ul
+            class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
+              aria-labelledby="solutionDd">
             <li><a class="dropdown-item" [routerLink]="['/tasksByStatus/revert']">Отклоненные</a></li>
             <li><a class="dropdown-item" [routerLink]="['/tasksByStatus/finished']">Выполненные</a></li>
             <li><a class="dropdown-item" [routerLink]="['/tasksByStatus/review']">На проверке</a></li>
@@ -53,8 +54,7 @@
             <span
               *ngIf="count + (discussCount?.count || 0) > 0"
               class="badge rounded-pill bg-light text-dark ms-1"
-            >
-              {{ count + (discussCount?.count || 0) }}
+            >{{ count + (discussCount?.count || 0) }}
             </span>
           </a>
         </li>
@@ -66,10 +66,11 @@
             id="discuss"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-          >
-            <i class="fas fa-users me-1"></i> Сообщество
+          >Сообщество
           </button>
-          <ul class="dropdown-menu dropdown-menu-glass" aria-labelledby="discuss">
+          <ul
+            class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
+            aria-labelledby="discuss">
             <li><a class="dropdown-item" [routerLink]="['/article']">Статьи</a></li>
             <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Обсуждения</a></li>
             <li>
@@ -96,10 +97,11 @@
             id="exercises"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-          >
-            <i class="fas fa-dumbbell me-1"></i> Упражнения
+          >Упражнения
           </button>
-          <ul class="dropdown-menu dropdown-menu-glass" aria-labelledby="exercises">
+          <ul
+            class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
+            aria-labelledby="exercises">
             <li><a class="dropdown-item" [routerLink]="['/topics']">Java Core</a></li>
             <li><a class="dropdown-item" [routerLink]="['/sqlExercise']">SQL</a></li>
             <li><a class="dropdown-item" [routerLink]="['/exams']">Экзамены</a></li>
@@ -107,78 +109,50 @@
           </ul>
         </li>
 
-        <li class="nav-item dropdown" *ngIf="bookmarks?.length">
+        <li class="nav-item dropdown">
           <button
             class="btn btn-link nav-link px-3 rounded-pill dropdown-toggle d-flex align-items-center"
             type="button"
-            id="exercisesDd"
+            id="bookmark"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            title="Закладки"
           >
-            <i class="far fa-bookmark me-1"></i>
+            <i class="far fa-bookmark"></i>
           </button>
-          <ul class="dropdown-menu dropdown-menu-glass dropdown-menu-end" aria-labelledby="exercisesDd">
+          <ul
+            class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
+            aria-labelledby="bookmark">
             <li *ngFor="let book of bookmarks" class="d-flex justify-content-between align-items-center px-2">
               <a (click)="goToBook(book)" class="dropdown-item flex-fill">{{ book.name }}</a>
-              <button
-                (click)="deleteBook($event, book)"
-                type="button"
-                class="btn btn-sm btn-link text-white-50 ms-2"
-                aria-label="Удалить"
-              >
+              <button (click)="deleteBook($event, book)" type="button" class="close ml-2" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </li>
           </ul>
         </li>
-      </ul>
 
-      <div class="d-flex flex-wrap gap-2 align-items-center justify-content-lg-end">
-        <form class="d-flex" role="search">
-          <div class="input-group input-group-sm">
-            <span class="input-group-text bg-transparent border-soft text-white-50">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </span>
-            <input
-              type="text"
-              #text
-              (keydown.enter)="search(text.value)"
-              class="form-control bg-transparent border-soft text-white"
-              placeholder="Поиск"
-              aria-label="Поиск"
-            />
-            <button (click)="search(text.value)" class="btn btn-outline-light border-soft" type="button">
-              Найти
-            </button>
-          </div>
-          <div *ngIf="searchResult" (click)="clearSearch()" class="dropdown-menu2"></div>
-        </form>
-
-        <div class="dropdown">
+        <li  class="nav-item dropdown">
           <button
-            class="btn btn-outline-light border-soft dropdown-toggle d-flex align-items-center gap-2"
+            class="btn btn-link nav-link px-3 rounded-pill dropdown-toggle d-flex align-items-center"
             type="button"
             id="dropdownMenuButton"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <i class="fas fa-user-circle"></i>
+            <i class="fas fa-user-circle mr-1"></i>
             <span class="d-none d-sm-inline">{{ user.name }}</span>
           </button>
 
-          <ul class="dropdown-menu dropdown-menu-glass dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+          <ul
+            class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
+            aria-labelledby="dropdownMenuButton">
             <li><a class="dropdown-item" [routerLink]="['/']">Статистика</a></li>
             <li><a class="dropdown-item" [routerLink]="['/profile']">Настройки</a></li>
             <li><a class="dropdown-item" [routerLink]="['/payment']">Оплата</a></li>
 
-            <li><hr class="dropdown-divider opacity-25" /></li>
-
-            <li><a class="dropdown-item" href="https://checkdev.ru/" target="_blank" rel="noopener">Собеседования</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/vacancies']">Вакансии</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/company']">Компании</a></li>
-
-            <li><hr class="dropdown-divider opacity-25" /></li>
+            <li>
+              <hr class="dropdown-divider opacity-25"/>
+            </li>
 
             <li>
               <a
@@ -198,56 +172,67 @@
               </a>
             </li>
 
-            <li><hr class="dropdown-divider opacity-25" /></li>
+            <li>
+              <hr class="dropdown-divider opacity-25"/>
+            </li>
 
             <li><a class="dropdown-item" [routerLink]="['/updates']">Обновления</a></li>
             <li><a class="dropdown-item" [routerLink]="['/updates/blocks']">Блоки</a></li>
 
-            <li><hr class="dropdown-divider opacity-25" /></li>
+            <li>
+              <hr class="dropdown-divider opacity-25"/>
+            </li>
 
             <li>
               <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
             </li>
           </ul>
-        </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg sticky-top bg-glass" *ngIf="!!user && user.login === 'guest'">
+  <div class="container py-2">
+    <a class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold" href="#">
+      <span class="logo" aria-hidden="true"></span>
+      <span class="d-flex flex-column lh-sm">
+          <span>Job4j</span>
+          <small class="text-muted-soft fw-semibold">Практика. Ревью. Результат.</small>
+        </span>
+    </a>
+
+    <button class="navbar-toggler border-soft" type="button" data-bs-toggle="collapse" data-bs-target="#navbarJob4j"
+            aria-controls="navbarJob4j" aria-expanded="false" aria-label="Переключить навигацию">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarJob4j">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-1">
+        <li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#courses">Курсы</a></li>
+        <li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#path">Как устроено</a></li>
+        <li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#community">Комьюнити</a></li>
+        <li class="nav-item"><a class="nav-link px-3 rounded-pill"
+                                href="https://vk.com/topic-137186267_36711020?offset=120"
+                                target="_blank"
+        >Отзывы</a></li>
+        <li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#faq">FAQ</a></li>
+      </ul>
+
+      <div class="d-flex flex-wrap gap-2 align-items-center justify-content-lg-end">
+          <span class="pill" title="Статус платформы">
+            <span class="dot" aria-hidden="true"></span>
+            Онлайн-платформа
+          </span>
+        <a class="btn btn-outline-light border-soft" href="/login">Войти</a>
+        <a class="btn btn-j-primary" href="/courses">Выбрать курс</a>
       </div>
     </div>
   </div>
 </nav>
 
+<app-admin-message *ngIf="!!user && user.login !== 'guest' && message" [message]="message"></app-admin-message>
 
-<!--<nav class="navbar navbar-expand-lg sticky-top bg-glass" *ngIf="user === undefined || user?.login === 'guest'">-->
-  <!--<div class="container py-2">-->
-    <!--<a class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold" href="#">-->
-      <!--<span class="logo" aria-hidden="true"></span>-->
-      <!--<span class="d-flex flex-column lh-sm">-->
-          <!--<span>Job4j</span>-->
-          <!--<small class="text-muted-soft fw-semibold">Практика. Ревью. Результат.</small>-->
-        <!--</span>-->
-    <!--</a>-->
-
-    <!--<button class="navbar-toggler border-soft" type="button" data-bs-toggle="collapse" data-bs-target="#navbarJob4j"-->
-            <!--aria-controls="navbarJob4j" aria-expanded="false" aria-label="Переключить навигацию">-->
-      <!--<span class="navbar-toggler-icon"></span>-->
-    <!--</button>-->
-
-    <!--<div class="collapse navbar-collapse" id="navbarJob4j">-->
-      <!--<ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-1">-->
-        <!--<li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#courses">Курсы</a></li>-->
-        <!--<li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#path">Как устроено</a></li>-->
-        <!--<li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#community">Комьюнити</a></li>-->
-        <!--<li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#reviews">Отзывы</a></li>-->
-        <!--<li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#faq">FAQ</a></li>-->
-      <!--</ul>-->
-
-      <!--<div class="d-flex flex-wrap gap-2 align-items-center justify-content-lg-end">-->
-          <!--<span class="pill" title="Статус платформы">-->
-            <!--<span class="dot" aria-hidden="true"></span>-->
-            <!--Онлайн-платформа-->
-          <!--</span>-->
-        <!--<a class="btn btn-outline-light border-soft" href="/login">Войти</a>-->
-        <!--<a class="btn btn-j-primary" href="/courses">Выбрать курс</a>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</nav>-->
+<app-navigation (getMessage)="getRecommendation()" *ngIf="navShow"></app-navigation>

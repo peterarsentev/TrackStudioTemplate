@@ -1,89 +1,148 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="w-100 pull-right mb-2">
-      <a *ngIf="!!solutionCommunity?.nextId && solutionCommunity?.nextId !== -1"
-         type="button" class="m btn btn-light btn-sm pull-right"
-         [routerLink]="['/solution_community','item', solutionCommunity?.nextId]">Следующая<i class="fas fa-angle-right pl-1"></i></a>
-      <a *ngIf="!!solutionCommunity?.previousId && solutionCommunity?.previousId !== -1"
-         type="button" class="m btn btn-light pull-right btn-sm mr-2"
-          [routerLink]="['/solution_community','item', solutionCommunity?.previousId]"><i class="fas fa-angle-left pr-1"></i>Предыдущая</a>
-    </div>
+<div class="container py-3">
+  <!-- Top navigation -->
+  <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+    <a
+      *ngIf="!!solutionCommunity?.previousId && solutionCommunity?.previousId !== -1"
+      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+      [routerLink]="['/solution_community', 'item', solutionCommunity?.previousId]"
+    >
+      <i class="bi bi-chevron-left"></i>
+      Предыдущая
+    </a>
+
+    <a
+      *ngIf="!!solutionCommunity?.nextId && solutionCommunity?.nextId !== -1"
+      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+      [routerLink]="['/solution_community', 'item', solutionCommunity?.nextId]"
+    >
+      Следующая
+      <i class="bi bi-chevron-right"></i>
+    </a>
   </div>
-  <div class="row">
-    <div class="w-100 card ">
-      <div class="card-header">
-        <span class="w-50 font-weight-bold">
-          {{ solutionCommunity?.name }}
-        </span><br/>
-      </div>
-      <div class="card-body pre-scrollable">
-        <div class="card-text" [innerHTML]="solutionCommunity?.description"></div>
+
+  <!-- Description -->
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white">
+        {{ solutionCommunity?.name }}
       </div>
     </div>
 
-    <div class="w-100 card mt-3">
-      <div class="card-header">
-        <span class="w-50 font-weight-bold">
-          Решение
-        </span><br/>
-        <span class="text-muted small">
-          Автор: {{ solutionCommunity?.userName }} | Решено: {{ solutionCommunity?.created | date:'dd.MM.yyyy hh:MM' }}
-        </span><br/>
-      </div>
-      <div class="card-body">
-        <div class="card-text" *ngIf="solutionCommunity?.operationId"
-             [innerHTML]="solutionCommunity.solution"></div>
-        <div class="card-text" *ngIf="solutionCommunity?.solutionCodeId">
-            <ngx-codemirror
-              [(ngModel)]="solutionCommunity.solution"
-              [options]="options"
-            ></ngx-codemirror>
+    <div class="px-3 px-md-4 py-3">
+      <div class="text-muted-soft" [innerHTML]="solutionCommunity?.description"></div>
+    </div>
+  </div>
+
+  <!-- Solution -->
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="d-flex flex-wrap align-items-start justify-content-between gap-2">
+        <div class="fw-semibold text-white">Решение</div>
+
+        <div class="small text-muted-soft d-flex flex-wrap gap-2">
+          <span class="d-inline-flex align-items-center gap-1">
+            <i class="bi bi-person"></i>
+            Автор: <span class="text-white fw-semibold">{{ solutionCommunity?.userName }}</span>
+          </span>
+          <span class="d-inline-flex align-items-center gap-1">
+            <i class="bi bi-clock"></i>
+            Решено: {{ solutionCommunity?.created | date:'dd.MM.yyyy HH:mm' }}
+          </span>
         </div>
+      </div>
+    </div>
+
+    <div class="px-3 px-md-4 py-3">
+      <div
+        class="text-muted-soft"
+        *ngIf="solutionCommunity?.operationId"
+        [innerHTML]="solutionCommunity.solution"
+      ></div>
+
+      <div *ngIf="solutionCommunity?.solutionCodeId">
+        <ngx-codemirror
+          [(ngModel)]="solutionCommunity.solution"
+          [options]="options"
+        ></ngx-codemirror>
       </div>
     </div>
   </div>
 
-    <div class="row mt-3">
-      <div class="card w-100">
-        <div class="card-header">
-          <div class="font-weight-bold">Комментарии</div>
-          <div class="small text-muted">Проведите код-ревью решения:
-            оставьте рекомендации по улучшению или похвалите за качественную работу.</div>
-        </div>
-        <div class="card-body">
-          <table class="table" *ngIf="solutionCommunityOperations.length > 0">
-            <ng-container *ngFor="let operation of solutionCommunityOperations; let idx=index">
-              <tr>
-                <td>
-                  <div class="pb-3 small">
-                  <span>
-                    <span class="font-weight-bold" style="cursor: pointer;">
-                      <i class="fa fa-user mr-1"></i>{{ operation.userName }}</span>
-                  </span>
-                    <span class="pull-right">{{ operation.created | date: 'dd.MM.yyyy HH:mm' }}</span>
-                  </div>
-                  <div [innerHTML]="operation.text | safeCode"></div>
-                </td>
-              </tr>
-            </ng-container>
-          </table>
-          <div *ngIf="solutionCommunityOperations.length == 0">
-            Сделай лучше, стань первым, кто проведет код-ревью этого решения!
+  <!-- Comments -->
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="d-flex flex-wrap align-items-start justify-content-between gap-2">
+        <div>
+          <div class="fw-semibold text-white">Комментарии</div>
+          <div class="small text-muted-soft mt-1">
+            Проведите код-ревью решения: оставьте рекомендации по улучшению или похвалите за качественную работу.
           </div>
         </div>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-j-primary d-inline-flex align-items-center gap-1"
+          (click)="showAddCommentForm(true)"
+        >
+          <i class="bi bi-chat-right-text"></i>
+          Комментировать
+        </button>
       </div>
     </div>
 
-    <div class="row">
-      <button (click)="showAddCommentForm(true)" class="pull-left btn btn-success btn-sm mt-2">
-        Комментировать</button>
-    </div>
+    <div class="px-3 px-md-4 py-3">
+      <table class="table table-borderless mb-0 align-middle bg-transparent" *ngIf="solutionCommunityOperations.length > 0">
+        <tbody class="bg-transparent">
+        <tr
+          *ngFor="let operation of solutionCommunityOperations; let idx = index"
+          class="border-bottom border-soft bg-transparent"
+        >
+          <td class="py-3 bg-transparent">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 small mb-2">
+              <div class="d-inline-flex align-items-center gap-2">
+                <i class="bi bi-person-circle text-muted-soft"></i>
+                <span class="fw-semibold text-white">{{ operation.userName }}</span>
+              </div>
+              <span class="text-muted-soft">{{ operation.created | date: 'dd.MM.yyyy HH:mm' }}</span>
+            </div>
 
-    <div class="row" *ngIf="addFormComment">
-      <app-discussion
-        title="Комментарий"
-        (closeEmitter)="saveComment($event)"
-      ></app-discussion>
-    </div>
+            <div class="text-muted-soft" [innerHTML]="operation.text | safeCode"></div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
 
+      <div *ngIf="solutionCommunityOperations.length == 0" class="text-muted-soft">
+        Сделай лучше — стань первым, кто проведёт код-ревью этого решения!
+      </div>
+
+      <div class="mt-3" *ngIf="addFormComment">
+        <app-discussion
+          title="Комментарий"
+          (closeEmitter)="saveComment($event)"
+        ></app-discussion>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom navigation (optional) -->
+  <div class="d-flex flex-wrap align-items-center justify-content-end gap-2">
+    <a
+      *ngIf="!!solutionCommunity?.previousId && solutionCommunity?.previousId !== -1"
+      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+      [routerLink]="['/solution_community', 'item', solutionCommunity?.previousId]"
+    >
+      <i class="bi bi-chevron-left"></i>
+      Предыдущая
+    </a>
+
+    <a
+      *ngIf="!!solutionCommunity?.nextId && solutionCommunity?.nextId !== -1"
+      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+      [routerLink]="['/solution_community', 'item', solutionCommunity?.nextId]"
+    >
+      Следующая
+      <i class="bi bi-chevron-right"></i>
+    </a>
+  </div>
 </div>

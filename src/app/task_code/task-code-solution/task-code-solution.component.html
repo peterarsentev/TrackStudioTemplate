@@ -1,27 +1,49 @@
-<div class="container-fluid">
-  <app-task-code-form [taskClass]="solutionAndTaskCode.solution?.code || solutionAndTaskCode.taskcode.code"
-                      [taskModel]="solutionAndTaskCode?.taskcode"
-                      [taskTest]="solutionAndTaskCode.taskcode?.testCode"
-                      [status]="solutionAndTaskCode.solution?.statusId"
-                      [output]="output"
-                      [disabled]="disabled"
-                      [count]="countSolvedTasks"
-                      [explanation]="solutionAndTaskCode.taskcode.explanation"
-                      (submitTaskEmitter)="submitTask($event)"
-                      (goToSolutions)="goToSolutions()"
-                      (resetEmitter)="resetSolution($event)"
-  ></app-task-code-form>
-  <app-discussion-block [discussions]="discussions"
-                        [user]="user"
-                        (addResponse)="addResponse($event)"
-                        (updateEmitter)="updateDiscussion($event)"
-                        (closeEmitter)="closeDiscussion($event)"
-                        (deleteEmitter)="deleteDiscussion($event)"
-  ></app-discussion-block>
-  <div class="row mt-2">
-        <span  class="w-100 pull-right mb-1">
-                    <button *ngIf="canCreateDiscuss" class="m btn btn-info btn-sm"
-                            (click)="showDiscussionForm()">{{'Обсудить'}}</button>
-        </span>
+<div class="container py-3">
+  <div class="row">
+    <div class="col-12">
+
+      <!-- TASK / SOLUTION -->
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
+        <app-task-code-form
+          [taskClass]="solutionAndTaskCode.solution?.code || solutionAndTaskCode.taskcode.code"
+          [taskModel]="solutionAndTaskCode?.taskcode"
+          [taskTest]="solutionAndTaskCode.taskcode?.testCode"
+          [status]="solutionAndTaskCode.solution?.statusId"
+          [output]="output"
+          [disabled]="disabled"
+          [count]="countSolvedTasks"
+          [explanation]="solutionAndTaskCode.taskcode.explanation"
+          (submitTaskEmitter)="submitTask($event)"
+          (goToSolutions)="goToSolutions()"
+          (resetEmitter)="resetSolution($event)"
+        ></app-task-code-form>
+      </div>
+
+      <!-- DISCUSSIONS -->
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
+        <app-discussion-block
+          [discussions]="discussions"
+          [user]="user"
+          (addResponse)="addResponse($event)"
+          (updateEmitter)="updateDiscussion($event)"
+          (closeEmitter)="closeDiscussion($event)"
+          (deleteEmitter)="deleteDiscussion($event)"
+        ></app-discussion-block>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="d-flex justify-content-end mt-2">
+        <button
+          *ngIf="canCreateDiscuss"
+          type="button"
+          class="btn btn-sm btn-outline-light border-soft"
+          (click)="showDiscussionForm()"
+        >
+          <i class="bi bi-chat-dots me-1"></i>
+          Обсудить
+        </button>
+      </div>
+
+    </div>
   </div>
 </div>

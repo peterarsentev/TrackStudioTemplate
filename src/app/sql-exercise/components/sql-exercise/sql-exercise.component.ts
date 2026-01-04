@@ -34,13 +34,15 @@ export class SqlExerciseComponent implements OnInit, OnDestroy {
   optionsOutput = {
     lineNumbers: true,
     readOnly: true,
-    mode: 'text/x-pgsql'
+    mode: 'text/x-pgsql',
+    theme: "dracula",
   };
 
   solutionOptions = {
     lineNumbers: true,
     readOnly: false,
-    mode: 'text/x-pgsql'
+    mode: 'text/x-pgsql',
+    theme: "dracula",
   };
 
   solutionSql = '';

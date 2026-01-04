@@ -66,6 +66,22 @@ export class MainPageComponent implements OnInit, OnDestroy {
   categoryById = new Map();
   levelById = new Map();
 
+  staticCode = `$ make lint test
+✓ golangci-lint
+✓ go test ./...
+✓ coverage: 78%
+
+# далее — разбор: ошибки, архитектура, читаемость, компромиссы`;
+
+  codeOptions = {
+    lineNumbers: true,
+    matchBrackets: true,
+    mode: 'bash',
+    indentUnit: 4,
+    indentWithTabs: false,
+    theme: "dracula"
+  };
+
   constructor(private tasksService: TasksService,
               private authService: AuthService,
               private chartService: ChartService,

@@ -1,20 +1,43 @@
-<div class="row pt-2">
-  <div class="w-100 card">
-    <div class="card-header">
-      <div class="font-weight-bold">Лидеры: </div>
+<div class="container py-4">
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white">
+        Лидеры
+      </div>
+      <div class="text-muted-soft small mt-1">
+        Лучшие результаты по итогам экзаменов
+      </div>
     </div>
-    <div class="card-body">
-      <table class="table">
-        <tbody>
-        <tr *ngFor="let leader of leaders">
-          <td (click)="openProfile(leader.userId, leader.login)" style="cursor: pointer;">
-            <i class="fa fa-user"></i> {{ leader.username }}
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table table-borderless mb-0 align-middle bg-transparent">
+        <tbody class="bg-transparent text-muted-soft">
+        <tr
+          *ngFor="let leader of leaders"
+          class="border-bottom border-soft bg-transparent"
+        >
+          <td
+            class="py-3 bg-transparent text-white fw-semibold cursor-pointer"
+            (click)="openProfile(leader.userId, leader.login)"
+          >
+            <i class="fa fa-user me-2 opacity-75"></i>
+            {{ leader.username }}
           </td>
-          <td>{{ leader.finish | date: 'dd.MM.yyyy HH:mm' }}</td>
-          <td>{{ leader.score }}%</td>
+
+          <td class="py-3 bg-transparent small">
+            {{ leader.finish | date:'dd.MM.yyyy HH:mm' }}
+          </td>
+
+          <td class="py-3 bg-transparent text-end fw-semibold text-white">
+            {{ leader.score }}%
+          </td>
         </tr>
         </tbody>
       </table>
     </div>
+
   </div>
 </div>

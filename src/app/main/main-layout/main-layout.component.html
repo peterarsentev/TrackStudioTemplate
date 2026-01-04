@@ -1,28 +1,44 @@
 <app-header></app-header>
 
-<app-admin-message *ngIf="!!user && user.login !== 'guest' && message" [message]="message"></app-admin-message>
-
-<div class="container px-3">
-  <app-navigation (getMessage)="getRecommendation()" *ngIf="navShow"></app-navigation>
-  <router-outlet (activate)="onActivate($event)"></router-outlet>
-</div>
+<router-outlet (activate)="onActivate($event)"></router-outlet>
 
 <div
-  class="pr-lg-3 pb-lg-5"
-  style="position: fixed; bottom: 0; right: 0; z-index: 1;"
+  class="position-fixed bottom-0 end-0 p-3 d-flex flex-column gap-2"
+  style="z-index: 1050;"
 >
-  <div class="mb-1" style="cursor: pointer;" onclick="window.scrollTo(0, 0);">
-    <i class="fa fa-arrow-circle-up fa-lg"></i>
-  </div>
-  <div *ngIf="iconComment" class="mb-2" style="cursor: pointer;">
-    <i (click)="goToComments()" class="fa fa-comment fa-lg" aria-hidden="true"></i>
-  </div>
-  <div
-    style="cursor: pointer;"
-    onclick="window.scrollTo(0, document.body.scrollHeight);"
+  <button
+    type="button"
+    class="btn btn-sm btn-outline-light border-soft rounded-circle d-inline-flex align-items-center justify-content-center bg-glass shadow-sm"
+    style="width: 42px; height: 42px;"
+    onclick="window.scrollTo({ top: 0, behavior: 'smooth' });"
+    aria-label="Вверх"
+    title="Вверх"
   >
-    <i class="fa fa-arrow-circle-down fa-lg"></i>
-  </div>
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <button
+    *ngIf="iconComment"
+    type="button"
+    class="btn btn-sm btn-outline-light border-soft rounded-circle d-inline-flex align-items-center justify-content-center bg-glass shadow-sm"
+    style="width: 42px; height: 42px;"
+    (click)="goToComments()"
+    aria-label="К комментариям"
+    title="К комментариям"
+  >
+    <i class="bi bi-chat-dots"></i>
+  </button>
+
+  <button
+    type="button"
+    class="btn btn-sm btn-outline-light border-soft rounded-circle d-inline-flex align-items-center justify-content-center bg-glass shadow-sm"
+    style="width: 42px; height: 42px;"
+    onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });"
+    aria-label="Вниз"
+    title="Вниз"
+  >
+    <i class="bi bi-arrow-down"></i>
+  </button>
 </div>
 
 <app-footer></app-footer>

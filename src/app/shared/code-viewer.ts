@@ -59,6 +59,7 @@ function sandBoxWidget(block, java, canRun, golang) {
     mode: 'text/x-java',
     indentUnit: 4,
     indentWithTabs: false,
+    theme: "dracula",
   } as EditorConfiguration);
 
   const runCode = (output, runButton) => {
@@ -118,6 +119,7 @@ function sandBoxWidget(block, java, canRun, golang) {
       mode: 'text/x-java',
       indentUnit: 4,
       indentWithTabs: false,
+      theme: "dracula",
     } as EditorConfiguration);
 
     code.on('keydown', (cm, event) => {

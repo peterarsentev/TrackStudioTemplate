@@ -1,42 +1,75 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">В этом разделе вы можете проверить теорию по Java, SQL.</div>
+<div class="container py-4">
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white">
+        Проверка теории по Java и SQL
       </div>
-      <div class="card-body">
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Название:</th>
-            <th>Результат</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let exam of exams" title="Start exam" style="cursor: pointer;">
-            <ng-container *ngIf="exam.exam.active">
-              <td (click)="examIntro(exam.exam)">
-                <span class="font-weight-bold">
-                  {{ exam.exam.position }}. {{ exam.exam.name }}. Вопросов : {{  exam.questions }}</span><br/>
-                <small class="mb-2 text-muted">
-                  <span>{{ exam.intro }}</span>
-                  <span class="mr-3">
-                    Создана : {{ exam.examuser?.start | date: 'hh:mm dd.MM.yyyy' }}
-                  </span>
-                  <span class="mr-3">
-                    Завершена : {{ exam.examuser?.finish | date: 'hh:mm dd.MM.yyyy' }}
-                  </span>
-                  <span class="mr-3">
-                    Попыток : {{  exam.examuser?.total }}
-                  </span>
-                </small>
-              </td>
-              <td (click)="goTo(exam)">{{ exam.examuser?.result }}%</td>
-            </ng-container>
-          </tr>
-          </tbody>
-        </table>
+      <div class="text-muted-soft small mt-1">
+        Экзамены, результаты и история попыток
       </div>
     </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table
+        class="table table-borderless mb-0 align-middle bg-transparent"
+        style="background: transparent;"
+      >
+        <thead class="border-bottom border-soft bg-transparent">
+        <tr class="text-muted-soft small bg-transparent">
+          <th class="py-3 bg-transparent">Экзамен</th>
+          <th class="py-3 text-end bg-transparent">Результат</th>
+        </tr>
+        </thead>
+
+        <tbody class="text-muted-soft bg-transparent">
+        <ng-container *ngFor="let exam of exams">
+          <tr
+            *ngIf="exam.exam.active"
+            class="border-bottom border-soft cursor-pointer bg-transparent"
+          >
+            <td
+              class="py-3 bg-transparent"
+              (click)="examIntro(exam.exam)"
+            >
+              <div class="fw-semibold text-white mb-1">
+                {{ exam.exam.position }}. {{ exam.exam.name }}
+              </div>
+
+              <div class="small">
+                Вопросов: {{ exam.questions }}
+              </div>
+
+              <div class="small mt-1">
+                <span class="me-3">
+                  Создана: {{ exam.examuser?.start | date:'HH:mm dd.MM.yyyy' }}
+                </span>
+                <span class="me-3">
+                  Завершена: {{ exam.examuser?.finish | date:'HH:mm dd.MM.yyyy' }}
+                </span>
+                <span>
+                  Попыток: {{ exam.examuser?.total }}
+                </span>
+              </div>
+
+              <div class="small mt-1" *ngIf="exam.intro">
+                {{ exam.intro }}
+              </div>
+            </td>
+
+            <td
+              class="py-3 text-end fw-semibold text-white bg-transparent"
+              (click)="goTo(exam)"
+            >
+              {{ exam.examuser?.result }}%
+            </td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </div>

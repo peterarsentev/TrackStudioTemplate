@@ -1,34 +1,68 @@
-<div class="container-fluid pb-4">
-  <div class="row">
-    <div class="form-group d-flex justify-content-between w-100">
-      <button (click)="deleteMessage()" class="btn btn-sm btn-danger" type="button">
-        Удалить все
-      </button>
+<div class="container py-3 pb-4">
+  <!-- ACTIONS -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+    <div class="fw-semibold text-white d-flex align-items-center gap-2">
+      <i class="bi bi-bell"></i>
+      Уведомления
+      <span class="text-muted-soft small">({{ messages?.length || 0 }})</span>
     </div>
-  </div>
-  <div class="row pb-2 w-100">
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Уведомления
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let message of messages">
-        <td style="cursor: pointer;" (click)="goTo(message)">
-          <span>
-              <p>{{ message.body }}</p>
-          </span>
-        </td>
-      <td>
-        <a (click)="delete(message)" class="pull-right">
-          <i class="fas fa-remove mr-1" title="Удалить"></i>
-        </a>
-      </td>
-      </tr>
 
-      </tbody>
-    </table>
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-2"
+      (click)="deleteMessage()"
+    >
+      <i class="bi bi-trash"></i>
+      Удалить все
+    </button>
+  </div>
+
+  <!-- LIST -->
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+    <div class="table-responsive">
+      <table class="table table-borderless mb-0 align-middle bg-transparent">
+        <thead class="border-bottom border-soft">
+        <tr class="bg-transparent">
+          <th class="text-muted-soft fw-semibold py-3">Сообщение</th>
+          <th class="text-muted-soft fw-semibold py-3 text-end" style="width: 80px;">&nbsp;</th>
+        </tr>
+        </thead>
+
+        <tbody class="bg-transparent">
+        <tr
+          *ngFor="let message of messages"
+          class="border-bottom border-soft bg-transparent"
+        >
+          <td class="py-3 bg-transparent" (click)="goTo(message)" style="cursor: pointer;">
+            <div class="d-flex align-items-start gap-2">
+              <i class="bi bi-dot mt-1 text-muted-soft"></i>
+              <div class="min-w-0">
+                <div class="text-white fw-semibold text-wrap">
+                  {{ message.body }}
+                </div>
+              </div>
+            </div>
+          </td>
+
+          <td class="py-3 bg-transparent text-end">
+            <button
+              type="button"
+              class="btn btn-sm btn-link text-muted-soft p-0"
+              title="Удалить"
+              (click)="$event.stopPropagation(); delete(message)"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="!messages?.length" class="bg-transparent">
+          <td colspan="2" class="text-center text-muted-soft py-4 bg-transparent">
+            Уведомлений пока нет
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

@@ -1,45 +1,93 @@
-<div class="container-fluid">
+<div class="container py-3">
   <div class="row">
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">{{ 'Задания' }} : {{tasks.length}}</th>
-      </tr>
-      </thead>
-      <tbody infinite-scroll
-             class="noscroll"
-             [infiniteScrollDisabled]="!paginationAllowed"
-             [infiniteScrollDistance]="scrollDistance"
-             [infiniteScrollThrottle]="throttle"
-             (scrolled)="onScrollDown()">
-      <tr *ngFor="let task of tasks; let idx = index">
-        <td>
-          <div>
-            <i class="fas fa-tasks pr-3"></i>
-            <a [routerLink]="task.solution
-            ? ['/exercise', task.task.topicId, 'task', task.task.taskId, task.solution.id]
-             : ['/exercise', task.task.topicId, 'task-view', task.task.id]">
-              <span class="font-weight-bold">{{task.task.taskName}} &nbsp;{{getSolutionId(task)}}</span>
-            </a>
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+        <!-- Header -->
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="fw-semibold text-white">
+              Задания: <span class="text-muted-soft">{{ tasks.length }}</span>
+            </div>
           </div>
-          <small class="mb-2 text-muted">
-            <span>
-               <span *ngIf="task.status?.id == 1"
-                     class="badge badge-danger mr-3">{{ task.status?.statusName }}</span>
-              <span *ngIf="task.status?.id == 3"
-                    class="badge badge-success mr-3">{{ task.status?.statusName }}</span>
-              <span *ngIf="task.status?.id == 2"
-                    class="badge badge-dark mr-3">{{ task.status?.statusName }}</span>
-              <span *ngIf="task.status?.id == 4"
-                    class="badge badge-warning mr-3">{{ task.status?.statusName }}</span>
-              <span *ngIf="task.handler" class="mr-3">Ответственный : {{ task.handler.name }}</span>
-            </span>
-            <span *ngIf="task.solution" class="mr-3">Создана : {{ task.solution.createdTime | date: 'HH:mm dd.MM.yyyy' }}</span>
-            <span *ngIf="task.solution" class="mr-3">Обновлена : {{  task.solution.updatedTime | date: 'HH:mm dd.MM.yyyy' }}</span>
-          </small>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+        </div>
+
+        <!-- List -->
+        <div
+          class="px-3 px-md-4 py-2"
+          infinite-scroll
+          [infiniteScrollDisabled]="!paginationAllowed"
+          [infiniteScrollDistance]="scrollDistance"
+          [infiniteScrollThrottle]="throttle"
+          (scrolled)="onScrollDown()"
+          style="word-break: break-all;"
+        >
+          <table class="table table-borderless mb-0 align-middle bg-transparent">
+            <tbody class="bg-transparent">
+            <tr *ngFor="let task of tasks; let idx = index" class="border-bottom border-soft bg-transparent">
+              <td class="py-3 bg-transparent">
+                <!-- Title -->
+                <div class="d-flex align-items-start gap-2">
+                  <i class="bi bi-list-check mt-1 text-muted-soft"></i>
+
+                  <a
+                    class="text-decoration-none"
+                    [routerLink]="
+                        task.solution
+                          ? ['/exercise', task.task.topicId, 'task', task.task.taskId, task.solution.id]
+                          : ['/exercise', task.task.topicId, 'task-view', task.task.id]
+                      "
+                  >
+                      <span class="fw-semibold text-white">
+                        {{ task.task.taskName }}&nbsp;{{ getSolutionId(task) }}
+                      </span>
+                  </a>
+                </div>
+
+                <!-- Meta -->
+                <div class="small text-muted-soft d-flex flex-wrap align-items-center gap-2 mt-2">
+                    <span
+                      *ngIf="task.status"
+                      class="badge rounded-pill"
+                      [ngClass]="{
+                        'badge-accent': task.status?.id == 1,
+                        'badge-good': task.status?.id == 3,
+                        'badge-glass': task.status?.id == 2,
+                        'badge-warn': task.status?.id == 4
+                      }"
+                    >
+                      {{ task.status?.statusName }}
+                    </span>
+
+                  <span *ngIf="task.handler" class="d-inline-flex align-items-center gap-1">
+                      <i class="bi bi-person"></i>
+                      <span class="text-white">{{ task.handler.name }}</span>
+                    </span>
+
+                  <ng-container *ngIf="task.solution">
+                      <span class="d-inline-flex align-items-center gap-1">
+                        <i class="bi bi-hourglass-split" title="Создана"></i>
+                        {{ task.solution.createdTime | date: 'HH:mm dd.MM.yyyy' }}
+                      </span>
+
+                    <span class="d-inline-flex align-items-center gap-1">
+                        <i class="bi bi-hourglass-bottom" title="Обновлена"></i>
+                        {{ task.solution.updatedTime | date: 'HH:mm dd.MM.yyyy' }}
+                      </span>
+                  </ng-container>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngIf="!tasks?.length" class="bg-transparent">
+              <td class="text-center text-muted-soft py-4 bg-transparent">
+                Нет заданий
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /List -->
+      </div>
+    </div>
   </div>
 </div>

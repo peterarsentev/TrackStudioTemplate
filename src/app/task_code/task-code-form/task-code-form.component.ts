@@ -47,18 +47,21 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy, AfterViewInit {
     mode: 'text/x-java',
     indentUnit: 4,
     indentWithTabs: false,
+    theme: "dracula",
   };
 
   optionsTest = {
     lineNumbers: true,
     readOnly: true,
-    mode: 'text/x-java'
+    mode: 'text/x-java',
+    theme: "dracula",
   };
 
   optionsOutput = {
     lineNumbers: true,
     readOnly: true,
-    mode: 'text/x-java'
+    mode: 'text/x-java',
+    theme: "dracula",
   };
 
   @ViewChild('editor', {static: true}) editor;

@@ -1,64 +1,108 @@
-<div class="container-fluid">
+<div class="container py-3">
   <div class="row">
-    <div class="col-md-12">
-      <h5 class="font-weight-bold">🚀 Учебная программа: {{ category?.name }}</h5>
-      <p class="mt-2">
-        <span class="">
-          💰 Стоимость: <strong>{{ category?.price }} &#8381;</strong>
-        </span>
-      </p>
-      <p [innerHTML]="category?.description | safeCode"></p>
-      <h5 class="font-weight-bold">📚 Процесс обучения</h5>
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
+            <div class="fw-semibold text-white">
+              🚀 Учебная программа: {{ category?.name }}
+            </div>
 
-      <p>
-        С самого начала я хотел, чтобы учеба напоминала <strong>реальную рабочую обстановку</strong>.
-        Поэтому уже с первых уроков вы работаете с Git, системами статического анализа, тестами и
-        инструментами непрерывного развёртывания.
-      </p>
+            <div class="text-muted-soft">
+              💰 Стоимость:
+              <span class="fw-semibold text-white">{{ category?.price }} &#8381;</span>
+            </div>
+          </div>
+        </div>
 
-      <p>
-        В то же время мне важно, чтобы обучение оставалось <strong>домашним и комфортным</strong>.
-        У нас нет жёстких дедлайнов — вы занимаетесь тогда, когда удобно.
-      </p>
+        <div class="px-3 px-md-4 py-3">
+          <div class="text-muted-soft" [innerHTML]="category?.description | safeCode"></div>
 
-      <p>
-        Для нас каждый ученик — это <strong>личность</strong>, а не “безликий пользователь”.
-        Мы проверяем каждый урок, даём обратную связь и объясняем теорию.
-      </p>
+          <div class="mt-4 fw-semibold text-white d-flex align-items-center gap-2">
+            <i class="bi bi-mortarboard"></i>
+            📚 Процесс обучения
+          </div>
 
-      <p>
-        Наверное, вы спросите: «Как же хватает времени на всех?» Всё просто: на курсе работают
-        я (Пётр Арсентьев) и ещё четыре ментора — Стас, Алексей, Андрей и Михаил. Мы отказались от
-        неэффективных вебинаров и видеолекций: вместо часовых видео у вас <strong>короткие тексты с иллюстрациями</strong>,
-        которые позволяют быстрее перейти к практике.
-      </p>
+          <div class="mt-2 text-muted-soft">
+            <p class="mb-3">
+              С самого начала я хотел, чтобы учеба напоминала <strong class="text-white">реальную рабочую обстановку</strong>.
+              Поэтому уже с первых уроков вы работаете с Git, системами статического анализа, тестами и
+              инструментами непрерывного развёртывания.
+            </p>
 
-      <p>
-        Мы убеждены: <em>теория без практики — пустое дело</em>. Поэтому ученик обращается к нам тогда,
-        когда написал код или решил задачу, а не когда просто хочет переслушать объяснение.
-      </p>
+            <p class="mb-3">
+              В то же время мне важно, чтобы обучение оставалось <strong class="text-white">домашним и комфортным</strong>.
+              У нас нет жёстких дедлайнов — вы занимаетесь тогда, когда удобно.
+            </p>
 
-      <p>
-        Такой подход даёт результат: мы концентрируемся на практических навыках, которые приносят реальную пользу.
-      </p>
+            <p class="mb-3">
+              Для нас каждый ученик — это <strong class="text-white">личность</strong>, а не “безликий пользователь”.
+              Мы проверяем каждый урок, даём обратную связь и объясняем теорию.
+            </p>
 
-      <h6 class="mt-4 font-weight-bold">Итоги:</h6>
-      <ul class="list-unstyled">
-        <li>✅ Прагматичный подход и максимум практики</li>
-        <li>✅ Теория — только та, что нужна для практики и собеседований</li>
-        <li>✅ Обратная связь от менторов на каждом уроке</li>
-        <li>✅ Подготовка к собеседованиям через сдачу теории</li>
-        <li>✅ Реальные проектные работы</li>
-      </ul>
+            <p class="mb-3">
+              Наверное, вы спросите: «Как же хватает времени на всех?» Всё просто: на курсе работают
+              <strong class="text-white">я (Пётр Арсентьев)</strong> и ещё четыре ментора — Стас, Алексей, Андрей и Михаил.
+              Мы отказались от неэффективных вебинаров и видеолекций: вместо часовых видео у вас
+              <strong class="text-white">короткие тексты с иллюстрациями</strong>, которые позволяют быстрее перейти к практике.
+            </p>
 
-      <p>
-        Хотите начать обучение или задать вопрос по программе?
-        Напишите мне лично в Telegram — это первый шаг к старту курса 👇
-      </p>
+            <p class="mb-3">
+              Мы убеждены: <em class="text-white">теория без практики — пустое дело</em>.
+              Поэтому ученик обращается к нам тогда, когда написал код или решил задачу, а не когда просто хочет переслушать объяснение.
+            </p>
 
-      <div class="font-weight-bold">
-        ✍️ Пётр Арсентьев —
-        <a target="_blank" href="https://t.me/parsentev">t.me/parsentev</a>
+            <p class="mb-0">
+              Такой подход даёт результат: мы концентрируемся на практических навыках, которые приносят реальную пользу.
+            </p>
+          </div>
+
+          <div class="mt-4">
+            <div class="fw-semibold text-white mb-2">Итоги</div>
+            <ul class="list-unstyled mb-0 text-muted-soft">
+              <li class="d-flex align-items-start gap-2 mb-2">
+                <i class="bi bi-check2-circle text-success mt-1"></i>
+                <span>Прагматичный подход и максимум практики</span>
+              </li>
+              <li class="d-flex align-items-start gap-2 mb-2">
+                <i class="bi bi-check2-circle text-success mt-1"></i>
+                <span>Теория — только та, что нужна для практики и собеседований</span>
+              </li>
+              <li class="d-flex align-items-start gap-2 mb-2">
+                <i class="bi bi-check2-circle text-success mt-1"></i>
+                <span>Обратная связь от менторов на каждом уроке</span>
+              </li>
+              <li class="d-flex align-items-start gap-2 mb-2">
+                <i class="bi bi-check2-circle text-success mt-1"></i>
+                <span>Подготовка к собеседованиям через сдачу теории</span>
+              </li>
+              <li class="d-flex align-items-start gap-2">
+                <i class="bi bi-check2-circle text-success mt-1"></i>
+                <span>Реальные проектные работы</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ВАЖНО: блок должен быть ВНУТРИ card и иметь padding по X -->
+        <div class="px-3 px-md-4 pb-4">
+          <div class="p-3 p-md-4 rounded-4 border border-soft bg-glass">
+            <div class="fw-semibold text-white mb-1">
+              Хотите начать обучение или задать вопрос по программе?
+            </div>
+            <div class="text-muted-soft">
+              Напишите мне лично в Telegram — это первый шаг к старту курса 👇
+            </div>
+
+            <div class="mt-2 fw-semibold">
+              ✍️ Пётр Арсентьев —
+              <a class="link-light text-decoration-none" target="_blank" href="https://t.me/parsentev">
+                t.me/parsentev
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- /contact block -->
       </div>
     </div>
   </div>

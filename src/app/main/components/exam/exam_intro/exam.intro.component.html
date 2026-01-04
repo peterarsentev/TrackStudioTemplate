@@ -1,19 +1,34 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">{{ exam.name }}</div>
-        <div>
-          <small class="mb-2 text-muted">
-            {{ exam.intro }}
-          </small>
-        </div>
+<div class="container py-4">
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
+
+    <!-- Header -->
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white mb-1">
+        {{ exam.name }}
       </div>
-      <div class="card-body">
-        <p [innerHTML]="exam?.description | safeCode"></p>
+      <div class="text-muted-soft small">
+        {{ exam.intro }}
       </div>
     </div>
-    <button class="btn btn-success btn-default mt-2" (click)="startExam(exam)">Начать</button>
+
+    <!-- Content -->
+    <div class="px-3 px-md-4 py-4">
+      <div
+        class="text-muted-soft exam-description"
+        [innerHTML]="exam?.description | safeCode"
+      ></div>
+    </div>
   </div>
-  <app-leaders></app-leaders>
+
+  <!-- Actions -->
+  <div class="d-flex flex-wrap gap-2 mb-4">
+    <button
+      class="btn btn-j-primary"
+      (click)="startExam(exam)"
+    >
+      Начать экзамен
+    </button>
+  </div>
 </div>
+
+<app-leaders></app-leaders>

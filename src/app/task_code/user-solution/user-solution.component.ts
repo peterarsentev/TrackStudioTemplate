@@ -17,6 +17,7 @@ export class UserSolutionComponent implements OnInit, OnDestroy {
     lineNumbers: true,
     readOnly: false,
     mode: 'text/x-java',
+    theme: "dracula",
   };
 
   private unsubscribe$ = new Subject();

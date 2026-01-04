@@ -1,33 +1,64 @@
-<div class="container-fluid top">
+<div class="container py-3">
   <div class="row">
-    <table class="table">
-      <caption></caption>
-      <thead>
-      <tr>
-        <th scope="col">Ученик</th>
-        <th scope="col">Дата решения</th>
-      </tr>
-      </thead>
-      <tbody infinite-scroll
-             class="noscroll"
-             [infiniteScrollDisabled]="!paginationAllowed"
-             [infiniteScrollDistance]="scrollDistance"
-             [infiniteScrollThrottle]="throttle"
-             (scrolled)="onScrollDown()">
-      <ng-container *ngFor="let solution of solutions; let idx=index">
-        <tr>
-          <td (click)="goTo(solution)" style="cursor: pointer;">
-            <div>
-              <i class="fas fa-tasks pr-3"></i>
-              <span class="font-weight-bold">{{solution.studentName}}</span>
-            </div>
-          </td>
-          <td>{{solution.date | date: 'dd.MM.yyyy'}}</td>
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+        <!-- Header -->
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white d-flex align-items-center gap-2">
+            <i class="bi bi-people"></i>
+            Решения учеников
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive">
+          <table class="table table-borderless mb-0 align-middle bg-transparent">
+            <thead class="border-bottom border-soft">
+            <tr class="bg-transparent text-muted-soft small">
+              <th class="py-3">Ученик</th>
+              <th class="py-3">Дата решения</th>
+            </tr>
+            </thead>
+
+            <tbody
+              infinite-scroll
+              class="noscroll bg-transparent"
+              [infiniteScrollDisabled]="!paginationAllowed"
+              [infiniteScrollDistance]="scrollDistance"
+              [infiniteScrollThrottle]="throttle"
+              (scrolled)="onScrollDown()"
+            >
+            <tr
+              *ngFor="let solution of solutions; let idx = index"
+              class="border-bottom border-soft bg-transparent hover-glass cursor-pointer"
+              (click)="goTo(solution)"
+            >
+              <td class="py-3">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="bi bi-person-circle text-muted-soft"></i>
+                  <span class="fw-semibold text-white">
+                    {{ solution.studentName }}
+                  </span>
+                </div>
+              </td>
+
+              <td class="py-3 text-muted-soft">
+                {{ solution.date | date: 'dd.MM.yyyy' }}
+              </td>
+            </tr>
+
+            <tr *ngIf="!solutions?.length" class="bg-transparent">
+              <td colspan="2" class="text-center text-muted-soft py-4">
+                Решений пока нет
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /Table -->
+
+      </div>
+    </div>
   </div>
 </div>
-
-

@@ -63,16 +63,9 @@
               <p class="text-muted-soft small mb-3">
                 Короткие задачи → мини-проекты → цельный сервис. Параллельно — стиль кода и инженерные привычки.
               </p>
-              <pre class="codebox rounded-4 p-3" role="region" aria-label="Пример кода">
-                <code class="bash">
-                $ make lint test
-                ✓ golangci-lint
-                ✓ go test ./...
-                ✓ coverage: 78%
-
-                # далее — разбор: ошибки, архитектура, читаемость, компромиссы
-                </code>
-              </pre>
+              <ngx-codemirror [(ngModel)]="staticCode"
+                              [options]="codeOptions"
+              ></ngx-codemirror>
             </div>
 
             <div class="card-glass rounded-5 p-4 shadow-sm">
@@ -112,89 +105,108 @@
 
       <div class="row g-3">
         <div class="col-md-6 col-lg-4">
-          <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-            <h3 class="h5 fw-bold">Java Backend</h3>
-            <p class="text-muted-soft small mb-3">
-              База + архитектура + работа с данными. Много практики, ревью, типовые ошибки и “как правильно”.
-            </p>
-            <div class="d-flex flex-wrap gap-2">
-              <span class="badge rounded-pill badge-accent">Проекты</span>
-              <span class="badge rounded-pill badge-glass">SQL</span>
-              <span class="badge rounded-pill badge-glass">Spring</span>
-            </div>
-          </article>
+          <a href="/courses/3" class="text-decoration-none text-reset d-block h-100">
+            <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
+              <h3 class="h5 fw-bold">Java. Старт с нуля</h3>
+              <p class="text-muted-soft small mb-3">
+                Первый шаг в программировании на Java. Пишете код с первых уроков,
+                осваиваете базовый синтаксис, условия, циклы и коллекции — спокойно
+                и без перегруза теорией.
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge rounded-pill badge-accent">Первый блок</span>
+                <span class="badge rounded-pill badge-glass">Java Core</span>
+                <span class="badge rounded-pill badge-glass">Практика</span>
+                <span class="badge rounded-pill badge-glass">Mentor review</span>
+              </div>
+            </article>
+          </a>
+
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-            <h3 class="h5 fw-bold">Kotlin для инженеров</h3>
-            <p class="text-muted-soft small mb-3">
-              Идиомы Kotlin без лишней магии. Где Kotlin усиливает, а где усложняет — и как держать баланс.
-            </p>
-            <div class="d-flex flex-wrap gap-2">
-              <span class="badge rounded-pill badge-accent">Качество кода</span>
-              <span class="badge rounded-pill badge-glass">Coroutines</span>
-              <span class="badge rounded-pill badge-glass">Практика</span>
-            </div>
-          </article>
+          <a href="/courses/22" class="text-decoration-none text-reset d-block h-100">
+            <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
+              <h3 class="h5 fw-bold">Kotlin для инженеров</h3>
+              <p class="text-muted-soft small mb-3">
+                Идиомы Kotlin без лишней магии. Где Kotlin усиливает, а где усложняет — и как держать баланс.
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge rounded-pill badge-accent">Качество кода</span>
+                <span class="badge rounded-pill badge-glass">Coroutines</span>
+                <span class="badge rounded-pill badge-glass">Практика</span>
+              </div>
+            </article>
+          </a>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-            <h3 class="h5 fw-bold">Go + Microservices</h3>
-            <p class="text-muted-soft small mb-3">
-              Проектирование сервисов, контракты, интеграции, наблюдаемость, отказоустойчивость. Go “по-взрослому”.
-            </p>
-            <div class="d-flex flex-wrap gap-2">
-              <span class="badge rounded-pill badge-good">Go 1.24+</span>
-              <span class="badge rounded-pill badge-glass">Kafka</span>
-              <span class="badge rounded-pill badge-glass">Docker/K8s</span>
-            </div>
-          </article>
+          <a href="/courses/38" class="text-decoration-none text-reset d-block h-100">
+            <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
+              <h3 class="h5 fw-bold">Go + Microservices</h3>
+              <p class="text-muted-soft small mb-3">
+                Проектирование сервисов, контракты, интеграции, наблюдаемость, отказоустойчивость. Go “по-взрослому”.
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge rounded-pill badge-good">Go 1.24+</span>
+                <span class="badge rounded-pill badge-glass">Kafka</span>
+                <span class="badge rounded-pill badge-glass">Docker/K8s</span>
+              </div>
+            </article>
+          </a>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-            <h3 class="h5 fw-bold">DevOps-практика</h3>
-            <p class="text-muted-soft small mb-3">
-              CI/CD, контейнеризация, деплой, мониторинг. Как делать так, чтобы система жила и не “сыпалась”.
-            </p>
-            <div class="d-flex flex-wrap gap-2">
-              <span class="badge rounded-pill badge-glass">Git</span>
-              <span class="badge rounded-pill badge-glass">CI/CD</span>
-              <span class="badge rounded-pill badge-glass">Observability</span>
-            </div>
-          </article>
+          <a href="/courses/35" class="text-decoration-none text-reset d-block h-100">
+            <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
+              <h3 class="h5 fw-bold">DevOps-практика</h3>
+              <p class="text-muted-soft small mb-3">
+                CI/CD, контейнеризация, деплой, мониторинг. Как делать так, чтобы система жила и не “сыпалась”.
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge rounded-pill badge-glass">Git</span>
+                <span class="badge rounded-pill badge-glass">CI/CD</span>
+                <span class="badge rounded-pill badge-glass">Observability</span>
+              </div>
+            </article>
+          </a>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-            <h3 class="h5 fw-bold">System Design</h3>
-            <p class="text-muted-soft small mb-3">
-              Собеседования, компромиссы, масштабирование, кэш, очереди, консистентность. С примерами и разбором.
-            </p>
-            <div class="d-flex flex-wrap gap-2">
-              <span class="badge rounded-pill badge-warn">Senior track</span>
-              <span class="badge rounded-pill badge-glass">DDD</span>
-              <span class="badge rounded-pill badge-glass">Trade-offs</span>
-            </div>
-          </article>
+          <a href="/courses/40" class="text-decoration-none text-reset d-block h-100">
+            <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
+              <h3 class="h5 fw-bold">System Design</h3>
+              <p class="text-muted-soft small mb-3">
+                Собеседования, компромиссы, масштабирование, кэш, очереди, консистентность. С примерами и разбором.
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge rounded-pill badge-warn">Senior track</span>
+                <span class="badge rounded-pill badge-glass">DDD</span>
+                <span class="badge rounded-pill badge-glass">Trade-offs</span>
+              </div>
+            </article>
+          </a>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-            <h3 class="h5 fw-bold">Тренажёр интервью</h3>
-            <p class="text-muted-soft small mb-3">
-              Вопросы по темам, история ответов, повторение слабых мест. Движение от “знаю” к “умею объяснить”.
-            </p>
-            <div class="d-flex flex-wrap gap-2">
-              <span class="badge rounded-pill badge-accent">Практика речи</span>
-              <span class="badge rounded-pill badge-glass">Оценка</span>
-              <span class="badge rounded-pill badge-glass">Повторение</span>
-            </div>
-          </article>
+          <a href="/courses/14" class="text-decoration-none text-reset d-block h-100">
+            <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
+              <h3 class="h5 fw-bold">Основы микросервисов (Java)</h3>
+              <p class="text-muted-soft small mb-3">
+                Архитектура микросервисов на Java: границы сервисов, взаимодействие,
+                конфигурация, отказоустойчивость. База для реальных проектов.
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge rounded-pill badge-accent">Microservices</span>
+                <span class="badge rounded-pill badge-glass">Spring</span>
+                <span class="badge rounded-pill badge-glass">Architecture</span>
+              </div>
+            </article>
+          </a>
         </div>
+
       </div>
+
     </div>
   </section>
 
@@ -297,7 +309,7 @@
     <div class="container">
       <div class="mb-3">
         <h2 class="h3 fw-bold mb-1">Отзывы</h2>
-        <p class="text-muted-soft mb-0">Поставил заглушки — сюда можно подставить реальные отзывы с сайта/соцсетей.</p>
+        <p class="text-muted-soft mb-0">Что говорят студенты, прошедшие обучение.</p>
       </div>
 
       <div class="row g-3">
@@ -406,8 +418,10 @@
           </h2>
           <div id="f4" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
             <div class="accordion-body text-muted-soft">
-              Сделай кнопку на страницу тарифов. Здесь оставил ссылки-заглушки:
-              <code class="text-white">/pricing</code> или <code class="text-white">/courses</code>.
+              Стоимость обучения указана в разделе
+              <a href="/courses" class="link-light text-decoration-underline">«Курсы»</a>.
+              <br/>
+              Для каждого направления цена отображается отдельно.
             </div>
           </div>
         </div>
@@ -435,203 +449,146 @@
   </section>
 </main>
 
-<!--<div class="row pt-lg-2" *ngIf="!!user && user.login === 'guest'">-->
-<!--<div class="col-12 px-3 pt-2 pb-2 d-flex align-items-center">-->
-<!--<h5 class="font-weight-bold"><i class="fa fa-rocket mr-2" aria-hidden="true"></i>Популярные программы:</h5>-->
-<!--</div>-->
-<!--<div class="col-12 px-3">-->
-<!--<div class="row">-->
-<!--<div class="col-md-4 mb-3">-->
-<!--<div class="card h-100" style="cursor: pointer;" (click)="linkCourse(31)">-->
-<!--<div class="card-header">-->
-<!--<div class="small d-flex justify-content-between">-->
-<!--<h6 class="font-weight-bold">Старт в Java</h6>-->
-<!--<h6 class="text-primary">3090 &#8381;</h6>-->
-<!--</div>-->
-<!--<div class="small">-->
-<!--<span>Уровень подготовки: Начинащий</span>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="card-body">-->
-<!--<p class="card-text">-->
-<!-- - IDEA, Git, Maven, CheckStyle<br/>-->
-<!-- - Переменные, типы данных<br/>-->
-<!-- - Операторы ветвления<br/>-->
-<!-- - Циклы<br/>-->
-<!-- - Массивы<br/>-->
-<!-- - Тестирование, JUnit<br/>-->
-<!--</p>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="col-md-4 mb-3">-->
-<!--<div class="card h-100" style="cursor: pointer;" (click)="linkCourse(35)">-->
-<!--<div class="card-header">-->
-<!--<div class="small d-flex justify-content-between">-->
-<!--<h6 class="font-weight-bold">DevOps для разработчика</h6>-->
-<!--<h6 class="text-primary">14950 &#8381;</h6>-->
-<!--</div>-->
-<!--<div class="small">-->
-<!--<span>Уровень подготовки: Средний</span>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="card-body">-->
-<!--<p class="card-text">-->
-<!-- - Linux<br/>-->
-<!-- - Jenkins, GitOps<br/>-->
-<!-- - Gradle, Testcontainers<br/>-->
-<!-- - Docker<br/>-->
-<!-- - Kubernates, Helm Charts<br/>-->
-<!-- - Prometheus, Grafana<br/>-->
-<!--</p>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="col-md-4 mb-3">-->
-<!--<div class="card h-100" style="cursor: pointer;" (click)="linkCourse(38)">-->
-<!--<div class="card-header">-->
-<!--<div class="small d-flex justify-content-between">-->
-<!--<h6 class="font-weight-bold">Переходим в GoLang</h6>-->
-<!--<h6 class="text-primary">65000 &#8381;</h6>-->
-<!--</div>-->
-<!--<div class="small">-->
-<!--<span>Уровень подготовки: Продвинутый</span>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="card-body">-->
-<!--<p class="card-text">-->
-<!-- - Slice, Map, Struct, Pointers, OOP, FP<br/>-->
-<!-- - Goroutes, Channels<br/>-->
-<!-- - Context, Testing, Reflection, Unsafe, Cgo<br/>-->
-<!-- - Database, SQL, sqlx.<br/>-->
-<!-- - Rest API, gRPC, Protobuf, Tracing, Eager<br/>-->
-<!-- - Docker, Kubernetes, Prometheus, Grafana<br/>-->
-<!--</p>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="row">-->
-<!--<div class="col-md-12 mb-3 pull-right">-->
-<!--<button [routerLink]="['/courses']" class="btn btn-success btn-sm m-1 font-weight-bold">-->
-<!--Все программы-->
-<!--</button>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
 
-<!--&lt;!&ndash; Тренды вакансий &ndash;&gt;-->
-<!--<div class="row mb-lg-3 pt-lg-3">-->
-<!--<div class="col-12 px-3 pb-2 d-flex align-items-center">-->
-<!--<h5 class="font-weight-bold"><i class="fa fa-bar-chart mr-2" aria-hidden="true"></i>Тренды вакансий:</h5>-->
-<!--</div>-->
-<!--<div class="col-12 px-3">-->
-<!--<app-trend></app-trend>-->
-<!--</div>-->
-<!--</div>-->
+<!-- Статистика для авторизованных пользователей -->
+<div class="container py-4" *ngIf="!!user && user.login !== 'guest'">
+  <div class="row mb-lg-3">
+    <div class="col-md-6 px-3 mb-3">
+      <div class="fw-semibold text-white mb-2">
+        Общая активность: {{ user?.name }}
+      </div>
+      <div class="card-glass rounded-4 shadow-sm p-3">
+        <app-chart [activity]="ua"></app-chart>
+      </div>
+    </div>
 
-<!--&lt;!&ndash; Статистика для авторизованных пользователей &ndash;&gt;-->
-<!--<div class="row mb-lg-3" *ngIf="!!user && user.login !== 'guest'">-->
-<!--<div class="col-md-6 px-3 mb-3">-->
-<!--<span class="font-weight-bold">Общая активность: {{ user?.name }}</span>-->
-<!--<app-chart [activity]="ua"></app-chart>-->
-<!--</div>-->
-<!--<div class="col-md-6 px-3 mb-3">-->
-<!--<span class="font-weight-bold">Выполненные уроки</span>-->
-<!--<app-chart [activity]="uaSolved"></app-chart>-->
-<!--</div>-->
-<!--</div>-->
+    <div class="col-md-6 px-3 mb-3">
+      <div class="fw-semibold text-white mb-2">
+        Выполненные уроки
+      </div>
+      <div class="card-glass rounded-4 shadow-sm p-3">
+        <app-chart [activity]="uaSolved"></app-chart>
+      </div>
+    </div>
+  </div>
 
-<!--<div class="row" *ngIf="!!user && user.login !== 'guest'">-->
-<!--<div class="col-md-6 px-3 mb-3">-->
-<!--<table class="table mb-0">-->
-<!--<thead>-->
-<!--<tr>-->
-<!--<th scope="col" class="font-weight-bold">Прогресс обучения</th>-->
-<!--<th scope="col"></th>-->
-<!--</tr>-->
-<!--</thead>-->
-<!--<tbody>-->
-<!--<tr>-->
-<!--<td>Выполнено уроков {{ solvedTasksCount }} из {{ allTasksCount }}</td>-->
-<!--<td>-->
-<!--<app-progress-bar-view-->
-<!--[allTasksCount]="allTasksCount"-->
-<!--[solvedTasksCount]="solvedTasksCount"-->
-<!--[barValue]="tasksBarValue">-->
-<!--</app-progress-bar-view>-->
-<!--</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--<td>Выполнено упражнений Java Core {{ solvedExerciseCount }} из {{ totalExerciseCount }}</td>-->
-<!--<td>-->
-<!--<app-progress-bar-view-->
-<!--[allTasksCount]="totalExerciseCount"-->
-<!--[solvedTasksCount]="solvedExerciseCount"-->
-<!--[barValue]="solBarValue">-->
-<!--</app-progress-bar-view>-->
-<!--</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--<td>Выполнено упражнений SQL {{ solvedSqlExerciseCount }} из {{ totalSqlExerciseCount }}</td>-->
-<!--<td>-->
-<!--<app-progress-bar-view-->
-<!--[allTasksCount]="totalSqlExerciseCount"-->
-<!--[solvedTasksCount]="solvedSqlExerciseCount"-->
-<!--[barValue]="solSqlBarValue">-->
-<!--</app-progress-bar-view>-->
-<!--</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--<td>Начало обучения:</td>-->
-<!--<td>-->
-<!--<ng-container *ngIf="!user?.startedAt">{{ submitDate | getDate }}</ng-container>-->
-<!--<ng-container *ngIf="user?.startedAt">{{ user.startedAt | getDate }}</ng-container>-->
-<!--</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--<td>Последняя активность в курсе:</td>-->
-<!--<td>{{ updateDate | getDate }}</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--<td>Всего дней с начала обучения:</td>-->
-<!--<td>{{ countOfDays }}</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--<td>Количество задач в день:</td>-->
-<!--<td>{{ speed | number: '1.2-2' }}</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--<td>Ожидаемая дата завершения:</td>-->
-<!--<td>{{ endOfCourse }}</td>-->
-<!--</tr>-->
-<!--</tbody>-->
-<!--</table>-->
-<!--</div>-->
-<!--<div class="col-md-6 px-3 mb-3">-->
-<!--<table class="table mb-0">-->
-<!--<thead>-->
-<!--<tr>-->
-<!--<th scope="col" class="font-weight-bold">Доступные уровни</th>-->
-<!--<th scope="col"></th>-->
-<!--</tr>-->
-<!--</thead>-->
-<!--<tbody>-->
-<!--<tr *ngFor="let l of levels">-->
-<!--<td class="w-50">{{ l.name }}</td>-->
-<!--<td class="w-50">-->
-<!--<app-progress-bar-view-->
-<!--[allTasksCount]="l.all"-->
-<!--[solvedTasksCount]="l.solved"-->
-<!--[barValue]="l.progress">-->
-<!--</app-progress-bar-view>-->
-<!--</td>-->
-<!--</tr>-->
-<!--</tbody>-->
-<!--</table>-->
-<!--</div>-->
-<!--</div>-->
+  <div class="row">
+    <!-- Progress summary -->
+    <div class="col-md-6 px-3 mb-3">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+        <div class="px-3 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white">Прогресс обучения</div>
+        </div>
+
+        <div class="px-3 py-3">
+          <table class="table table-borderless mb-0 bg-transparent align-middle">
+            <tbody class="bg-transparent text-muted-soft">
+            <tr class="bg-transparent">
+              <td class="bg-transparent  text-white">
+                Выполнено уроков {{ solvedTasksCount }} из {{ allTasksCount }}
+              </td>
+              <td class="bg-transparent">
+                <app-progress-bar-view
+                  [allTasksCount]="allTasksCount"
+                  [solvedTasksCount]="solvedTasksCount"
+                  [barValue]="tasksBarValue">
+                </app-progress-bar-view>
+              </td>
+            </tr>
+
+            <tr class="bg-transparent">
+              <td class="bg-transparent  text-white">
+                Выполнено упражнений Java Core {{ solvedExerciseCount }} из {{ totalExerciseCount }}
+              </td>
+              <td class="bg-transparent">
+                <app-progress-bar-view
+                  [allTasksCount]="totalExerciseCount"
+                  [solvedTasksCount]="solvedExerciseCount"
+                  [barValue]="solBarValue">
+                </app-progress-bar-view>
+              </td>
+            </tr>
+
+            <tr class="bg-transparent">
+              <td class="bg-transparent  text-white">
+                Выполнено упражнений SQL {{ solvedSqlExerciseCount }} из {{ totalSqlExerciseCount }}
+              </td>
+              <td class="bg-transparent  text-white">
+                <app-progress-bar-view
+                  [allTasksCount]="totalSqlExerciseCount"
+                  [solvedTasksCount]="solvedSqlExerciseCount"
+                  [barValue]="solSqlBarValue">
+                </app-progress-bar-view>
+              </td>
+            </tr>
+
+            <tr class="bg-transparent">
+              <td class="bg-transparent  text-white">Начало обучения:</td>
+              <td class="bg-transparent  text-white">
+                <ng-container *ngIf="!user?.startedAt">{{ submitDate | getDate }}</ng-container>
+                <ng-container *ngIf="user?.startedAt">{{ user.startedAt | getDate }}</ng-container>
+              </td>
+            </tr>
+
+            <tr class="bg-transparent">
+              <td class="bg-transparent  text-white">Последняя активность в курсе:</td>
+              <td class="bg-transparent  text-white">{{ updateDate | getDate }}</td>
+            </tr>
+
+            <tr class="bg-transparent">
+              <td class="bg-transparent  text-white">Всего дней с начала обучения:</td>
+              <td class="bg-transparent  text-white">{{ countOfDays }}</td>
+            </tr>
+
+            <tr class="bg-transparent">
+              <td class="bg-transparent  text-white">Количество задач в день:</td>
+              <td class="bg-transparent  text-white">{{ speed | number: '1.2-2' }}</td>
+            </tr>
+
+            <tr class="bg-transparent">
+              <td class="bg-transparent  text-white">Ожидаемая дата завершения:</td>
+              <td class="bg-transparent  text-white">{{ endOfCourse }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Levels -->
+    <div class="col-md-6 px-3 mb-3">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+        <div class="px-3 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white">Доступные уровни</div>
+        </div>
+
+        <div class="px-3 py-3">
+          <table class="table table-borderless mb-0 bg-transparent align-middle">
+            <tbody class="bg-transparent text-muted-soft">
+            <tr
+              *ngFor="let l of levels"
+              class="bg-transparent border-bottom border-soft"
+            >
+              <td class="bg-transparent w-50 text-white">
+                {{ l.name }}
+              </td>
+              <td class="bg-transparent w-50">
+                <app-progress-bar-view
+                  [allTasksCount]="l.all"
+                  [solvedTasksCount]="l.solved"
+                  [barValue]="l.progress">
+                </app-progress-bar-view>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 
 <app-info *ngIf="showNews"></app-info>
 

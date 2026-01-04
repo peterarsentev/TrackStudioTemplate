@@ -1,35 +1,54 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">В этом разделе вы можете оттачивать синтаксис языка SQL.</div>
-        <div>
-          <small class="mb-2 text-muted">
-            Здесь собраны дополнительные упражнения по SQL ({{ total }}). Каждая задача состоит из схемы базы данных и описания данных, которые нужно извлечь. Проверка этих заданий происходит автоматически.
-          </small>
-        </div>
+<div class="container py-4">
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white mb-1">
+        Практика SQL
       </div>
-      <div class="card-body">
-        <table class="table">
-          <tbody>
-          <tr>
-            <th>Тема</th>
-            <th>Прогресс</th>
-          </tr>
-          <tr *ngFor="let topic of topics" style="cursor: pointer;" (click)="goToTopic(topic.id)">
-            <td>
-              <span class="font-weight-bold">{{ topic.title }}</span>
-            </td>
-            <td>
-              <app-progress-bar-view
-                [allTasksCount]="topic.total"
-                [solvedTasksCount]="topic.solved"
-                [barValue]="calculateBarValue(topic)"></app-progress-bar-view>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+      <div class="text-muted-soft small">
+        Дополнительные упражнения по SQL — {{ total }} задач.
+        Работа с реальными схемами данных и автоматической проверкой решений.
       </div>
     </div>
+
+    <!-- List (no table) -->
+    <div class="px-3 px-md-4 py-3 d-flex flex-column gap-2">
+
+      <!-- Header row -->
+      <div class="d-flex justify-content-between text-muted-soft small px-2">
+        <span class="fw-semibold">Тема</span>
+        <span class="fw-semibold">Прогресс</span>
+      </div>
+
+      <!-- Rows -->
+      <div
+        *ngFor="let topic of topics"
+        class="card-glass rounded-3 p-3 d-flex align-items-center justify-content-between hover-glass cursor-pointer"
+        (click)="goToTopic(topic.id)"
+      >
+        <div class="fw-semibold text-white">
+          {{ topic.title }}
+        </div>
+
+        <div style="min-width:220px;">
+          <app-progress-bar-view
+            [allTasksCount]="topic.total"
+            [solvedTasksCount]="topic.solved"
+            [barValue]="calculateBarValue(topic)">
+          </app-progress-bar-view>
+        </div>
+      </div>
+
+      <!-- Empty -->
+      <div
+        *ngIf="!topics?.length"
+        class="text-center text-muted-soft py-4"
+      >
+        Темы пока отсутствуют
+      </div>
+
+    </div>
+
   </div>
 </div>

@@ -1,120 +1,175 @@
-<div class="container-fluid">
+<div class="container py-3">
   <div class="row">
-    <div class="w-100 pull-right mb-2">
+    <div class="col-12">
 
-      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="nextId !== null"
-              (click)="goTo(nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-      <button type="button" class="m btn btn-light btn-sm pull-right mr-2"  *ngIf="prevId !== null"
-              (click)="goTo(prevId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
+      <!-- TOP ACTIONS -->
+      <div class="d-flex justify-content-end gap-2 mb-3">
+        <button
+          *ngIf="prevId !== null"
+          type="button"
+          class="btn btn-sm btn-outline-light border-soft"
+          (click)="goTo(prevId)"
+        >
+          <i class="bi bi-chevron-left me-1"></i>Предыдущая
+        </button>
 
-      <button [disabled]="exercise.status !== 'COMPLETE'" class="btn btn-info btn-sm mr-2 pull-right"
-              title="Решения других учеников станут доступны после выполнения упражнения">Было решено: {{ solvedSize.size }}</button>
+        <button
+          *ngIf="nextId !== null"
+          type="button"
+          class="btn btn-sm btn-outline-light border-soft"
+          (click)="goTo(nextId)"
+        >
+          Следующая<i class="bi bi-chevron-right ms-1"></i>
+        </button>
 
-    </div>
-  </div>
-  <div class="row">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">{{ exercise.title }}</div>
-        <small class="mb-2 text-muted">
-            <span>
-              <span *ngIf="exercise.status === 'COMPLETE'" class="badge badge-success mr-3">Выполнено</span>
-              <span *ngIf="exercise.status === 'NEW'" class="badge badge-danger mr-3">Новая</span>
-              <span *ngIf="exercise.status === 'PROGRESS'" class="badge badge-warning mr-3">В процессе</span>
-            </span>
-        </small>
+        <button
+          class="btn btn-sm btn-outline-info border-soft"
+          [disabled]="exercise.status !== 'COMPLETE'"
+          title="Решения других учеников станут доступны после выполнения упражнения"
+        >
+          Было решено: {{ solvedSize.size }}
+        </button>
       </div>
-      <div class="card-body">
-        <div class="card-text" [innerHTML]="exercise.description "></div>
 
-        <div class="font-weight-bold">Схема базы данных:</div>
-        <div *ngIf="load">
+      <!-- EXERCISE CARD -->
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white">
+            {{ exercise.title }}
+          </div>
+
+          <div class="mt-1">
+            <span
+              *ngIf="exercise.status === 'COMPLETE'"
+              class="badge badge-good rounded-pill me-2"
+            >Выполнено</span>
+            <span
+              *ngIf="exercise.status === 'NEW'"
+              class="badge badge-accent rounded-pill me-2"
+            >Новая</span>
+            <span
+              *ngIf="exercise.status === 'PROGRESS'"
+              class="badge badge-warn rounded-pill me-2"
+            >В процессе</span>
+          </div>
+        </div>
+
+        <div class="px-3 px-md-4 py-3">
+          <div class="text-muted-soft mb-3" [innerHTML]="exercise.description"></div>
+
+          <div class="fw-semibold text-white mb-1">Схема базы данных</div>
           <ngx-codemirror
+            *ngIf="load"
             [(ngModel)]="exercise.scheme"
             [options]="optionsOutput"
           ></ngx-codemirror>
-        </div>
 
-        <div class="font-weight-bold">Данные:</div>
-        <div *ngIf="load">
+          <div class="fw-semibold text-white mt-3 mb-1">Данные</div>
           <ngx-codemirror
+            *ngIf="load"
             [(ngModel)]="exercise.initScript"
             [options]="optionsOutput"
           ></ngx-codemirror>
-        </div>
 
-        <div class="font-weight-bold">Запрос:</div>
-        <div *ngIf="load">
+          <div class="fw-semibold text-white mt-3 mb-1">Запрос</div>
           <ngx-codemirror
+            *ngIf="load"
             [(ngModel)]="solutionSql"
             [options]="solutionOptions"
           ></ngx-codemirror>
-        </div>
 
-        <div class="font-weight-bold">Результат:</div>
-        <div *ngIf="solutionResult.message !== '' && solutionResult.equal" class="alert alert-success" role="alert">
-          Поздравляем! Задача решена верно.
-        </div>
-        <div *ngIf="solutionResult.message !== '' && !solutionResult.equal" class="alert alert-danger" role="alert">
-          Решение не верное.
-        </div>
-        <div *ngIf="load">
+          <div class="fw-semibold text-white mt-3 mb-1">Результат</div>
+
+          <div
+            *ngIf="solutionResult.message && solutionResult.equal"
+            class="alert alert-success"
+          >
+            Поздравляем! Задача решена верно.
+          </div>
+
+          <div
+            *ngIf="solutionResult.message && !solutionResult.equal"
+            class="alert alert-danger"
+          >
+            Решение неверное.
+          </div>
+
           <ngx-codemirror
+            *ngIf="load"
             [(ngModel)]="solutionResult.message"
             [options]="optionsOutput"
           ></ngx-codemirror>
-        </div>
 
-        <div>
-          <span class="w-50">
-              <button *ngIf="load && exercise.status == 'NEW'"
-                      class="btn btn-success btn-sm mt-2"
-                      (click)="sendSolution()"
-                      [disabled]="solutionSql.length == 0 || !checked">
-                <i class="fa fa-caret-right mr-2"></i>
-                <span *ngIf="!checked"
-                      class="spinner-border spinner-border-sm mr-2" role="status"
-                      aria-hidden="true"></span>Решить
-              </button>
-              <button *ngIf="load && exercise.status != 'NEW'" class="btn btn-success btn-sm mt-2 mr-2" (click)="sendSolution()"
-                      [disabled]="solutionSql.length == 0 || !checked">
-                <i *ngIf="checked" class="fa fa-caret-right mr-2"></i>
-                <span *ngIf="!checked" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Проверить
-              </button>
-          </span>
-          <span class="w-50">
-              <button *ngIf="load && exercise.status != 'NEW'"
-                      class="btn btn-light btn-sm mt-2"
-                      (click)="wipeSolution()"
-                      [disabled]="solutionSql.length == 0 || !checked">
-                <i class="fa fa-refresh mr-2"></i>Сбросить решение
-              </button>
-          </span>
-        </div>
-        <div>
+          <!-- ACTION BUTTONS -->
+          <div class="d-flex flex-wrap gap-2 mt-3">
+            <button
+              *ngIf="load"
+              class="btn btn-sm btn-j-primary"
+              (click)="sendSolution()"
+              [disabled]="solutionSql.length === 0 || !checked"
+            >
+              <i class="bi bi-play-fill me-1"></i>
+              {{ exercise.status === 'NEW' ? 'Решить' : 'Проверить' }}
+            </button>
+
+            <button
+              *ngIf="load && exercise.status !== 'NEW'"
+              class="btn btn-sm btn-outline-light border-soft"
+              (click)="wipeSolution()"
+              [disabled]="solutionSql.length === 0 || !checked"
+            >
+              <i class="bi bi-arrow-repeat me-1"></i>
+              Сбросить решение
+            </button>
+          </div>
         </div>
       </div>
+
+      <!-- BOTTOM NAV -->
+      <div class="d-flex justify-content-end gap-2 mb-3">
+        <button
+          *ngIf="prevId !== null"
+          class="btn btn-sm btn-outline-light border-soft"
+          (click)="goTo(prevId)"
+        >
+          <i class="bi bi-chevron-left me-1"></i>Предыдущая
+        </button>
+
+        <button
+          *ngIf="nextId !== null"
+          class="btn btn-sm btn-outline-light border-soft"
+          (click)="goTo(nextId)"
+        >
+          Следующая<i class="bi bi-chevron-right ms-1"></i>
+        </button>
+      </div>
+
+      <!-- DISCUSSIONS -->
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
+        <app-discussion-block
+          [discussions]="discussions"
+          [user]="user"
+          (addResponse)="addResponse($event)"
+          (updateEmitter)="updateDiscussion($event)"
+          (closeEmitter)="closeDiscussion($event)"
+          (showButton)="showButton()"
+        ></app-discussion-block>
+      </div>
+
+      <!-- DISCUSS BUTTON -->
+      <div
+        *ngIf="showButtonBottom && canCreateDiscuss"
+        class="d-flex justify-content-end"
+      >
+        <button
+          class="btn btn-sm btn-outline-info border-soft"
+          (click)="showDiscussionForm()"
+        >
+          <i class="bi bi-chat-dots me-1"></i>
+          Обсудить
+        </button>
+      </div>
+
     </div>
-  </div>
-  <div class="row">
-    <div class="w-100 pull-right mt-3">
-      <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="nextId !== null"
-              (click)="goTo(nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-      <button type="button" class="m btn btn-light btn-sm pull-right mr-2"  *ngIf="prevId !== null"
-              (click)="goTo(prevId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
-    </div>
-  </div>
-  <app-discussion-block [discussions]="discussions"
-                        [user]="user"
-                        (addResponse)="addResponse($event)"
-                        (updateEmitter)="updateDiscussion($event)"
-                        (closeEmitter)="closeDiscussion($event)"
-                        (showButton)="showButton()"
-  ></app-discussion-block>
-  <div *ngIf="showButtonBottom && canCreateDiscuss" class="row">
-        <span  class="w-100 pull-right mb-1">
-                    <button *ngIf="!!user && user?.login !== 'guest'" class="m btn btn-info btn-sm"
-                            (click)="showDiscussionForm()">{{'Обсудить'}}</button>
-        </span>
   </div>
 </div>

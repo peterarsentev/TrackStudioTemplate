@@ -19,12 +19,14 @@ export class SandboxComponent implements OnInit {
     this.code = CodeMirror.fromTextArea(document.getElementById("code"), {
       lineNumbers: true,
       matchBrackets: true,
-      mode: "text/x-java"
+      mode: "text/x-java",
+      theme: "dracula"
     });
     this.output = CodeMirror.fromTextArea(document.getElementById("output"), {
       lineNumbers: true,
       matchBrackets: true,
-      mode: "text/x-java"
+      mode: "text/x-java",
+      theme: "dracula"
     });
     this.code.getDoc().setValue(
       'package ru.job4j.array;\n' +

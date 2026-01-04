@@ -20,7 +20,8 @@ export class ProjectViewComponent implements OnInit, AfterViewInit {
     lineNumbers: true,
     readOnly: true,
     mode: 'text/x-log',
-    lineWrapping: true
+    lineWrapping: true,
+    theme: "dracula",
   };
 
   constructor(private router: Router,

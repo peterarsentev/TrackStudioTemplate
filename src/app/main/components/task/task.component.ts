@@ -284,6 +284,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       lineNumbers: true,
       matchBrackets: true,
       mode: 'text/x-java',
+      theme: "dracula",
     } as EditorConfiguration);
 
     // Set initial code value
@@ -343,6 +344,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         mode: 'text/x-java',
         indentUnit: 4,
         indentWithTabs: false,
+        theme: "dracula",
       } as EditorConfiguration);
 
       code.on('keydown', (cm, event) => {

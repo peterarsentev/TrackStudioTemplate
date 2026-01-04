@@ -1,37 +1,79 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">Ответы с ошибками по экзамену "{{ exam?.name }}". Результат: {{ examUser?.result }}%.</div>
+<div class="container py-4">
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white">
+        Ответы с ошибками · {{ exam?.name }}
       </div>
-      <div class="card-body">
-        <table class="table">
-          <tbody>
-          <tr *ngFor="let question of questions">
-              <td>
-                <div class="font-weight-bold">{{ question.name }}</div>
-                <div class="font-weight-bold mt-3">Описание:</div>
-                <div [innerHTML]="question.description"></div>
-                <div class="font-weight-bold mt-3">Варианты:</div>
-                <div class="form-check m-1 align-text-top"
-                     *ngFor="let qp of question.options">
-                  <input class="form-check-input" type="checkbox"
-                         [checked]="qp.answer" disabled/>
-                  <label class="form-check-label " [for]="qp.id"  [innerHTML]="qp.description"></label>
-                  <small *ngIf="qp.correct" class="form-text text-success">
-                    <i class="fa fa-check mr-1"></i>
-                    Правильный ответ</small>
-                  <small *ngIf="qp.answer && !qp.correct" class="form-text text-danger">
-                    <i class="fa fa-exclamation-circle mr-1"></i>
-                    Неправильный ответ</small>
+      <div class="text-muted-soft small mt-1">
+        Итоговый результат: {{ examUser?.result }}%
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="px-3 px-md-4 py-4">
+
+      <div
+        class="card-glass rounded-4 p-4 mb-3"
+        *ngFor="let question of questions"
+      >
+        <!-- Question -->
+        <div class="fw-semibold text-white mb-2">
+          {{ question.name }}
+        </div>
+
+        <div class="text-muted-soft small mb-3">
+          <div class="fw-semibold mb-1">Описание</div>
+          <div [innerHTML]="question.description"></div>
+        </div>
+
+        <!-- Options -->
+        <div class="mb-3">
+          <div class="fw-semibold text-white mb-2">Варианты ответа</div>
+
+          <div
+            class="d-flex flex-column gap-2"
+            *ngFor="let qp of question.options"
+          >
+            <label class="card-glass rounded-3 p-3 d-flex align-items-start gap-3">
+              <input
+                class="form-check-input mt-1"
+                type="checkbox"
+                [checked]="qp.answer"
+                disabled
+              />
+
+              <div class="small">
+                <div [innerHTML]="qp.description"></div>
+
+                <div
+                  *ngIf="qp.correct"
+                  class="text-success mt-1"
+                >
+                  <i class="fa fa-check me-1"></i>
+                  Правильный ответ
                 </div>
-                <div class="font-weight-bold mt-3">Рекомендации:</div>
-                <div [innerHTML]="question.hint"></div>
-              </td>
-          </tr>
-          </tbody>
-        </table>
+
+                <div
+                  *ngIf="qp.answer && !qp.correct"
+                  class="text-danger mt-1"
+                >
+                  <i class="fa fa-exclamation-circle me-1"></i>
+                  Неправильный ответ
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Hint -->
+        <div>
+          <div class="fw-semibold text-white mb-1">Рекомендации</div>
+          <div class="text-muted-soft small" [innerHTML]="question.hint"></div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>

@@ -1,19 +1,20 @@
-<div class="row pt-3 mb-4">
-  <div class="col-12 mb-2">
-    <h6 class="fw-semibold d-flex align-items-center gap-2">
-      <i class="bi bi-people"></i>
-      <span>
+<div class="container py-4">
+  <div class="row pt-3 mb-4">
+    <div class="col-12 mb-2">
+      <h6 class="fw-semibold d-flex align-items-center gap-2">
+        <i class="bi bi-people"></i>
+        <span>
         Были сегодня:
         <span class="text-white fw-bold">{{ infoList.length }}</span>
         · Решали:
         <span class="text-white fw-bold">{{ countSolutions }}</span>
       </span>
-    </h6>
-  </div>
+      </h6>
+    </div>
 
-  <div class="col-12">
-    <div class="d-flex flex-wrap gap-2">
-      <ng-container *ngFor="let info of infoList">
+    <div class="col-12">
+      <div class="d-flex flex-wrap gap-2">
+        <ng-container *ngFor="let info of infoList">
         <span
           class="badge rounded-pill badge-glass cursor-pointer d-flex align-items-center gap-1"
           (click)="openProfile(info.user.id, info.user.login)"
@@ -21,7 +22,8 @@
           <i class="bi bi-person"></i>
           {{ info.user.name }}
         </span>
-      </ng-container>
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>

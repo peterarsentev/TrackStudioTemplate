@@ -28,6 +28,7 @@ export class SolutionCommunityItemComponent implements OnInit, OnDestroy {
     lineNumbers: true,
     readOnly: true,
     mode: 'text/x-java',
+    theme: "dracula",
   };
   name: string;
   description: string;
@@ -120,6 +121,7 @@ export class SolutionCommunityItemComponent implements OnInit, OnDestroy {
       lineNumbers: true,
       matchBrackets: true,
       mode: 'text/x-java',
+      theme: "dracula",
     } as EditorConfiguration);
 
     // Set initial code value

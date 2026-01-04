@@ -5,10 +5,12 @@
       <i class="bi bi-info-circle me-1"></i>
       О проекте
     </button>
+
     <a
       href="https://vk.com/topic-137186267_36711020?offset=120"
       target="_blank"
       class="btn btn-outline-light border-soft"
+      rel="noopener"
     >
       <i class="bi bi-chat-quote me-1"></i>
       Отзывы
@@ -18,55 +20,84 @@
   <!-- Special offer -->
   <div class="mb-4">
     <div class="card-glass rounded-4 p-4 shadow-sm">
-      <h5 class="fw-bold mb-3">
-        <span class="badge rounded-pill badge-accent me-2">%</span>
-        Специальные предложения
+      <h5 class="fw-bold mb-2">
+        <span class="badge rounded-pill badge-accent me-2">★</span>
+        Выберите уровень обучения
       </h5>
 
-      <div class="text-muted-soft small lh-lg">
-        <div>
-          <strong class="text-white">Уровень «Стажер»</strong> —
-          34 780 &#8381; · 5 курсов · скидка 10% · выгода 3 478 &#8381;
+      <p class="text-muted-soft small mb-3">
+        Стоимость зависит от глубины и количества курсов.
+        Можно начать с базового уровня и расширять доступ позже.
+      </p>
+
+      <div class="lh-lg">
+        <div class="mb-2">
+          <strong class="text-white">Стажер</strong>
+          — 34 780 &#8381;<br>
+          <span class="text-muted-soft small">
+          5 курсов · база программирования · для старта с нуля
+        </span>
         </div>
-        <div>
-          <strong class="text-white">Уровень «Джуниор»</strong> —
-          36 240 &#8381; · 6 курсов · скидка 10% · выгода 3 624 &#8381;
+
+        <div class="mb-2">
+          <strong class="text-white">Джуниор</strong>
+          <span class="badge rounded-pill badge-glass ms-2">рекомендуем</span>
+          — 36 240 &#8381;<br>
+          <span class="text-muted-soft small">
+          6 курсов · практика + архитектура · первый рабочий уровень
+        </span>
         </div>
-        <div>
-          <strong class="text-white">Уровень «Middle»</strong> —
-          38 910 &#8381; · 7 курсов · скидка 10% · выгода 3 891 &#8381;
+
+        <div class="mb-2">
+          <strong class="text-white">Middle</strong>
+          — 38 910 &#8381;<br>
+          <span class="text-muted-soft small">
+          7 курсов · системное мышление · подготовка к росту
+        </span>
         </div>
+
         <div>
-          <strong class="text-white">Уровень «Senior»</strong> —
-          30 735 &#8381; · 3 курса · скидка 10% · выгода 3 415 &#8381;
+          <strong class="text-white">Senior</strong>
+          — 30 735 &#8381;<br>
+          <span class="text-muted-soft small">
+          3 курса · углубленные темы · для опытных разработчиков
+        </span>
         </div>
+      </div>
+
+      <div class="text-muted-soft small mt-3">
+        💡 Сейчас действует скидка 10% на все уровни
       </div>
     </div>
   </div>
+
 
   <!-- Courses -->
   <div class="row g-3">
     <ng-container *ngFor="let category of categories">
       <div class="col-md-6 col-lg-4">
-        <div
-          class="card-glass rounded-4 h-100 p-3 shadow-sm cursor-pointer"
+        <a
+          class="text-decoration-none text-reset d-block h-100"
           (click)="linkCourse(category?.id)"
+          role="button"
         >
-          <div class="d-flex justify-content-between align-items-start mb-2">
-            <div class="fw-semibold">
-              {{ category?.name }}
-              <div class="text-muted-soft small">
-                {{ levelById.get(category?.levelId)?.name }}
+          <article class="card-glass rounded-4 h-100 p-3 shadow-sm card-link">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div class="fw-semibold">
+                {{ category?.name }}
+                <div class="text-muted-soft small">
+                  {{ levelById.get(category?.levelId)?.name }}
+                </div>
               </div>
+
+              <span class="badge rounded-pill badge-good">
+                {{ category?.price }} &#8381;
+              </span>
             </div>
 
-            <span class="badge rounded-pill badge-good">
-              {{ category?.price }} &#8381;
-            </span>
-          </div>
-
-          <div class="text-muted-soft small" [innerHTML]="category?.shortDesc | safeCode"></div>
-        </div>
+            <div class="text-muted-soft small" [innerHTML]="category?.shortDesc | safeCode"></div>
+          </article>
+        </a>
       </div>
     </ng-container>
   </div>

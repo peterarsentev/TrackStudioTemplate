@@ -1,40 +1,28 @@
-<div class="row mb-3 mt-3" *ngIf="solutions.length > 1">
-  <div class="col-12">
-    <nav aria-label="breadcrumb">
-      <div
-        class="d-inline-flex align-items-center gap-2 px-3 py-2
-               card-glass rounded-4 shadow-sm"
-      >
-        <ng-container *ngFor="let nav of solutions; let idx = index">
-          <ng-container *ngIf="idx !== solutions.length - 1; else last">
+<div class="container py-4" *ngIf="solutions.length > 1">
+  <nav aria-label="breadcrumb">
+    <ol class="crumbs card-glass rounded-4 shadow-sm px-3 px-md-4 py-2 d-flex align-items-center">
+      <ng-container *ngFor="let nav of solutions; let idx = index; let last = last">
+
+        <li class="d-inline-flex align-items-center">
+          <ng-container *ngIf="!last; else lastTpl">
             <a
-              class="text-decoration-none text-muted-soft fw-semibold cursor-pointer"
+              class="text-muted-soft fw-semibold cursor-pointer"
               (click)="goToSol(nav, idx)"
             >
               {{ nav.name }}
             </a>
-            <span class="text-muted-soft">/</span>
           </ng-container>
 
-          <ng-template #last>
-            <span class="text-white fw-semibold">
+          <ng-template #lastTpl>
+            <span class="fw-semibold text-white">
               {{ nav.name }}
             </span>
           </ng-template>
-        </ng-container>
-      </div>
-    </nav>
-  </div>
+        </li>
+
+        <li *ngIf="!last" class="sep d-inline-flex align-items-center px-2">→</li>
+
+      </ng-container>
+    </ol>
+  </nav>
 </div>
-
-
-<!--<ng-container  *ngIf="show">-->
-<!--<div class="row p-3" *ngFor="let message of emergency">-->
-    <!--<div class="card w-100">-->
-      <!--<div class="card-body bg-white">-->
-        <!--<small class="card-text">{{ message.key }}</small>-->
-        <!--<div>{{ message.value }}</div>-->
-      <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-<!--</ng-container>-->

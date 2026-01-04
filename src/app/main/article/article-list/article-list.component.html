@@ -1,28 +1,51 @@
-<div class="container-fluid">
+<div class="container py-3">
   <div class="row">
-    <table class="table">
-      <caption></caption>
-      <thead>
-      <tr>
-        <th scope="col">Название</th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-container *ngFor="let article of articles; let idx=index">
-        <tr>
-          <td (click)="goToArticle(article)" style="cursor: pointer;">
-            <div>
-              <i class="fas fa-tasks pr-3"></i>
-              <span class="font-weight-bold">{{ article.title }}</span>
-            </div>
-            <small class="mb-2 text-muted">
-              {{ article.shortDesc }}
-            </small>
-          </td>
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+        <!-- Header -->
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white">
+            Статьи
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="px-3 px-md-4 py-2">
+          <table class="table table-borderless mb-0 align-middle bg-transparent">
+            <tbody class="bg-transparent">
+            <tr
+              *ngFor="let article of articles; let idx = index"
+              class="border-bottom border-soft bg-transparent"
+              (click)="goToArticle(article)"
+              style="cursor: pointer;"
+            >
+              <td class="py-3 bg-transparent">
+                <div class="d-flex align-items-start gap-2">
+                  <i class="bi bi-file-text mt-1 text-muted-soft"></i>
+
+                  <div class="min-w-0">
+                    <div class="fw-semibold text-white">
+                      {{ article.title }}
+                    </div>
+
+                    <div class="small text-muted-soft mt-1">
+                      {{ article.shortDesc }}
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngIf="!articles?.length" class="bg-transparent">
+              <td class="text-center text-muted-soft py-4 bg-transparent">
+                Статей пока нет
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /List -->
+      </div>
+    </div>
   </div>
 </div>
-

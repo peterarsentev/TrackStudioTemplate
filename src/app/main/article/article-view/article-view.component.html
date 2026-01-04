@@ -1,14 +1,25 @@
-<div class="container-fluid">
+<div class="container py-3">
   <div class="row">
-    <div class="card">
-      <div class="card-header">
-        <span class="font-weight-bold">{{ article?.title }}</span>
-        <span class="small">{{ article?.shortDesc }}</span>
-      </div>
-      <div class="card-body">
-        <p class="card-text" [innerHTML]="article?.description"></p>
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+        <!-- Header -->
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white mb-1">
+            {{ article?.title }}
+          </div>
+          <div class="small text-muted-soft">
+            {{ article?.shortDesc }}
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="px-3 px-md-4 py-3">
+          <div
+            class="text-muted-soft article-content"
+            [innerHTML]="article?.description"
+          ></div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-

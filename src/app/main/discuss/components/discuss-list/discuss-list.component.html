@@ -1,76 +1,115 @@
-<div class="container-fluid">
+<div class="container py-3">
   <div class="row">
-    <table class="table">
-      <caption></caption>
-      <thead>
-      <tr>
-        <th scope="col">Тема обсуждения</th>
-        <th scope="col">Подписка</th>
-      </tr>
-      </thead>
-      <tbody infinite-scroll
-             class="noscroll"
-             [infiniteScrollDisabled]="!paginationAllowed"
-             [infiniteScrollDistance]="scrollDistance"
-             [infiniteScrollThrottle]="throttle"
-             (scrolled)="onScrollDown()">
-      <ng-container *ngFor="let discuss of discussList; let idx=index">
-        <tr>
-          <td style="cursor: pointer;">
-            <div *ngIf="discuss.topicName" class="row">
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb2 bg-white">
-                  <li class="breadcrumb2-item small ref-link">
-                    <a (click)="goToMain()">{{ 'Job4j' }}</a>
-                  </li>
-                  <li class="breadcrumb2-item small ref-link">
-                    <a (click)="goByNav(discuss)">{{ discuss.topicName }}</a>
-                  </li>
-                  <li class="breadcrumb2-item small"
-                      [ngClass]="{'ref-link': false}">
-                    <a>{{ discuss.name }}</a>
-                  </li>
-                </ol>
-              </nav>
-            </div>
-            <div *ngIf="discuss.exerciseId" class="row">
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb2 bg-white">
-                  <li class="breadcrumb2-item small ref-link">
-                    <a (click)="goToMain()">{{ 'Job4j' }}</a>
-                  </li>
-                  <li class="breadcrumb2-item small ref-link">
-                    <a (click)="goExercise()">Упражнения</a>
-                  </li>
-                </ol>
-              </nav>
-            </div>
-            <div (click)="goTo(discuss)">
-              <div>
-                <i class="fas fa-tasks pr-3"></i>
-                <span class="font-weight-bold">{{discuss.name}}</span>
-              </div>
-              <small class="mb-2 text-muted">
-            <span>
-              <span class="mr-3">Автор : {{ discuss.submitter.name }}</span>
-              <span class="mr-3">Создано : {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}</span>
-              <span class="mr-3">Обновлено : {{ discuss.updated | date: 'dd.MM.yyyy HH:mm' }}</span>
-            </span>
-              </small>
-            </div>
-          </td>
-          <td>
-            <i *ngIf="!discuss.subscribed"
-               style="cursor: pointer;"
-               (click)="subscribe(discuss, idx)" title="Подписаться"
-               class="fa fa-bell-o mr-2" aria-hidden="true"></i>
-            <i *ngIf="discuss.subscribed" style="cursor: pointer;"
-               (click)="subscribe(discuss, idx)" title="Отписаться"
-               class="fa fa-bell-slash-o mr-2" aria-hidden="true"></i>
-          </td>
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+        <!-- Header -->
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white">
+            Обсуждения
+          </div>
+        </div>
+
+        <!-- List -->
+        <div
+          class="px-3 px-md-4 py-2"
+          infinite-scroll
+          [infiniteScrollDisabled]="!paginationAllowed"
+          [infiniteScrollDistance]="scrollDistance"
+          [infiniteScrollThrottle]="throttle"
+          (scrolled)="onScrollDown()"
+        >
+          <table class="table table-borderless mb-0 align-middle bg-transparent">
+            <tbody class="bg-transparent">
+
+            <tr
+              *ngFor="let discuss of discussList; let idx = index"
+              class="border-bottom border-soft bg-transparent"
+            >
+              <!-- Content -->
+              <td class="py-3 bg-transparent">
+
+                <!-- Breadcrumb (topic) -->
+                <div *ngIf="discuss.topicName" class="mb-2">
+                  <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-4 card-glass">
+                    <a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer" (click)="goToMain()">
+                      Job4j
+                    </a>
+                    <span class="text-muted-soft">/</span>
+                    <a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer"
+                       (click)="goByNav(discuss)">
+                      {{ discuss.topicName }}
+                    </a>
+                    <span class="text-muted-soft">/</span>
+                    <span class="text-white fw-semibold">
+                        {{ discuss.name }}
+                      </span>
+                  </div>
+                </div>
+
+                <!-- Breadcrumb (exercise) -->
+                <div *ngIf="discuss.exerciseId" class="mb-2">
+                  <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-4 card-glass">
+                    <a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer" (click)="goToMain()">
+                      Job4j
+                    </a>
+                    <span class="text-muted-soft">/</span>
+                    <a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer"
+                       (click)="goExercise()">
+                      Упражнения
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Title -->
+                <div
+                  class="d-flex align-items-start gap-2 cursor-pointer"
+                  (click)="goTo(discuss)"
+                >
+                  <i class="bi bi-chat-dots mt-1 text-muted-soft"></i>
+
+                  <div class="min-w-0">
+                    <div class="fw-semibold text-white">
+                      {{ discuss.name }}
+                    </div>
+
+                    <div class="small text-muted-soft mt-1 d-flex flex-wrap gap-3">
+                      <span>Автор: <span class="text-white">{{ discuss.submitter.name }}</span></span>
+                      <span>Создано: {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}</span>
+                      <span>Обновлено: {{ discuss.updated | date: 'dd.MM.yyyy HH:mm' }}</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <!-- Subscribe -->
+              <td class="py-3 text-end bg-transparent" style="width: 48px;">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-link text-muted-soft p-0"
+                  [title]="discuss.subscribed ? 'Отписаться' : 'Подписаться'"
+                  (click)="subscribe(discuss, idx)"
+                >
+                  <i
+                    class="bi"
+                    [ngClass]="discuss.subscribed ? 'bi-bell-slash' : 'bi-bell'"
+                  ></i>
+                </button>
+              </td>
+            </tr>
+
+            <tr *ngIf="!discussList?.length" class="bg-transparent">
+              <td colspan="2" class="text-center text-muted-soft py-4 bg-transparent">
+                Обсуждений пока нет
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <!-- /List -->
+
+      </div>
+    </div>
   </div>
 </div>

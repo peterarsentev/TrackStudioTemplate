@@ -1,44 +1,60 @@
-<div class="container-fluid">
-  <div class="row">
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Упражнений : {{ exercises.length }}</th>
-      </tr>
-      </thead>
-      <tbody>
-<!--      <tr *ngFor="let task of taskCodeList; let idx = index">-->
-<!--        <td  (click)="goToTasks(task.topicId, task.id, task.status, task.solutionId)" style="cursor: pointer;">-->
-<!--          <div>-->
-<!--            <i class="fas fa-tasks pr-3"></i>-->
-<!--            <span class="font-weight-bold">{{task.name}}</span>-->
-<!--          </div>-->
-<!--          <small class="mb-2 text-muted">-->
-<!--            <span>-->
-<!--          <span *ngIf="task.status === 1" class="badge badge-danger mr-3">Новая</span>-->
-<!--          <span *ngIf="task.status === 2" class="badge badge-warning mr-3">В процессе</span>-->
-<!--          <span *ngIf="task.status === 3" class="badge badge-warning mr-3">В процессе</span>-->
-<!--          <span *ngIf="task.status === 4" class="badge badge-success mr-3">Решена</span>-->
-<!--            </span>-->
-<!--          </small>-->
-<!--        </td>-->
-<!--      </tr>-->
-    <tr *ngFor="let exercise of exercises; let idx = index">
-      <td style="cursor: pointer;" (click)="goToExercise(exercise.id)">
-        <div>
-          <i class="fas fa-tasks pr-3"></i>
-          <span class="font-weight-bold">{{exercise.title}}</span>
-        </div>
-        <small class="mb-2 text-muted">
-            <span>
-              <span *ngIf="exercise.status === 'COMPLETE'" class="badge badge-success mr-3">Выполнено</span>
-              <span *ngIf="exercise.status === 'NEW'" class="badge badge-danger mr-3">Новая</span>
-              <span *ngIf="exercise.status === 'PROGRESS'" class="badge badge-warning mr-3">В процессе</span>
+<div class="container py-4">
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white d-flex align-items-center gap-2">
+        <i class="bi bi-list-task"></i>
+        Упражнений:
+        <span class="fw-bold">{{ exercises.length }}</span>
+      </div>
+    </div>
+
+    <!-- List (no table) -->
+    <div class="px-3 px-md-4 py-3 d-flex flex-column gap-2">
+
+      <div
+        *ngFor="let exercise of exercises"
+        class="card-glass rounded-3 p-3 d-flex align-items-start gap-3 hover-glass cursor-pointer"
+        (click)="goToExercise(exercise.id)"
+      >
+        <i class="bi bi-list-check text-muted-soft mt-1"></i>
+
+        <div class="min-w-0 flex-grow-1">
+          <div class="fw-semibold text-white">
+            {{ exercise.title }}
+          </div>
+
+          <div class="small text-muted-soft d-flex flex-wrap gap-2 mt-1">
+            <span
+              class="badge rounded-pill"
+              [ngClass]="{
+                'badge-good': exercise.status === 'COMPLETE',
+                'badge-accent': exercise.status === 'NEW',
+                'badge-warn': exercise.status === 'PROGRESS',
+                'badge-glass': !exercise.status
+              }"
+            >
+              {{
+                exercise.status === 'COMPLETE'
+                  ? 'Выполнено'
+                  : exercise.status === 'NEW'
+                  ? 'Новая'
+                  : exercise.status === 'PROGRESS'
+                  ? 'В процессе'
+                  : '—'
+              }}
             </span>
-        </small>
-      </td>
-    </tr>
-      </tbody>
-    </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty -->
+      <div *ngIf="!exercises?.length" class="text-center text-muted-soft py-4">
+        Упражнений пока нет
+      </div>
+
+    </div>
+
   </div>
 </div>

@@ -1,36 +1,59 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">В этом разделе вы можете ознакомиться со структурой курса.</div>
-        <div>
-          <small class="mb-2 text-muted">
-            Здесь находятся описание блоков, стоимость прохождения блока и его обновления.
-          </small>
-        </div>
+<div class="container py-4">
+
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white mb-1">
+        Структура курса
       </div>
-      <div class="card-body">
-        <table class="table">
-          <ng-container *ngFor="let category of categories">
-            <tr>
-              <td>
-                <span class="font-weight-bold">{{ levelById.get(category.levelId).name }} | </span>
-                <span *ngIf="category.upgradedId !== 0"
-                      class="font-weight-bold"
-                      style="text-decoration: line-through;">{{ category.name }}</span>
-                <span *ngIf="category.upgradedId === 0"
-                      class="font-weight-bold">{{ category.name }}</span>
-                <span *ngIf="category.upgradedId !== 0"> | Обновлен на </span>
-                <span *ngIf="category.upgradedId !== 0"
-                      class="font-weight-bold">{{ categoryById.get(category.upgradedId).name }}
-                </span>
-                <br/>
-                <p [innerHTML]="category?.description | safeCode"></p>
-              </td>
-            </tr>
-          </ng-container>
-        </table>
+      <div class="text-muted-soft small">
+        Описание блоков, стоимость прохождения и история обновлений
       </div>
     </div>
+
+    <!-- Content (no table) -->
+    <div class="px-3 px-md-4 py-4 d-flex flex-column gap-3">
+
+      <div
+        *ngFor="let category of categories"
+        class="card-glass rounded-3 p-4"
+      >
+
+        <!-- Title -->
+        <div class="fw-semibold text-white mb-2">
+          {{ levelById.get(category.levelId).name }} ·
+          <span *ngIf="category.upgradedId === 0">
+            {{ category.name }}
+          </span>
+
+          <span *ngIf="category.upgradedId !== 0">
+            <span style="text-decoration: line-through; opacity:.7">
+              {{ category.name }}
+            </span>
+            <span class="text-muted-soft mx-1">→</span>
+            {{ categoryById.get(category.upgradedId).name }}
+          </span>
+        </div>
+
+        <!-- Description -->
+        <div
+          class="text-muted-soft small"
+          [innerHTML]="category?.description | safeCode"
+        ></div>
+
+      </div>
+
+      <!-- Empty -->
+      <div
+        *ngIf="!categories?.length"
+        class="text-center text-muted-soft py-4"
+      >
+        Разделы курса пока отсутствуют
+      </div>
+
+    </div>
+
   </div>
+
 </div>

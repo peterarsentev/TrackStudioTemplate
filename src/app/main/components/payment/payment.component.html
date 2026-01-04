@@ -1,65 +1,90 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="w-100 card">
-      <div class="card-header">
-        <div class="font-weight-bold">Оплата обучения</div>
+<div class="container py-4">
+
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white">
+        Оплата обучения
       </div>
-      <div class="card-body">
-        <p>
-          Стоимость обучения: <br/>
-          Уровень 1 "Стажер": 34 780 рублей. <br/>
-          Уровень 2 "Junior": 36 240 рублей. <br/>
-          Уровень 3 "Middle": 38 910 рублей. <br/>
-        </p>
-        <p>
-          Сначала добавьте Арсентьева Петра в телеграм @parsentev.
-        </p>
-        <p>
-          Договоритесь о времени, чтобы познакомиться и обсудить вопросы.
-        </p>
-        <p>
-          Произведите оплату по реквизитам ниже. Оплатить можно через любой онлайн банкинг. В банк идти не нужно.
-        </p>
-        <p>
-        <p>
-          Реквизиты.<br/>
-        <br/>
-          1. Выполнить перевод на огранизацию, а не на физическое лицо.<br/>
-          2. КПП указывать не надо.<br/>
-          3. В назначении платежа укажите - Договор № {{ user?.id }}<br/>
-          4. После оплаты пришлите мне в телеграмм @parsentev или на почту parsentev@yandex.ru скрин перевода или скан(фото) чека.<br/>
-          5. НДС не облагается.<br/>
-        <br/>
-        ИП АРСЕНТЬЕВ ПЕТР СЕРГЕЕВИЧ<br/>
-        <br/>
-        Юридический адрес:<br/>
-        241022, РОССИЯ, БРЯНСКАЯ ОБЛ, Г БРЯНСК, ПРОЕЗД МИЧУРИНА, Д 26<br/>
-        <br/>
-        ИНН:<br/>
-        672204588096<br/>
-        <br/>
-        ОГРН:<br/>
-        317325600036651<br/>
-        <br/>
-        Счет:<br/>
-        40802810300007632831<br/>
-        <br/>
-        Банк:<br/>
-        АО «ТБанк»<br/>
-        <br/>
-        Юридический адрес банка:<br/>
-        127287, г. Москва, ул. Хуторская 2-я, д. 38А, стр. 26<br/>
-        <br/>
-        Корреспондентский счет:<br/>
-        30101810145250000974<br/>
-        <br/>
-        ИНН банка:<br/>
-        7710140679<br/>
-        <br/>
-        БИК:<br/>
-        044525974<br/>
-        </p>
+      <div class="text-muted-soft small">
+        Информация о стоимости и порядке оплаты
       </div>
     </div>
+
+    <!-- Content -->
+    <div class="px-3 px-md-4 py-4 d-flex flex-column gap-4 text-muted-soft">
+
+      <!-- Prices -->
+      <div>
+        <div class="fw-semibold text-white mb-2">Стоимость обучения</div>
+        <ul class="mb-0">
+          <li>Уровень «Стажер» — <strong class="text-white">34 780 ₽</strong></li>
+          <li>Уровень «Junior» — <strong class="text-white">36 240 ₽</strong></li>
+          <li>Уровень «Middle» — <strong class="text-white">38 910 ₽</strong></li>
+        </ul>
+      </div>
+
+      <!-- Steps -->
+      <div>
+        <div class="fw-semibold text-white mb-2">Порядок действий</div>
+        <ol class="mb-0">
+          <li>Добавьте Петра Арсентьева в Telegram: <strong>@parsentev</strong></li>
+          <li>Договоритесь о времени для знакомства и обсуждения вопросов</li>
+          <li>Произведите оплату по реквизитам ниже через любой онлайн-банк</li>
+          <li>После оплаты пришлите чек в Telegram или на почту <strong>parsentev@yandex.ru</strong></li>
+        </ol>
+      </div>
+
+      <!-- Payment rules -->
+      <div>
+        <div class="fw-semibold text-white mb-2">Важно при оплате</div>
+        <ul class="mb-0">
+          <li>Перевод выполняется на организацию, не на физическое лицо</li>
+          <li>КПП указывать не нужно</li>
+          <li>В назначении платежа укажите: <strong>Договор № {{ user?.id }}</strong></li>
+          <li>НДС не облагается</li>
+        </ul>
+      </div>
+
+      <!-- Requisites -->
+      <div class="card-glass rounded-3 p-3">
+        <div class="fw-semibold text-white mb-2">Реквизиты</div>
+
+        <div class="small">
+          <div class="mb-2">
+            <strong>ИП Арсентьев Петр Сергеевич</strong>
+          </div>
+
+          <div class="mb-2">
+            Юридический адрес:<br>
+            241022, Россия, Брянская обл., г. Брянск, проезд Мичурина, д. 26
+          </div>
+
+          <div class="mb-2">
+            ИНН: 672204588096<br>
+            ОГРН: 317325600036651
+          </div>
+
+          <div class="mb-2">
+            Счёт: 40802810300007632831
+          </div>
+
+          <div class="mb-2">
+            Банк: АО «ТБанк»<br>
+            БИК: 044525974<br>
+            ИНН банка: 7710140679<br>
+            Корреспондентский счёт: 30101810145250000974
+          </div>
+
+          <div>
+            Юридический адрес банка:<br>
+            127287, г. Москва, ул. Хуторская 2-я, д. 38А, стр. 26
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
+
 </div>

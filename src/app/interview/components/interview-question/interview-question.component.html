@@ -1,117 +1,188 @@
-<div class="container">
-  <div class="row">
-     <span class="w-50">
-                <button [disabled]="!!canSolveInterview"
-                        [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
-                        (click)="showExplanation()"
-                        class="pull-left btn btn-info btn-sm mb-2">
-                 <i class="fa fa-graduation-cap"></i> Изучить</button>
-          </span>
-    <span class="w-50">
-      <ng-container *ngIf="previousNext">
-          <button type="button" class="m btn btn-light btn-sm pull-right" *ngIf="!!previousNext.nextId"
-                  (click)="linkTo(question?.topicId, previousNext?.nextId)">Следующая<i class="fas fa-angle-right pl-1"></i></button>
-          <button type="button" class="m btn btn-light pull-right btn-sm mr-2"  *ngIf="!!previousNext.previousId"
-            (click)="linkTo(question?.topicId, previousNext?.previousId)"><i class="fas fa-angle-left pr-1"></i>Предыдущая</button>
-        </ng-container>
-        <span class="pull-right btn btn-info btn-sm mr-2">
-              Было решено: {{ totalAnswers }}
-            </span>
-     </span>
-  </div>
+<div class="container py-3">
+  <!-- Top actions -->
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+      [disabled]="!!canSolveInterview"
+      [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
+      (click)="showExplanation()"
+    >
+      <i class="bi bi-mortarboard"></i>
+      Изучить
+    </button>
 
-  <div class="row">
-    <div class="card w-100">
-      <div class="card-header">
-        <div class="font-weight-bold">{{ question?.title }}</div>
-        <span *ngIf="question?.status === 1" class="badge badge-danger mr-1">Слабый</span>
-        <span *ngIf="question?.status === 2" class="badge badge-warning mr-1">Средний</span>
-        <span *ngIf="question?.status === 3" class="badge badge-success mr-1">Сильный</span>
-        <span class="badge badge-secondary mr-1"> {{ question?.level?.toLowerCase() }} </span>
-        <span class="small text-muted">
-                  <i class="fas fa-eye"></i> {{ question?.views }}
-                </span>
-      </div>
-      <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word;
-        white-space: pre-wrap;" [innerHTML]="question?.description"></p>
-      </div>
+    <div class="d-flex flex-wrap align-items-center gap-2 ms-auto">
+      <span class="badge rounded-pill badge-glass">
+        Было решено: <span class="text-white fw-semibold ms-1">{{ totalAnswers }}</span>
+      </span>
+
+      <ng-container *ngIf="previousNext">
+        <button
+          *ngIf="!!previousNext.previousId"
+          type="button"
+          class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+          (click)="linkTo(question?.topicId, previousNext?.previousId)"
+        >
+          <i class="bi bi-chevron-left"></i>
+          Предыдущая
+        </button>
+
+        <button
+          *ngIf="!!previousNext.nextId"
+          type="button"
+          class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+          (click)="linkTo(question?.topicId, previousNext?.nextId)"
+        >
+          Следующая
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </ng-container>
     </div>
   </div>
 
-  <div class="row">
-     <span class="w-50">
-               <button [disabled]="!!canSolveInterview"
-                       [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
-                       (click)="showAddCommentForm(true)"
-                       class="pull-left btn btn-success btn-sm mt-2">
-                Решить</button>
-          </span>
-    <span class="w-50 mt-2">
-                   <button
-                     [disabled]="!!canSolveInterview"
-                     [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
-                     (click)="loadStories()"
-                     class="pull-right btn btn-light btn-sm">
-      История ответов</button>
-          </span>
+  <!-- Question -->
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="d-flex flex-wrap align-items-start justify-content-between gap-2">
+        <div class="min-w-0">
+          <div class="fw-semibold text-white">
+            {{ question?.title }}
+          </div>
+
+          <div class="small text-muted-soft mt-2 d-flex flex-wrap align-items-center gap-2">
+            <span
+              *ngIf="question?.status === 1"
+              class="badge rounded-pill badge-accent"
+            >Слабый</span>
+
+            <span
+              *ngIf="question?.status === 2"
+              class="badge rounded-pill badge-warn"
+            >Средний</span>
+
+            <span
+              *ngIf="question?.status === 3"
+              class="badge rounded-pill badge-good"
+            >Сильный</span>
+
+            <span class="badge rounded-pill badge-glass">
+              {{ question?.level?.toLowerCase() }}
+            </span>
+
+            <span class="d-inline-flex align-items-center gap-1">
+              <i class="bi bi-eye"></i>
+              {{ question?.views }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-3 px-md-4 py-3">
+      <div
+        class="text-muted-soft"
+        style="word-wrap: break-word; white-space: pre-wrap;"
+        [innerHTML]="question?.description"
+      ></div>
+    </div>
   </div>
 
-  <div class="row" *ngIf="addFormComment">
+  <!-- Bottom actions -->
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <button
+      type="button"
+      class="btn btn-sm btn-j-primary d-inline-flex align-items-center gap-1"
+      [disabled]="!!canSolveInterview"
+      [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
+      (click)="showAddCommentForm(true)"
+    >
+      <i class="bi bi-check2-circle"></i>
+      Решить
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1 ms-auto"
+      [disabled]="!!canSolveInterview"
+      [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
+      (click)="loadStories()"
+    >
+      <i class="bi bi-clock-history"></i>
+      История ответов
+    </button>
+  </div>
+
+  <!-- Answer form -->
+  <div *ngIf="addFormComment" class="mt-3">
     <app-discussion
       title="Введите ответ"
       (closeEmitter)="saveAnswer($event)"
     ></app-discussion>
   </div>
 
-  <div class="row pt-2" *ngIf="showStories">
-    <div class="card w-100">
-      <div class="card-header">
-        <span class="font-weight-bold">История ответов</span>
-      </div>
-      <div class="card-body">
-        <table class="table table-striped">
-          <tr *ngFor="let story of stories" class="align-middle">
-            <td>
-              <div class="d-flex justify-content-between small">
-                <span class="">Оценка: {{ story.estimate }}</span>
-                <span class="text-muted">{{ story.createdAt | date: 'dd.MM.yyyy HH:mm' }}</span>
-              </div>
-              <div class="mt-2" [innerHTML]="story.text | safeCode"></div>
-            </td>
-          </tr>
-        </table>
-      </div>
+  <!-- Stories -->
+  <div *ngIf="showStories" class="card-glass rounded-4 shadow-sm overflow-hidden mt-3">
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white">История ответов</div>
+    </div>
+
+    <div class="px-3 px-md-4 py-3">
+      <table class="table table-borderless mb-0 align-middle bg-transparent">
+        <tbody class="bg-transparent">
+        <tr *ngFor="let story of stories" class="border-bottom border-soft bg-transparent">
+          <td class="py-3 bg-transparent">
+            <div class="d-flex flex-wrap justify-content-between gap-2 small text-muted-soft">
+                <span>
+                  Оценка: <span class="text-white fw-semibold">{{ story.estimate }}</span>
+                </span>
+              <span>{{ story.createdAt | date: 'dd.MM.yyyy HH:mm' }}</span>
+            </div>
+
+            <div class="mt-2 text-muted-soft" [innerHTML]="story.text | safeCode"></div>
+          </td>
+        </tr>
+
+        <tr *ngIf="!stories?.length" class="bg-transparent">
+          <td class="text-center text-muted-soft py-4 bg-transparent">
+            История пока пустая
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <div class="row pt-2" *ngIf="explanation">
-    <div class="card w-100">
-      <div class="card-header">
-        <div class="font-weight-bold">Объяснение</div>
-      </div>
-      <div class="card-body" [innerHTML]="question?.explanation | safeCode">
-      </div>
+  <!-- Explanation -->
+  <div *ngIf="explanation" class="card-glass rounded-4 shadow-sm overflow-hidden mt-3">
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white">Объяснение</div>
     </div>
+    <div class="px-3 px-md-4 py-3 text-muted-soft" [innerHTML]="question?.explanation | safeCode"></div>
   </div>
 
-  <div class="row pt-2" *ngIf="showEstimate">
-    <div class="card w-100">
-      <div class="card-header">
-        <span class="font-weight-bold" *ngIf="loadingAi">Анализ AI</span>
-        <div *ngIf="loadingAi">
-          <i class="fa fa-spinner spinner-icon mr-1"
-             title="Обрабатывается ..."
-             aria-hidden="true"></i>Обрабатывается...
+  <!-- AI estimate -->
+  <div *ngIf="showEstimate" class="card-glass rounded-4 shadow-sm overflow-hidden mt-3">
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="d-flex align-items-center justify-content-between gap-2">
+        <div class="fw-semibold text-white" *ngIf="!loadingAi">
+          Ваш балл: {{ answer?.estimate }}%
         </div>
-        <span *ngIf="!loadingAi" class="font-weight-bold">Ваш балл: {{ answer?.estimate }}%</span>
+
+        <div class="fw-semibold text-white" *ngIf="loadingAi">
+          Анализ AI
+        </div>
+
+        <div *ngIf="loadingAi" class="small text-muted-soft d-inline-flex align-items-center gap-2">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Обрабатывается...
+        </div>
       </div>
-      <div class="card-body">
-        Ваш ответ:
-        <p *ngIf="!loadingAi" [innerHTML]="answer?.text | safeCode"></p>
-      </div>
+    </div>
+
+    <div class="px-3 px-md-4 py-3">
+      <div class="text-muted-soft">Ваш ответ:</div>
+      <div *ngIf="!loadingAi" class="mt-2 text-muted-soft" [innerHTML]="answer?.text | safeCode"></div>
     </div>
   </div>
 </div>
-
-

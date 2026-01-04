@@ -1,54 +1,87 @@
-<div class="container-fluid pb-4">
-  <div class="row pb-2" *ngIf="canUpdateYourSelf">
-    <span class="w-50 pull-right">
-      <button type="button" (click)="goToEditProfile()" class="m btn btn-info btn-sm mr-1">
-        Редактировать
-      </button>
-     <button type="button" (click)="goToChangePassword()"  class="m btn btn-info btn-sm">
-        Изменить пароль
-      </button>
-    </span>
+<div class="container py-4">
+
+  <!-- Actions -->
+  <div
+    class="d-flex justify-content-end gap-2 mb-3"
+    *ngIf="canUpdateYourSelf"
+  >
+    <button
+      type="button"
+      class="btn btn-outline-light border-soft btn-sm"
+      (click)="goToEditProfile()"
+    >
+      Редактировать
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-outline-light border-soft btn-sm"
+      (click)="goToChangePassword()"
+    >
+      Изменить пароль
+    </button>
   </div>
-  <div class="row">
-    <div class="w-100 card">
-      <div class="card-body">
-        <table class="table">
-          <tr>
-            <td>Имя</td>
-            <td>{{user?.name}}</td>
-          </tr>
-          <tr>
-            <td>Логин</td>
-            <td>{{user?.login}}</td>
-          </tr>
-          <tr>
-            <td>Почта</td>
-            <td>{{user?.email}}</td>
-          </tr>
-          <tr *ngIf="canUpdateYourSelf">
-            <td>Уведомления</td>
-            <td>
-                <label class="switch pull-left" >
-                  <input type="checkbox" class="info" [checked]="showNotification" (change)="sendNotification()">
-                  <span class="slider round"></span>
-                </label>
-                <!--<label *ngIf="showNotification" class="custom-control-label" for="customSwitch1">Включено</label>-->
-                <!--<label *ngIf="!showNotification" class="custom-control-label" for="customSwitch1">Выключено</label>-->
-            </td>
-          </tr>
-          <tr>
-            <td>Номер договора для оплаты</td>
-            <td>{{user?.id}}</td>
-          </tr>
-          <tr>
-            <td>Начало обучения</td>
-            <td>
-              <ng-container *ngIf="!user?.startedAt">Вычисляется от даты первого комментария к уроку</ng-container>
-              <ng-container *ngIf="user?.startedAt">{{ user?.startedAt | date: 'dd.MM.yyyy HH:mm' }}</ng-container>
-            </td>
-          </tr>
-        </table>
+
+  <!-- Profile card -->
+  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+      <div class="fw-semibold text-white">
+        Профиль пользователя
       </div>
     </div>
+
+    <div class="px-3 px-md-4 py-4 d-flex flex-column gap-3">
+
+      <div class="d-flex justify-content-between">
+        <span class="text-muted-soft">Имя</span>
+        <span class="text-white fw-semibold">{{ user?.name }}</span>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <span class="text-muted-soft">Логин</span>
+        <span class="text-white fw-semibold">{{ user?.login }}</span>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <span class="text-muted-soft">Почта</span>
+        <span class="text-white fw-semibold">{{ user?.email }}</span>
+      </div>
+
+      <div
+        class="d-flex justify-content-between align-items-center"
+        *ngIf="canUpdateYourSelf"
+      >
+        <span class="text-muted-soft">Уведомления</span>
+
+        <label class="switch">
+          <input
+            type="checkbox"
+            [checked]="showNotification"
+            (change)="sendNotification()"
+          >
+          <span class="slider round"></span>
+        </label>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <span class="text-muted-soft">Номер договора</span>
+        <span class="text-white fw-semibold">{{ user?.id }}</span>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <span class="text-muted-soft">Начало обучения</span>
+        <span class="text-white fw-semibold">
+          <ng-container *ngIf="!user?.startedAt">
+            Вычисляется от первого комментария
+          </ng-container>
+          <ng-container *ngIf="user?.startedAt">
+            {{ user?.startedAt | date:'dd.MM.yyyy HH:mm' }}
+          </ng-container>
+        </span>
+      </div>
+
+    </div>
   </div>
+
 </div>

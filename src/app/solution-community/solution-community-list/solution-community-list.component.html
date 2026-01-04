@@ -1,32 +1,75 @@
-<div class="container-fluid">
+<div class="container py-3">
   <div class="row">
-    <table class="table">
-      <tbody infinite-scroll
-             class="noscroll"
-             [infiniteScrollDisabled]="!paginationAllowed"
-             [infiniteScrollDistance]="scrollDistance"
-             [infiniteScrollThrottle]="throttle"
-             (scrolled)="onScrollDown()">
-      <ng-container *ngFor="let solution of solutionCommunities; let idx=index">
-        <tr>
-          <td style="cursor: pointer;">
-            <div (click)="openSolutionCommunity(solution.id)">
-              <div>
-                <i class="fas fa-tasks pr-3"></i>
-                <span class="font-weight-bold">{{solution.name}}</span>
-              </div>
-              <small class="mb-2 text-muted">
-                <span>
-                  <span class="mr-3">Автор : {{ solution.userName }}</span>
-                  <span class="mr-3">Создано : {{ solution.created | date: 'dd.MM.yyyy HH:mm' }}</span>
-                  <span class="mr-3">Комментариев : {{ solution.answers }}</span>
-                </span>
-              </small>
-            </div>
-          </td>
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+
+        <!-- Header -->
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold text-white">
+            Code review
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="px-3 px-md-4 py-2">
+          <table class="table table-borderless mb-0 align-middle bg-transparent">
+            <tbody
+              infinite-scroll
+              class="bg-transparent noscroll"
+              [infiniteScrollDisabled]="!paginationAllowed"
+              [infiniteScrollDistance]="scrollDistance"
+              [infiniteScrollThrottle]="throttle"
+              (scrolled)="onScrollDown()"
+            >
+            <tr
+              *ngFor="let solution of solutionCommunities; let idx = index"
+              class="border-bottom border-soft bg-transparent"
+              style="cursor: pointer;"
+              (click)="openSolutionCommunity(solution.id)"
+            >
+              <td class="py-3 bg-transparent">
+                <div class="d-flex align-items-start gap-2">
+                  <i class="bi bi-braces-asterisk mt-1 text-muted-soft"></i>
+
+                  <div class="min-w-0 flex-grow-1">
+                    <div class="fw-semibold text-white mb-2">
+                      {{ solution.name }}
+                    </div>
+
+                    <div class="small text-muted-soft d-flex flex-wrap gap-2">
+                        <span class="d-inline-flex align-items-center gap-1">
+                          <i class="bi bi-person"></i>
+                          Автор: <span class="text-white">{{ solution.userName }}</span>
+                        </span>
+
+                      <span class="d-inline-flex align-items-center gap-1">
+                          <i class="bi bi-clock"></i>
+                          Создано: {{ solution.created | date: 'dd.MM.yyyy HH:mm' }}
+                        </span>
+
+                      <span class="d-inline-flex align-items-center gap-1">
+                          <i class="bi bi-chat-dots"></i>
+                          Комментариев: <span class="text-white">{{ solution.answers }}</span>
+                        </span>
+                    </div>
+                  </div>
+
+                  <i class="bi bi-chevron-right text-muted-soft mt-1"></i>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngIf="!solutionCommunities?.length" class="bg-transparent">
+              <td class="text-center text-muted-soft py-4 bg-transparent">
+                Пока нет опубликованных решений
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /List -->
+
+      </div>
+    </div>
   </div>
 </div>
