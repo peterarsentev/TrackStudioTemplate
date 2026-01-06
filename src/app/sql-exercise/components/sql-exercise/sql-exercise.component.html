@@ -34,7 +34,7 @@
       <!-- EXERCISE CARD -->
       <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
         <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-          <div class="fw-semibold text-white">
+          <div class="fw-semibold ">
             {{ exercise.title }}
           </div>
 
@@ -57,28 +57,28 @@
         <div class="px-3 px-md-4 py-3">
           <div class="text-muted-soft mb-3" [innerHTML]="exercise.description"></div>
 
-          <div class="fw-semibold text-white mb-1">Схема базы данных</div>
+          <div class="fw-semibold  mb-1">Схема базы данных</div>
           <ngx-codemirror
             *ngIf="load"
             [(ngModel)]="exercise.scheme"
             [options]="optionsOutput"
           ></ngx-codemirror>
 
-          <div class="fw-semibold text-white mt-3 mb-1">Данные</div>
+          <div class="fw-semibold  mt-3 mb-1">Данные</div>
           <ngx-codemirror
             *ngIf="load"
             [(ngModel)]="exercise.initScript"
             [options]="optionsOutput"
           ></ngx-codemirror>
 
-          <div class="fw-semibold text-white mt-3 mb-1">Запрос</div>
+          <div class="fw-semibold  mt-3 mb-1">Запрос</div>
           <ngx-codemirror
             *ngIf="load"
             [(ngModel)]="solutionSql"
             [options]="solutionOptions"
           ></ngx-codemirror>
 
-          <div class="fw-semibold text-white mt-3 mb-1">Результат</div>
+          <div class="fw-semibold  mt-3 mb-1">Результат</div>
 
           <div
             *ngIf="solutionResult.message && solutionResult.equal"

@@ -28,7 +28,9 @@ export class SolutionCommunityItemComponent implements OnInit, OnDestroy {
     lineNumbers: true,
     readOnly: true,
     mode: 'text/x-java',
-    theme: "dracula",
+    theme: localStorage.getItem('theme') === 'light'
+      ? 'idea'
+      : 'dracula'
   };
   name: string;
   description: string;

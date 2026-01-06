@@ -26,7 +26,7 @@
   <div class="card-glass rounded-4 shadow-sm overflow-hidden">
 
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-      <div class="fw-semibold text-white">
+      <div class="fw-semibold ">
         Профиль пользователя
       </div>
     </div>
@@ -35,17 +35,17 @@
 
       <div class="d-flex justify-content-between">
         <span class="text-muted-soft">Имя</span>
-        <span class="text-white fw-semibold">{{ user?.name }}</span>
+        <span class=" fw-semibold">{{ user?.name }}</span>
       </div>
 
       <div class="d-flex justify-content-between">
         <span class="text-muted-soft">Логин</span>
-        <span class="text-white fw-semibold">{{ user?.login }}</span>
+        <span class=" fw-semibold">{{ user?.login }}</span>
       </div>
 
       <div class="d-flex justify-content-between">
         <span class="text-muted-soft">Почта</span>
-        <span class="text-white fw-semibold">{{ user?.email }}</span>
+        <span class=" fw-semibold">{{ user?.email }}</span>
       </div>
 
       <div
@@ -66,12 +66,12 @@
 
       <div class="d-flex justify-content-between">
         <span class="text-muted-soft">Номер договора</span>
-        <span class="text-white fw-semibold">{{ user?.id }}</span>
+        <span class=" fw-semibold">{{ user?.id }}</span>
       </div>
 
       <div class="d-flex justify-content-between">
         <span class="text-muted-soft">Начало обучения</span>
-        <span class="text-white fw-semibold">
+        <span class=" fw-semibold">
           <ng-container *ngIf="!user?.startedAt">
             Вычисляется от первого комментария
           </ng-container>

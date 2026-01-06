@@ -6,7 +6,7 @@
       <!-- Status -->
       <span
         *ngIf="message.status"
-        class="badge rounded-pill"
+        class="badge"
         [ngClass]="{
           'badge-accent': message.status?.id == 1,
           'badge-good': message.status?.id == 3,
@@ -19,11 +19,11 @@
       <!-- From / To -->
       <span class="text-muted-soft">
         Сообщение от
-        <span class="fw-semibold text-white">
+        <span class="fw-semibold ">
           {{ message.submitter.name }} [{{ message.submitter.mentor ? 'Ментор' : 'Ученик' }}]
         </span>
         к
-        <span class="fw-semibold text-white">
+        <span class="fw-semibold ">
           {{ message.handler.name }} [{{ !message.submitter.mentor ? 'Ментор' : 'Ученик' }}]
         </span>
       </span>
@@ -86,7 +86,7 @@
 
     <button
       type="button"
-      class="btn btn-sm btn-outline-light border-soft"
+      class="btn btn-sm border-soft"
       (click)="cancel()"
     >
       Отменить

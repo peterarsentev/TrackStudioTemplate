@@ -17,6 +17,7 @@ import { BookmarksService } from '../../../shared/services/bookmarks.service';
 import { ModalService, TypeModals } from '../../../shared/modal.service';
 import { TasksService } from '../../../shared/services/tasks.service';
 import {InterviewNotificationService} from '../../../shared/services/interview.notification.service';
+import {ThemeService} from '../../../shared/services/theme.service';
 
 
 @Component({
@@ -42,6 +43,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   solvedTasksCount = 0;
   mockNotifications: { count: number };
 
+  currentTheme: 'dark' | 'light' = 'dark';
+
   constructor(
     private userService: UserService,
     private messageService: MessageService,
@@ -55,9 +58,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private bookmarksService: BookmarksService,
     private tasksService: TasksService,
     private interviewNotificationService: InterviewNotificationService,
+    private themeService: ThemeService,
   ) {}
 
   ngOnInit() {
+    // theme
+    const saved = localStorage.getItem('theme') as 'dark' | 'light';
+    this.currentTheme = saved || 'dark';
+
     this.bookmarksService.bookmarkModel$
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(res => {
@@ -257,5 +265,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onActivate(componentRef: any) {
     this.getRecommendation();
+  }
+
+  toggleTheme() {
+    this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', this.currentTheme);
+    localStorage.setItem('theme', this.currentTheme);
   }
 }

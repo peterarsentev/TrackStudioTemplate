@@ -367,7 +367,7 @@
       <div class="accordion" id="faqAcc">
         <div class="accordion-item card-glass border-soft rounded-4 overflow-hidden mb-2">
           <h2 class="accordion-header">
-            <button class="accordion-button bg-transparent text-white border-0" type="button"
+            <button class="accordion-button bg-transparent  border-0" type="button"
                     data-bs-toggle="collapse" data-bs-target="#f1" aria-expanded="true" aria-controls="f1">
               Подойдёт ли мне, если я не новичок?
             </button>
@@ -382,7 +382,7 @@
 
         <div class="accordion-item card-glass border-soft rounded-4 overflow-hidden mb-2">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed bg-transparent text-white border-0" type="button"
+            <button class="accordion-button collapsed bg-transparent  border-0" type="button"
                     data-bs-toggle="collapse" data-bs-target="#f2" aria-expanded="false" aria-controls="f2">
               Есть ли проекты и портфолио?
             </button>
@@ -397,7 +397,7 @@
 
         <div class="accordion-item card-glass border-soft rounded-4 overflow-hidden mb-2">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed bg-transparent text-white border-0" type="button"
+            <button class="accordion-button collapsed bg-transparent  border-0" type="button"
                     data-bs-toggle="collapse" data-bs-target="#f3" aria-expanded="false" aria-controls="f3">
               Можно ли идти своим темпом?
             </button>
@@ -411,7 +411,7 @@
 
         <div class="accordion-item card-glass border-soft rounded-4 overflow-hidden">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed bg-transparent text-white border-0" type="button"
+            <button class="accordion-button collapsed bg-transparent  border-0" type="button"
                     data-bs-toggle="collapse" data-bs-target="#f4" aria-expanded="false" aria-controls="f4">
               Где смотреть цены/тарифы?
             </button>
@@ -454,7 +454,7 @@
 <div class="container py-4" *ngIf="!!user && user.login !== 'guest'">
   <div class="row mb-lg-3">
     <div class="col-md-6 px-3 mb-3">
-      <div class="fw-semibold text-white mb-2">
+      <div class="fw-semibold  mb-2">
         Общая активность: {{ user?.name }}
       </div>
       <div class="card-glass rounded-4 shadow-sm p-3">
@@ -463,7 +463,7 @@
     </div>
 
     <div class="col-md-6 px-3 mb-3">
-      <div class="fw-semibold text-white mb-2">
+      <div class="fw-semibold  mb-2">
         Выполненные уроки
       </div>
       <div class="card-glass rounded-4 shadow-sm p-3">
@@ -477,14 +477,14 @@
     <div class="col-md-6 px-3 mb-3">
       <div class="card-glass rounded-4 shadow-sm overflow-hidden">
         <div class="px-3 py-3 border-bottom border-soft">
-          <div class="fw-semibold text-white">Прогресс обучения</div>
+          <div class="fw-semibold ">Прогресс обучения</div>
         </div>
 
         <div class="px-3 py-3">
           <table class="table table-borderless mb-0 bg-transparent align-middle">
             <tbody class="bg-transparent text-muted-soft">
             <tr class="bg-transparent">
-              <td class="bg-transparent  text-white">
+              <td class="bg-transparent  ">
                 Выполнено уроков {{ solvedTasksCount }} из {{ allTasksCount }}
               </td>
               <td class="bg-transparent">
@@ -497,7 +497,7 @@
             </tr>
 
             <tr class="bg-transparent">
-              <td class="bg-transparent  text-white">
+              <td class="bg-transparent  ">
                 Выполнено упражнений Java Core {{ solvedExerciseCount }} из {{ totalExerciseCount }}
               </td>
               <td class="bg-transparent">
@@ -510,10 +510,10 @@
             </tr>
 
             <tr class="bg-transparent">
-              <td class="bg-transparent  text-white">
+              <td class="bg-transparent  ">
                 Выполнено упражнений SQL {{ solvedSqlExerciseCount }} из {{ totalSqlExerciseCount }}
               </td>
-              <td class="bg-transparent  text-white">
+              <td class="bg-transparent  ">
                 <app-progress-bar-view
                   [allTasksCount]="totalSqlExerciseCount"
                   [solvedTasksCount]="solvedSqlExerciseCount"
@@ -523,31 +523,31 @@
             </tr>
 
             <tr class="bg-transparent">
-              <td class="bg-transparent  text-white">Начало обучения:</td>
-              <td class="bg-transparent  text-white">
+              <td class="bg-transparent  ">Начало обучения:</td>
+              <td class="bg-transparent  ">
                 <ng-container *ngIf="!user?.startedAt">{{ submitDate | getDate }}</ng-container>
                 <ng-container *ngIf="user?.startedAt">{{ user.startedAt | getDate }}</ng-container>
               </td>
             </tr>
 
             <tr class="bg-transparent">
-              <td class="bg-transparent  text-white">Последняя активность в курсе:</td>
-              <td class="bg-transparent  text-white">{{ updateDate | getDate }}</td>
+              <td class="bg-transparent  ">Последняя активность в курсе:</td>
+              <td class="bg-transparent  ">{{ updateDate | getDate }}</td>
             </tr>
 
             <tr class="bg-transparent">
-              <td class="bg-transparent  text-white">Всего дней с начала обучения:</td>
-              <td class="bg-transparent  text-white">{{ countOfDays }}</td>
+              <td class="bg-transparent  ">Всего дней с начала обучения:</td>
+              <td class="bg-transparent  ">{{ countOfDays }}</td>
             </tr>
 
             <tr class="bg-transparent">
-              <td class="bg-transparent  text-white">Количество задач в день:</td>
-              <td class="bg-transparent  text-white">{{ speed | number: '1.2-2' }}</td>
+              <td class="bg-transparent  ">Количество задач в день:</td>
+              <td class="bg-transparent  ">{{ speed | number: '1.2-2' }}</td>
             </tr>
 
             <tr class="bg-transparent">
-              <td class="bg-transparent  text-white">Ожидаемая дата завершения:</td>
-              <td class="bg-transparent  text-white">{{ endOfCourse }}</td>
+              <td class="bg-transparent  ">Ожидаемая дата завершения:</td>
+              <td class="bg-transparent  ">{{ endOfCourse }}</td>
             </tr>
             </tbody>
           </table>
@@ -559,7 +559,7 @@
     <div class="col-md-6 px-3 mb-3">
       <div class="card-glass rounded-4 shadow-sm overflow-hidden">
         <div class="px-3 py-3 border-bottom border-soft">
-          <div class="fw-semibold text-white">Доступные уровни</div>
+          <div class="fw-semibold ">Доступные уровни</div>
         </div>
 
         <div class="px-3 py-3">
@@ -569,7 +569,7 @@
               *ngFor="let l of levels"
               class="bg-transparent border-bottom border-soft"
             >
-              <td class="bg-transparent w-50 text-white">
+              <td class="bg-transparent w-50 ">
                 {{ l.name }}
               </td>
               <td class="bg-transparent w-50">

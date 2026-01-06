@@ -2,7 +2,6 @@
   <nav aria-label="breadcrumb">
     <ol class="crumbs card-glass rounded-4 shadow-sm px-3 px-md-4 py-2 d-flex align-items-center">
       <ng-container *ngFor="let nav of solutions; let idx = index; let last = last">
-
         <li class="d-inline-flex align-items-center">
           <ng-container *ngIf="!last; else lastTpl">
             <a
@@ -14,14 +13,13 @@
           </ng-container>
 
           <ng-template #lastTpl>
-            <span class="fw-semibold text-white">
+            <span class="fw-semibold current">
               {{ nav.name }}
             </span>
           </ng-template>
         </li>
 
         <li *ngIf="!last" class="sep d-inline-flex align-items-center px-2">→</li>
-
       </ng-container>
     </ol>
   </nav>

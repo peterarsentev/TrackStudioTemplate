@@ -166,7 +166,9 @@ export class ExamQuestionComponent implements OnInit, OnDestroy {
       mode: 'text/x-java',
       indentUnit: 4,
       indentWithTabs: false,
-      theme: "dracula",
+      theme: localStorage.getItem('theme') === 'light'
+        ? 'idea'
+        : 'dracula'
     } as EditorConfiguration);
 
     code.getDoc().setValue(

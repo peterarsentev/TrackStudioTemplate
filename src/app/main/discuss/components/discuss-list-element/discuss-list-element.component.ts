@@ -27,13 +27,17 @@ export class DiscussListElementComponent implements OnInit, OnDestroy, AfterView
     lineNumbers: true,
     readOnly: false,
     mode: 'text/x-java',
-    theme: "dracula",
+    theme: localStorage.getItem('theme') === 'light'
+      ? 'idea'
+      : 'dracula'
   };
   optionsOutput = {
     lineNumbers: true,
     readOnly: true,
     mode: 'text/x-pgsql',
-    theme: "dracula",
+    theme: localStorage.getItem('theme') === 'light'
+      ? 'idea'
+      : 'dracula'
   };
   canCreateDiscuss = true;
   @ViewChild(DiscussionBlockComponent, {static: false}) discussComponent: DiscussionBlockComponent;

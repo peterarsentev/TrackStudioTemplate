@@ -1,51 +1,104 @@
-:root{
-  --bg:#0b1220;
-  --bg2:#0e1730;
-  --card:rgba(255,255,255,.06);
-  --card2:rgba(255,255,255,.09);
-  --text:#e7ecff;
-  --muted:rgba(231,236,255,.72);
-  --line:rgba(255,255,255,.12);
-  --shadow: 0 18px 45px rgba(0,0,0,.35);
-  --radius2:26px;
+/* =========================
+   THEMES (универсально)
+   ========================= */
+:root,
+[data-theme="dark"] {
+  --bg: #0b1220;
+  --bg2: #0e1730;
+
+  --text: #e7ecff;
+  --muted: rgba(231, 236, 255, 0.72);
+  --line: rgba(255, 255, 255, 0.12);
+
+  --card: rgba(255, 255, 255, 0.04);
+  --card2: rgba(255, 255, 255, 0.09);
+
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+  --shadow2: 0 12px 30px rgba(0, 0, 0, 0.22);
+
+  --radius2: 26px;
+
+  /* crumbs */
+  --crumbs: rgba(231, 236, 255, 0.7);
+  --crumbs-link: rgba(231, 236, 255, 0.86);
+  --crumbs-link-hover: rgba(231, 236, 255, 0.95);
+  --crumbs-sep: rgba(231, 236, 255, 0.75);
 }
 
-/* glass как в шаблоне */
-.card-glass{
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.04);
-  box-shadow: 0 12px 30px rgba(0,0,0,.22);
+[data-theme="light"] {
+  --bg: #f6f7fb;
+  --bg2: #ffffff;
+
+  --text: #1f2937;
+  --muted: #6b7280;
+  --line: rgba(0, 0, 0, 0.12);
+
+  --card: rgba(255, 255, 255, 0.85);
+  --card2: rgba(255, 255, 255, 0.95);
+
+  --shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  --shadow2: 0 12px 30px rgba(0, 0, 0, 0.12);
+
+  --radius2: 26px;
+
+  /* crumbs */
+  --crumbs: rgba(31, 41, 55, 0.7);
+  --crumbs-link: rgba(31, 41, 55, 0.86);
+  --crumbs-link-hover: rgba(31, 41, 55, 0.98);
+  --crumbs-sep: rgba(31, 41, 55, 0.55);
+}
+
+/* =========================
+   Global base
+   ========================= */
+body {
+  color: var(--text);
+  background: linear-gradient(180deg, var(--bg), var(--bg2));
+}
+
+/* glass */
+.card-glass {
+  border: 1px solid var(--line);
+  background: var(--card);
+  box-shadow: var(--shadow2);
   backdrop-filter: blur(10px);
 }
 
-/* “мягкий muted” как в шаблоне */
-.text-muted-soft{
+/* muted */
+.text-muted-soft {
   color: var(--muted) !important;
 }
 
-/* мелкие крошки как в шаблоне */
-.crumbs{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  color: rgba(231,236,255,.70);
+/* crumbs */
+.crumbs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--crumbs);
   font-size: 12px;
   margin: 0;
 }
 
-.crumbs a{
-  color: rgba(231,236,255,.86);
+.crumbs a {
+  color: var(--crumbs-link);
   text-decoration: none;
 }
 
-.crumbs a:hover{
-  color: rgba(231,236,255,.95);
+.crumbs a:hover {
+  color: var(--crumbs-link-hover);
   text-decoration: none;
 }
 
-.crumbs .sep{
-  opacity:.75;
+.crumbs .sep {
+  color: var(--crumbs-sep);
 }
 
-/* утилита */
-.cursor-pointer{ cursor:pointer; }
+/* make last breadcrumb follow theme */
+.crumbs .current {
+  color: var(--text);
+}
+
+/* util */
+.cursor-pointer {
+  cursor: pointer;
+}

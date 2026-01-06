@@ -6,7 +6,7 @@
       <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
         <div class="px-3 px-md-4 py-3 border-bottom border-soft">
           <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
-            <div class="fw-semibold text-white">Уведомления об уроках</div>
+            <div class="fw-semibold ">Уведомления об уроках</div>
 
             <button
               type="button"
@@ -37,7 +37,7 @@
                       <div class="d-flex align-items-start gap-2">
                         <i class="bi bi-list-check mt-1 text-muted-soft"></i>
                         <div class="min-w-0">
-                          <div class="fw-semibold text-white text-truncate">
+                          <div class="fw-semibold  text-truncate">
                             {{ message.text }}
                           </div>
                           <div class="small text-muted-soft mt-1">
@@ -75,7 +75,7 @@
       <!-- Уведомления об обсуждениях -->
       <div *ngIf="notifications.length > 0" class="card-glass rounded-4 shadow-sm overflow-hidden">
         <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-          <div class="fw-semibold text-white">Уведомления об обсуждениях</div>
+          <div class="fw-semibold ">Уведомления об обсуждениях</div>
         </div>
 
         <div class="px-3 px-md-4 py-2">
@@ -96,14 +96,14 @@
                       <i class="bi bi-chat-dots mt-1 text-muted-soft"></i>
 
                       <div class="min-w-0">
-                        <div class="fw-semibold text-white">
+                        <div class="fw-semibold ">
                           {{ not.body }}
                         </div>
 
                         <div class="small text-muted-soft mt-1">
                           {{ not.time | getDate }}
                           <span class="ms-2">•</span>
-                          <span class="ms-2">От: <span class="text-white">{{ not.submitter.name }}</span></span>
+                          <span class="ms-2">От: <span class="">{{ not.submitter.name }}</span></span>
                         </div>
                       </div>
                     </div>

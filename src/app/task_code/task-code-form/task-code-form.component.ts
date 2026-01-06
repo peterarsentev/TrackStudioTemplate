@@ -47,7 +47,9 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy, AfterViewInit {
     mode: 'text/x-java',
     indentUnit: 4,
     indentWithTabs: false,
-    theme: "dracula",
+    theme: localStorage.getItem('theme') === 'light'
+      ? 'idea'
+      : 'dracula'
   };
 
   optionsTest = {
@@ -61,7 +63,9 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy, AfterViewInit {
     lineNumbers: true,
     readOnly: true,
     mode: 'text/x-java',
-    theme: "dracula",
+    theme: localStorage.getItem('theme') === 'light'
+      ? 'idea'
+      : 'dracula'
   };
 
   @ViewChild('editor', {static: true}) editor;

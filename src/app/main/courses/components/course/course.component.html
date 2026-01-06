@@ -4,13 +4,13 @@
       <div class="card-glass rounded-4 shadow-sm overflow-hidden">
         <div class="px-3 px-md-4 py-3 border-bottom border-soft">
           <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
-            <div class="fw-semibold text-white">
+            <div class="fw-semibold ">
               🚀 Учебная программа: {{ category?.name }}
             </div>
 
             <div class="text-muted-soft">
               💰 Стоимость:
-              <span class="fw-semibold text-white">{{ category?.price }} &#8381;</span>
+              <span class="fw-semibold ">{{ category?.price }} &#8381;</span>
             </div>
           </div>
         </div>
@@ -18,37 +18,37 @@
         <div class="px-3 px-md-4 py-3">
           <div class="text-muted-soft" [innerHTML]="category?.description | safeCode"></div>
 
-          <div class="mt-4 fw-semibold text-white d-flex align-items-center gap-2">
+          <div class="mt-4 fw-semibold  d-flex align-items-center gap-2">
             <i class="bi bi-mortarboard"></i>
             📚 Процесс обучения
           </div>
 
           <div class="mt-2 text-muted-soft">
             <p class="mb-3">
-              С самого начала я хотел, чтобы учеба напоминала <strong class="text-white">реальную рабочую обстановку</strong>.
+              С самого начала я хотел, чтобы учеба напоминала <strong class="">реальную рабочую обстановку</strong>.
               Поэтому уже с первых уроков вы работаете с Git, системами статического анализа, тестами и
               инструментами непрерывного развёртывания.
             </p>
 
             <p class="mb-3">
-              В то же время мне важно, чтобы обучение оставалось <strong class="text-white">домашним и комфортным</strong>.
+              В то же время мне важно, чтобы обучение оставалось <strong class="">домашним и комфортным</strong>.
               У нас нет жёстких дедлайнов — вы занимаетесь тогда, когда удобно.
             </p>
 
             <p class="mb-3">
-              Для нас каждый ученик — это <strong class="text-white">личность</strong>, а не “безликий пользователь”.
+              Для нас каждый ученик — это <strong class="">личность</strong>, а не “безликий пользователь”.
               Мы проверяем каждый урок, даём обратную связь и объясняем теорию.
             </p>
 
             <p class="mb-3">
               Наверное, вы спросите: «Как же хватает времени на всех?» Всё просто: на курсе работают
-              <strong class="text-white">я (Пётр Арсентьев)</strong> и ещё четыре ментора — Стас, Алексей, Андрей и Михаил.
+              <strong class="">я (Пётр Арсентьев)</strong> и ещё четыре ментора — Стас, Алексей, Андрей и Михаил.
               Мы отказались от неэффективных вебинаров и видеолекций: вместо часовых видео у вас
-              <strong class="text-white">короткие тексты с иллюстрациями</strong>, которые позволяют быстрее перейти к практике.
+              <strong class="">короткие тексты с иллюстрациями</strong>, которые позволяют быстрее перейти к практике.
             </p>
 
             <p class="mb-3">
-              Мы убеждены: <em class="text-white">теория без практики — пустое дело</em>.
+              Мы убеждены: <em class="">теория без практики — пустое дело</em>.
               Поэтому ученик обращается к нам тогда, когда написал код или решил задачу, а не когда просто хочет переслушать объяснение.
             </p>
 
@@ -58,7 +58,7 @@
           </div>
 
           <div class="mt-4">
-            <div class="fw-semibold text-white mb-2">Итоги</div>
+            <div class="fw-semibold  mb-2">Итоги</div>
             <ul class="list-unstyled mb-0 text-muted-soft">
               <li class="d-flex align-items-start gap-2 mb-2">
                 <i class="bi bi-check2-circle text-success mt-1"></i>
@@ -87,7 +87,7 @@
         <!-- ВАЖНО: блок должен быть ВНУТРИ card и иметь padding по X -->
         <div class="px-3 px-md-4 pb-4">
           <div class="p-3 p-md-4 rounded-4 border border-soft bg-glass">
-            <div class="fw-semibold text-white mb-1">
+            <div class="fw-semibold  mb-1">
               Хотите начать обучение или задать вопрос по программе?
             </div>
             <div class="text-muted-soft">

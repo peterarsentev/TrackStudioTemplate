@@ -33,7 +33,7 @@
   <div class="card-glass rounded-4 shadow-sm overflow-hidden">
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
       <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-        <div class="fw-semibold text-white d-flex align-items-center gap-2">
+        <div class="fw-semibold  d-flex align-items-center gap-2">
           <i class="bi bi-mic"></i>
           Собеседования
           <span class="text-muted-soft small">({{ interviews?.length || 0 }})</span>
@@ -65,7 +65,7 @@
               <i class="bi bi-list-check mt-1 text-muted-soft"></i>
 
               <div class="min-w-0">
-                <div class="fw-semibold text-white text-truncate">
+                <div class="fw-semibold  text-truncate">
                   {{ interv.title }}
                 </div>
 
@@ -96,7 +96,7 @@
                   <!-- AUTHOR -->
                   <span class="d-inline-flex align-items-center gap-1">
                     <i class="bi bi-person"></i>
-                    Автор: <span class="text-white fw-semibold">{{ interv.submitterName }}</span>
+                    Автор: <span class=" fw-semibold">{{ interv.submitterName }}</span>
                   </span>
 
                   <!-- SCORE -->
@@ -104,17 +104,17 @@
                     <span class="d-inline-flex align-items-center gap-1">
                       <i class="bi bi-check2-square"></i>
                       Принято:
-                      <span class="text-white fw-semibold">{{ interv.userScore.countConduct }}</span>,
+                      <span class=" fw-semibold">{{ interv.userScore.countConduct }}</span>,
                       ср. балл:
-                      <span class="text-white fw-semibold">{{ interv.userScore.conductScore }}</span>
+                      <span class=" fw-semibold">{{ interv.userScore.conductScore }}</span>
                     </span>
 
                     <span class="d-inline-flex align-items-center gap-1">
                       <i class="bi bi-award"></i>
                       Сдано:
-                      <span class="text-white fw-semibold">{{ interv.userScore.countPass }}</span>,
+                      <span class=" fw-semibold">{{ interv.userScore.countPass }}</span>,
                       ср. балл:
-                      <span class="text-white fw-semibold">{{ interv.userScore.passScore }}</span>
+                      <span class=" fw-semibold">{{ interv.userScore.passScore }}</span>
                     </span>
                   </ng-container>
                 </div>

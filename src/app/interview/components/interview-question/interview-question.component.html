@@ -14,7 +14,7 @@
 
     <div class="d-flex flex-wrap align-items-center gap-2 ms-auto">
       <span class="badge rounded-pill badge-glass">
-        Было решено: <span class="text-white fw-semibold ms-1">{{ totalAnswers }}</span>
+        Было решено: <span class=" fw-semibold ms-1">{{ totalAnswers }}</span>
       </span>
 
       <ng-container *ngIf="previousNext">
@@ -46,7 +46,7 @@
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
       <div class="d-flex flex-wrap align-items-start justify-content-between gap-2">
         <div class="min-w-0">
-          <div class="fw-semibold text-white">
+          <div class="fw-semibold ">
             {{ question?.title }}
           </div>
 
@@ -124,7 +124,7 @@
   <!-- Stories -->
   <div *ngIf="showStories" class="card-glass rounded-4 shadow-sm overflow-hidden mt-3">
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-      <div class="fw-semibold text-white">История ответов</div>
+      <div class="fw-semibold ">История ответов</div>
     </div>
 
     <div class="px-3 px-md-4 py-3">
@@ -134,7 +134,7 @@
           <td class="py-3 bg-transparent">
             <div class="d-flex flex-wrap justify-content-between gap-2 small text-muted-soft">
                 <span>
-                  Оценка: <span class="text-white fw-semibold">{{ story.estimate }}</span>
+                  Оценка: <span class=" fw-semibold">{{ story.estimate }}</span>
                 </span>
               <span>{{ story.createdAt | date: 'dd.MM.yyyy HH:mm' }}</span>
             </div>
@@ -156,7 +156,7 @@
   <!-- Explanation -->
   <div *ngIf="explanation" class="card-glass rounded-4 shadow-sm overflow-hidden mt-3">
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-      <div class="fw-semibold text-white">Объяснение</div>
+      <div class="fw-semibold ">Объяснение</div>
     </div>
     <div class="px-3 px-md-4 py-3 text-muted-soft" [innerHTML]="question?.explanation | safeCode"></div>
   </div>
@@ -165,11 +165,11 @@
   <div *ngIf="showEstimate" class="card-glass rounded-4 shadow-sm overflow-hidden mt-3">
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
       <div class="d-flex align-items-center justify-content-between gap-2">
-        <div class="fw-semibold text-white" *ngIf="!loadingAi">
+        <div class="fw-semibold " *ngIf="!loadingAi">
           Ваш балл: {{ answer?.estimate }}%
         </div>
 
-        <div class="fw-semibold text-white" *ngIf="loadingAi">
+        <div class="fw-semibold " *ngIf="loadingAi">
           Анализ AI
         </div>
 

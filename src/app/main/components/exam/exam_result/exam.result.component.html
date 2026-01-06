@@ -3,7 +3,7 @@
 
     <!-- Header -->
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-      <div class="fw-semibold text-white">
+      <div class="fw-semibold ">
         Ответы с ошибками · {{ exam?.name }}
       </div>
       <div class="text-muted-soft small mt-1">
@@ -19,7 +19,7 @@
         *ngFor="let question of questions"
       >
         <!-- Question -->
-        <div class="fw-semibold text-white mb-2">
+        <div class="fw-semibold  mb-2">
           {{ question.name }}
         </div>
 
@@ -30,7 +30,7 @@
 
         <!-- Options -->
         <div class="mb-3">
-          <div class="fw-semibold text-white mb-2">Варианты ответа</div>
+          <div class="fw-semibold  mb-2">Варианты ответа</div>
 
           <div
             class="d-flex flex-column gap-2"
@@ -69,7 +69,7 @@
 
         <!-- Hint -->
         <div>
-          <div class="fw-semibold text-white mb-1">Рекомендации</div>
+          <div class="fw-semibold  mb-1">Рекомендации</div>
           <div class="text-muted-soft small" [innerHTML]="question.hint"></div>
         </div>
       </div>

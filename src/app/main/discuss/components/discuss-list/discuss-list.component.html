@@ -5,7 +5,7 @@
 
         <!-- Header -->
         <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-          <div class="fw-semibold text-white">
+          <div class="fw-semibold ">
             Обсуждения
           </div>
         </div>
@@ -41,7 +41,7 @@
                       {{ discuss.topicName }}
                     </a>
                     <span class="text-muted-soft">/</span>
-                    <span class="text-white fw-semibold">
+                    <span class=" fw-semibold">
                         {{ discuss.name }}
                       </span>
                   </div>
@@ -69,12 +69,12 @@
                   <i class="bi bi-chat-dots mt-1 text-muted-soft"></i>
 
                   <div class="min-w-0">
-                    <div class="fw-semibold text-white">
+                    <div class="fw-semibold ">
                       {{ discuss.name }}
                     </div>
 
                     <div class="small text-muted-soft mt-1 d-flex flex-wrap gap-3">
-                      <span>Автор: <span class="text-white">{{ discuss.submitter.name }}</span></span>
+                      <span>Автор: <span class="">{{ discuss.submitter.name }}</span></span>
                       <span>Создано: {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}</span>
                       <span>Обновлено: {{ discuss.updated | date: 'dd.MM.yyyy HH:mm' }}</span>
                     </div>

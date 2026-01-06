@@ -2,15 +2,15 @@
   <div class="row">
     <div class="col-12">
       <div class="card-glass rounded-4 shadow-sm overflow-hidden">
-        <table class="table table-borderless mb-0 align-middle bg-transparent">
-          <thead class="border-bottom border-soft bg-transparent">
-          <tr class="bg-transparent">
-            <th class="py-3 bg-transparent">
+        <table class="table table-borderless mb-0 align-middle">
+          <thead class="border-bottom border-soft">
+          <tr>
+            <th class="py-3">
               <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
                 <div class="d-flex flex-wrap gap-2 align-items-center">
                     <span class="text-muted-soft fw-semibold">
                       Уроков:
-                      <span class="text-white fw-bold">{{ tasks.length }}</span>
+                      <span class="fw-bold">{{ tasks.length }}</span>
                     </span>
 
                   <span class="ms-2">
@@ -21,7 +21,7 @@
                 <div class="d-flex flex-wrap gap-2" *ngIf="!isSearch">
                   <button
                     type="button"
-                    class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+                    class="btn btn-sm border-soft d-inline-flex align-items-center gap-1"
                     (click)="goBackToList()"
                   >
                     <i class="bi bi-chevron-up"></i>
@@ -31,7 +31,7 @@
                   <button
                     *ngIf="task.previousId !== -1"
                     type="button"
-                    class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+                    class="btn btn-sm border-soft d-inline-flex align-items-center gap-1"
                     (click)="goBackToList(task.previousId)"
                   >
                     <i class="bi bi-chevron-left"></i>
@@ -41,7 +41,7 @@
                   <button
                     *ngIf="task.nextId !== -1"
                     type="button"
-                    class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+                    class="btn btn-sm border-soft d-inline-flex align-items-center gap-1"
                     (click)="goBackToList(task.nextId)"
                   >
                     Следующий
@@ -53,37 +53,12 @@
           </tr>
           </thead>
 
-          <tbody class="bg-transparent">
+          <tbody>
           <tr
             *ngFor="let task of tasks; let idx = index"
-            class="border-bottom border-soft bg-transparent"
+            class="border-bottom border-soft"
           >
-            <td class="py-3 bg-transparent">
-              <!-- Inline navigation -->
-              <div *ngIf="showNaw" class="mb-2">
-                <nav aria-label="breadcrumb">
-                  <div class="d-inline-flex align-items-center gap-2 px-3 py-2 card-glass rounded-4 shadow-sm">
-                    <a
-                      class="text-decoration-none text-muted-soft fw-semibold cursor-pointer"
-                      (click)="goToMain()"
-                    >
-                      Job4j
-                    </a>
-                    <span class="text-muted-soft">/</span>
-                    <a
-                      class="text-decoration-none text-muted-soft fw-semibold cursor-pointer"
-                      (click)="goTo(task)"
-                    >
-                      {{ task.task.topicName }}
-                    </a>
-                    <span class="text-muted-soft">/</span>
-                    <span class="text-white fw-semibold">
-                        {{ task.task.name }}
-                      </span>
-                  </div>
-                </nav>
-              </div>
-
+            <td class="py-3">
               <!-- Title -->
               <div class="d-flex align-items-start gap-2 mb-1">
                 <i class="bi bi-list-check mt-1"></i>
@@ -96,7 +71,7 @@
                         : ['/exercise', task.task.topicId, 'task-view', task.task.id]
                     "
                 >
-                    <span class="fw-semibold text-white">
+                    <span class="fw-semibold">
                       {{ task.task.name }}&nbsp;{{ getSolutionId(task) }}
                     </span>
                 </a>
@@ -109,9 +84,9 @@
               </div>
 
               <!-- Meta -->
-              <div class="small text-muted-soft d-flex flex-wrap align-items-center gap-2">
-                  <span
-                    class="badge rounded-pill"
+              <div class="small text-muted-soft d-flex flex-wrap gap-2">
+                <span
+                  class="badge rounded-pill badge-glass"
                     [ngClass]="{
                       'badge-good': task.status?.id == 3,
                       'badge-warn': task.status?.id == 2 || task.status?.id == 4,
@@ -126,7 +101,7 @@
                 <ng-container *ngIf="task.solution">
                     <span *ngIf="task.handler" class="d-inline-flex align-items-center gap-1">
                       <i class="bi bi-person"></i>
-                      <span class="text-white">{{ task.handler.name }}</span>
+                      <span>{{ task.handler.name }}</span>
                     </span>
 
                   <span class="d-inline-flex align-items-center gap-1">
@@ -168,8 +143,8 @@
             </td>
           </tr>
 
-          <tr *ngIf="!tasks?.length" class="bg-transparent">
-            <td class="text-center text-muted-soft py-4 bg-transparent">
+          <tr *ngIf="!tasks?.length">
+            <td class="text-center text-muted-soft py-4">
               Ничего не найдено
             </td>
           </tr>

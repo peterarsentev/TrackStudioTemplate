@@ -3,7 +3,7 @@
 
     <!-- Header -->
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-      <div class="fw-semibold text-white">
+      <div class="fw-semibold ">
         Проверка теории по Java и SQL
       </div>
       <div class="text-muted-soft small mt-1">
@@ -34,7 +34,7 @@
               class="py-3 bg-transparent"
               (click)="examIntro(exam.exam)"
             >
-              <div class="fw-semibold text-white mb-1">
+              <div class="fw-semibold  mb-1">
                 {{ exam.exam.position }}. {{ exam.exam.name }}
               </div>
 
@@ -60,7 +60,7 @@
             </td>
 
             <td
-              class="py-3 text-end fw-semibold text-white bg-transparent"
+              class="py-3 text-end fw-semibold  bg-transparent"
               (click)="goTo(exam)"
             >
               {{ exam.examuser?.result }}%

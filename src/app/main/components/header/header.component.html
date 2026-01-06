@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg sticky-top bg-glass" *ngIf="!!user && user.login !== 'guest'">
   <div class="container py-2">
-    <a class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold" [routerLink]="['/']">
+    <a class="navbar-brand d-flex align-items-center gap-2  fw-bold" [routerLink]="['/']">
       <span class="logo" aria-hidden="true"></span>
       <span class="d-flex flex-column lh-sm">
         <span>Job4j</span>
@@ -8,21 +8,34 @@
       </span>
     </a>
 
-    <button
-      class="navbar-toggler border-soft"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarAuthJob4j"
-      aria-controls="navbarAuthJob4j"
-      aria-expanded="false"
-      aria-label="Переключить навигацию"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <!-- Right-side actions (mobile): theme + burger -->
+    <div class="d-flex align-items-center gap-2 ms-auto d-lg-none">
+      <button
+        type="button"
+        class="btn btn-outline-light border-soft d-flex align-items-center justify-content-center"
+        (click)="toggleTheme()"
+        aria-label="Переключить тему"
+        title="Сменить тему"
+      >
+        <i class="bi bi-moon-stars-fill theme-icon" *ngIf="currentTheme === 'dark'"></i>
+        <i class="bi bi-sun-fill theme-icon" *ngIf="currentTheme === 'light'"></i>
+      </button>
+
+      <button
+        class="navbar-toggler border-soft"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarAuthJob4j"
+        aria-controls="navbarAuthJob4j"
+        aria-expanded="false"
+        aria-label="Переключить навигацию"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
 
     <div class="collapse navbar-collapse" id="navbarAuthJob4j">
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-1">
-
         <li class="nav-item">
           <a class="nav-link px-3 rounded-pill" [routerLink]="['/exercise']">
             {{ 'Уроки: ' + solvedTasksCount + '/' + allTasksCount }}
@@ -40,8 +53,9 @@
             Решения
           </button>
           <ul
-            class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
-              aria-labelledby="solutionDd">
+            class="dropdown-menu  border-soft bg-glass"
+            aria-labelledby="solutionDd"
+          >
             <li><a class="dropdown-item" [routerLink]="['/tasksByStatus/revert']">Отклоненные</a></li>
             <li><a class="dropdown-item" [routerLink]="['/tasksByStatus/finished']">Выполненные</a></li>
             <li><a class="dropdown-item" [routerLink]="['/tasksByStatus/review']">На проверке</a></li>
@@ -54,7 +68,8 @@
             <span
               *ngIf="count + (discussCount?.count || 0) > 0"
               class="badge rounded-pill bg-light text-dark ms-1"
-            >{{ count + (discussCount?.count || 0) }}
+            >
+              {{ count + (discussCount?.count || 0) }}
             </span>
           </a>
         </li>
@@ -66,11 +81,13 @@
             id="discuss"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-          >Сообщество
+          >
+            Сообщество
           </button>
           <ul
-            class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
-            aria-labelledby="discuss">
+            class="dropdown-menu  border-soft bg-glass"
+            aria-labelledby="discuss"
+          >
             <li><a class="dropdown-item" [routerLink]="['/article']">Статьи</a></li>
             <li><a class="dropdown-item" [routerLink]="['/discuss/all']">Обсуждения</a></li>
             <li>
@@ -97,11 +114,13 @@
             id="exercises"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-          >Упражнения
+          >
+            Упражнения
           </button>
           <ul
-            class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
-            aria-labelledby="exercises">
+            class="dropdown-menu  border-soft bg-glass"
+            aria-labelledby="exercises"
+          >
             <li><a class="dropdown-item" [routerLink]="['/topics']">Java Core</a></li>
             <li><a class="dropdown-item" [routerLink]="['/sqlExercise']">SQL</a></li>
             <li><a class="dropdown-item" [routerLink]="['/exams']">Экзамены</a></li>
@@ -116,22 +135,25 @@
             id="bookmark"
             data-bs-toggle="dropdown"
             aria-expanded="false"
+            aria-label="Закладки"
+            title="Закладки"
           >
             <i class="far fa-bookmark"></i>
           </button>
           <ul
-            class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
-            aria-labelledby="bookmark">
+            class="dropdown-menu  border-soft bg-glass"
+            aria-labelledby="bookmark"
+          >
             <li *ngFor="let book of bookmarks" class="d-flex justify-content-between align-items-center px-2">
               <a (click)="goToBook(book)" class="dropdown-item flex-fill">{{ book.name }}</a>
-              <button (click)="deleteBook($event, book)" type="button" class="close ml-2" aria-label="Close">
+              <button (click)="deleteBook($event, book)" type="button" class="close ms-2" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </li>
           </ul>
         </li>
 
-        <li  class="nav-item dropdown">
+        <li class="nav-item dropdown">
           <button
             class="btn btn-link nav-link px-3 rounded-pill dropdown-toggle d-flex align-items-center"
             type="button"
@@ -139,20 +161,19 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <i class="fas fa-user-circle mr-1"></i>
+            <i class="fas fa-user-circle me-1"></i>
             <span class="d-none d-sm-inline">{{ user.name }}</span>
           </button>
 
           <ul
-            class="dropdown-menu dropdown-menu-dark border-soft bg-glass"
-            aria-labelledby="dropdownMenuButton">
+            class="dropdown-menu  border-soft bg-glass"
+            aria-labelledby="dropdownMenuButton"
+          >
             <li><a class="dropdown-item" [routerLink]="['/']">Статистика</a></li>
             <li><a class="dropdown-item" [routerLink]="['/profile']">Настройки</a></li>
             <li><a class="dropdown-item" [routerLink]="['/payment']">Оплата</a></li>
 
-            <li>
-              <hr class="dropdown-divider opacity-25"/>
-            </li>
+            <li><hr class="dropdown-divider opacity-25" /></li>
 
             <li>
               <a
@@ -172,60 +193,106 @@
               </a>
             </li>
 
-            <li>
-              <hr class="dropdown-divider opacity-25"/>
-            </li>
+            <li><hr class="dropdown-divider opacity-25" /></li>
 
             <li><a class="dropdown-item" [routerLink]="['/updates']">Обновления</a></li>
             <li><a class="dropdown-item" [routerLink]="['/updates/blocks']">Блоки</a></li>
 
-            <li>
-              <hr class="dropdown-divider opacity-25"/>
-            </li>
+            <li><hr class="dropdown-divider opacity-25" /></li>
 
             <li>
               <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
             </li>
           </ul>
         </li>
-
       </ul>
+
+      <!-- Right-side actions (desktop): theme switcher -->
+      <div class="d-none d-lg-flex align-items-center gap-2 ms-lg-2">
+        <button
+          type="button"
+          class="btn btn-outline-light border-soft d-flex align-items-center justify-content-center"
+          (click)="toggleTheme()"
+          aria-label="Переключить тему"
+          title="Сменить тему"
+        >
+          <i class="bi bi-moon-stars-fill theme-icon" *ngIf="currentTheme === 'dark'"></i>
+          <i class="bi bi-sun-fill theme-icon" *ngIf="currentTheme === 'light'"></i>
+        </button>
+      </div>
     </div>
   </div>
 </nav>
 
 <nav class="navbar navbar-expand-lg sticky-top bg-glass" *ngIf="!!user && user.login === 'guest'">
   <div class="container py-2">
-    <a class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold" href="#">
+    <a class="navbar-brand d-flex align-items-center gap-2  fw-bold" href="#">
       <span class="logo" aria-hidden="true"></span>
       <span class="d-flex flex-column lh-sm">
-          <span>Job4j</span>
-          <small class="text-muted-soft fw-semibold">Практика. Ревью. Результат.</small>
-        </span>
+        <span>Job4j</span>
+        <small class="text-muted-soft fw-semibold">Практика. Ревью. Результат.</small>
+      </span>
     </a>
 
-    <button class="navbar-toggler border-soft" type="button" data-bs-toggle="collapse" data-bs-target="#navbarJob4j"
-            aria-controls="navbarJob4j" aria-expanded="false" aria-label="Переключить навигацию">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <!-- Right-side actions (mobile) -->
+    <div class="d-flex align-items-center gap-2 ms-auto d-lg-none">
+      <button
+        type="button"
+        class="btn btn-outline-light border-soft d-flex align-items-center justify-content-center"
+        (click)="toggleTheme()"
+        aria-label="Переключить тему"
+        title="Сменить тему"
+      >
+        <i class="bi bi-moon-stars-fill theme-icon" *ngIf="currentTheme === 'dark'"></i>
+        <i class="bi bi-sun-fill theme-icon" *ngIf="currentTheme === 'light'"></i>
+      </button>
+
+      <button
+        class="navbar-toggler border-soft"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarJob4j"
+        aria-controls="navbarJob4j"
+        aria-expanded="false"
+        aria-label="Переключить навигацию"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
 
     <div class="collapse navbar-collapse" id="navbarJob4j">
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-1">
         <li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#courses">Курсы</a></li>
         <li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#path">Как устроено</a></li>
         <li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#community">Комьюнити</a></li>
-        <li class="nav-item"><a class="nav-link px-3 rounded-pill"
-                                href="https://vk.com/topic-137186267_36711020?offset=120"
-                                target="_blank"
-        >Отзывы</a></li>
+        <li class="nav-item">
+          <a
+            class="nav-link px-3 rounded-pill"
+            href="https://vk.com/topic-137186267_36711020?offset=120"
+            target="_blank"
+          >Отзывы</a>
+        </li>
         <li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#faq">FAQ</a></li>
       </ul>
 
+      <!-- Right-side actions (desktop) -->
       <div class="d-flex flex-wrap gap-2 align-items-center justify-content-lg-end">
-          <span class="pill" title="Статус платформы">
-            <span class="dot" aria-hidden="true"></span>
-            Онлайн-платформа
-          </span>
+        <button
+          type="button"
+          class="btn btn-outline-light border-soft d-flex align-items-center justify-content-center"
+          (click)="toggleTheme()"
+          aria-label="Переключить тему"
+          title="Сменить тему"
+        >
+          <i class="bi bi-moon-stars-fill theme-icon" *ngIf="currentTheme === 'dark'"></i>
+          <i class="bi bi-sun-fill theme-icon" *ngIf="currentTheme === 'light'"></i>
+        </button>
+
+        <span class="pill" title="Статус платформы">
+          <span class="dot" aria-hidden="true"></span>
+          Онлайн-платформа
+        </span>
+
         <a class="btn btn-outline-light border-soft" href="/login">Войти</a>
         <a class="btn btn-j-primary" href="/courses">Выбрать курс</a>
       </div>

@@ -5,7 +5,7 @@
         <!-- Header -->
         <div class="px-3 px-md-4 py-3 border-bottom border-soft">
           <div class="d-flex align-items-center justify-content-between">
-            <div class="fw-semibold text-white">
+            <div class="fw-semibold ">
               Задания: <span class="text-muted-soft">{{ tasks.length }}</span>
             </div>
           </div>
@@ -37,7 +37,7 @@
                           : ['/exercise', task.task.topicId, 'task-view', task.task.id]
                       "
                   >
-                      <span class="fw-semibold text-white">
+                      <span class="fw-semibold ">
                         {{ task.task.taskName }}&nbsp;{{ getSolutionId(task) }}
                       </span>
                   </a>
@@ -60,7 +60,7 @@
 
                   <span *ngIf="task.handler" class="d-inline-flex align-items-center gap-1">
                       <i class="bi bi-person"></i>
-                      <span class="text-white">{{ task.handler.name }}</span>
+                      <span class="">{{ task.handler.name }}</span>
                     </span>
 
                   <ng-container *ngIf="task.solution">

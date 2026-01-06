@@ -23,7 +23,7 @@
   <!-- Description -->
   <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-      <div class="fw-semibold text-white">
+      <div class="fw-semibold ">
         {{ solutionCommunity?.name }}
       </div>
     </div>
@@ -37,12 +37,12 @@
   <div class="card-glass rounded-4 shadow-sm overflow-hidden mb-3">
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
       <div class="d-flex flex-wrap align-items-start justify-content-between gap-2">
-        <div class="fw-semibold text-white">Решение</div>
+        <div class="fw-semibold ">Решение</div>
 
         <div class="small text-muted-soft d-flex flex-wrap gap-2">
           <span class="d-inline-flex align-items-center gap-1">
             <i class="bi bi-person"></i>
-            Автор: <span class="text-white fw-semibold">{{ solutionCommunity?.userName }}</span>
+            Автор: <span class=" fw-semibold">{{ solutionCommunity?.userName }}</span>
           </span>
           <span class="d-inline-flex align-items-center gap-1">
             <i class="bi bi-clock"></i>
@@ -73,7 +73,7 @@
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
       <div class="d-flex flex-wrap align-items-start justify-content-between gap-2">
         <div>
-          <div class="fw-semibold text-white">Комментарии</div>
+          <div class="fw-semibold ">Комментарии</div>
           <div class="small text-muted-soft mt-1">
             Проведите код-ревью решения: оставьте рекомендации по улучшению или похвалите за качественную работу.
           </div>
@@ -101,7 +101,7 @@
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 small mb-2">
               <div class="d-inline-flex align-items-center gap-2">
                 <i class="bi bi-person-circle text-muted-soft"></i>
-                <span class="fw-semibold text-white">{{ operation.userName }}</span>
+                <span class="fw-semibold ">{{ operation.userName }}</span>
               </div>
               <span class="text-muted-soft">{{ operation.created | date: 'dd.MM.yyyy HH:mm' }}</span>
             </div>

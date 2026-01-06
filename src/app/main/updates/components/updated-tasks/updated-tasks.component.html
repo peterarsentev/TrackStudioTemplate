@@ -36,7 +36,7 @@
           </a>
           <span class="text-muted-soft">/</span>
 
-          <span class="text-white fw-semibold">
+          <span class=" fw-semibold">
             {{ task.task.name }}
           </span>
         </div>
@@ -47,7 +47,7 @@
         <i class="fas fa-tasks text-muted-soft"></i>
 
         <a
-          class="fw-semibold text-white text-decoration-none"
+          class="fw-semibold  text-decoration-none"
           [routerLink]="task.solution
             ? ['/exercise', task.task.topicId, 'task', task.task.id, task.solution.id]
             : ['/exercise', task.task.topicId, 'task-view', task.task.id]"

@@ -3,7 +3,7 @@
 
     <!-- Header -->
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-      <div class="fw-semibold text-white">
+      <div class="fw-semibold ">
         Лидеры
       </div>
       <div class="text-muted-soft small mt-1">
@@ -20,7 +20,7 @@
           class="border-bottom border-soft bg-transparent"
         >
           <td
-            class="py-3 bg-transparent text-white fw-semibold cursor-pointer"
+            class="py-3 bg-transparent  fw-semibold cursor-pointer"
             (click)="openProfile(leader.userId, leader.login)"
           >
             <i class="fa fa-user me-2 opacity-75"></i>
@@ -31,7 +31,7 @@
             {{ leader.finish | date:'dd.MM.yyyy HH:mm' }}
           </td>
 
-          <td class="py-3 bg-transparent text-end fw-semibold text-white">
+          <td class="py-3 bg-transparent text-end fw-semibold ">
             {{ leader.score }}%
           </td>
         </tr>

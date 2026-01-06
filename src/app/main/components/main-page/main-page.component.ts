@@ -23,6 +23,7 @@ import {CategoryModels} from '../../../shared/models/category.models';
 import {CategoryService} from '../../../shared/services/category.service';
 import {LevelService} from '../../../shared/services/level.service';
 import {NavNode} from '../../../shared/models/nav.node';
+import {ThemeService} from '../../../shared/services/theme.service';
 
 @Component({
   selector: 'app-main',
@@ -79,7 +80,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
     mode: 'bash',
     indentUnit: 4,
     indentWithTabs: false,
-    theme: "dracula"
+    theme: localStorage.getItem('theme') === 'light'
+      ? 'idea'
+      : 'dracula'
   };
 
   constructor(private tasksService: TasksService,
@@ -94,9 +97,21 @@ export class MainPageComponent implements OnInit, OnDestroy {
               private titleService: Title,
               private categoryService: CategoryService,
               private levelService: LevelService,
+              private themeService: ThemeService,
   ) {}
 
   ngOnInit() {
+    this.codeOptions = {
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: 'bash',
+      indentUnit: 4,
+      indentWithTabs: false,
+      theme: localStorage.getItem('theme') === 'light'
+        ? 'idea'
+        : 'dracula'
+    };
+
     this.titleService.setTitle('Job4j');
     this.route.params
       .pipe(takeUntil(this.ngUnsubscribe$))

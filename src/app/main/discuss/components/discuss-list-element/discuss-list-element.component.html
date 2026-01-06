@@ -37,7 +37,7 @@
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
       <div class="d-flex flex-wrap gap-2 align-items-start justify-content-between">
         <div class="min-w-0">
-          <div class="fw-semibold text-white">
+          <div class="fw-semibold ">
             <!-- Prefix -->
             <ng-container *ngIf="discuss.taskId">
               Урок / {{ discuss.topic.level.name }} / {{ discuss.topic.category.name }} /
@@ -80,7 +80,7 @@
           </div>
 
           <div class="small text-muted-soft mt-2 d-flex flex-wrap gap-3">
-            <span>Автор: <span class="text-white">{{ discuss.submitter.name }}</span></span>
+            <span>Автор: <span class="">{{ discuss.submitter.name }}</span></span>
             <span>Создано: {{ discuss.created | date: 'dd.MM.yyyy HH:mm' }}</span>
             <span>Обновлено: {{ discuss.updated | date: 'dd.MM.yyyy HH:mm' }}</span>
           </div>
@@ -110,10 +110,10 @@
       </div>
 
       <div *ngIf="!!discuss.sqlExerciseId" class="mt-3">
-        <div class="fw-semibold text-white mb-2">Схема базы данных</div>
+        <div class="fw-semibold  mb-2">Схема базы данных</div>
         <ngx-codemirror [(ngModel)]="discuss.scheme" [options]="optionsOutput"></ngx-codemirror>
 
-        <div class="fw-semibold text-white mt-3 mb-2">Данные</div>
+        <div class="fw-semibold  mt-3 mb-2">Данные</div>
         <ngx-codemirror [(ngModel)]="discuss.initScript" [options]="optionsOutput"></ngx-codemirror>
       </div>
     </div>

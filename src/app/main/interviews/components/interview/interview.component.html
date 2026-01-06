@@ -6,7 +6,7 @@
     <div class="px-3 px-md-4 py-3 border-bottom border-soft">
       <div class="d-flex flex-wrap align-items-start justify-content-between gap-2">
         <div class="min-w-0">
-          <div class="fw-semibold text-white d-flex align-items-center gap-2">
+          <div class="fw-semibold  d-flex align-items-center gap-2">
             <i class="bi bi-mic"></i>
             <span class="text-truncate">{{ interview.title }}</span>
           </div>
@@ -14,23 +14,23 @@
           <div class="small text-muted-soft mt-1 d-flex flex-wrap gap-2">
             <span class="d-inline-flex align-items-center gap-1">
               <i class="bi bi-person"></i>
-              Автор: <span class="text-white fw-semibold">{{ interview.submitterName }}</span>
+              Автор: <span class=" fw-semibold">{{ interview.submitterName }}</span>
             </span>
 
             <span *ngIf="hasApproved" class="d-inline-flex align-items-center gap-1">
               <i class="bi bi-telephone"></i>
-              Связаться со мной: <span class="text-white fw-semibold">{{ interview.contactBy }}</span>
+              Связаться со мной: <span class=" fw-semibold">{{ interview.contactBy }}</span>
             </span>
 
             <span class="d-inline-flex align-items-center gap-1">
               <i class="bi bi-calendar-event"></i>
-              Дата проведения: <span class="text-white fw-semibold">{{ interview.approximateDate }}</span>
+              Дата проведения: <span class=" fw-semibold">{{ interview.approximateDate }}</span>
             </span>
 
             <span class="d-inline-flex align-items-center gap-1">
               <i class="bi bi-arrow-left-right"></i>
               Я буду:
-              <span class="text-white fw-semibold">
+              <span class=" fw-semibold">
                 {{ interview.type === 'CONDUCT' ? 'задавать вопросы.' : 'отвечать на вопросы.' }}
               </span>
             </span>
@@ -98,7 +98,7 @@
             id="contact"
             [(ngModel)]="contact"
             type="text"
-            class="form-control bg-transparent text-white border-soft"
+            class="form-control bg-transparent  border-soft"
             placeholder="Способ связи"
             style="max-width: 520px;"
           />
@@ -119,7 +119,7 @@
     <!-- WISHERS -->
     <div *ngIf="interview.wishers && interview.wishers.length > 0" class="border-top border-soft">
       <div class="px-3 px-md-4 py-3">
-        <div class="fw-semibold text-white d-flex align-items-center gap-2 mb-2">
+        <div class="fw-semibold  d-flex align-items-center gap-2 mb-2">
           <i class="bi bi-people"></i>
           Участники
         </div>
@@ -138,11 +138,11 @@
               <td class="py-3 bg-transparent">
                 <div class="d-flex align-items-center gap-2">
                   <i class="bi bi-person-circle text-muted-soft"></i>
-                  <span class="fw-semibold text-white">{{ wisher.name }}</span>
+                  <span class="fw-semibold ">{{ wisher.name }}</span>
                 </div>
 
                 <div *ngIf="!!wisher.contactBy" class="small text-muted-soft mt-1">
-                  Контактные данные: <span class="text-white fw-semibold">{{ wisher.contactBy }}</span>
+                  Контактные данные: <span class=" fw-semibold">{{ wisher.contactBy }}</span>
                 </div>
               </td>
 
@@ -153,12 +153,12 @@
 
                 <div class="small text-muted-soft mt-1" *ngIf="!!wisher.userScore">
                   <div>
-                    Принято: <span class="text-white fw-semibold">{{ wisher.userScore.countConduct }}</span>,
-                    Средний балл: <span class="text-white fw-semibold">{{ wisher.userScore.conductScore }}</span>
+                    Принято: <span class=" fw-semibold">{{ wisher.userScore.countConduct }}</span>,
+                    Средний балл: <span class=" fw-semibold">{{ wisher.userScore.conductScore }}</span>
                   </div>
                   <div>
-                    Сдано: <span class="text-white fw-semibold">{{ wisher.userScore.countPass }}</span>,
-                    Средний балл: <span class="text-white fw-semibold">{{ wisher.userScore.passScore }}</span>
+                    Сдано: <span class=" fw-semibold">{{ wisher.userScore.countPass }}</span>,
+                    Средний балл: <span class=" fw-semibold">{{ wisher.userScore.passScore }}</span>
                   </div>
                 </div>
               </td>
@@ -193,7 +193,7 @@
       <div class="px-3 px-md-4 py-3">
         <div *ngIf="(author && !interview.wisherScore || !author && !interview.submitterScore) else review">
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
-            <div class="fw-semibold text-white d-flex align-items-center gap-2">
+            <div class="fw-semibold  d-flex align-items-center gap-2">
               <i class="bi bi-star"></i>
               Отзыв
             </div>
@@ -217,7 +217,7 @@
                 id="score"
                 formControlName="score"
                 type="number"
-                class="form-control bg-transparent text-white border-soft"
+                class="form-control bg-transparent  border-soft"
                 placeholder="Введите оценку оппоненту"
               />
             </div>
@@ -241,13 +241,13 @@
           <div class="row g-3">
             <div class="col-md-6">
               <div class="card-glass rounded-4 border-soft p-3 h-100">
-                <div class="fw-semibold text-white mb-1">
+                <div class="fw-semibold  mb-1">
                   Участник: {{ interview.submitterName }}
                 </div>
 
                 <div *ngIf="interview.feedbackToSubmitter" class="text-muted-soft">
                   <div class="mb-2">
-                    Оценка: <span class="text-white fw-semibold">{{ interview.submitterScore }}</span>
+                    Оценка: <span class=" fw-semibold">{{ interview.submitterScore }}</span>
                   </div>
                   <div [innerHTML]="'Комментарий: ' + interview.feedbackToSubmitter"></div>
                 </div>
@@ -260,13 +260,13 @@
 
             <div class="col-md-6" *ngIf="!!wisher">
               <div class="card-glass rounded-4 border-soft p-3 h-100">
-                <div class="fw-semibold text-white mb-1">
+                <div class="fw-semibold  mb-1">
                   Участник: {{ wisher.name }}
                 </div>
 
                 <div *ngIf="interview.feedbackToWisher" class="text-muted-soft">
                   <div class="mb-2">
-                    Оценка: <span class="text-white fw-semibold">{{ interview.wisherScore }}</span>
+                    Оценка: <span class=" fw-semibold">{{ interview.wisherScore }}</span>
                   </div>
                   <div [innerHTML]="'Комментарий: ' + interview.feedbackToWisher"></div>
                 </div>
