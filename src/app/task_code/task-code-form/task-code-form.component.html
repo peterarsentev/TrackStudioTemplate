@@ -1,205 +1,203 @@
 <!-- Top actions -->
 <div class="container py-3">
-  <div class="d-flex flex-wrap gap-2 justify-content-end mb-2">
-    <button
-      type="button"
-      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
-      *ngIf="!!previousAndNext.previous"
-      (click)="goTo(previousAndNext.previous)"
-    >
-      <i class="bi bi-chevron-left"></i>
-      Предыдущая
-    </button>
+  <button
+    type="button"
+    class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
+    *ngIf="!!previousAndNext.previous"
+    (click)="goTo(previousAndNext.previous)"
+  >
+    <i class="bi bi-chevron-left"></i>
+    Предыдущая
+  </button>
 
-    <button
-      type="button"
-      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
-      *ngIf="!!previousAndNext.next"
-      (click)="goTo(previousAndNext.next)"
-    >
-      Следующая
-      <i class="bi bi-chevron-right"></i>
-    </button>
+  <button
+    type="button"
+    class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
+    *ngIf="!!previousAndNext.next"
+    (click)="goTo(previousAndNext.next)"
+  >
+    Следующая
+    <i class="bi bi-chevron-right"></i>
+  </button>
 
-    <button
-      type="button"
-      class="btn btn-sm btn-outline-info border-soft"
-      [disabled]="status !== 4"
-      (click)="goToUserList()"
-      title="Решения других учеников станут доступны после выполнения упражнения"
-    >
-      Было решено: {{ count }}
-    </button>
+  <button
+    type="button"
+    class="btn btn-sm btn-outline-info border-soft"
+    [disabled]="status !== 4"
+    (click)="goToUserList()"
+    title="Решения других учеников станут доступны после выполнения упражнения"
+  >
+    Было решено: {{ count }}
+  </button>
+</div>
+
+<!-- Main card -->
+<div class="card-glass rounded-4 shadow-sm overflow-hidden">
+  <!-- Header -->
+  <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+    <div class="d-flex flex-wrap gap-2 align-items-start justify-content-between">
+      <div class="min-w-0">
+        <div class="fw-semibold ">
+          {{ taskModel.name }}
+        </div>
+
+        <div class="mt-2 d-flex flex-wrap gap-2">
+          <span *ngIf="status === 1" class="badge rounded-pill badge-accent">Новая</span>
+          <span *ngIf="status === 2" class="badge rounded-pill badge-warn">В процессе</span>
+          <span *ngIf="status === 3" class="badge rounded-pill badge-warn">В процессе</span>
+          <span *ngIf="status === 4" class="badge rounded-pill badge-good">Решена</span>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <app-book-mark-star [name]="taskModel.name"></app-book-mark-star>
+      </div>
+    </div>
   </div>
 
-  <!-- Main card -->
-  <div class="card-glass rounded-4 shadow-sm overflow-hidden">
-    <!-- Header -->
-    <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-      <div class="d-flex flex-wrap gap-2 align-items-start justify-content-between">
-        <div class="min-w-0">
-          <div class="fw-semibold ">
-            {{ taskModel.name }}
-          </div>
+  <!-- Body -->
+  <div class="px-3 px-md-4 py-3">
+    <div class="text-muted-soft" [innerHTML]="taskModel.description"></div>
 
-          <div class="mt-2 d-flex flex-wrap gap-2">
-            <span *ngIf="status === 1" class="badge rounded-pill badge-accent">Новая</span>
-            <span *ngIf="status === 2" class="badge rounded-pill badge-warn">В процессе</span>
-            <span *ngIf="status === 3" class="badge rounded-pill badge-warn">В процессе</span>
-            <span *ngIf="status === 4" class="badge rounded-pill badge-good">Решена</span>
-          </div>
-        </div>
+    <!-- Skeleton header -->
+    <div class="mt-3 d-flex flex-wrap gap-2 align-items-center justify-content-between">
+      <div class="fw-semibold ">
+        Каркас: <span class="text-muted-soft">{{ taskModel.className }}</span>
+      </div>
 
-        <div class="d-flex align-items-center gap-2">
-          <app-book-mark-star [name]="taskModel.name"></app-book-mark-star>
-        </div>
+      <div class="d-flex gap-2">
+        <a
+          class="btn btn-sm btn-outline-warning border-soft d-inline-flex align-items-center gap-1"
+          [class.disabled]="status != 4"
+          target="_blank"
+          [routerLink]="['/solution_community', 'publish', 'taskCode', solutionId]"
+        >
+          <i class="bi bi-people"></i>
+          Отправить сообществу
+        </a>
+
+        <a
+          class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
+          target="_blank"
+          [routerLink]="['/topics', taskModel.topicId, 'task_code_share', taskId, solutionId]"
+        >
+          <i class="bi bi-share"></i>
+        </a>
       </div>
     </div>
 
-    <!-- Body -->
-    <div class="px-3 px-md-4 py-3">
-      <div class="text-muted-soft" [innerHTML]="taskModel.description"></div>
+    <!-- Editor -->
+    <div class="mt-2">
+      <ngx-codemirror
+        class="cm-glass"
+        [(ngModel)]="taskClass"
+        [options]="options"
+        #editor
+      ></ngx-codemirror>
+    </div>
 
-      <!-- Skeleton header -->
-      <div class="mt-3 d-flex flex-wrap gap-2 align-items-center justify-content-between">
-        <div class="fw-semibold ">
-          Каркас: <span class="text-muted-soft">{{ taskModel.className }}</span>
-        </div>
-
-        <div class="d-flex gap-2">
-          <a
-            class="btn btn-sm btn-outline-warning border-soft d-inline-flex align-items-center gap-1"
-            [class.disabled]="status != 4"
-            target="_blank"
-            [routerLink]="['/solution_community', 'publish', 'taskCode', solutionId]"
-          >
-            <i class="bi bi-people"></i>
-            Отправить сообществу
-          </a>
-
-          <a
-            class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
-            target="_blank"
-            [routerLink]="['/topics', taskModel.topicId, 'task_code_share', taskId, solutionId]"
-          >
-            <i class="bi bi-share"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Editor -->
-      <div class="mt-2">
-        <ngx-codemirror
-          class="cm-glass"
-          [(ngModel)]="taskClass"
-          [options]="options"
-          #editor
-        ></ngx-codemirror>
-      </div>
-
-      <!-- Buttons -->
-      <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mt-2">
-        <div class="d-flex flex-wrap gap-2">
-          <button
-            type="button"
-            class="btn btn-sm btn-j-primary d-inline-flex align-items-center gap-2"
-            (click)="runCode()"
-            [disabled]="dis"
-          >
-            <i class="bi bi-play-fill" *ngIf="!dis"></i>
-            <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Запустить main
-          </button>
-
-          <button
-            type="button"
-            class="btn btn-sm btn-j-primary d-inline-flex align-items-center gap-2"
-            (click)="submit(taskClass)"
-            [disabled]="dis"
-          >
-            <i class="bi bi-check2" *ngIf="!dis"></i>
-            <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Проверить
-          </button>
-        </div>
-
+    <!-- Buttons -->
+    <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mt-2">
+      <div class="d-flex flex-wrap gap-2">
         <button
-          *ngIf="status != 1"
           type="button"
-          class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-2"
-          (click)="reset()"
+          class="btn btn-sm btn-j-primary d-inline-flex align-items-center gap-2"
+          (click)="runCode()"
           [disabled]="dis"
         >
-          <i class="bi bi-arrow-counterclockwise" *ngIf="!dis"></i>
-          Сбросить решение
+          <i class="bi bi-play-fill" *ngIf="!dis"></i>
+          <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Запустить main
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-j-primary d-inline-flex align-items-center gap-2"
+          (click)="submit(taskClass)"
+          [disabled]="dis"
+        >
+          <i class="bi bi-check2" *ngIf="!dis"></i>
+          <span *ngIf="dis" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Проверить
         </button>
       </div>
 
-      <!-- Result -->
-      <div class="mt-4 fw-semibold ">Результат</div>
-      <div class="mt-2">
-        <app-alert-message></app-alert-message>
-      </div>
+      <button
+        *ngIf="status != 1"
+        type="button"
+        class="btn btn-sm  border-soft d-inline-flex align-items-center gap-2"
+        (click)="reset()"
+        [disabled]="dis"
+      >
+        <i class="bi bi-arrow-counterclockwise" *ngIf="!dis"></i>
+        Сбросить решение
+      </button>
+    </div>
 
-      <div class="mt-2">
-        <ngx-codemirror
-          class="cm-glass"
-          [(ngModel)]="text"
-          [options]="optionsOutput"
-        ></ngx-codemirror>
-      </div>
+    <!-- Result -->
+    <div class="mt-4 fw-semibold ">Результат</div>
+    <div class="mt-2">
+      <app-alert-message></app-alert-message>
+    </div>
 
-      <!-- Tests -->
-      <div class="mt-4 fw-semibold ">
-        Тесты: <span class="text-muted-soft">{{ taskModel.testName }}</span>
-      </div>
-      <div class="mt-2">
-        <ngx-codemirror
-          class="cm-glass"
-          [(ngModel)]="taskTest"
-          [options]="optionsTest"
-        ></ngx-codemirror>
-      </div>
+    <div class="mt-2">
+      <ngx-codemirror
+        class="cm-glass"
+        [(ngModel)]="text"
+        [options]="optionsOutput"
+      ></ngx-codemirror>
+    </div>
+
+    <!-- Tests -->
+    <div class="mt-4 fw-semibold ">
+      Тесты: <span class="text-muted-soft">{{ taskModel.testName }}</span>
+    </div>
+    <div class="mt-2">
+      <ngx-codemirror
+        class="cm-glass"
+        [(ngModel)]="taskTest"
+        [options]="optionsTest"
+      ></ngx-codemirror>
     </div>
   </div>
+</div>
 
-  <!-- Bottom actions + explanation -->
-  <div class="d-flex flex-wrap gap-2 justify-content-end mt-3">
-    <button
-      *ngIf="explanation"
-      type="button"
-      class="btn btn-sm btn-outline-info border-soft"
-      (click)="showExplanation()"
-    >
-      Объяснение
-    </button>
+<!-- Bottom actions + explanation -->
+<div class="d-flex flex-wrap gap-2 justify-content-end mt-3">
+  <button
+    *ngIf="explanation"
+    type="button"
+    class="btn btn-sm btn-outline-info border-soft"
+    (click)="showExplanation()"
+  >
+    Объяснение
+  </button>
 
-    <button
-      type="button"
-      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
-      *ngIf="!!previousAndNext.previous"
-      (click)="goTo(previousAndNext.previous)"
-    >
-      <i class="bi bi-chevron-left"></i>
-      Предыдущая
-    </button>
+  <button
+    type="button"
+    class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
+    *ngIf="!!previousAndNext.previous"
+    (click)="goTo(previousAndNext.previous)"
+  >
+    <i class="bi bi-chevron-left"></i>
+    Предыдущая
+  </button>
 
-    <button
-      type="button"
-      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
-      *ngIf="!!previousAndNext.next"
-      (click)="goTo(previousAndNext.next)"
-    >
-      Следующая
-      <i class="bi bi-chevron-right"></i>
-    </button>
+  <button
+    type="button"
+    class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
+    *ngIf="!!previousAndNext.next"
+    (click)="goTo(previousAndNext.next)"
+  >
+    Следующая
+    <i class="bi bi-chevron-right"></i>
+  </button>
+</div>
+
+<div *ngIf="show" class="mt-3 card-glass rounded-4 border-soft p-3">
+  <div class="fw-semibold  mb-2 d-flex align-items-center gap-2">
+    <i class="bi bi-info-circle"></i>
+    Объяснение
   </div>
-
-  <div *ngIf="show" class="mt-3 card-glass rounded-4 border-soft p-3">
-    <div class="fw-semibold  mb-2 d-flex align-items-center gap-2">
-      <i class="bi bi-info-circle"></i>
-      Объяснение
-    </div>
-    <div class="text-muted-soft" [innerHTML]="explanation"></div>
-  </div>
+  <div class="text-muted-soft" [innerHTML]="explanation"></div>
 </div>

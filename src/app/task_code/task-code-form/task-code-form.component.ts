@@ -56,7 +56,9 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy, AfterViewInit {
     lineNumbers: true,
     readOnly: true,
     mode: 'text/x-java',
-    theme: "dracula",
+    theme: localStorage.getItem('theme') === 'light'
+      ? 'idea'
+      : 'dracula'
   };
 
   optionsOutput = {

@@ -41,7 +41,7 @@
       <!-- Actions -->
       <div class="d-flex justify-content-center gap-2 flex-wrap">
         <button
-          class="btn btn-outline-light border-soft"
+          class="btn  border-soft"
           *ngIf="navQuestion?.previous !== undefined"
           (click)="previous(navQuestion?.previous)"
         >
@@ -49,7 +49,7 @@
         </button>
 
         <button
-          class="btn btn-outline-light border-soft"
+          class="btn  border-soft"
           *ngIf="navQuestion?.next !== undefined"
           (click)="next(navQuestion?.next)"
           [disabled]="aopts.length === 0"

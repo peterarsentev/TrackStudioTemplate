@@ -56,7 +56,7 @@
           </span>
 
           <div *ngIf="interview.submitterId === +user?.id" class="d-flex gap-2">
-            <button type="button" class="btn btn-sm btn-outline-light border-soft" (click)="cancel()">
+            <button type="button" class="btn btn-sm  border-soft" (click)="cancel()">
               <i class="bi bi-x-circle"></i>
               Отменить
             </button>
@@ -167,7 +167,7 @@
                 <button
                   *ngIf="user?.id == interview?.submitterId"
                   type="button"
-                  class="btn btn-sm btn-outline-light border-soft"
+                  class="btn btn-sm  border-soft"
                   (click)="sendApprove(wisher)"
                   [disabled]="wisher.approve || hasApproved"
                 >

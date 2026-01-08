@@ -3,7 +3,7 @@
   <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
     <button
       type="button"
-      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+      class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
       [disabled]="!!canSolveInterview"
       [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
       (click)="showExplanation()"
@@ -21,7 +21,7 @@
         <button
           *ngIf="!!previousNext.previousId"
           type="button"
-          class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+          class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
           (click)="linkTo(question?.topicId, previousNext?.previousId)"
         >
           <i class="bi bi-chevron-left"></i>
@@ -31,7 +31,7 @@
         <button
           *ngIf="!!previousNext.nextId"
           type="button"
-          class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+          class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
           (click)="linkTo(question?.topicId, previousNext?.nextId)"
         >
           Следующая
@@ -103,7 +103,7 @@
 
     <button
       type="button"
-      class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1 ms-auto"
+      class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1 ms-auto"
       [disabled]="!!canSolveInterview"
       [title]="!!canSolveInterview ? 'Необходимо авторизоваться' : ''"
       (click)="loadStories()"

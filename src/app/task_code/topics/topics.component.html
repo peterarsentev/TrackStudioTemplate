@@ -3,55 +3,60 @@
     <div class="col-12">
       <div class="card-glass rounded-4 shadow-sm overflow-hidden">
 
-        <!-- Header -->
-        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-          <div class="fw-semibold ">
-            В этом разделе вы можете оттачивать синтаксис языка Java.
+        <!-- общий внутренний паддинг для всего контента карточки -->
+        <div class="px-3 px-md-4">
+
+          <!-- Header -->
+          <div class="py-3 border-bottom border-soft">
+            <div class="fw-semibold">
+              В этом разделе вы можете оттачивать синтаксис языка Java.
+            </div>
+
+            <div class="mt-1 text-muted-soft small">
+              Здесь собраны дополнительные упражнения ({{ total }}). Каждая задача состоит из каркаса и теста.
+              Проверка этих заданий происходит автоматически.
+            </div>
           </div>
 
-          <div class="mt-1 text-muted-soft small">
-            Здесь собраны дополнительные упражнения ({{ total }}). Каждая задача состоит из каркаса и теста.
-            Проверка этих заданий происходит автоматически.
+          <!-- Table -->
+          <div class="table-responsive">
+            <table class="table table-borderless mb-0 align-middle bg-transparent table-glass">
+              <thead class="border-bottom border-soft bg-transparent">
+              <tr class="bg-transparent text-muted-soft small">
+                <th class="py-3 bg-transparent">Тема</th>
+                <th class="py-3 bg-transparent" style="width: 260px;">Прогресс</th>
+              </tr>
+              </thead>
+
+              <tbody class="bg-transparent">
+              <tr
+                *ngFor="let topic of topic$ | async; let last = last"
+                (click)="goToTasks(topic)"
+                class="bg-transparent cursor-pointer row-hover"
+                [class.border-bottom]="!last"
+              >
+                <td class="py-3 bg-transparent">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-folder text-muted-soft"></i>
+                    <span class="fw-semibold">{{ topic.name }}</span>
+                  </div>
+                </td>
+
+                <td class="py-3 bg-transparent">
+                  <app-progress-bar-solutions [topicId]="topic.id"></app-progress-bar-solutions>
+                </td>
+              </tr>
+
+              <tr *ngIf="!(topic$ | async)?.length" class="bg-transparent">
+                <td colspan="2" class="text-center text-muted-soft py-4 bg-transparent">
+                  Тем пока нет
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
+
         </div>
-
-        <!-- Table -->
-        <div class="table-responsive">
-          <table class="table table-borderless mb-0 align-middle bg-transparent table-glass">
-            <thead class="border-bottom border-soft bg-transparent">
-            <tr class="bg-transparent text-muted-soft small">
-              <th class="py-3 bg-transparent">Тема</th>
-              <th class="py-3 bg-transparent" style="width: 260px;">Прогресс</th>
-            </tr>
-            </thead>
-
-            <tbody class="bg-transparent">
-            <tr
-              *ngFor="let topic of topic$ | async"
-              (click)="goToTasks(topic)"
-              class="border-bottom border-soft bg-transparent cursor-pointer row-hover"
-            >
-              <td class="py-3 bg-transparent">
-                <div class="d-flex align-items-center gap-2">
-                  <i class="bi bi-folder text-muted-soft"></i>
-                  <span class="fw-semibold ">{{ topic.name }}</span>
-                </div>
-              </td>
-
-              <td class="py-3 bg-transparent">
-                <app-progress-bar-solutions [topicId]="topic.id"></app-progress-bar-solutions>
-              </td>
-            </tr>
-
-            <tr *ngIf="!(topic$ | async)?.length" class="bg-transparent">
-              <td colspan="2" class="text-center text-muted-soft py-4 bg-transparent">
-                Тем пока нет
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-
       </div>
     </div>
   </div>
