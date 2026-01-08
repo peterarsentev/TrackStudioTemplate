@@ -73,7 +73,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.getBookMarks();
         }
       });
-    this.iconComment = this.router.url.includes('task-view');
+    this.iconComment = this.router.url.includes('task');
     if (this.router.url === '/') {
       this.navService.setUpModel({...new NavNode()});
     }
@@ -209,7 +209,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.iconComment = this.router.url.includes('task-view');
+        this.iconComment = this.router.url.includes('task');
       });
   }
 

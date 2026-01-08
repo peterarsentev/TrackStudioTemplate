@@ -2,43 +2,4 @@
 
 <router-outlet></router-outlet>
 
-<div
-  class="position-fixed bottom-0 end-0 p-3 d-flex flex-column gap-2"
-  style="z-index: 1050;"
->
-  <button
-    type="button"
-    class="btn btn-sm btn-outline-light border-soft rounded-circle d-inline-flex align-items-center justify-content-center bg-glass shadow-sm"
-    style="width: 42px; height: 42px;"
-    onclick="window.scrollTo({ top: 0, behavior: 'smooth' });"
-    aria-label="Вверх"
-    title="Вверх"
-  >
-    <i class="bi bi-arrow-up"></i>
-  </button>
-
-  <!--<button-->
-    <!--*ngIf="iconComment"-->
-    <!--type="button"-->
-    <!--class="btn btn-sm btn-outline-light border-soft rounded-circle d-inline-flex align-items-center justify-content-center bg-glass shadow-sm"-->
-    <!--style="width: 42px; height: 42px;"-->
-    <!--(click)="goToComments()"-->
-    <!--aria-label="К комментариям"-->
-    <!--title="К комментариям"-->
-  <!--&gt;-->
-    <!--<i class="bi bi-chat-dots"></i>-->
-  <!--</button>-->
-
-  <button
-    type="button"
-    class="btn btn-sm btn-outline-light border-soft rounded-circle d-inline-flex align-items-center justify-content-center bg-glass shadow-sm"
-    style="width: 42px; height: 42px;"
-    onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });"
-    aria-label="Вниз"
-    title="Вниз"
-  >
-    <i class="bi bi-arrow-down"></i>
-  </button>
-</div>
-
 <app-footer></app-footer>

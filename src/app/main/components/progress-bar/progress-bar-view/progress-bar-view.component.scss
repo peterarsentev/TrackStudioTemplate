@@ -1,0 +1,30 @@
+/* Контейнер прогресса */
+.progress-glass {
+  height: 0.75rem;
+  border-radius: 999px;
+  background-color: rgba(var(--bs-body-color-rgb), 0.08);
+  overflow: hidden;
+}
+
+/* Прогрессбар с градиентом */
+.progress-bar-gradient {
+  height: 100%;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  transition: width 0.4s ease;
+
+  background-image: linear-gradient(
+      90deg,
+      var(--bs-info),
+      var(--bs-primary),
+      var(--bs-success)
+  );
+}
+
+/* Hover — лёгкий "живой" эффект */
+.progress-bar-gradient:hover {
+  filter: brightness(1.05);
+}

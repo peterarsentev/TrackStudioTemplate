@@ -2,154 +2,153 @@
   <div class="row">
     <div class="col-12">
       <div class="card-glass rounded-4 shadow-sm overflow-hidden">
-        <table class="table table-borderless mb-0 align-middle">
-          <thead class="border-bottom border-soft">
-          <tr>
-            <th class="py-3">
-              <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
-                <div class="d-flex flex-wrap gap-2 align-items-center">
-                    <span class="text-muted-soft fw-semibold">
-                      Уроков:
-                      <span class="fw-bold">{{ tasks.length }}</span>
-                    </span>
-
-                  <span class="ms-2">
-                      <app-book-mark-star [name]="name"></app-book-mark-star>
-                    </span>
-                </div>
-
-                <div class="d-flex flex-wrap gap-2" *ngIf="!isSearch">
-                  <button
-                    type="button"
-                    class="btn btn-sm border-soft d-inline-flex align-items-center gap-1"
-                    (click)="goBackToList()"
-                  >
-                    <i class="bi bi-chevron-up"></i>
-                    К темам
-                  </button>
-
-                  <button
-                    *ngIf="task.previousId !== -1"
-                    type="button"
-                    class="btn btn-sm border-soft d-inline-flex align-items-center gap-1"
-                    (click)="goBackToList(task.previousId)"
-                  >
-                    <i class="bi bi-chevron-left"></i>
-                    Предыдущий
-                  </button>
-
-                  <button
-                    *ngIf="task.nextId !== -1"
-                    type="button"
-                    class="btn btn-sm border-soft d-inline-flex align-items-center gap-1"
-                    (click)="goBackToList(task.nextId)"
-                  >
-                    Следующий
-                    <i class="bi bi-chevron-right"></i>
-                  </button>
-                </div>
-              </div>
-            </th>
-          </tr>
-          </thead>
-
-          <tbody>
-          <tr
-            *ngFor="let task of tasks; let idx = index"
-            class="border-bottom border-soft"
-          >
-            <td class="py-3">
-              <!-- Title -->
-              <div class="d-flex align-items-start gap-2 mb-1">
-                <i class="bi bi-list-check mt-1"></i>
-
-                <a
-                  class="text-decoration-none"
-                  [routerLink]="
-                      task.solution
-                        ? ['/exercise', task.task.topicId, 'task', task.task.id, task.solution.id]
-                        : ['/exercise', task.task.topicId, 'task-view', task.task.id]
-                    "
-                >
-                    <span class="fw-semibold">
-                      {{ task.task.name }}&nbsp;{{ getSolutionId(task) }}
-                    </span>
-                </a>
-
-                <i
-                  *ngIf="task.solution && task.task.updated > task.solution.updatedTime"
-                  class="bi bi-arrow-repeat text-muted-soft"
-                  title="Описание урока было обновлено"
-                ></i>
-              </div>
-
-              <!-- Meta -->
-              <div class="small text-muted-soft d-flex flex-wrap gap-2">
-                <span
-                  class="badge rounded-pill badge-glass"
-                    [ngClass]="{
-                      'badge-good': task.status?.id == 3,
-                      'badge-warn': task.status?.id == 2 || task.status?.id == 4,
-                      'badge-accent': task.status?.id == 1,
-                      'badge-glass': !task.status
-                    }"
-                    *ngIf="task.status"
-                  >
-                    {{ task.status?.statusName }}
-                  </span>
-
-                <ng-container *ngIf="task.solution">
-                    <span *ngIf="task.handler" class="d-inline-flex align-items-center gap-1">
-                      <i class="bi bi-person"></i>
-                      <span>{{ task.handler.name }}</span>
-                    </span>
-
-                  <span class="d-inline-flex align-items-center gap-1">
-                      <i class="bi bi-hourglass-split"></i>
-                      {{ task.solution.createdTime | date: 'HH:mm dd.MM.yyyy' }}
-                    </span>
-
-                  <span class="d-inline-flex align-items-center gap-1">
-                      <i class="bi bi-hourglass-bottom"></i>
-                      {{ task.solution.updatedTime | date: 'HH:mm dd.MM.yyyy' }}
-                    </span>
-                </ng-container>
-
-                <ng-container *ngIf="task.rating">
-                    <span class="ms-2 d-inline-flex align-items-center gap-2">
-                      <span class="d-inline-flex align-items-center gap-1">
-                        <i
-                          class="bi bi-hand-thumbs-down cursor-pointer"
-                          [ngClass]="task.rating?.vote === 'DOWN' ? 'text-danger' : 'text-muted-soft'"
-                        ></i>
-                        <span>{{ task.rating?.down }}</span>
+        <div class="p-3 p-md-4">
+          <table class="table table-borderless mb-0 align-middle bg-transparent">
+            <thead class="border-bottom border-soft">
+            <tr>
+              <th class="py-3">
+                <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
+                  <div class="d-flex flex-wrap gap-2 align-items-center">
+                      <span class="text-muted-soft fw-semibold">
+                        Уроков:
+                        <span class="fw-bold">{{ tasks.length }}</span>
                       </span>
 
-                      <span class="d-inline-flex align-items-center gap-1">
-                        <i
-                          class="bi bi-hand-thumbs-up cursor-pointer"
-                          [ngClass]="task.rating?.vote === 'UP' ? 'text-primary' : 'text-muted-soft'"
-                        ></i>
-                        <span>{{ task.rating?.up }}</span>
+                    <span class="ms-2">
+                        <app-book-mark-star [name]="name"></app-book-mark-star>
                       </span>
+                  </div>
+
+                  <div class="d-flex flex-wrap gap-2" *ngIf="!isSearch">
+                    <button
+                      type="button"
+                      class="btn btn-sm border-soft d-inline-flex align-items-center gap-1"
+                      (click)="goBackToList()"
+                    >
+                      <i class="bi bi-chevron-up"></i>
+                      К темам
+                    </button>
+
+                    <button
+                      *ngIf="task.previousId !== -1"
+                      type="button"
+                      class="btn btn-sm border-soft d-inline-flex align-items-center gap-1"
+                      (click)="goBackToList(task.previousId)"
+                    >
+                      <i class="bi bi-chevron-left"></i>
+                      Предыдущий
+                    </button>
+
+                    <button
+                      *ngIf="task.nextId !== -1"
+                      type="button"
+                      class="btn btn-sm border-soft d-inline-flex align-items-center gap-1"
+                      (click)="goBackToList(task.nextId)"
+                    >
+                      Следующий
+                      <i class="bi bi-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let task of tasks; let idx = index" class="border-bottom border-soft">
+              <td class="py-3">
+                <!-- Title -->
+                <div class="d-flex align-items-start gap-2 mb-1">
+                  <i class="bi bi-list-check mt-1"></i>
+
+                  <a
+                    class="text-decoration-none"
+                    [routerLink]="
+                        task.solution
+                          ? ['/exercise', task.task.topicId, 'task', task.task.id, task.solution.id]
+                          : ['/exercise', task.task.topicId, 'task-view', task.task.id]
+                      "
+                  >
+                      <span class="fw-semibold">
+                        {{ task.task.name }}&nbsp;{{ getSolutionId(task) }}
+                      </span>
+                  </a>
+
+                  <i
+                    *ngIf="task.solution && task.task.updated > task.solution.updatedTime"
+                    class="bi bi-arrow-repeat text-muted-soft"
+                    title="Описание урока было обновлено"
+                  ></i>
+                </div>
+
+                <!-- Meta -->
+                <div class="small text-muted-soft d-flex flex-wrap gap-2">
+                    <span
+                      class="badge rounded-pill badge-glass"
+                      [ngClass]="{
+                        'badge-good': task.status?.id == 3,
+                        'badge-warn': task.status?.id == 2 || task.status?.id == 4,
+                        'badge-accent': task.status?.id == 1,
+                        'badge-glass': !task.status
+                      }"
+                      *ngIf="task.status"
+                    >
+                      {{ task.status?.statusName }}
                     </span>
 
-                  <span *ngIf="task.discussCount" class="d-inline-flex align-items-center gap-1 ms-1">
-                      <i class="bi bi-chat-dots"></i>
-                      {{ task.discussCount.count }}
-                    </span>
-                </ng-container>
-              </div>
-            </td>
-          </tr>
+                  <ng-container *ngIf="task.solution">
+                      <span *ngIf="task.handler" class="d-inline-flex align-items-center gap-1">
+                        <i class="bi bi-person"></i>
+                        <span>{{ task.handler.name }}</span>
+                      </span>
 
-          <tr *ngIf="!tasks?.length">
-            <td class="text-center text-muted-soft py-4">
-              Ничего не найдено
-            </td>
-          </tr>
-          </tbody>
-        </table>
+                    <span class="d-inline-flex align-items-center gap-1">
+                        <i class="bi bi-hourglass-split"></i>
+                        {{ task.solution.createdTime | date: 'HH:mm dd.MM.yyyy' }}
+                      </span>
+
+                    <span class="d-inline-flex align-items-center gap-1">
+                        <i class="bi bi-hourglass-bottom"></i>
+                        {{ task.solution.updatedTime | date: 'HH:mm dd.MM.yyyy' }}
+                      </span>
+                  </ng-container>
+
+                  <ng-container *ngIf="task.rating">
+                      <span class="ms-2 d-inline-flex align-items-center gap-2">
+                        <span class="d-inline-flex align-items-center gap-1">
+                          <i
+                            class="bi bi-hand-thumbs-down cursor-pointer"
+                            [ngClass]="task.rating?.vote === 'DOWN' ? 'text-danger' : 'text-muted-soft'"
+                          ></i>
+                          <span>{{ task.rating?.down }}</span>
+                        </span>
+
+                        <span class="d-inline-flex align-items-center gap-1">
+                          <i
+                            class="bi bi-hand-thumbs-up cursor-pointer"
+                            [ngClass]="task.rating?.vote === 'UP' ? 'text-primary' : 'text-muted-soft'"
+                          ></i>
+                          <span>{{ task.rating?.up }}</span>
+                        </span>
+                      </span>
+
+                    <span *ngIf="task.discussCount" class="d-inline-flex align-items-center gap-1 ms-1">
+                        <i class="bi bi-chat-dots"></i>
+                        {{ task.discussCount.count }}
+                      </span>
+                  </ng-container>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngIf="!tasks?.length">
+              <td class="text-center text-muted-soft py-4">
+                Ничего не найдено
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

@@ -85,50 +85,64 @@
 
   <!-- List -->
   <div class="card-glass rounded-4 shadow-sm overflow-hidden">
-    <table class="table table-borderless mb-0 align-middle bg-transparent">
-      <tbody class="bg-transparent">
-      <tr *ngFor="let task of tasks" class="border-bottom border-soft bg-transparent">
-        <td class="py-3 bg-transparent">
-          <a class="text-decoration-none d-block" [routerLink]="['/exercise', task?.id]">
-            <div class="fw-semibold d-flex align-items-center gap-2 mb-1">
-              <i class="bi bi-folder"></i>
-              <span class="">{{ task.name }}</span>
-            </div>
+    <div class="p-3 p-md-4"> <!-- ВОТ ОН ОТСТУП -->
+      <table class="table table-borderless mb-0 align-middle bg-transparent">
+        <tbody class="bg-transparent">
+        <tr
+          *ngFor="let task of tasks"
+          class="border-bottom border-soft bg-transparent"
+        >
+          <td class="py-3 bg-transparent">
+            <a
+              class="text-decoration-none d-block"
+              [routerLink]="['/exercise', task?.id]"
+            >
+              <div class="fw-semibold d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-folder"></i>
+                <span>{{ task.name }}</span>
+              </div>
 
-            <div class="small text-muted-soft d-flex flex-wrap gap-2">
+              <div class="small text-muted-soft d-flex flex-wrap gap-2">
                 <span class="badge rounded-pill badge-glass">
                   {{ task.level.name }}
                 </span>
 
-              <span
-                class="badge rounded-pill badge-glass"
-                *ngIf="task.category.upgradedId === 0"
-              >
+                <span
+                  class="badge rounded-pill badge-glass"
+                  *ngIf="task.category.upgradedId === 0"
+                >
                   {{ task.category.name }}
                 </span>
 
-              <span
-                class="badge rounded-pill badge-glass text-decoration-line-through"
-                *ngIf="task.category.upgradedId !== 0"
-                title="Блок был обновлен. Подробности в разделе 'Главное меню / Блоки'."
-              >
+                <span
+                  class="badge rounded-pill badge-glass text-decoration-line-through"
+                  *ngIf="task.category.upgradedId !== 0"
+                  title="Блок был обновлен. Подробности в разделе 'Главное меню / Блоки'."
+                >
                   {{ task.category.name }}
                 </span>
-            </div>
-          </a>
-        </td>
+              </div>
+            </a>
+          </td>
 
-        <td class="py-3 bg-transparent" style="width: 260px;">
-          <app-progress-bar-solutions [progress]="task.progress"></app-progress-bar-solutions>
-        </td>
-      </tr>
+          <td class="py-3 bg-transparent" style="width: 260px;">
+            <app-progress-bar-solutions
+              [progress]="task.progress"
+            ></app-progress-bar-solutions>
+          </td>
+        </tr>
 
-      <tr *ngIf="!tasks?.length" class="bg-transparent">
-        <td class="text-center text-muted-soft py-4 bg-transparent" colspan="2">
-          Ничего не найдено
-        </td>
-      </tr>
-      </tbody>
-    </table>
+        <tr *ngIf="!tasks?.length" class="bg-transparent">
+          <td
+            class="text-center text-muted-soft py-4 bg-transparent"
+            colspan="2"
+          >
+            Ничего не найдено
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+
 </div>

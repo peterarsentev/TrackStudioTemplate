@@ -42,9 +42,7 @@ pre {
 
   --j-glass-bg: rgba(255, 255, 255, 0.05);
   --j-glass-bg-strong: rgba(255, 255, 255, 0.07);
-  --j-glass-hover: rgba(255, 255, 255, 0.06);
   --j-glass-border: rgba(255, 255, 255, 0.1);
-  --j-glass-border-hover: rgba(255, 255, 255, 0.16);
 
   --j-code-bg: rgba(10, 16, 30, 0.6);
 
@@ -69,9 +67,7 @@ pre {
 
   --j-glass-bg: rgba(255, 255, 255, 0.85);
   --j-glass-bg-strong: rgba(255, 255, 255, 0.92);
-  --j-glass-hover: rgba(255, 255, 255, 0.96);
   --j-glass-border: rgba(0, 0, 0, 0.08);
-  --j-glass-border-hover: rgba(0, 0, 0, 0.12);
 
   --j-code-bg: rgba(249, 250, 251, 0.95);
 
@@ -199,15 +195,6 @@ body {
   color: #fff;
 }
 
-.btn-j-primary:hover {
-  border-color: rgba(255, 255, 255, 0.25);
-  color: #fff;
-}
-
-[data-theme="light"] .btn-j-primary:hover {
-  border-color: rgba(0, 0, 0, 0.12);
-}
-
 /* =========================
    Cards / sections
    ========================= */
@@ -243,12 +230,6 @@ body {
     transform 0.15s ease,
     background 0.15s ease,
     border-color 0.15s ease;
-}
-
-.card-glass:hover {
-  transform: translateY(-2px);
-  background: var(--j-glass-hover);
-  border-color: var(--j-glass-border-hover);
 }
 
 .cta {
@@ -378,10 +359,6 @@ body {
   text-decoration: none;
 }
 
-.badge a:hover {
-  text-decoration: underline;
-}
-
 /* =========================
    Code blocks / code boxes
    ========================= */
@@ -416,17 +393,11 @@ body {
   color: rgba(231, 236, 255, 0.86) !important;
 }
 
-.nav-link:hover {
-  color: rgba(231, 236, 255, 0.98) !important;
-}
 
 [data-theme="light"] .nav-link {
   color: rgba(31, 41, 55, 0.86) !important;
 }
 
-[data-theme="light"] .nav-link:hover {
-  color: rgba(31, 41, 55, 0.98) !important;
-}
 
 /* =========================
    Summernote Dark Theme (and light overrides)
@@ -453,13 +424,11 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.note-btn:hover,
 .note-btn:focus {
   background: rgba(255, 255, 255, 0.08);
   color: var(--j-text);
 }
 
-[data-theme="light"] .note-btn:hover,
 [data-theme="light"] .note-btn:focus {
   background: rgba(0, 0, 0, 0.04);
 }
@@ -492,14 +461,6 @@ body {
   border: 1px solid var(--j-line);
 }
 
-.note-dropdown-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-[data-theme="light"] .note-dropdown-item:hover {
-  background: rgba(0, 0, 0, 0.04);
-}
-
 /* =========================
    Optional: make CodeMirror match light a bit
    (Theme file is "material" for dark; light keeps it readable)
@@ -516,4 +477,78 @@ body {
 
 [data-theme="light"] .badge {
   color: #1f2937; /* чёрный / тёмно-серый */
+}
+
+/* =========================================
+   LIGHT theme – readable status badges
+   black text + bold
+   ========================================= */
+
+[data-theme="light"] .badge-success,
+[data-theme="light"] .badge-primary,
+[data-theme="light"] .badge-warning {
+  font-weight: 600;
+  color: #111827 !important; /* почти чёрный */
+  border-width: 1px !important;
+}
+
+/* SUCCESS */
+[data-theme="light"] .badge-success {
+  background: rgba(22, 163, 74, 0.28) !important;
+  border-color: rgba(22, 163, 74, 0.45) !important;
+}
+
+/* PRIMARY */
+[data-theme="light"] .badge-primary {
+  background: rgba(79, 70, 229, 0.26) !important;
+  border-color: rgba(79, 70, 229, 0.45) !important;
+}
+
+/* WARNING */
+[data-theme="light"] .badge-warning {
+  background: rgba(245, 158, 11, 0.32) !important;
+  border-color: rgba(245, 158, 11, 0.5) !important;
+}
+
+/* ссылки внутри badge */
+[data-theme="light"] .badge-success a,
+[data-theme="light"] .badge-primary a,
+[data-theme="light"] .badge-warning a {
+  color: #111827 !important;
+}
+
+/* =========================================
+   Light theme: make custom status badges readable
+   (badge-accent / badge-good / badge-warn)
+   ========================================= */
+
+[data-theme="light"] .badge-accent,
+[data-theme="light"] .badge-good,
+[data-theme="light"] .badge-warn {
+  color: #111827 !important;   /* чёрный текст */
+  font-weight: 700;            /* жирнее */
+  border-width: 1px !important;
+}
+
+/* accent (id=1) */
+[data-theme="light"] .badge-accent {
+  background: rgba(79, 70, 229, 0.22) !important;
+  border-color: rgba(79, 70, 229, 0.45) !important;
+}
+
+/* good (id=3) */
+[data-theme="light"] .badge-good {
+  background: rgba(22, 163, 74, 0.24) !important;
+  border-color: rgba(22, 163, 74, 0.45) !important;
+}
+
+/* warn (id=2 или 4) */
+[data-theme="light"] .badge-warn {
+  background: rgba(245, 158, 11, 0.28) !important;
+  border-color: rgba(245, 158, 11, 0.55) !important;
+}
+
+.table.bg-transparent {
+  --bs-table-bg: transparent;
+  --bs-table-accent-bg: transparent;
 }

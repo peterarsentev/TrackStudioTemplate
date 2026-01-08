@@ -22,3 +22,50 @@
 [data-theme="dark"] .theme-icon {
   color: #facc15; /* жёлтый */
 }
+
+.search-glass {
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  overflow: hidden;
+
+  .input-group-text {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    padding-left: 0.75rem;
+  }
+
+  .form-control {
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding-right: 0.75rem;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+  }
+}
+
+
+.ui-fab .btn {
+  width: 42px;
+  height: 42px;
+
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
+}
+
+.ui-fab i {
+  font-size: 1rem;
+}
+

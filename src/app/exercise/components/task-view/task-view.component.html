@@ -38,7 +38,7 @@
     <div class="d-flex flex-wrap gap-2">
       <button
         type="button"
-        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        class="btn btn-sm border-soft d-inline-flex align-items-center gap-1"
         (click)="goBackToList()"
       >
         <i class="bi bi-chevron-up"></i>Вверх
@@ -47,7 +47,7 @@
       <button
         *ngIf="task.previousId !== -1"
         type="button"
-        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
         (click)="goBackToList(task.previousId)"
       >
         <i class="bi bi-chevron-left"></i>Предыдущий
@@ -56,7 +56,7 @@
       <button
         *ngIf="task.nextId !== -1"
         type="button"
-        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
         (click)="goBackToList(task.nextId)"
       >
         Следующий<i class="bi bi-chevron-right"></i>
@@ -64,7 +64,7 @@
 
       <button
         [disabled]="task.status?.id != 3"
-        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
         (click)="goToSolutions()"
         title="Решения других учеников станут доступны после выполнения урока"
       >
@@ -101,7 +101,7 @@
 
           <div class="small text-muted-soft d-flex flex-wrap align-items-center gap-2 mt-2">
             <span
-              class="badge rounded-pill"
+              class="badge rounded-pill badge-glass"
               [ngClass]="{
                 'badge-accent': task.status?.id == 1,
                 'badge-good': task.status?.id == 3,
@@ -288,7 +288,7 @@
     <div class="d-flex flex-wrap gap-2">
       <button
         type="button"
-        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
         (click)="goBackToList()"
       >
         <i class="bi bi-chevron-up"></i>Вверх
@@ -297,7 +297,7 @@
       <button
         *ngIf="task.previousId !== -1"
         type="button"
-        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
         (click)="goBackToList(task.previousId)"
       >
         <i class="bi bi-chevron-left"></i>Предыдущая
@@ -306,7 +306,7 @@
       <button
         *ngIf="task.nextId !== -1"
         type="button"
-        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
         (click)="goBackToList(task.nextId)"
       >
         Следующая<i class="bi bi-chevron-right"></i>
@@ -314,7 +314,7 @@
 
       <button
         [disabled]="task.status?.id != 3"
-        class="btn btn-sm btn-outline-light border-soft d-inline-flex align-items-center gap-1"
+        class="btn btn-sm  border-soft d-inline-flex align-items-center gap-1"
         (click)="goToSolutions()"
         title="Решения других учеников станут доступны после выполнения урока"
       >
@@ -384,7 +384,7 @@
   <div *ngIf="showButtonBottom && canCreateDiscuss" class="mt-2 d-flex justify-content-end">
     <button
       *ngIf="!!user && user?.login !== 'guest'"
-      class="btn btn-sm btn-outline-light border-soft"
+      class="btn btn-sm  border-soft"
       (click)="showDiscussionForm()"
     >
       <i class="bi bi-chat-right-text me-1"></i>Обсудить

@@ -1,11 +1,16 @@
-<div class="progress">
-  <div class="progress-bar {{ solvedTasksCount !== allTasksCount ? 'bg-info' : 'bg-success'}}"
-       role="progressbar"
-       [ngStyle]="{ width: barValue +'%'}"
-       aria-valuemin="0"
-       aria-valuemax="100">{{ barValue }}%</div>
+<div class="progress progress-glass">
+  <div
+    class="progress-bar progress-bar-gradient"
+    role="progressbar"
+    [ngStyle]="{ width: barValue + '%' }"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  >
+    {{ barValue }}%
+  </div>
 </div>
-<div>
+
+<div class="mt-1">
   <small class="text-muted">
     Выполнено {{ solvedTasksCount }} из {{ allTasksCount }}
   </small>
