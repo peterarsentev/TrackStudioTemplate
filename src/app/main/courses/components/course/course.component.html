@@ -2,53 +2,59 @@
   <div class="row">
     <div class="col-12">
       <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+        <!-- header -->
         <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-          <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
-            <div class="fw-semibold ">
-              🚀 Учебная программа: {{ category?.name }}
+          <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-journal-text"></i>
+              <div class="fw-semibold">
+                Учебная программа: {{ category?.name }}
+              </div>
             </div>
 
-            <div class="text-muted-soft">
-              💰 Стоимость:
-              <span class="fw-semibold ">{{ category?.price }} &#8381;</span>
+            <div class="d-flex align-items-center gap-2 px-3 py-2 rounded-pill border border-soft bg-glass">
+              <i class="bi bi-tag"></i>
+              <span class="text-muted">Стоимость</span>
+              <span class="fw-semibold">{{ category?.price }} ₽</span>
             </div>
           </div>
         </div>
+        <!-- /header -->
 
         <div class="px-3 px-md-4 py-3">
-          <div class="text-muted-soft" [innerHTML]="category?.description | safeCode"></div>
+          <div [innerHTML]="category?.description | safeCode"></div>
 
-          <div class="mt-4 fw-semibold  d-flex align-items-center gap-2">
+          <div class="mt-4 d-flex align-items-center gap-2">
             <i class="bi bi-mortarboard"></i>
-            📚 Процесс обучения
+            <div class="fw-semibold fs-5">Процесс обучения</div>
           </div>
 
-          <div class="mt-2 text-muted-soft">
+          <div class="mt-2">
             <p class="mb-3">
-              С самого начала я хотел, чтобы учеба напоминала <strong class="">реальную рабочую обстановку</strong>.
+              С самого начала я хотел, чтобы учеба напоминала <strong>реальную рабочую обстановку</strong>.
               Поэтому уже с первых уроков вы работаете с Git, системами статического анализа, тестами и
               инструментами непрерывного развёртывания.
             </p>
 
             <p class="mb-3">
-              В то же время мне важно, чтобы обучение оставалось <strong class="">домашним и комфортным</strong>.
+              В то же время мне важно, чтобы обучение оставалось <strong>домашним и комфортным</strong>.
               У нас нет жёстких дедлайнов — вы занимаетесь тогда, когда удобно.
             </p>
 
             <p class="mb-3">
-              Для нас каждый ученик — это <strong class="">личность</strong>, а не “безликий пользователь”.
+              Для нас каждый ученик — это <strong>личность</strong>, а не “безликий пользователь”.
               Мы проверяем каждый урок, даём обратную связь и объясняем теорию.
             </p>
 
             <p class="mb-3">
               Наверное, вы спросите: «Как же хватает времени на всех?» Всё просто: на курсе работают
-              <strong class="">я (Пётр Арсентьев)</strong> и ещё четыре ментора — Стас, Алексей, Андрей и Михаил.
+              <strong>я (Пётр Арсентьев)</strong> и ещё четыре ментора — Стас, Алексей, Андрей и Михаил.
               Мы отказались от неэффективных вебинаров и видеолекций: вместо часовых видео у вас
-              <strong class="">короткие тексты с иллюстрациями</strong>, которые позволяют быстрее перейти к практике.
+              <strong>короткие тексты с иллюстрациями</strong>, которые позволяют быстрее перейти к практике.
             </p>
 
             <p class="mb-3">
-              Мы убеждены: <em class="">теория без практики — пустое дело</em>.
+              Мы убеждены: <em>теория без практики — пустое дело</em>.
               Поэтому ученик обращается к нам тогда, когда написал код или решил задачу, а не когда просто хочет переслушать объяснение.
             </p>
 
@@ -58,45 +64,48 @@
           </div>
 
           <div class="mt-4">
-            <div class="fw-semibold  mb-2">Итоги</div>
-            <ul class="list-unstyled mb-0 text-muted-soft">
+            <div class="fw-semibold mb-2">Итоги</div>
+            <ul class="list-unstyled mb-0">
               <li class="d-flex align-items-start gap-2 mb-2">
-                <i class="bi bi-check2-circle text-success mt-1"></i>
+                <i class="bi bi-check2-circle text-muted mt-1"></i>
                 <span>Прагматичный подход и максимум практики</span>
               </li>
               <li class="d-flex align-items-start gap-2 mb-2">
-                <i class="bi bi-check2-circle text-success mt-1"></i>
+                <i class="bi bi-check2-circle text-muted mt-1"></i>
                 <span>Теория — только та, что нужна для практики и собеседований</span>
               </li>
               <li class="d-flex align-items-start gap-2 mb-2">
-                <i class="bi bi-check2-circle text-success mt-1"></i>
+                <i class="bi bi-check2-circle text-muted mt-1"></i>
                 <span>Обратная связь от менторов на каждом уроке</span>
               </li>
               <li class="d-flex align-items-start gap-2 mb-2">
-                <i class="bi bi-check2-circle text-success mt-1"></i>
+                <i class="bi bi-check2-circle text-muted mt-1"></i>
                 <span>Подготовка к собеседованиям через сдачу теории</span>
               </li>
               <li class="d-flex align-items-start gap-2">
-                <i class="bi bi-check2-circle text-success mt-1"></i>
+                <i class="bi bi-check2-circle text-muted mt-1"></i>
                 <span>Реальные проектные работы</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- ВАЖНО: блок должен быть ВНУТРИ card и иметь padding по X -->
+        <!-- contact block -->
         <div class="px-3 px-md-4 pb-4">
           <div class="p-3 p-md-4 rounded-4 border border-soft bg-glass">
-            <div class="fw-semibold  mb-1">
+            <div class="fw-semibold mb-1">
               Хотите начать обучение или задать вопрос по программе?
             </div>
-            <div class="text-muted-soft">
-              Напишите мне лично в Telegram — это первый шаг к старту курса 👇
+            <div>
+              Напишите мне лично в Telegram — это первый шаг к старту курса.
             </div>
 
-            <div class="mt-2 fw-semibold">
-              ✍️ Пётр Арсентьев —
-              <a class="link-light text-decoration-none" target="_blank" href="https://t.me/parsentev">
+            <div class="mt-3 d-flex flex-wrap gap-2 align-items-center">
+              <a class="btn btn-primary rounded-pill" target="_blank" href="https://t.me/parsentev">
+                <i class="bi bi-telegram me-2"></i>
+                Написать в Telegram
+              </a>
+              <a class="text-decoration-none" target="_blank" href="https://t.me/parsentev">
                 t.me/parsentev
               </a>
             </div>

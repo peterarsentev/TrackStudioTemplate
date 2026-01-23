@@ -80,9 +80,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
     mode: 'bash',
     indentUnit: 4,
     indentWithTabs: false,
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dracula'
+      ? 'dracula'
+      : 'light'
   };
 
   constructor(private tasksService: TasksService,

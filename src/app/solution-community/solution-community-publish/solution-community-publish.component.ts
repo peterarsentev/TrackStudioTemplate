@@ -120,7 +120,9 @@ export class SolutionCommunityPublishComponent implements OnInit {
       lineNumbers: true,
       matchBrackets: true,
       mode: 'text/x-java',
-      theme: "dracula",
+      theme: localStorage.getItem('theme') === 'light'
+        ? 'idea'
+        : 'dracula'
     } as EditorConfiguration);
 
     // Set initial code value

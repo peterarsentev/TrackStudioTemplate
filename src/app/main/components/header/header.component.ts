@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   solvedTasksCount = 0;
   mockNotifications: { count: number };
 
-  currentTheme: 'dark' | 'light' = 'dark';
+  currentTheme: 'dark' | 'light' = 'light';
 
   constructor(
     private userService: UserService,
