@@ -102,8 +102,8 @@
     </div>
 
     <!-- Body -->
-    <div class="px-3 px-md-4 py-3">
-      <div class="text-muted-soft" [innerHTML]="discuss.description | safeCode"></div>
+    <div class="px-3 px-md-4 py-3 scroll-block" >
+      <div [innerHTML]="discuss.description | safeCode"></div>
 
       <div *ngIf="discuss.taskCode" class="mt-3">
         <ngx-codemirror [(ngModel)]="discuss.taskCode" [options]="options"></ngx-codemirror>
@@ -124,7 +124,7 @@
         <button
           *ngIf="canCreateDiscuss"
           type="button"
-          class="btn btn-sm btn-j-primary d-inline-flex align-items-center gap-1"
+          class="btn btn-sm btn-success d-inline-flex align-items-center gap-1"
           (click)="showDiscussionForm()"
         >
           <i class="bi bi-chat-right-text"></i>

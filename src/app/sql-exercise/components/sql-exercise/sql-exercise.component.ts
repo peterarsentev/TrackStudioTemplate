@@ -35,18 +35,18 @@ export class SqlExerciseComponent implements OnInit, OnDestroy {
     lineNumbers: true,
     readOnly: true,
     mode: 'text/x-pgsql',
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dark'
+      ? 'dracula'
+      : 'light'
   };
 
   solutionOptions = {
     lineNumbers: true,
     readOnly: false,
     mode: 'text/x-pgsql',
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dark'
+      ? 'dracula'
+      : 'light'
   };
 
   solutionSql = '';

@@ -29,9 +29,9 @@ export class SolutionCommunityPublishComponent implements OnInit {
     lineNumbers: true,
     readOnly: true,
     mode: 'text/x-java',
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dark'
+      ? 'dracula'
+      : 'light'
   };
   name: string;
   description: string;
@@ -120,9 +120,9 @@ export class SolutionCommunityPublishComponent implements OnInit {
       lineNumbers: true,
       matchBrackets: true,
       mode: 'text/x-java',
-      theme: localStorage.getItem('theme') === 'light'
-        ? 'idea'
-        : 'dracula'
+      theme: localStorage.getItem('theme') === 'dark'
+        ? 'dracula'
+        : 'light'
     } as EditorConfiguration);
 
     // Set initial code value

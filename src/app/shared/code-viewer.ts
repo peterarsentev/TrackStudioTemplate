@@ -59,9 +59,9 @@ function sandBoxWidget(block, java, canRun, golang) {
     mode: 'text/x-java',
     indentUnit: 4,
     indentWithTabs: false,
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dark'
+      ? 'dracula'
+      : 'light'
   } as EditorConfiguration);
 
   const runCode = (output, runButton) => {
@@ -121,9 +121,9 @@ function sandBoxWidget(block, java, canRun, golang) {
       mode: 'text/x-java',
       indentUnit: 4,
       indentWithTabs: false,
-      theme: localStorage.getItem('theme') === 'light'
-        ? 'idea'
-        : 'dracula'
+      theme: localStorage.getItem('theme') === 'dark'
+        ? 'dracula'
+        : 'light'
     } as EditorConfiguration);
 
     code.on('keydown', (cm, event) => {

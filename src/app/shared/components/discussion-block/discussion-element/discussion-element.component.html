@@ -10,14 +10,12 @@
           <i class="bi bi-person"></i>
           <span class="text-truncate">{{ discussion.name }}</span>
         </div>
-
-        <div *ngIf="discussion.userCreated" class="text-muted-soft small mt-1">
-          Дата регистрации: {{ discussion.userCreated | date: 'dd.MM.yyyy' }}
-        </div>
       </div>
 
-      <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end bg-transparent">
-        <span class="text-muted-soft small">
+      <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end">
+        <app-rating [user]="user" [discussion]="discussion"></app-rating>
+
+        <span class="small">
           {{ discussion.time | date: 'dd.MM.yyyy HH:mm' }}
         </span>
 
@@ -40,14 +38,12 @@
         >
           <i class="bi bi-pencil"></i>
         </button>
-
-        <app-rating [user]="user" [discussion]="discussion"></app-rating>
       </div>
     </div>
 
     <!-- Text -->
     <div class="mb-2 bg-transparent">
-      <div class="text-muted-soft bg-transparent" [innerHTML]="discussion.text | safeCode"></div>
+      <div [innerHTML]="discussion.text | safeCode"></div>
     </div>
 
     <!-- Responses -->
@@ -62,7 +58,7 @@
             <div class="pb-3 border-bottom border-soft mb-3 bg-transparent" *ngIf="!d.editResponse">
               <div class="d-flex justify-content-between align-items-start gap-3 mb-2 bg-transparent">
                 <div class="min-w-0 bg-transparent">
-                  <div class="small text-muted-soft">
+                  <div class="small">
                     От <span class="fw-semibold ">{{ d.name }}</span>
                   </div>
 
@@ -71,8 +67,10 @@
                   </div>
                 </div>
 
-                <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end bg-transparent">
-                  <span class="text-muted-soft small">
+                <div class="d-flex align-items-center justify-content-end gap-2 flex-wrap">
+                  <app-rating class="ms-2"></app-rating>
+
+                  <span class="small">
                     {{ d.time | date: 'dd.MM.yyyy HH:mm' }}
                   </span>
 
@@ -96,11 +94,12 @@
                     <i class="bi bi-pencil"></i>
                   </button>
 
-                  <app-rating [user]="user" [discussion]="d"></app-rating>
+                  <app-rating class="ms-2"></app-rating>
                 </div>
+
               </div>
 
-              <div class="text-muted-soft bg-transparent" [innerHTML]="d.text | safeCode"></div>
+              <div [innerHTML]="d.text | safeCode"></div>
             </div>
 
             <div class="row bg-transparent" *ngIf="d.editResponse">

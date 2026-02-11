@@ -26,9 +26,9 @@ export class TaskExerciseComponent implements OnInit, OnChanges {
     autocorrect: true,
     indentUnit: 4,
     indentWithTabs: false,
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dark'
+      ? 'dracula'
+      : 'light'
   };
 
   constructor(

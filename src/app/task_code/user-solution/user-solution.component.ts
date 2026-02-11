@@ -17,9 +17,9 @@ export class UserSolutionComponent implements OnInit, OnDestroy {
     lineNumbers: true,
     readOnly: false,
     mode: 'text/x-java',
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dark'
+      ? 'dracula'
+      : 'light'
   };
 
   private unsubscribe$ = new Subject();

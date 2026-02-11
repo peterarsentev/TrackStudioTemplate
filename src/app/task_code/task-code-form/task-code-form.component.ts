@@ -47,27 +47,27 @@ export class TaskCodeFormComponent implements OnInit, OnDestroy, AfterViewInit {
     mode: 'text/x-java',
     indentUnit: 4,
     indentWithTabs: false,
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dark'
+      ? 'dracula'
+      : 'light'
   };
 
   optionsTest = {
     lineNumbers: true,
     readOnly: true,
     mode: 'text/x-java',
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dark'
+      ? 'dracula'
+      : 'light'
   };
 
   optionsOutput = {
     lineNumbers: true,
     readOnly: true,
     mode: 'text/x-java',
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dark'
+      ? 'dracula'
+      : 'light'
   };
 
   @ViewChild('editor', {static: true}) editor;

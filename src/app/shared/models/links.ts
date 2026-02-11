@@ -17,8 +17,8 @@ export class Sol {
 
 export class GitHub {
   constructor(
-    public originUrl?: string,
-    public repo?: string,
+    public link?: string,
+    public domain?: string,
     public rev?: string
   ) {
   }

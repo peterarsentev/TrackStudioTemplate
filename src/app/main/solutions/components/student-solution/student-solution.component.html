@@ -1,34 +1,71 @@
-<div class="container-fluid top">
+<div class="container py-3">
   <div class="row">
-    Ученик {{ links.author }}
-  </div>
-  <div class="row">
-    <table class="table">
-      <caption></caption>
-      <thead>
-      <tr>
-        <th scope="col">Дата </th>
-        <th scope="col">Решение</th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-container *ngFor="let solution of links.solutions; let idx=index">
-        <tr>
-          <td>{{solution.time | date: 'dd.MM.yyyy HH:mm'}}</td>
-          <td  style="cursor: pointer;">
-            <div>
-              <a *ngFor="let link of solution.links"
-                 href="{{link.originUrl}}"
-                 target="_blank"
-                 class="font-weight-bold">{{link.rev}}</a>
-            </div>
-          </td>
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
 
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+        <!-- Header -->
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold">
+            Ученик {{ links.author }}
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="px-3 px-md-4 py-2">
+          <table class="table table-borderless mb-0 align-middle bg-transparent">
+            <tbody class="bg-transparent">
+
+            <tr
+              *ngFor="let solution of links.solutions; let idx = index"
+              class="border-bottom border-soft"
+            >
+              <td class="py-3">
+
+                <div class="d-flex align-items-center gap-3">
+
+                  <!-- Иконка -->
+                  <i class="bi bi-clock-history text-muted-soft flex-shrink-0"></i>
+
+                  <!-- Контент -->
+                  <div class="d-flex align-items-center w-100">
+
+                    <!-- Ревизии -->
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                      <ng-container *ngFor="let link of solution.links">
+                        <a
+                          [href]="link.link"
+                          target="_blank"
+                          class="fw-semibold text-decoration-none"
+                        >
+                          {{ link.rev }}
+                        </a>
+                      </ng-container>
+                    </div>
+
+                    <!-- Дата справа -->
+                    <div class="ms-auto small text-muted-soft text-nowrap">
+                      {{ solution.time | date: 'dd.MM.yyyy HH:mm' }}
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </td>
+            </tr>
+
+            <tr *ngIf="!links?.solutions?.length">
+              <td class="text-center text-muted-soft py-4">
+                Решений пока нет
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <!-- /List -->
+
+      </div>
+    </div>
   </div>
 </div>
-
-

@@ -284,9 +284,9 @@ export class TaskComponent implements OnInit, OnDestroy {
       lineNumbers: true,
       matchBrackets: true,
       mode: 'text/x-java',
-      theme: localStorage.getItem('theme') === 'light'
-        ? 'idea'
-        : 'dracula'
+      theme: localStorage.getItem('theme') === 'dark'
+        ? 'dracula'
+        : 'light'
     } as EditorConfiguration);
 
     // Set initial code value
@@ -346,9 +346,9 @@ export class TaskComponent implements OnInit, OnDestroy {
         mode: 'text/x-java',
         indentUnit: 4,
         indentWithTabs: false,
-        theme: localStorage.getItem('theme') === 'light'
-          ? 'idea'
-          : 'dracula'
+        theme: localStorage.getItem('theme') === 'dark'
+          ? 'dracula'
+          : 'light'
       } as EditorConfiguration);
 
       code.on('keydown', (cm, event) => {

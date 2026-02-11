@@ -24,9 +24,9 @@ export class TaskCodeShareComponent implements OnInit {
     lineNumbers: true,
     readOnly: true,
     mode: 'text/x-java',
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dark'
+      ? 'dracula'
+      : 'light'
   };
   taskCodeModel: SolutionTaskCodeModels;
   taskId: string;

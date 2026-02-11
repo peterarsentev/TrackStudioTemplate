@@ -1,33 +1,64 @@
-<div class="container-fluid top">
+<div class="container py-3">
   <div class="row">
-    <table class="table">
-      <caption></caption>
-      <thead>
-      <tr>
-        <th scope="col">Ученик</th>
-        <th scope="col">Дата решения</th>
-      </tr>
-      </thead>
-      <tbody infinite-scroll
-             class="noscroll"
-             [infiniteScrollDisabled]="!paginationAllowed"
-             [infiniteScrollDistance]="scrollDistance"
-             [infiniteScrollThrottle]="throttle"
-             (scrolled)="onScrollDown()">
-      <ng-container *ngFor="let solution of solutions; let idx=index">
-        <tr>
-          <td (click)="goTo(solution)" style="cursor: pointer;">
-            <div>
-              <i class="fas fa-tasks pr-3"></i>
-              <span class="font-weight-bold">{{solution.studentName}}</span>
-            </div>
-          </td>
-          <td>{{solution.date | date: 'dd.MM.yyyy HH:mm'}}</td>
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+    <div class="col-12">
+      <div class="card-glass rounded-4 shadow-sm overflow-hidden">
+        <!-- Header -->
+        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
+          <div class="fw-semibold">
+            Решения
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="px-3 px-md-4 py-2">
+          <table class="table table-borderless mb-0 align-middle">
+            <tbody
+              infinite-scroll
+              [infiniteScrollDisabled]="!paginationAllowed"
+              [infiniteScrollDistance]="scrollDistance"
+              [infiniteScrollThrottle]="throttle"
+              (scrolled)="onScrollDown()"
+            >
+            <tr
+              *ngFor="let solution of solutions; let idx = index"
+              class="border-bottom border-soft bg-transparent"
+              (click)="goTo(solution)"
+              style="cursor: pointer;"
+            >
+              <td class="py-3">
+                <div class="d-flex align-items-start gap-2">
+                  <i class="bi bi-check2-square mt-1 text-muted-soft"></i>
+
+                  <div class="min-w-0">
+                    <div class="fw-semibold">
+                      {{ solution.studentName }}
+                    </div>
+
+                    <div class="small text-muted-soft mt-1">
+                      {{ solution.date | date: 'dd.MM.yyyy HH:mm' }}
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <!-- если хочешь дату справа, раскомментируй и убери блок даты сверху -->
+              <!--
+              <td class="py-3 bg-transparent text-end text-muted-soft small">
+                {{ solution.date | date: 'dd.MM.yyyy HH:mm' }}
+              </td>
+              -->
+            </tr>
+
+            <tr *ngIf="!solutions?.length">
+              <td class="text-center text-muted-soft py-4">
+                Решений пока нет
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /List -->
+      </div>
+    </div>
   </div>
 </div>
-
-

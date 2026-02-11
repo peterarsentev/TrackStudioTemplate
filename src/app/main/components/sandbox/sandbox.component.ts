@@ -20,17 +20,17 @@ export class SandboxComponent implements OnInit {
       lineNumbers: true,
       matchBrackets: true,
       mode: "text/x-java",
-      theme: localStorage.getItem('theme') === 'light'
-        ? 'idea'
-        : 'dracula'
+      theme: localStorage.getItem('theme') === 'dark'
+        ? 'dracula'
+        : 'light'
     });
     this.output = CodeMirror.fromTextArea(document.getElementById("output"), {
       lineNumbers: true,
       matchBrackets: true,
       mode: "text/x-java",
-      theme: localStorage.getItem('theme') === 'light'
-        ? 'idea'
-        : 'dracula'
+      theme: localStorage.getItem('theme') === 'dark'
+        ? 'dracula'
+        : 'light'
     });
     this.code.getDoc().setValue(
       'package ru.job4j.array;\n' +

@@ -21,9 +21,9 @@ export class ProjectViewComponent implements OnInit, AfterViewInit {
     readOnly: true,
     mode: 'text/x-log',
     lineWrapping: true,
-    theme: localStorage.getItem('theme') === 'light'
-      ? 'idea'
-      : 'dracula'
+    theme: localStorage.getItem('theme') === 'dark'
+      ? 'dracula'
+      : 'light'
   };
 
   constructor(private router: Router,

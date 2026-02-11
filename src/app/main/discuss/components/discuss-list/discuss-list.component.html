@@ -3,13 +3,6 @@
     <div class="col-12">
       <div class="card-glass rounded-4 shadow-sm overflow-hidden">
 
-        <!-- Header -->
-        <div class="px-3 px-md-4 py-3 border-bottom border-soft">
-          <div class="fw-semibold ">
-            Обсуждения
-          </div>
-        </div>
-
         <!-- List -->
         <div
           class="px-3 px-md-4 py-2"
@@ -29,45 +22,43 @@
               <!-- Content -->
               <td class="py-3 bg-transparent">
 
-                <!-- Breadcrumb (topic) -->
-                <div *ngIf="discuss.topicName" class="mb-2">
-                  <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-4 card-glass">
-                    <a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer" (click)="goToMain()">
-                      Job4j
-                    </a>
-                    <span class="text-muted-soft">/</span>
-                    <a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer"
-                       (click)="goByNav(discuss)">
-                      {{ discuss.topicName }}
-                    </a>
-                    <span class="text-muted-soft">/</span>
-                    <span class=" fw-semibold">
-                        {{ discuss.name }}
-                      </span>
-                  </div>
-                </div>
+                <!--&lt;!&ndash; Breadcrumb (topic) &ndash;&gt;-->
+                <!--<div *ngIf="discuss.topicName" class="mb-2">-->
+                  <!--<div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-4 card-glass">-->
+                    <!--<a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer" (click)="goToMain()">-->
+                      <!--Job4j-->
+                    <!--</a>-->
+                    <!--<span class="text-muted-soft">/</span>-->
+                    <!--<a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer"-->
+                       <!--(click)="goByNav(discuss)">-->
+                      <!--{{ discuss.topicName }}-->
+                    <!--</a>-->
+                    <!--<span class="text-muted-soft">/</span>-->
+                    <!--<span class=" fw-semibold">-->
+                        <!--{{ discuss.name }}-->
+                      <!--</span>-->
+                  <!--</div>-->
+                <!--</div>-->
 
-                <!-- Breadcrumb (exercise) -->
-                <div *ngIf="discuss.exerciseId" class="mb-2">
-                  <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-4 card-glass">
-                    <a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer" (click)="goToMain()">
-                      Job4j
-                    </a>
-                    <span class="text-muted-soft">/</span>
-                    <a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer"
-                       (click)="goExercise()">
-                      Упражнения
-                    </a>
-                  </div>
-                </div>
+                <!--&lt;!&ndash; Breadcrumb (exercise) &ndash;&gt;-->
+                <!--<div *ngIf="discuss.exerciseId" class="mb-2">-->
+                  <!--<div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-4 card-glass">-->
+                    <!--<a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer" (click)="goToMain()">-->
+                      <!--Job4j-->
+                    <!--</a>-->
+                    <!--<span class="text-muted-soft">/</span>-->
+                    <!--<a class="text-muted-soft text-decoration-none fw-semibold cursor-pointer"-->
+                       <!--(click)="goExercise()">-->
+                      <!--Упражнения-->
+                    <!--</a>-->
+                  <!--</div>-->
+                <!--</div>-->
 
                 <!-- Title -->
                 <div
                   class="d-flex align-items-start gap-2 cursor-pointer"
                   (click)="goTo(discuss)"
                 >
-                  <i class="bi bi-chat-dots mt-1 text-muted-soft"></i>
-
                   <div class="min-w-0">
                     <div class="fw-semibold ">
                       {{ discuss.name }}
