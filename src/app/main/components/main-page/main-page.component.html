@@ -6,28 +6,28 @@
         <div class="col-lg-7">
           <div class="hero-card rounded-5 p-4 p-md-5 shadow-soft">
             <div class="position-relative">
-                <span class="pill">
-                  <span class="dot" aria-hidden="true"></span>
-                  Обучение для тех, кто хочет писать “по-рабочему”
-                </span>
+              <span class="pill">
+                <span class="dot" aria-hidden="true"></span>
+                Потоковое обучение: Java и Go
+              </span>
 
               <h1 class="mt-3 mb-3 fw-bold display-5" style="letter-spacing:-.03em;">
-                Стань сильным backend-инженером через практику, а не лекции
+                Стань сильным backend-инженером через практику
               </h1>
 
               <p class="text-muted-soft fs-6 mb-4" style="max-width:58ch;">
-                Job4j — это обучение через реальные задачи, проекты и разбор решений.
-                Меньше “магии”, больше понимания: как устроены приложения, инфраструктура и процессы.
+                Job4j — обучение в потоке: регулярный ритм, задачи, проекты и разбор решений.
+                Два направления — Java и Go. Меньше “магии”, больше понимания: код, инфраструктура, процессы.
               </p>
 
               <div class="d-flex flex-wrap gap-2 mb-4">
-                <a class="btn btn-success" href="/courses">
-                  <i class="bi bi-play-circle"></i> Начать обучение
+                <a class="btn btn-success" href="#tracks">
+                  <i class="bi bi-play-circle"></i> Выбрать направление
                 </a>
-                <a class="btn  border-soft" href="#path">
+                <a class="btn border-soft" href="#path">
                   <i class="bi bi-diagram-3"></i> Как это работает
                 </a>
-                <a class="btn  border-soft" href="/about">
+                <a class="btn border-soft" href="/about">
                   <i class="bi bi-info-circle"></i> О проекте
                 </a>
               </div>
@@ -35,23 +35,24 @@
               <div class="row g-2" aria-label="Ключевые преимущества">
                 <div class="col-md-4">
                   <div class="card-glass rounded-4 p-3 h-100">
-                    <div class="fw-semibold">Проектный подход</div>
-                    <div class="text-muted-soft small mt-1">Собираешь портфолио и системное понимание</div>
+                    <div class="fw-semibold">Поток и ритм</div>
+                    <div class="text-muted-soft small mt-1">План, дедлайны, движение без хаоса</div>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="card-glass rounded-4 p-3 h-100">
                     <div class="fw-semibold">Ревью и разбор</div>
-                    <div class="text-muted-soft small mt-1">Учишься думать как инженер, а не как “решатель задач”</div>
+                    <div class="text-muted-soft small mt-1">Учишься думать как инженер, а не “решать задачки”</div>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="card-glass rounded-4 p-3 h-100">
-                    <div class="fw-semibold">Подготовка к интервью</div>
-                    <div class="text-muted-soft small mt-1">Темы + тренажёры + практика ответов</div>
+                    <div class="fw-semibold">Проекты</div>
+                    <div class="text-muted-soft small mt-1">От задач к сервису и понятному портфолио</div>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -59,28 +60,29 @@
         <div class="col-lg-5">
           <div class="d-flex flex-column gap-3 h-100">
             <div class="card-glass rounded-5 p-4 shadow-sm">
-              <h3 class="h6 fw-bold mb-2">Пример того, как выглядит “практика”</h3>
+              <h3 class="h6 fw-bold mb-2">Пример “потока”</h3>
               <p class="text-muted-soft small mb-3">
-                Короткие задачи → мини-проекты → цельный сервис. Параллельно — стиль кода и инженерные привычки.
+                Каждую неделю: задачи → мини-проект → общий проект. Параллельно — стиль кода, тесты, инженерные привычки.
               </p>
-              <ngx-codemirror [(ngModel)]="staticCode"
-                              [options]="codeOptions"
+              <ngx-codemirror
+                [(ngModel)]="staticCode"
+                [options]="codeOptions"
               ></ngx-codemirror>
             </div>
 
             <div class="card-glass rounded-5 p-4 shadow-sm">
-              <h3 class="h6 fw-bold mb-2">Фокус направлений</h3>
+              <h3 class="h6 fw-bold mb-2">Два направления</h3>
               <p class="text-muted-soft small mb-3">
-                Собери стек под свою цель: backend, микросервисы, DevOps-практика, подготовка к собеседованиям.
+                Выбираешь путь и идёшь потоком: одинаковый формат, разный стек и акценты.
               </p>
               <div class="d-flex flex-wrap gap-2" aria-label="Теги направлений">
                 <span class="badge rounded-pill badge-good">Java</span>
-                <span class="badge rounded-pill badge-good">Kotlin</span>
-                <span class="badge rounded-pill badge-good">Go</span>
                 <span class="badge rounded-pill badge-good">Spring</span>
-                <span class="badge rounded-pill badge-good">Kafka</span>
                 <span class="badge rounded-pill badge-good">PostgreSQL</span>
+                <span class="badge rounded-pill badge-good">Kafka</span>
+                <span class="badge rounded-pill badge-good">Go</span>
                 <span class="badge rounded-pill badge-good">Docker/K8s</span>
+                <span class="badge rounded-pill badge-good">Observability</span>
               </div>
             </div>
           </div>
@@ -90,120 +92,118 @@
     </div>
   </section>
 
-  <!-- Courses -->
-  <section id="courses" class="py-5">
+  <!-- Tracks -->
+  <section id="tracks" class="py-5">
     <div class="container">
       <div class="d-flex flex-wrap gap-3 align-items-end justify-content-between mb-3">
         <div>
-          <h2 class="h3 fw-bold mb-1">Курсы</h2>
+          <h2 class="h3 fw-bold mb-1">Направления</h2>
           <p class="text-muted-soft mb-0" style="max-width:60ch;">
-            Заменишь “знания из видео” на навык писать, читать и поддерживать код.
+            Два потока с разной точкой входа: Java — старт в IT, Go — следующий шаг для действующих инженеров.
           </p>
         </div>
-        <a class="btn  border-soft" href="/courses">Смотреть все</a>
       </div>
 
       <div class="row g-3">
-        <div class="col-md-6 col-lg-4">
-          <a href="/courses/1" class="text-decoration-none text-reset d-block h-100">
+        <!-- Java -->
+        <div class="col-lg-6">
+          <a href="/tracks/java" class="text-decoration-none text-reset d-block h-100">
             <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-              <h3 class="h5 fw-bold">Java. Старт с нуля</h3>
-              <p class="text-muted-soft small mb-3">
-                Первый шаг в программировании на Java. Пишете код с первых уроков,
-                осваиваете базовый синтаксис, условия, циклы и коллекции — спокойно
-                и без перегруза теорией.
-              </p>
-              <div class="d-flex flex-wrap gap-2">
-                <span class="badge rounded-pill badge-accent">Первый блок</span>
+              <div class="d-flex align-items-start justify-content-between gap-3">
+                <div>
+                  <div class="d-flex flex-wrap gap-2 mb-2">
+                  <span class="badge rounded-pill badge-accent">
+                    Вход в IT · с нуля
+                  </span>
+                  </div>
+
+                  <h3 class="h4 fw-bold mb-1">Java поток</h3>
+
+                  <p class="text-muted-soft small mb-3" style="max-width:70ch;">
+                    Подходит тем, кто начинает путь в IT или хочет прочную базу.
+                    От основ программирования до backend-разработки на Java:
+                    core → Spring → базы данных → сервисы.
+                  </p>
+
+                  <div class="d-flex flex-wrap gap-2 mb-3" aria-label="Старт потока и формат">
+                  <span class="badge rounded-pill badge-accent">
+                    <i class="bi bi-calendar-event"></i> Старт: 1 марта 2026
+                  </span>
+                    <span class="badge rounded-pill badge-glass">
+                    <i class="bi bi-people"></i> Потоковое обучение
+                  </span>
+                  </div>
+                </div>
+
+                <span class="badge rounded-pill badge-accent align-self-start">Java</span>
+              </div>
+
+              <div class="d-flex flex-wrap gap-2 mb-3">
                 <span class="badge rounded-pill badge-glass">Java Core</span>
-                <span class="badge rounded-pill badge-glass">Практика</span>
-                <span class="badge rounded-pill badge-glass">Mentor review</span>
+                <span class="badge rounded-pill badge-glass">Spring</span>
+                <span class="badge rounded-pill badge-glass">SQL</span>
+                <span class="badge rounded-pill badge-glass">Testing</span>
+                <span class="badge rounded-pill badge-glass">Code review</span>
               </div>
-            </article>
-          </a>
 
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-          <a href="/courses/22" class="text-decoration-none text-reset d-block h-100">
-            <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-              <h3 class="h5 fw-bold">Kotlin для инженеров</h3>
-              <p class="text-muted-soft small mb-3">
-                Идиомы Kotlin без лишней магии. Где Kotlin усиливает, а где усложняет — и как держать баланс.
-              </p>
               <div class="d-flex flex-wrap gap-2">
-                <span class="badge rounded-pill badge-accent">Качество кода</span>
-                <span class="badge rounded-pill badge-glass">Coroutines</span>
-                <span class="badge rounded-pill badge-glass">Практика</span>
+                <a class="btn btn-success" href="/tracks/java">
+                  <i class="bi bi-play-circle"></i> Начать путь в IT
+                </a>
               </div>
             </article>
           </a>
         </div>
 
-        <div class="col-md-6 col-lg-4">
-          <a href="/courses/38" class="text-decoration-none text-reset d-block h-100">
+        <!-- Go -->
+        <div class="col-lg-6">
+          <a href="/tracks/go" class="text-decoration-none text-reset d-block h-100">
             <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-              <h3 class="h5 fw-bold">Go + Microservices</h3>
-              <p class="text-muted-soft small mb-3">
-                Проектирование сервисов, контракты, интеграции, наблюдаемость, отказоустойчивость. Go “по-взрослому”.
-              </p>
-              <div class="d-flex flex-wrap gap-2">
-                <span class="badge rounded-pill badge-good">Go 1.24+</span>
+              <div class="d-flex align-items-start justify-content-between gap-3">
+                <div>
+                  <div class="d-flex flex-wrap gap-2 mb-2">
+                  <span class="badge rounded-pill badge-good">
+                    Второй шаг · Middle+
+                  </span>
+                  </div>
+
+                  <h3 class="h4 fw-bold mb-1">Go поток</h3>
+
+                  <p class="text-muted-soft small mb-3" style="max-width:70ch;">
+                    Для действующих разработчиков уровня Middle и выше.
+                    Фокус на архитектуре, микросервисах, контрактах,
+                    Kafka, контейнеризации и инженерных компромиссах.
+                  </p>
+
+                  <div class="d-flex flex-wrap gap-2 mb-3" aria-label="Старт потока и формат">
+                  <span class="badge rounded-pill badge-good">
+                    <i class="bi bi-calendar-event"></i> Старт: 1 июня 2026
+                  </span>
+                    <span class="badge rounded-pill badge-glass">
+                    <i class="bi bi-people"></i> Потоковое обучение
+                  </span>
+                  </div>
+                </div>
+
+                <span class="badge rounded-pill badge-good align-self-start">Go</span>
+              </div>
+
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="badge rounded-pill badge-glass">Go</span>
+                <span class="badge rounded-pill badge-glass">Microservices</span>
                 <span class="badge rounded-pill badge-glass">Kafka</span>
                 <span class="badge rounded-pill badge-glass">Docker/K8s</span>
-              </div>
-            </article>
-          </a>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-          <a href="/courses/35" class="text-decoration-none text-reset d-block h-100">
-            <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-              <h3 class="h5 fw-bold">DevOps-практика</h3>
-              <p class="text-muted-soft small mb-3">
-                CI/CD, контейнеризация, деплой, мониторинг. Как делать так, чтобы система жила и не “сыпалась”.
-              </p>
-              <div class="d-flex flex-wrap gap-2">
-                <span class="badge rounded-pill badge-glass">Git</span>
-                <span class="badge rounded-pill badge-glass">CI/CD</span>
                 <span class="badge rounded-pill badge-glass">Observability</span>
               </div>
-            </article>
-          </a>
-        </div>
 
-        <div class="col-md-6 col-lg-4">
-          <a href="/courses/40" class="text-decoration-none text-reset d-block h-100">
-            <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-              <h3 class="h5 fw-bold">System Design</h3>
-              <p class="text-muted-soft small mb-3">
-                Собеседования, компромиссы, масштабирование, кэш, очереди, консистентность. С примерами и разбором.
-              </p>
               <div class="d-flex flex-wrap gap-2">
-                <span class="badge rounded-pill badge-warn">Senior track</span>
-                <span class="badge rounded-pill badge-glass">DDD</span>
-                <span class="badge rounded-pill badge-glass">Trade-offs</span>
+                <a class="btn btn-success" href="/tracks/go">
+                  <i class="bi bi-play-circle"></i> Перейти на следующий уровень
+                </a>
               </div>
             </article>
           </a>
         </div>
-        <div class="col-md-6 col-lg-4">
-          <a href="/courses/14" class="text-decoration-none text-reset d-block h-100">
-            <article class="card-glass rounded-4 p-4 h-100 shadow-sm">
-              <h3 class="h5 fw-bold">Основы микросервисов (Java)</h3>
-              <p class="text-muted-soft small mb-3">
-                Архитектура микросервисов на Java: границы сервисов, взаимодействие,
-                конфигурация, отказоустойчивость. База для реальных проектов.
-              </p>
-              <div class="d-flex flex-wrap gap-2">
-                <span class="badge rounded-pill badge-accent">Microservices</span>
-                <span class="badge rounded-pill badge-glass">Spring</span>
-                <span class="badge rounded-pill badge-glass">Architecture</span>
-              </div>
-            </article>
-          </a>
-        </div>
-
       </div>
 
     </div>
@@ -213,48 +213,54 @@
   <section id="path" class="py-5">
     <div class="container">
       <div class="mb-3">
-        <h2 class="h3 fw-bold mb-1">Как устроено обучение</h2>
+        <h2 class="h3 fw-bold mb-1">Как устроено потоковое обучение</h2>
         <p class="text-muted-soft mb-0" style="max-width:60ch;">
-          Понятный путь: от задач к проектам, от проектов — к уверенности.
+          Ритм + последовательность: каждую неделю — конкретный результат.
         </p>
       </div>
 
       <div class="row g-3">
         <div class="col-lg-4">
           <div class="card-glass rounded-4 p-4 h-100 shadow-sm">
-            <div class="d-inline-flex align-items-center justify-content-center rounded-3 border border-soft mb-3"
-                 style="width:38px;height:38px;background:rgba(124,92,255,.14);">
+            <div
+              class="d-inline-flex align-items-center justify-content-center rounded-3 border border-soft mb-3"
+              style="width:38px;height:38px;background:rgba(124,92,255,.14);"
+            >
               <span class="fw-bold">1</span>
             </div>
-            <div class="fw-bold mb-1">Делаешь задачи</div>
+            <div class="fw-bold mb-1">Задачи недели</div>
             <div class="text-muted-soft small">
-              Короткие практические задания с фокусом на базовые навыки и читаемый код.
+              Короткие практические задания на один фокус: навык, техника, качество.
             </div>
           </div>
         </div>
 
         <div class="col-lg-4">
           <div class="card-glass rounded-4 p-4 h-100 shadow-sm">
-            <div class="d-inline-flex align-items-center justify-content-center rounded-3 border border-soft mb-3"
-                 style="width:38px;height:38px;background:rgba(124,92,255,.14);">
+            <div
+              class="d-inline-flex align-items-center justify-content-center rounded-3 border border-soft mb-3"
+              style="width:38px;height:38px;background:rgba(124,92,255,.14);"
+            >
               <span class="fw-bold">2</span>
             </div>
-            <div class="fw-bold mb-1">Собираешь проект</div>
+            <div class="fw-bold mb-1">Сборка проекта</div>
             <div class="text-muted-soft small">
-              Связываешь навыки в цельный сервис: данные, интеграции, архитектура, тесты.
+              Склеиваешь навыки в сервис: домен, API, интеграции, тесты, инфраструктура.
             </div>
           </div>
         </div>
 
         <div class="col-lg-4">
           <div class="card-glass rounded-4 p-4 h-100 shadow-sm">
-            <div class="d-inline-flex align-items-center justify-content-center rounded-3 border border-soft mb-3"
-                 style="width:38px;height:38px;background:rgba(124,92,255,.14);">
+            <div
+              class="d-inline-flex align-items-center justify-content-center rounded-3 border border-soft mb-3"
+              style="width:38px;height:38px;background:rgba(124,92,255,.14);"
+            >
               <span class="fw-bold">3</span>
             </div>
-            <div class="fw-bold mb-1">Учишься объяснять</div>
+            <div class="fw-bold mb-1">Разбор и рост</div>
             <div class="text-muted-soft small">
-              Разборы и интервью-практика: учишься говорить на языке инженеров и бизнеса.
+              Ревью, обсуждения, интервью-практика: учишься объяснять решения и компромиссы.
             </div>
           </div>
         </div>
@@ -268,20 +274,20 @@
       <div class="mb-3">
         <h2 class="h3 fw-bold mb-1">Комьюнити и поддержка</h2>
         <p class="text-muted-soft mb-0" style="max-width:72ch;">
-          Не “один на один с курсом”. Вопросы, обсуждения, разборы решений, рост через обратную связь.
+          Поток — это не “сам себе тренер”. Вопросы, обсуждения, разборы решений, рост через обратную связь.
         </p>
       </div>
 
       <div class="row g-3">
         <div class="col-lg-7">
           <div class="card-glass rounded-4 p-4 h-100 shadow-sm">
-            <h3 class="h5 fw-bold">Живые обсуждения и разборы</h3>
+            <h3 class="h5 fw-bold">Разборы и инженерные дискуссии</h3>
             <p class="text-muted-soft small mb-3">
-              Формат, где важны аргументы: почему так, какие компромиссы, что сломается при росте нагрузки.
+              Почему так, какие trade-offs, что сломается при росте нагрузки — учимся рассуждать.
             </p>
             <div class="d-flex flex-wrap gap-2">
               <span class="badge rounded-pill badge-glass">Code review</span>
-              <span class="badge rounded-pill badge-glass">Инженерное мышление</span>
+              <span class="badge rounded-pill badge-glass">Архитектура</span>
               <span class="badge rounded-pill badge-glass">Практика</span>
             </div>
           </div>
@@ -291,7 +297,7 @@
           <div class="card-glass rounded-4 p-4 h-100 shadow-sm">
             <h3 class="h5 fw-bold">Материалы без шума</h3>
             <p class="text-muted-soft small mb-3">
-              Коротко, по делу, с примерами. Чтобы не “утонуть” в информации и двигаться по плану.
+              Коротко, по делу, с примерами. Чтобы держать темп и видеть прогресс.
             </p>
             <div class="d-flex flex-wrap gap-2">
               <span class="badge rounded-pill badge-accent">Структура</span>
@@ -315,7 +321,7 @@
         <div class="col-lg-4">
           <div class="card-glass rounded-4 p-4 h-100 shadow-sm">
             <p class="mb-3">
-              “Наконец понял, почему мой код раньше был ‘как-то работает’. Тут учат думать и объяснять решения.”
+              “Наконец понял, почему мой код раньше был ‘как-то работает’. Поток дисциплинирует и даёт систему.”
             </p>
             <div class="d-flex align-items-center gap-2 text-muted-soft small">
               <span class="logo" aria-hidden="true"
@@ -328,12 +334,12 @@
         <div class="col-lg-4">
           <div class="card-glass rounded-4 p-4 h-100 shadow-sm">
             <p class="mb-3">
-              “Круто, что не просто даётся ‘правильный ответ’, а разбираются ошибки и причины.”
+              “Круто, что не просто даётся ‘ответ’, а разбираются ошибки и причины. Появилось инженерное мышление.”
             </p>
             <div class="d-flex align-items-center gap-2 text-muted-soft small">
               <span class="logo" aria-hidden="true"
                     style="width:34px;height:34px;border-radius:14px;opacity:.9;"></span>
-              Мария · Kotlin
+              Мария · Java
             </div>
           </div>
         </div>
@@ -341,7 +347,7 @@
         <div class="col-lg-4">
           <div class="card-glass rounded-4 p-4 h-100 shadow-sm">
             <p class="mb-3">
-              “С Go стало проще: меньше магии, больше ясности. А курс помог уложить всё в систему.”
+              “С Go стало проще: меньше магии, больше ясности. И стало понятно, как строить сервисы в проде.”
             </p>
             <div class="d-flex align-items-center gap-2 text-muted-soft small">
               <span class="logo" aria-hidden="true"
@@ -359,68 +365,65 @@
     <div class="container">
       <div class="mb-3">
         <h2 class="h3 fw-bold mb-1">FAQ</h2>
-        <p class="text-muted-soft mb-0">Короткие ответы на типовые вопросы (можно расширить под твой продуктовый
-          FAQ).</p>
+        <p class="text-muted-soft mb-0">Короткие ответы на типовые вопросы.</p>
       </div>
 
       <div class="accordion" id="faqAcc">
         <div class="accordion-item card-glass border-soft rounded-4 overflow-hidden mb-2">
           <h2 class="accordion-header">
-            <button class="accordion-button bg-transparent  border-0" type="button"
+            <button class="accordion-button bg-transparent border-0" type="button"
                     data-bs-toggle="collapse" data-bs-target="#f1" aria-expanded="true" aria-controls="f1">
               Подойдёт ли мне, если я не новичок?
             </button>
           </h2>
           <div id="f1" class="accordion-collapse collapse show" data-bs-parent="#faqAcc">
             <div class="accordion-body text-muted-soft">
-              Да. Формат рассчитан на тех, кто хочет систематизировать знания и прокачать практику, качество кода и
-              инженерное мышление.
+              Да. Поток рассчитан на систематизацию, практику, качество кода и инженерное мышление — без воды.
             </div>
           </div>
         </div>
 
         <div class="accordion-item card-glass border-soft rounded-4 overflow-hidden mb-2">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed bg-transparent  border-0" type="button"
+            <button class="accordion-button collapsed bg-transparent border-0" type="button"
                     data-bs-toggle="collapse" data-bs-target="#f2" aria-expanded="false" aria-controls="f2">
-              Есть ли проекты и портфолио?
+              Будут ли проекты и портфолио?
             </button>
           </h2>
           <div id="f2" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
             <div class="accordion-body text-muted-soft">
-              Да. Курс строится так, чтобы на выходе были реальные артефакты: код, сервисы, инфраструктура,
-              документация.
+              Да. В каждом направлении итог — реальные артефакты: код, сервисы, инфраструктура, документация.
             </div>
           </div>
         </div>
 
         <div class="accordion-item card-glass border-soft rounded-4 overflow-hidden mb-2">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed bg-transparent  border-0" type="button"
+            <button class="accordion-button collapsed bg-transparent border-0" type="button"
                     data-bs-toggle="collapse" data-bs-target="#f3" aria-expanded="false" aria-controls="f3">
               Можно ли идти своим темпом?
             </button>
           </h2>
           <div id="f3" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
             <div class="accordion-body text-muted-soft">
-              Да. Материалы структурированы так, чтобы ты мог двигаться последовательно и возвращаться к слабым местам.
+              Поток — это ритм. Но материалы остаются с тобой: можно догонять и возвращаться к слабым местам.
             </div>
           </div>
         </div>
 
         <div class="accordion-item card-glass border-soft rounded-4 overflow-hidden">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed bg-transparent  border-0" type="button"
+            <button class="accordion-button collapsed bg-transparent border-0" type="button"
                     data-bs-toggle="collapse" data-bs-target="#f4" aria-expanded="false" aria-controls="f4">
               Где смотреть цены/тарифы?
             </button>
           </h2>
           <div id="f4" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
             <div class="accordion-body text-muted-soft">
-              Стоимость обучения указана в разделе
+              В разделе
               <a href="/courses" class="link-light text-decoration-underline">«Курсы»</a>.
-              <br/>
-              Для каждого направления цена отображается отдельно.
+              <br />
+              Для Java и Go тарифы отображаются отдельно.
             </div>
           </div>
         </div>
@@ -431,16 +434,20 @@
   <!-- CTA -->
   <section class="py-4">
     <div class="container">
-      <div
-        class="cta rounded-5 p-4 p-md-5 shadow-soft d-flex flex-wrap gap-3 align-items-center justify-content-between">
+      <div class="cta rounded-5 p-4 p-md-5 shadow-soft d-flex flex-wrap gap-3 align-items-center justify-content-between">
         <div>
-          <h2 class="h4 fw-bold mb-1">Готов прокачать backend-навыки без хаоса?</h2>
+          <h2 class="h4 fw-bold mb-1">Готов войти в поток?</h2>
           <p class="text-muted-soft mb-0" style="max-width:70ch;">
-            Выбери направление и начни с первых задач. Дальше — проекты, разборы, и уверенность на собеседованиях.
+            Выбери Java или Go — и начни с первых задач. Дальше: проекты, разборы, уверенность.
           </p>
         </div>
         <div class="d-flex flex-wrap gap-2">
-          <a class="btn btn-success" href="/courses"><i class="bi bi-check2-circle"></i> Выбрать курс</a>
+          <a class="btn btn-success" href="#tracks">
+            <i class="bi bi-check2-circle"></i> Выбрать направление
+          </a>
+          <a class="btn border-soft" href="/courses">
+            <i class="bi bi-list-check"></i> Программа и тарифы
+          </a>
         </div>
       </div>
     </div>

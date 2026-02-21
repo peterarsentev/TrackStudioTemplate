@@ -117,16 +117,16 @@ const routes: Routes = [
         loadChildren: () => import('../main/interviews/interviews.module')
           .then(mod => mod.InterviewsModule)
       },
-      {
-        path: 'courses',
-        loadChildren: () => import('../main/courses/courses.module')
-          .then(mod => mod.CoursesModule)
-      },
       {path: 'about', component: AboutComponent},
       {
         path: 'article',
         loadChildren: () => import('../main/article/article.module')
           .then(mod => mod.ArticleModule)
+      },
+      {
+        path: 'tracks',
+        loadChildren: () => import('../main/track/track.module')
+          .then(mod => mod.TrackModule)
       },
     ]
   },

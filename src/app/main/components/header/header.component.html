@@ -11,17 +11,6 @@
     <!-- Right-side actions (mobile): theme + burger -->
     <div class="d-flex align-items-center gap-2 ms-auto d-lg-none">
       <button
-        type="button"
-        class="btn  border-soft d-flex align-items-center justify-content-center"
-        (click)="toggleTheme()"
-        aria-label="Переключить тему"
-        title="Сменить тему"
-      >
-        <i class="bi bi-moon-stars-fill theme-icon" *ngIf="currentTheme === 'dark'"></i>
-        <i class="bi bi-sun-fill theme-icon" *ngIf="currentTheme === 'light'"></i>
-      </button>
-
-      <button
         class="navbar-toggler border-soft"
         type="button"
         data-bs-toggle="collapse"
@@ -214,8 +203,6 @@
             </li>
 
             <li><hr class="dropdown-divider opacity-25" /></li>
-
-            <li><a class="dropdown-item" [routerLink]="['/courses']">Курсы</a></li>
             <li><a class="dropdown-item" [routerLink]="['/updates']">Обновления</a></li>
             <li><a class="dropdown-item" [routerLink]="['/updates/blocks']">Блоки</a></li>
 
@@ -231,10 +218,8 @@
             <li><hr class="dropdown-divider opacity-25" /></li>
 
             <li>
-              <a class="dropdown-item" (click)="clearStorage()" [routerLink]="['/login']">Выйти</a>
+              <a class="dropdown-item" (click)="clearStorage()">Выйти</a>
             </li>
-
-
           </ul>
         </li>
       </ul>
@@ -255,17 +240,6 @@
     <!-- Right-side actions (mobile) -->
     <div class="d-flex align-items-center gap-2 ms-auto d-lg-none">
       <button
-        type="button"
-        class="btn  border-soft d-flex align-items-center justify-content-center"
-        (click)="toggleTheme()"
-        aria-label="Переключить тему"
-        title="Сменить тему"
-      >
-        <i class="bi bi-moon-stars-fill theme-icon" *ngIf="currentTheme === 'dark'"></i>
-        <i class="bi bi-sun-fill theme-icon" *ngIf="currentTheme === 'light'"></i>
-      </button>
-
-      <button
         class="navbar-toggler border-soft"
         type="button"
         data-bs-toggle="collapse"
@@ -280,7 +254,6 @@
 
     <div class="collapse navbar-collapse" id="navbarJob4j">
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-1">
-        <li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#courses">Курсы</a></li>
         <li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#path">Как устроено</a></li>
         <li class="nav-item"><a class="nav-link px-3 rounded-pill" href="#community">Комьюнити</a></li>
         <li class="nav-item">
@@ -312,7 +285,6 @@
         </span>
 
         <a class="btn  border-soft" href="/login">Войти</a>
-        <a class="btn btn-success" href="/courses">Выбрать курс</a>
       </div>
     </div>
   </div>

@@ -144,6 +144,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe((res) => {
           this.notifications = false;
+          window.location.reload();
         });
     }
   }

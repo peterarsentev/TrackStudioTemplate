@@ -6,7 +6,7 @@ import { Environment } from './interface';
 
 export const environment: Environment = {
   production: false,
-  //url: 'http://localhost:9070'
+  // url: 'http://localhost:9070'
   url: 'https://job4j.ru/api/'
 };
 
